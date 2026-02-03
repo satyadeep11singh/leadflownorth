@@ -791,7 +791,7 @@ const faqs = [
       </div>
       
       <div class="space-y-4">
-        {faqs.map((faq, index) => (
+        {faqs.map((faq) => (
           <details class="reveal group bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
             <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
               <span class="font-semibold text-slate-900 dark:text-white pr-4">{faq.question}</span>
@@ -827,5 +827,5 @@ const faqs = [
   </section>
   
   <!-- FAQ Schema -->
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 </Layout>

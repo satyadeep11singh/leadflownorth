@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="100%" style="stop-color:#1e293b"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3b82f6"/>
+      <stop offset="100%" style="stop-color:#8b5cf6"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+  
+  <!-- Accent bar -->
+  <rect y="610" width="1200" height="20" fill="url(#accent)"/>
+  
+  <!-- Logo icon -->
+  <g transform="translate(80, 180)">
+    <rect width="80" height="80" rx="16" fill="#3b82f6"/>
+    <path d="M20 65V15h25v10H30v40z" fill="#fff"/>
+    <path d="M48 15v50h25V55H58V45h12V35H58V25h15V15z" fill="#fff"/>
+    <circle cx="40" cy="40" r="8" fill="#fbbf24"/>
+  </g>
+  
+  <!-- Company name -->
+  <text x="180" y="245" font-family="system-ui, -apple-system, sans-serif" font-size="48" font-weight="700" fill="#ffffff">
+    Lead<tspan fill="#3b82f6">Flow</tspan>North
+  </text>
+  
+  <!-- Tagline -->
+  <text x="80" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="36" font-weight="600" fill="#f8fafc">
+    Web Design &amp; Marketing Automation
+  </text>
+  <text x="80" y="395" font-family="system-ui, -apple-system, sans-serif" font-size="36" font-weight="600" fill="#f8fafc">
+    for Canadian Small Businesses
+  </text>
+  
+  <!-- URL -->
+  <text x="80" y="520" font-family="system-ui, -apple-system, sans-serif" font-size="24" fill="#94a3b8">
+    leadflownorth.com
+  </text>
+  
+  <!-- Decorative elements -->
+  <circle cx="1050" cy="150" r="120" fill="#3b82f6" opacity="0.1"/>
+  <circle cx="1100" cy="450" r="80" fill="#8b5cf6" opacity="0.1"/>
+  <circle cx="950" cy="300" r="60" fill="#fbbf24" opacity="0.1"/>
+</svg>

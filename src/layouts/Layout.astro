@@ -22,7 +22,7 @@ const {
   title, 
   description = defaultDescription, 
   canonicalURL = Astro.url.href,
-  ogImage = '/og-default.jpg',
+  ogImage = '/og-default.svg',
   noIndex = false,
   structuredData,
   showBreadcrumbs = true,
@@ -145,9 +145,9 @@ const organizationSchema = {
     </noscript>
     
     <!-- Structured Data -->
-    <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
     {structuredData && (
-      <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
     )}
     
     <!-- Dark mode script - runs before page render to prevent flash -->
