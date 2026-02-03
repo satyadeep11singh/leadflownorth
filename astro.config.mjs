@@ -28,9 +28,6 @@ export default defineConfig({
     inlineStylesheets: 'always',
     // Inline small scripts to reduce request chains
     assets: '_astro'
-  },
-  experimental: {
-    // Inline critical scripts
-    directRenderScript: true
   }
+});
 });
