@@ -1,10 +1,72 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
+// Core services we offer
+const coreServices = {
+  marketing: {
+    title: "Marketing & Lead Generation",
+    icon: "📣",
+    services: [
+      "Website and funnel building",
+      "Landing page creation",
+      "Lead capture forms",
+      "Multi-channel campaigns (SMS, email, voicemail)",
+      "Reputation management",
+      "Social media scheduling",
+      "Paid ad management (Facebook, Google)"
+    ]
+  },
+  communication: {
+    title: "Communication & Follow-Up",
+    icon: "💬",
+    services: [
+      "SMS marketing and automation",
+      "Email marketing campaigns",
+      "2-way SMS conversations",
+      "Voicemail drops",
+      "Call tracking and recording",
+      "Unified inbox (all conversations in one place)"
+    ]
+  },
+  sales: {
+    title: "Sales & Pipeline Management",
+    icon: "📈",
+    services: [
+      "CRM with custom pipelines",
+      "Opportunity tracking",
+      "Appointment scheduling",
+      "Automated follow-up sequences",
+      "Pipeline automation",
+      "Proposals and estimates"
+    ]
+  },
+  automation: {
+    title: "Automation & Workflows",
+    icon: "⚡",
+    services: [
+      "Automated workflows and triggers",
+      "Multi-step campaign sequences",
+      "Lead nurturing automation",
+      "Appointment reminders",
+      "Missed call text-back"
+    ]
+  },
+  reporting: {
+    title: "Reporting & Analytics",
+    icon: "📊",
+    services: [
+      "Campaign performance tracking",
+      "Lead source attribution",
+      "Conversion tracking",
+      "Client reporting dashboards"
+    ]
+  }
+};
+
 const pageSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "serviceType": "Web Design and Lead Generation",
+  "serviceType": "Marketing Automation and Lead Generation",
   "provider": {
     "@type": "LocalBusiness",
     "name": "Lead Flow North"
@@ -12,16 +74,16 @@ const pageSchema = {
   "areaServed": ["Ontario", "Alberta"],
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
-    "name": "Web Design Packages",
+    "name": "Marketing Packages",
     "itemListElement": [
       {
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": "Starter Package",
-          "description": "Perfect for startups and small service businesses"
+          "name": "Foundation Package",
+          "description": "Basic CRM setup, lead capture, and automation for small businesses"
         },
-        "price": "499",
+        "price": "799",
         "priceCurrency": "CAD"
       },
       {
@@ -29,19 +91,29 @@ const pageSchema = {
         "itemOffered": {
           "@type": "Service",
           "name": "Growth Package",
-          "description": "For growing businesses ready to scale"
+          "description": "Advanced funnels, multi-channel marketing, and pipeline optimization"
         },
-        "price": "999",
+        "price": "1999",
         "priceCurrency": "CAD"
       },
       {
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": "Scale Package",
-          "description": "Full-service solution for established businesses"
+          "name": "Premium Package",
+          "description": "Complex automation, A/B testing, and dedicated account management"
         },
-        "price": "2999",
+        "price": "4999",
+        "priceCurrency": "CAD"
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Enterprise Package",
+          "description": "Full done-for-you marketing with advanced analytics and priority support"
+        },
+        "price": "7999",
         "priceCurrency": "CAD"
       }
     ]
@@ -54,10 +126,10 @@ const faqSchema = {
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "How long does it take to build a website?",
+      "name": "How long does it take to get started?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Our Basic package launches in 3-4 weeks, Pro in 5-6 weeks, and Enterprise in 10-12 weeks. We provide weekly updates throughout the process."
+        "text": "Foundation packages launch in 1-2 weeks. Growth in 2-3 weeks. Premium and Enterprise in 3-4 weeks depending on complexity. We provide daily updates during onboarding."
       }
     },
     {
@@ -65,15 +137,15 @@ const faqSchema = {
       "name": "Do you require long-term contracts?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No! Our Basic and Pro packages are month-to-month. Only Enterprise requires a 6-month commitment due to the extensive customization involved."
+        "text": "Foundation and Growth are month-to-month. Premium requires a 3-month minimum, and Enterprise requires 6 months due to the extensive customization involved."
       }
     },
     {
       "@type": "Question",
-      "name": "What's included in the monthly retainer?",
+      "name": "What's included in the monthly fee?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Monthly retainers include hosting, maintenance, security updates, email support, and access to your lead dashboard. Higher tiers include strategy calls and campaign management."
+        "text": "Monthly fees include platform access, maintenance, support, reporting, and the services listed in each tier. Usage costs (SMS, email, AI) are billed separately based on actual use."
       }
     },
     {
@@ -81,79 +153,136 @@ const faqSchema = {
       "name": "Do you work with businesses outside Ontario and Alberta?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "While we specialize in Ontario and Alberta markets, we do work with Canadian businesses in other provinces. Contact us to discuss your needs."
+        "text": "While we specialize in Ontario and Alberta markets, we work with Canadian businesses nationwide. Contact us to discuss your needs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I add services à la carte?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutely! We offer standalone packages for Reputation Management, Appointment Setting, and Done-For-You Campaigns that can be added to any tier."
       }
     }
   ]
 };
 
+// Main tier packages
 const packages = [
   {
-    name: "Starter",
-    tagline: "Perfect for startups",
-    setup: 499,
-    monthly: 199,
+    name: "Foundation",
+    tagline: "Just starting with automation",
+    price: 799,
     popular: false,
+    bestFor: "Small businesses new to marketing automation",
     features: [
-      "1 high-converting landing page",
-      "1 automation workflow",
-      "3 email templates",
-      "3 SMS templates",
-      "Monthly summary report",
-      "Email support (24-48hr)",
-      "1 training session",
-      "3-4 week setup"
+      "Basic CRM setup & configuration",
+      "Lead capture forms",
+      "1 simple funnel",
+      "Email marketing setup",
+      "Basic automation (reminders, follow-ups)",
+      "Appointment scheduling",
+      "Monthly reporting",
+      "Email support (24hr response)",
+      "1-2 week setup"
     ],
     notIncluded: [
-      "Monthly campaigns",
-      "Strategy calls",
-      "Dedicated account manager"
+      "SMS campaigns",
+      "Social media scheduling",
+      "Strategy calls"
     ]
   },
   {
     name: "Growth",
-    tagline: "For growing businesses",
-    setup: 999,
-    monthly: 399,
+    tagline: "Scale your marketing",
+    price: 1999,
     popular: true,
+    bestFor: "Established businesses scaling their marketing",
     features: [
-      "3 landing pages",
-      "5 automation workflows",
-      "12+ email templates",
-      "12+ SMS templates",
-      "4 monthly campaigns",
-      "Monthly strategy call",
-      "Detailed monthly reports",
-      "Same-day email support",
-      "2 training sessions",
-      "1 integration setup",
-      "5-6 week setup"
+      "Everything in Foundation, plus:",
+      "Advanced funnel building (3 funnels)",
+      "SMS marketing campaigns",
+      "Multi-channel nurture sequences",
+      "Pipeline management & optimization",
+      "Reputation management setup",
+      "Social media scheduling",
+      "2-way SMS conversations",
+      "Weekly reporting & optimization",
+      "Bi-weekly strategy call",
+      "2-3 week setup"
     ],
     notIncluded: [
+      "A/B testing",
       "Dedicated account manager"
     ]
   },
   {
-    name: "Scale",
-    tagline: "Full-service solution",
-    setup: 2999,
-    monthly: 799,
+    name: "Premium",
+    tagline: "Done-with-you marketing",
+    price: 4999,
     popular: false,
+    bestFor: "High-volume businesses or multiple locations",
     features: [
-      "Unlimited landing pages",
-      "Custom automation workflows",
-      "Unlimited templates",
-      "Unlimited campaigns",
-      "Bi-weekly strategy calls",
-      "Weekly + monthly reports",
-      "Phone + email (same day)",
-      "Team training (5 people)",
-      "Multiple integrations",
+      "Everything in Growth, plus:",
+      "Complex automation workflows",
+      "Multiple sales pipelines",
+      "Advanced segmentation & targeting",
+      "A/B testing & optimization",
+      "Custom integrations",
+      "Voicemail drops & call tracking",
+      "White-label client portal",
       "Dedicated account manager",
-      "10-12 week setup",
-      "6-month commitment"
+      "Bi-weekly strategy calls",
+      "Priority support",
+      "3-month minimum"
     ],
     notIncluded: []
+  },
+  {
+    name: "Enterprise",
+    tagline: "Done-for-you everything",
+    price: 7999,
+    popular: false,
+    bestFor: "Large organizations needing comprehensive solutions",
+    features: [
+      "Everything in Premium, plus:",
+      "Multiple sub-accounts management",
+      "Agency-level automation",
+      "Custom API integrations",
+      "Advanced analytics & attribution",
+      "Full done-for-you campaigns",
+      "Paid ads management included",
+      "Weekly strategy sessions",
+      "Same-day priority support",
+      "Quarterly business reviews",
+      "6-month minimum"
+    ],
+    notIncluded: []
+  }
+];
+
+// Add-on packages
+const addOns = [
+  {
+    name: "Reputation Management",
+    price: "699",
+    unit: "/month",
+    description: "Review collection, monitoring, and response automation",
+    includes: ["Review request sequences", "Multi-platform monitoring", "Auto-response templates", "Weekly reputation reports"]
+  },
+  {
+    name: "Appointment Setting System",
+    price: "899",
+    unit: "/month",
+    description: "Automated booking, reminders, and no-show recovery",
+    includes: ["Calendar integration", "SMS/email reminders", "No-show follow-up", "Booking analytics"]
+  },
+  {
+    name: "Done-For-You Campaign",
+    price: "2,999",
+    unit: "/campaign",
+    description: "We build and launch a complete campaign for you",
+    includes: ["Strategy & planning", "Copy & creative", "Funnel build", "30-day optimization"]
   }
 ];
 
@@ -205,35 +334,39 @@ const usagePricing = [
 
 const faqs = [
   {
-    question: "How long does it take to build a website?",
-    answer: "Our Basic package launches in 3-4 weeks, Pro in 5-6 weeks, and Enterprise in 10-12 weeks. We provide weekly updates throughout the process so you always know what's happening."
+    question: "How long does it take to get started?",
+    answer: "Foundation packages launch in 1-2 weeks. Growth in 2-3 weeks. Premium and Enterprise in 3-4 weeks depending on complexity. We provide daily updates during onboarding so you always know what's happening."
   },
   {
     question: "Do you require long-term contracts?",
-    answer: "No! Our Basic and Pro packages are month-to-month—cancel anytime. Only Enterprise requires a 6-month commitment due to the extensive customization and dedicated resources involved."
+    answer: "Foundation and Growth packages are month-to-month—cancel anytime with 30 days notice. Premium requires a 3-month minimum, and Enterprise requires 6 months due to the extensive customization and dedicated resources involved."
   },
   {
-    question: "What's included in the monthly retainer?",
-    answer: "Monthly retainers include hosting, maintenance, security updates, email support, and access to your lead dashboard. Higher tiers include strategy calls, campaign management, and dedicated support."
+    question: "What's included in the monthly fee?",
+    answer: "Monthly fees include platform access, maintenance, support, reporting, and all the services listed in each tier. Usage costs (SMS, email, AI) are billed separately based on actual usage—you only pay for what you use."
   },
   {
     question: "Do you work with businesses outside Ontario and Alberta?",
-    answer: "While we specialize in Ontario and Alberta markets (we understand the local business landscape), we do work with Canadian businesses in other provinces. Contact us to discuss your needs."
+    answer: "While we specialize in Ontario and Alberta markets (we understand the local business landscape), we work with Canadian businesses in all provinces. Contact us to discuss your needs."
   },
   {
     question: "What if I'm not happy with the results?",
     answer: "We're confident in our work. If you don't see measurable improvement in lead generation within 90 days, we'll work for free until you do. That's our guarantee."
   },
   {
+    question: "Can I add services à la carte?",
+    answer: "Absolutely! We offer standalone packages for Reputation Management ($699/mo), Appointment Setting ($899/mo), and Done-For-You Campaigns ($2,999/campaign) that can be added to any tier."
+  },
+  {
     question: "Can I upgrade my package later?",
-    answer: "Absolutely! Many clients start with Basic or Pro and upgrade as their business grows. We'll credit your existing setup fee toward the upgrade."
+    answer: "Yes! Many clients start with Foundation or Growth and upgrade as their business grows. We'll prorate your billing when you upgrade."
   }
 ];
 ---
 
 <Layout 
   title="Services & Pricing" 
-  description="Transparent pricing for web design and lead generation services. No hidden fees. See exactly what you get with our Starter ($499), Growth ($999), and Scale ($2,999) packages."
+  description="Full-service marketing automation, CRM, lead generation, and campaign management. Foundation ($799/mo), Growth ($1,999/mo), Premium ($4,999/mo), Enterprise ($7,999/mo). No hidden fees."
   structuredData={pageSchema}
 >
   <!-- Hero -->
@@ -243,48 +376,118 @@ const faqs = [
         <svg class="w-4 h-4 text-accent-600" fill="currentColor" viewBox="0 0 20 20">
           <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
         </svg>
-        <span class="text-sm font-medium text-accent-700 dark:text-accent-300">Transparent Pricing</span>
+        <span class="text-sm font-medium text-accent-700 dark:text-accent-300">All-In-One Marketing Platform</span>
       </div>
       <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white mb-6">
-        Simple, Honest Pricing
+        Marketing Automation That <span class="text-primary-500">Actually Works</span>
       </h1>
-      <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-        No hidden fees. No surprise invoices. Choose the package that fits your business and budget. All prices in CAD.
+      <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto mb-8">
+        CRM, lead generation, email & SMS marketing, reputation management, and automation—all in one platform. Choose the tier that fits your business.
       </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="#pricing" class="inline-flex items-center px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white font-semibold rounded-xl transition-colors">
+          View Pricing
+          <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+        </a>
+        <a href="#services" class="inline-flex items-center px-6 py-3 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-900 dark:text-white font-semibold rounded-xl border border-slate-200 dark:border-slate-700 transition-colors">
+          What's Included
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Services Overview -->
+  <section id="services" class="py-16 lg:py-24 bg-white dark:bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+          Everything You Need to Grow
+        </h2>
+        <p class="text-lg text-slate-600 dark:text-slate-300">
+          Our all-in-one platform replaces 10+ tools. Here's what you get access to.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {Object.values(coreServices).map((category) => (
+          <div class="reveal bg-slate-50 dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700">
+            <span class="text-4xl mb-4 block">{category.icon}</span>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-4">{category.title}</h3>
+            <ul class="space-y-2">
+              {category.services.map((service) => (
+                <li class="flex items-start gap-2">
+                  <svg class="w-5 h-5 text-accent-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="text-sm text-slate-600 dark:text-slate-300">{service}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
   <!-- Pricing Cards -->
-  <section id="pricing" class="py-16 lg:py-24 bg-white dark:bg-slate-900">
+  <section id="pricing" class="py-16 lg:py-24 bg-slate-50 dark:bg-slate-800/50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid md:grid-cols-3 gap-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+          Simple, Transparent Pricing
+        </h2>
+        <p class="text-lg text-slate-600 dark:text-slate-300">
+          No hidden fees. No surprise invoices. All prices in CAD.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
         {packages.map((pkg) => (
-          <div class={`reveal relative bg-white dark:bg-slate-800 rounded-2xl shadow-lg border-2 transition-all duration-200 hover-lift ${pkg.popular ? 'border-primary-500 ring-2 ring-primary-500/20' : 'border-slate-200 dark:border-slate-700'}`}>
+          <div class={`reveal relative bg-white dark:bg-slate-900 rounded-2xl shadow-lg border-2 transition-all duration-200 hover-lift flex flex-col ${pkg.popular ? 'border-primary-500 ring-2 ring-primary-500/20' : 'border-slate-200 dark:border-slate-700'}`}>
             {pkg.popular && (
               <div class="absolute -top-4 left-1/2 -translate-x-1/2">
-                <span class="inline-flex items-center px-4 py-1 bg-primary-500 text-white text-sm font-semibold rounded-full">
+                <span class="inline-flex items-center px-4 py-1 bg-primary-500 text-white text-sm font-semibold rounded-full whitespace-nowrap">
                   Most Popular
                 </span>
               </div>
             )}
-            <div class="p-8">
-              <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">{pkg.name}</h3>
-              <p class="text-slate-500 dark:text-slate-400 mb-6">{pkg.tagline}</p>
+            <div class="p-6 flex-1 flex flex-col">
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-1">{pkg.name}</h3>
+              <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">{pkg.tagline}</p>
               
-              <div class="mb-6">
-                <div class="flex items-baseline gap-2 mb-2">
-                  <span class="text-4xl font-extrabold text-slate-900 dark:text-white">${pkg.setup}</span>
-                  <span class="text-slate-500 dark:text-slate-400">setup</span>
+              <div class="mb-4">
+                <div class="flex items-baseline gap-1">
+                  <span class="text-3xl font-extrabold text-slate-900 dark:text-white">${pkg.price.toLocaleString()}</span>
+                  <span class="text-slate-500 dark:text-slate-400">/mo</span>
                 </div>
-                <div class="flex items-baseline gap-2">
-                  <span class="text-2xl font-bold text-slate-700 dark:text-slate-300">${pkg.monthly}</span>
-                  <span class="text-slate-500 dark:text-slate-400">/month</span>
-                </div>
+              </div>
+              
+              <p class="text-xs text-primary-600 dark:text-primary-400 font-medium mb-4 bg-primary-50 dark:bg-primary-900/20 px-3 py-2 rounded-lg">
+                {pkg.bestFor}
+              </p>
+              
+              <div class="space-y-2 flex-1">
+                {pkg.features.map((feature) => (
+                  <div class="flex items-start gap-2">
+                    <svg class="w-4 h-4 text-accent-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="text-xs text-slate-600 dark:text-slate-300">{feature}</span>
+                  </div>
+                ))}
+                {pkg.notIncluded.map((feature) => (
+                  <div class="flex items-start gap-2 opacity-50">
+                    <svg class="w-4 h-4 text-slate-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="text-xs text-slate-400 line-through">{feature}</span>
+                  </div>
+                ))}
               </div>
               
               <a 
                 href="/contact" 
-                class={`block w-full py-3 px-6 text-center font-semibold rounded-xl transition-all duration-200 mb-8 ${
+                class={`block w-full py-3 px-4 text-center font-semibold rounded-xl transition-all duration-200 mt-6 ${
                   pkg.popular 
                     ? 'bg-primary-500 hover:bg-primary-600 text-white' 
                     : 'bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-900 dark:text-white'
@@ -292,25 +495,6 @@ const faqs = [
               >
                 Get Started
               </a>
-              
-              <div class="space-y-3">
-                {pkg.features.map((feature) => (
-                  <div class="flex items-start gap-3">
-                    <svg class="w-5 h-5 text-accent-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                    </svg>
-                    <span class="text-sm text-slate-600 dark:text-slate-300">{feature}</span>
-                  </div>
-                ))}
-                {pkg.notIncluded.map((feature) => (
-                  <div class="flex items-start gap-3 opacity-50">
-                    <svg class="w-5 h-5 text-slate-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-                    </svg>
-                    <span class="text-sm text-slate-400 line-through">{feature}</span>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         ))}
@@ -319,6 +503,43 @@ const faqs = [
       <p class="text-center text-sm text-slate-500 dark:text-slate-400 mt-8">
         * Usage costs (email, SMS, AI) are billed separately based on actual usage. See detailed pricing below.
       </p>
+    </div>
+  </section>
+
+  <!-- Add-On Packages -->
+  <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+          Add-On Packages
+        </h2>
+        <p class="text-lg text-slate-600 dark:text-slate-300">
+          Need something specific? Add these to any tier.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-6">
+        {addOns.map((addon) => (
+          <div class="reveal bg-slate-50 dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">{addon.name}</h3>
+            <div class="flex items-baseline gap-1 mb-3">
+              <span class="text-2xl font-extrabold text-primary-600 dark:text-primary-400">${addon.price}</span>
+              <span class="text-sm text-slate-500 dark:text-slate-400">{addon.unit}</span>
+            </div>
+            <p class="text-sm text-slate-600 dark:text-slate-300 mb-4">{addon.description}</p>
+            <ul class="space-y-2">
+              {addon.includes.map((item) => (
+                <li class="flex items-center gap-2">
+                  <svg class="w-4 h-4 text-accent-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="text-xs text-slate-600 dark:text-slate-300">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -412,23 +633,23 @@ const faqs = [
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center max-w-3xl mx-auto mb-16">
         <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
-          What's Included in Every Package
+          Included With Every Package
         </h2>
         <p class="text-lg text-slate-600 dark:text-slate-300">
-          Every website we build comes with these essential features at no extra cost.
+          These essentials come standard at no extra cost.
         </p>
       </div>
       
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
         {[
-          { icon: "📱", title: "Mobile-First Design", desc: "Looks perfect on every device" },
-          { icon: "⚡", title: "Lightning Fast", desc: "Sub-2 second load times" },
-          { icon: "🔒", title: "SSL Security", desc: "HTTPS encryption included" },
-          { icon: "📊", title: "Analytics Setup", desc: "Track every visitor" },
-          { icon: "🎯", title: "SEO Optimized", desc: "Built to rank on Google" },
-          { icon: "♿", title: "WCAG Accessible", desc: "Compliant with standards" },
-          { icon: "🔧", title: "60-Day Support", desc: "Post-launch assistance" },
-          { icon: "📚", title: "Training Included", desc: "Learn to manage your site" }
+          { icon: "🔐", title: "Secure Platform", desc: "Enterprise-grade security" },
+          { icon: "📱", title: "Mobile Access", desc: "Manage from anywhere" },
+          { icon: "🔄", title: "Automatic Backups", desc: "Never lose your data" },
+          { icon: "📊", title: "Analytics Dashboard", desc: "Track everything" },
+          { icon: "🎯", title: "Lead Tracking", desc: "Know where leads come from" },
+          { icon: "📧", title: "Email Deliverability", desc: "High inbox rates" },
+          { icon: "🔧", title: "Onboarding Support", desc: "We set everything up" },
+          { icon: "📚", title: "Training Included", desc: "Learn the platform" }
         ].map((item) => (
           <div class="reveal bg-white dark:bg-slate-900 rounded-xl p-6 text-center border border-slate-200 dark:border-slate-700">
             <span class="text-3xl mb-3 block">{item.icon}</span>
@@ -446,19 +667,21 @@ const faqs = [
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div class="reveal">
           <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-6">
-            Lead Generation That Actually Works
+            Replace 10+ Tools With One Platform
           </h2>
           <p class="text-lg text-slate-600 dark:text-slate-300 mb-6">
-            We don't just build websites—we build lead generation systems. Every element is designed to turn visitors into customers.
+            Stop paying for disconnected tools. Our all-in-one platform handles everything from lead capture to closing deals.
           </p>
           <ul class="space-y-4">
             {[
-              "Conversion-optimized landing pages",
-              "Automated lead capture funnels",
-              "Email nurture sequences",
-              "SMS follow-up automation",
-              "CRM integration",
-              "Lead scoring and qualification"
+              "CRM & pipeline management",
+              "Website & funnel builder",
+              "Email & SMS marketing",
+              "Appointment scheduling",
+              "Reputation management",
+              "Social media posting",
+              "Call tracking & recording",
+              "Paid ads management"
             ].map((item) => (
               <li class="flex items-center gap-3">
                 <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
@@ -475,12 +698,12 @@ const faqs = [
             <p class="text-primary-100 mb-6">Average ROI for our clients</p>
             <div class="grid grid-cols-2 gap-4 text-center">
               <div class="bg-white/10 rounded-xl p-4">
-                <p class="text-2xl font-bold">12.4%</p>
-                <p class="text-sm text-primary-200">Avg. conversion rate</p>
+                <p class="text-2xl font-bold">47%</p>
+                <p class="text-sm text-primary-200">Faster response time</p>
               </div>
               <div class="bg-white/10 rounded-xl p-4">
-                <p class="text-2xl font-bold">127</p>
-                <p class="text-sm text-primary-200">Leads/month avg.</p>
+                <p class="text-2xl font-bold">2.4x</p>
+                <p class="text-sm text-primary-200">More leads captured</p>
               </div>
             </div>
           </div>
