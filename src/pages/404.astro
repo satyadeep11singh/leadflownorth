@@ -1,0 +1,110 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Page Not Found"
+  description="The page you're looking for doesn't exist. Let's get you back on track to growing your business."
+  noIndex={true}
+>
+  <section class="py-20 md:py-32 min-h-[70vh] flex items-center">
+    <div class="container mx-auto px-4 sm:px-6">
+      <div class="max-w-2xl mx-auto text-center">
+        <!-- 404 Visual -->
+        <div class="mb-8">
+          <div class="text-[150px] md:text-[200px] font-extrabold text-primary-100 dark:text-primary-900/30 leading-none select-none">
+            404
+          </div>
+        </div>
+        
+        <!-- Message -->
+        <h1 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4 -mt-16 md:-mt-24 relative z-10">
+          Oops! This page got lost.
+        </h1>
+        <p class="text-lg text-slate-600 dark:text-slate-400 mb-8">
+          The page you're looking for doesn't exist or has been moved. Don't worry — let's get you back on track to growing your business.
+        </p>
+
+        <!-- Quick Links -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+          <a 
+            href="/"
+            class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+            Go to Homepage
+          </a>
+          <a 
+            href="/contact"
+            class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold rounded-lg transition-colors"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+            Contact Us
+          </a>
+        </div>
+
+        <!-- Helpful Links -->
+        <div class="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-8">
+          <h2 class="text-lg font-semibold text-slate-900 dark:text-white mb-6">
+            Popular Pages
+          </h2>
+          <div class="grid sm:grid-cols-2 gap-4 text-left">
+            <a href="/services" class="flex items-center gap-3 p-3 rounded-lg hover:bg-white dark:hover:bg-slate-800 transition-colors group">
+              <div class="w-10 h-10 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <div>
+                <p class="font-medium text-slate-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">Our Services</p>
+                <p class="text-sm text-slate-500 dark:text-slate-400">Web design, SEO & marketing</p>
+              </div>
+            </a>
+            <a href="/industries" class="flex items-center gap-3 p-3 rounded-lg hover:bg-white dark:hover:bg-slate-800 transition-colors group">
+              <div class="w-10 h-10 bg-accent-100 dark:bg-accent-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-accent-600 dark:text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+              </div>
+              <div>
+                <p class="font-medium text-slate-900 dark:text-white group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors">Industries</p>
+                <p class="text-sm text-slate-500 dark:text-slate-400">Solutions for your business</p>
+              </div>
+            </a>
+            <a href="/blog" class="flex items-center gap-3 p-3 rounded-lg hover:bg-white dark:hover:bg-slate-800 transition-colors group">
+              <div class="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+              </div>
+              <div>
+                <p class="font-medium text-slate-900 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">Blog & Guides</p>
+                <p class="text-sm text-slate-500 dark:text-slate-400">Marketing tips & strategies</p>
+              </div>
+            </a>
+            <a href="/about" class="flex items-center gap-3 p-3 rounded-lg hover:bg-white dark:hover:bg-slate-800 transition-colors group">
+              <div class="w-10 h-10 bg-purple-100 dark:bg-purple-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <div>
+                <p class="font-medium text-slate-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">About Us</p>
+                <p class="text-sm text-slate-500 dark:text-slate-400">Meet the team</p>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Search suggestion -->
+        <p class="mt-8 text-sm text-slate-500 dark:text-slate-400">
+          Looking for something specific? <a href="/contact" class="text-primary-600 dark:text-primary-400 hover:underline">Let us know</a> and we'll help you find it.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>

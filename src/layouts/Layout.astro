@@ -2,24 +2,39 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
 
 interface Props {
   title: string;
-  description: string;
+  description?: string;
   canonicalURL?: string;
   ogImage?: string;
   noIndex?: boolean;
   structuredData?: object;
+  showBreadcrumbs?: boolean;
+  breadcrumbs?: Array<{ name: string; href?: string }>;
 }
+
+// Default description for pages that don't specify one
+const defaultDescription = 'Lead Flow North helps Canadian small businesses grow with web design, SEO, and marketing automation. Get more leads and customers in Ontario, Alberta, and across Canada.';
 
 const { 
   title, 
-  description, 
+  description = defaultDescription, 
   canonicalURL = Astro.url.href,
   ogImage = '/og-default.jpg',
   noIndex = false,
-  structuredData
+  structuredData,
+  showBreadcrumbs = true,
+  breadcrumbs
 } = Astro.props;
+
+// Don't show breadcrumbs on homepage
+const shouldShowBreadcrumbs = showBreadcrumbs && Astro.url.pathname !== '/';
+
+// Build hreflang URLs
+const baseUrl = 'https://leadflownorth.com';
+const currentPath = Astro.url.pathname;
 
 const siteName = 'Lead Flow North';
 const fullTitle = title === 'Home' ? `${siteName} | Web Design & Marketing for Canadian Small Businesses` : `${title} | ${siteName}`;
@@ -83,6 +98,11 @@ const organizationSchema = {
     <!-- Canonical URL -->
     <link rel="canonical" href={canonicalURL} />
     
+    <!-- Hreflang Tags for Canadian English -->
+    <link rel="alternate" hreflang="en-CA" href={`${baseUrl}${currentPath}`} />
+    <link rel="alternate" hreflang="en" href={`${baseUrl}${currentPath}`} />
+    <link rel="alternate" hreflang="x-default" href={`${baseUrl}${currentPath}`} />
+    
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
@@ -102,6 +122,11 @@ const organizationSchema = {
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#3b82f6" />
+    
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/rss+xml" title="Lead Flow North Blog" href="/rss.xml" />
     
     <!-- DNS Prefetch for external resources -->
     <link rel="dns-prefetch" href="https://images.unsplash.com" />
@@ -140,6 +165,8 @@ const organizationSchema = {
     <a href="#main-content" class="skip-link">Skip to main content</a>
     
     <Header />
+    
+    {shouldShowBreadcrumbs && <Breadcrumbs items={breadcrumbs} />}
     
     <main id="main-content" role="main">
       <slot />

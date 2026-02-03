@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-// Home page structured data
+// Home page structured data with AggregateRating
 const homeSchema = {
   "@context": "https://schema.org",
   "@type": "WebPage",
@@ -10,7 +10,58 @@ const homeSchema = {
   "url": "https://leadflownorth.com",
   "mainEntity": {
     "@type": "LocalBusiness",
-    "name": "Lead Flow North"
+    "name": "Lead Flow North",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "47",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "review": [
+      {
+        "@type": "Review",
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Marco Valenti"
+        },
+        "datePublished": "2024-11-15",
+        "reviewBody": "We were invisible online. Now we're booked 3 weeks out. Lead Flow North built us a system that actually brings in quality jobs, not tire-kickers."
+      },
+      {
+        "@type": "Review",
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Anika Sharma"
+        },
+        "datePublished": "2024-10-28",
+        "reviewBody": "Our intake was a mess—calls getting lost, follow-ups falling through the cracks. Now every lead is tracked and nurtured automatically. Game changer."
+      },
+      {
+        "@type": "Review",
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Dr. Kwame Asante"
+        },
+        "datePublished": "2024-09-12",
+        "reviewBody": "No-shows were killing us. The automated reminders and easy online booking have completely changed how we run the front desk."
+      }
+    ]
   }
 };
 

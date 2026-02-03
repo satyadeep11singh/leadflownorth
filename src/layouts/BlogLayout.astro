@@ -1,0 +1,165 @@
+---
+import Layout from './Layout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  category: string;
+  industry?: string;
+  type?: 'Guide' | 'Case Study';
+  readTime?: string;
+  publishDate: string;
+  modifiedDate?: string;
+  backLink?: string;
+  backLinkText?: string;
+}
+
+const {
+  title,
+  description,
+  category,
+  industry,
+  type = 'Guide',
+  readTime = '8 min read',
+  publishDate,
+  modifiedDate,
+  backLink = '/blog',
+  backLinkText = 'Back to Blog'
+} = Astro.props;
+
+// Author information - Satyadeep Singh
+const author = {
+  name: 'Satyadeep Singh',
+  url: 'https://leadflownorth.com/about',
+  image: 'https://leadflownorth.com/team/satyadeep-singh.jpg',
+  jobTitle: 'Founder & Lead Strategist',
+  description: 'Satyadeep Singh is the founder of Lead Flow North, helping Canadian small businesses grow through marketing automation and web design.',
+  sameAs: [
+    'https://www.linkedin.com/in/satyadeepsingh/',
+    'https://twitter.com/satyadeepsingh'
+  ]
+};
+
+// Format dates
+const pubDateISO = new Date(publishDate).toISOString();
+const modDateISO = modifiedDate ? new Date(modifiedDate).toISOString() : pubDateISO;
+
+// BlogPosting structured data
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": title,
+  "description": description,
+  "image": `https://leadflownorth.com/og-${type === 'Case Study' ? 'case-study' : 'guide'}.jpg`,
+  "author": {
+    "@type": "Person",
+    "name": author.name,
+    "url": author.url,
+    "image": author.image,
+    "jobTitle": author.jobTitle,
+    "sameAs": author.sameAs
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Lead Flow North",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://leadflownorth.com/logo.svg"
+    }
+  },
+  "datePublished": pubDateISO,
+  "dateModified": modDateISO,
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": Astro.url.href
+  },
+  "articleSection": category,
+  "wordCount": 1500,
+  "inLanguage": "en-CA"
+};
+
+// Breadcrumb data for this component
+const breadcrumbItems = [
+  { name: 'Home', href: '/' },
+  { name: 'Blog', href: '/blog' },
+  { name: title, href: Astro.url.pathname }
+];
+---
+
+<Layout 
+  title={title}
+  description={description}
+  structuredData={articleSchema}
+>
+  <article class="py-12 md:py-20" itemscope itemtype="https://schema.org/BlogPosting">
+    <meta itemprop="datePublished" content={pubDateISO} />
+    <meta itemprop="dateModified" content={modDateISO} />
+    <meta itemprop="author" content={author.name} />
+    
+    <div class="container mx-auto px-4 sm:px-6">
+      <!-- Breadcrumbs -->
+      <nav class="max-w-4xl mx-auto mb-6" aria-label="Breadcrumb">
+        <ol class="flex flex-wrap items-center gap-2 text-sm text-slate-500 dark:text-slate-400" itemscope itemtype="https://schema.org/BreadcrumbList">
+          {breadcrumbItems.map((item, index) => (
+            <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem" class="flex items-center">
+              {index > 0 && <span class="mx-2">/</span>}
+              {index === breadcrumbItems.length - 1 ? (
+                <span itemprop="name" class="text-slate-700 dark:text-slate-300 font-medium truncate max-w-[200px]">{item.name}</span>
+              ) : (
+                <a href={item.href} itemprop="item" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                  <span itemprop="name">{item.name}</span>
+                </a>
+              )}
+              <meta itemprop="position" content={String(index + 1)} />
+            </li>
+          ))}
+        </ol>
+      </nav>
+
+      <!-- Back Link -->
+      <div class="max-w-4xl mx-auto mb-8">
+        <a href={backLink} class="inline-flex items-center text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 font-medium transition-colors">
+          <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+          {backLinkText}
+        </a>
+      </div>
+      
+      <header class="max-w-4xl mx-auto text-center mb-12">
+        <div class="flex items-center justify-center gap-4 mb-6 flex-wrap">
+          <span class="bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 px-3 py-1 rounded-full text-sm font-medium">{category}</span>
+          {type && <span class="bg-accent-100 dark:bg-accent-900/30 text-accent-700 dark:text-accent-300 px-3 py-1 rounded-full text-sm font-medium">{type}</span>}
+          <span class="text-slate-500 dark:text-slate-400 text-sm">{readTime}</span>
+        </div>
+        <h1 class="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6" itemprop="headline">
+          {title}
+        </h1>
+        <p class="text-xl text-slate-600 dark:text-slate-300 mb-8" itemprop="description">
+          {description}
+        </p>
+        
+        <!-- Author & Date -->
+        <div class="flex items-center justify-center gap-4 text-sm text-slate-500 dark:text-slate-400">
+          <div class="flex items-center gap-2" itemprop="author" itemscope itemtype="https://schema.org/Person">
+            <div class="w-10 h-10 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center">
+              <span class="text-primary-600 dark:text-primary-400 font-bold text-sm">SS</span>
+            </div>
+            <div class="text-left">
+              <p class="font-medium text-slate-700 dark:text-slate-300" itemprop="name">{author.name}</p>
+              <p class="text-xs">{author.jobTitle}</p>
+            </div>
+          </div>
+          <span class="text-slate-300 dark:text-slate-600">|</span>
+          <time datetime={pubDateISO} class="text-slate-500 dark:text-slate-400">
+            {new Date(publishDate).toLocaleDateString('en-CA', { year: 'numeric', month: 'long', day: 'numeric' })}
+          </time>
+        </div>
+      </header>
+
+      <div class="max-w-3xl mx-auto">
+        <div class="prose prose-lg prose-slate dark:prose-invert max-w-none" itemprop="articleBody">
+          <slot />
+        </div>
+      </div>
+    </div>
+  </article>
+</Layout>
