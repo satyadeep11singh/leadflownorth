@@ -114,6 +114,20 @@ html {
   .btn-pulse:hover {
     animation: pulse 1s infinite;
   }
+  
+  /* Subtle bounce for notification popup */
+  .animate-bounce-subtle {
+    animation: bounce-subtle 3s ease-in-out infinite;
+  }
+}
+
+@keyframes bounce-subtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
 }
 
 @keyframes fadeIn {
@@ -163,11 +177,20 @@ html {
   transform: translateY(20px);
   transition: opacity var(--animate-duration-slow) ease-out,
     transform var(--animate-duration-slow) ease-out;
+  will-change: opacity, transform;
+  contain: layout style;
 }
 
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
+  will-change: auto;
+}
+
+/* Content visibility for below-fold performance */
+.content-visibility-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
 }
 
 /* Custom scrollbar for dark mode */

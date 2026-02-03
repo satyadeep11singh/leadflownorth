@@ -133,9 +133,15 @@ const organizationSchema = {
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     
-    <!-- Preconnect for performance (fonts only - critical path) -->
+    <!-- Preconnect for performance (fonts and images) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+    
+    <!-- Preload critical above-fold image for LCP optimization -->
+    {Astro.url.pathname === '/' && (
+      <link rel="preload" href="/images/partners/google-partner.svg" as="image" type="image/svg+xml" fetchpriority="high" />
+    )}
     
     <!-- Font - Inter with display swap for better LCP -->
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
@@ -174,25 +180,37 @@ const organizationSchema = {
     
     <Footer />
     
-    <!-- Minimal JS for reveal animations on scroll -->
+    <!-- Minimal JS for reveal animations on scroll - deferred for performance -->
     <script>
-      // Intersection Observer for reveal animations
-      const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
+      // Use requestIdleCallback for non-critical initialization
+      const initRevealAnimations = () => {
+        const observerOptions = {
+          root: null,
+          rootMargin: '50px', // Start animation slightly before element is visible
+          threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              // Use requestAnimationFrame for smooth animation start
+              requestAnimationFrame(() => {
+                entry.target.classList.add('visible');
+              });
+              observer.unobserve(entry.target);
+            }
+          });
+        }, observerOptions);
+        
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
       };
       
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, observerOptions);
-      
-      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+      // Initialize after page is interactive
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(initRevealAnimations, { timeout: 200 });
+      } else {
+        setTimeout(initRevealAnimations, 100);
+      }
     </script>
   </body>
 </html>
