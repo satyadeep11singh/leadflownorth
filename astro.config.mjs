@@ -24,6 +24,7 @@ export default defineConfig({
   },
   compressHTML: true,
   build: {
-    inlineStylesheets: 'auto'
+    // Inline all CSS under 100KB to eliminate render-blocking requests
+    inlineStylesheets: 'always'
   }
 });
