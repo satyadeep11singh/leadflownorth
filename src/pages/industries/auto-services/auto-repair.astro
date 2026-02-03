@@ -1,0 +1,350 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+
+const subIndustry = {
+  name: "Auto Repair Shops",
+  parent: "Auto Services",
+  parentSlug: "auto-services",
+  icon: "🔧",
+  headline: "Get More Cars in Your Bays with Automated Lead Generation",
+  description: "Build trust online, attract quality customers, and keep your shop busy year-round with marketing that works while you're under the hood.",
+  stats: [
+    { value: "125%", label: "More service requests" },
+    { value: "89%", label: "Customer retention" },
+    { value: "4.8★", label: "Average review rating" }
+  ],
+  canadianContext: {
+    marketSize: "$12+ billion",
+    shops: "25,000+ independent shops",
+    avgTicket: "$350-800",
+    challenge: "Competing with dealership service departments"
+  },
+  challenges: [
+    "Dealership service departments with massive marketing budgets",
+    "Customers who don't trust independent mechanics",
+    "Seasonal slowdowns (especially post-winter tire season)",
+    "Getting customers to return for regular maintenance",
+    "Online reviews that make or break your reputation",
+    "No-shows and last-minute cancellations"
+  ],
+  solutions: [
+    "Trust-building website with transparent pricing",
+    "Online appointment booking with automated reminders",
+    "Review request automation after every service",
+    "Maintenance reminder campaigns (oil changes, inspections)",
+    "Customer loyalty and referral programs",
+    "Before/after photo galleries and video testimonials"
+  ],
+  features: [
+    { title: "Online Booking System", desc: "Let customers book appointments 24/7 with automatic confirmation and reminders to reduce no-shows" },
+    { title: "Maintenance Reminders", desc: "Automated email/SMS reminders for oil changes, tire rotations, and seasonal services" },
+    { title: "Review Generation", desc: "Request reviews at the perfect moment—right after a successful repair" },
+    { title: "Trust-Building Content", desc: "Showcase certifications, warranties, and real customer testimonials" },
+    { title: "Service History Portal", desc: "Give customers access to their vehicle's service history online" },
+    { title: "Referral Tracking", desc: "Reward customers who send friends and family to your shop" }
+  ],
+  testimonial: {
+    quote: "We went from struggling to fill bays to being booked 2 weeks out. The maintenance reminders alone brought back customers we hadn't seen in years.",
+    author: "Tony Marchetti",
+    title: "Owner, Marchetti's Auto Care",
+    location: "Hamilton, ON",
+    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop&crop=face"
+  },
+  services: [
+    "General repairs and diagnostics",
+    "Oil changes and fluid services",
+    "Brake service and repair",
+    "Tire sales and service",
+    "Seasonal maintenance",
+    "Pre-purchase inspections"
+  ]
+};
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Auto Repair Shop Web Design and Marketing",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Lead Flow North"
+  },
+  "areaServed": ["Ontario", "Alberta", "British Columbia"],
+  "description": "Web design and lead generation services for independent auto repair shops across Canada."
+};
+---
+
+<Layout 
+  title={`${subIndustry.name} Web Design & Marketing | ${subIndustry.parent}`}
+  description={`${subIndustry.description} Marketing automation for auto repair shops in Ontario and Alberta.`}
+  structuredData={schema}
+>
+  <!-- Breadcrumb -->
+  <nav class="bg-slate-100 dark:bg-slate-800 py-3" aria-label="Breadcrumb">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <ol class="flex items-center gap-2 text-sm">
+        <li><a href="/" class="text-slate-500 hover:text-primary-600">Home</a></li>
+        <li class="text-slate-400">/</li>
+        <li><a href="/industries" class="text-slate-500 hover:text-primary-600">Industries</a></li>
+        <li class="text-slate-400">/</li>
+        <li><a href={`/industries/${subIndustry.parentSlug}`} class="text-slate-500 hover:text-primary-600">{subIndustry.parent}</a></li>
+        <li class="text-slate-400">/</li>
+        <li class="text-slate-900 dark:text-white font-medium">{subIndustry.name}</li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="py-16 lg:py-24 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-flex items-center gap-2 px-4 py-2 bg-red-100 dark:bg-red-900/30 rounded-full mb-6">
+            <span class="text-2xl">{subIndustry.icon}</span>
+            <span class="text-sm font-medium text-red-700 dark:text-red-300">{subIndustry.name}</span>
+          </div>
+          <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white mb-6">
+            {subIndustry.headline}
+          </h1>
+          <p class="text-lg text-slate-600 dark:text-slate-300 mb-8">
+            {subIndustry.description}
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="/contact" class="inline-flex items-center justify-center px-6 py-3 bg-accent-500 hover:bg-accent-600 text-white font-semibold rounded-xl transition-colors duration-200">
+              Get Your Free Strategy Call
+            </a>
+            <a href="/case-studies" class="inline-flex items-center justify-center px-6 py-3 border-2 border-slate-300 dark:border-slate-600 hover:border-primary-500 text-slate-700 dark:text-slate-300 font-semibold rounded-xl transition-colors duration-200">
+              See Case Studies
+            </a>
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-4">
+          {subIndustry.stats.map((stat) => (
+            <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 text-center shadow-lg">
+              <p class="text-3xl font-extrabold text-red-600 dark:text-red-400 mb-1">{stat.value}</p>
+              <p class="text-sm text-slate-500 dark:text-slate-400">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Canadian Market Context -->
+  <section class="py-12 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div class="reveal">
+          <p class="text-2xl font-bold text-primary-600 dark:text-primary-400">{subIndustry.canadianContext.marketSize}</p>
+          <p class="text-sm text-slate-500 dark:text-slate-400">Canadian auto repair market</p>
+        </div>
+        <div class="reveal">
+          <p class="text-2xl font-bold text-primary-600 dark:text-primary-400">{subIndustry.canadianContext.shops}</p>
+          <p class="text-sm text-slate-500 dark:text-slate-400">Across Canada</p>
+        </div>
+        <div class="reveal">
+          <p class="text-2xl font-bold text-primary-600 dark:text-primary-400">{subIndustry.canadianContext.avgTicket}</p>
+          <p class="text-sm text-slate-500 dark:text-slate-400">Average repair ticket</p>
+        </div>
+        <div class="reveal">
+          <p class="text-2xl font-bold text-primary-600 dark:text-primary-400">{subIndustry.canadianContext.challenge}</p>
+          <p class="text-sm text-slate-500 dark:text-slate-400">Your biggest competition</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Trust Problem -->
+  <section class="py-16 lg:py-24 bg-slate-50 dark:bg-slate-800/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center reveal">
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-6">
+          76% of Canadians Don't Trust Auto Mechanics
+        </h2>
+        <p class="text-lg text-slate-600 dark:text-slate-300 mb-8">
+          It's not personal—it's decades of bad actors in the industry. The shops that win are the ones that prove their trustworthiness before customers even walk through the door.
+        </p>
+        <div class="bg-white dark:bg-slate-900 rounded-2xl p-8 border border-slate-200 dark:border-slate-700">
+          <div class="grid md:grid-cols-3 gap-8">
+            <div>
+              <p class="text-4xl font-bold text-green-500 mb-2">✓ Trust</p>
+              <p class="text-slate-600 dark:text-slate-400">Transparent pricing, real reviews, certifications displayed prominently</p>
+            </div>
+            <div>
+              <p class="text-4xl font-bold text-green-500 mb-2">✓ Convenience</p>
+              <p class="text-slate-600 dark:text-slate-400">Online booking, text updates, digital inspections</p>
+            </div>
+            <div>
+              <p class="text-4xl font-bold text-green-500 mb-2">✓ Communication</p>
+              <p class="text-slate-600 dark:text-slate-400">Proactive updates, no surprise charges, clear explanations</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Challenges -->
+  <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="reveal">
+          <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-6">
+            The Challenges Independent Shops Face
+          </h2>
+          <p class="text-lg text-slate-600 dark:text-slate-300 mb-8">
+            You're competing against dealerships with million-dollar marketing budgets. You need smarter tools to level the playing field.
+          </p>
+          <ul class="space-y-4">
+            {subIndustry.challenges.map((challenge) => (
+              <li class="flex items-start gap-3">
+                <svg class="w-6 h-6 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                <span class="text-slate-700 dark:text-slate-300">{challenge}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="reveal">
+          <img 
+            src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600&h=400&fit=crop" 
+            alt="Mechanic working on car engine"
+            class="rounded-2xl shadow-xl w-full"
+            loading="lazy"
+            width="600"
+            height="400"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solutions -->
+  <section class="py-16 lg:py-24 bg-slate-50 dark:bg-slate-800/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+          Marketing That Works While You Work
+        </h2>
+        <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+          Automated systems that bring customers back, generate reviews, and fill your bays—without adding to your workload.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        {subIndustry.features.map((feature) => (
+          <div class="reveal bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 hover:border-red-300 dark:hover:border-red-600 transition-colors">
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">{feature.title}</h3>
+            <p class="text-slate-600 dark:text-slate-400">{feature.desc}</p>
+          </div>
+        ))}
+      </div>
+      
+      <div class="reveal bg-gradient-to-br from-red-500 to-red-700 rounded-2xl p-8 text-white">
+        <h3 class="text-2xl font-bold mb-6 text-center">Everything Your Shop Needs</h3>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {subIndustry.solutions.map((solution) => (
+            <div class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-red-200 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <span class="text-sm">{solution}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial -->
+  <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="reveal bg-gradient-to-br from-red-50 to-orange-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl p-8 lg:p-12 text-center border border-red-200 dark:border-slate-700">
+        <img 
+          src={subIndustry.testimonial.image} 
+          alt={subIndustry.testimonial.author}
+          class="w-20 h-20 rounded-full mx-auto mb-6 object-cover border-4 border-red-200"
+          loading="lazy"
+          width="80"
+          height="80"
+        />
+        <blockquote class="text-xl lg:text-2xl text-slate-700 dark:text-slate-300 mb-6 italic">
+          "{subIndustry.testimonial.quote}"
+        </blockquote>
+        <div>
+          <p class="font-bold text-slate-900 dark:text-white">{subIndustry.testimonial.author}</p>
+          <p class="text-slate-500 dark:text-slate-400">{subIndustry.testimonial.title}</p>
+          <p class="text-sm text-slate-400">{subIndustry.testimonial.location}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services We Help With -->
+  <section class="py-16 lg:py-24 bg-slate-50 dark:bg-slate-800/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12 reveal">
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+          Services We Help You Promote
+        </h2>
+        <p class="text-lg text-slate-600 dark:text-slate-300">
+          We create targeted campaigns for each of your service offerings.
+        </p>
+      </div>
+      <div class="flex flex-wrap justify-center gap-4">
+        {subIndustry.services.map((service) => (
+          <span class="reveal px-6 py-3 bg-white dark:bg-slate-900 rounded-full border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-medium">
+            {service}
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Content -->
+  <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12 reveal">
+        <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+          Auto Repair Shop Resources
+        </h2>
+        <p class="text-slate-600 dark:text-slate-300">
+          Learn more about growing your auto repair business.
+        </p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-8">
+        <a href="/blog/auto-repair-marketing-guide-canada" class="reveal group bg-slate-50 dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 hover:border-primary-500 transition-colors">
+          <span class="text-xs font-semibold text-primary-600 dark:text-primary-400 uppercase tracking-wider">Guide</span>
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-2 mb-2 group-hover:text-primary-600">The Complete Auto Repair Marketing Guide for Canadian Shops</h3>
+          <p class="text-slate-600 dark:text-slate-400">Everything you need to know about attracting and retaining customers in today's competitive market.</p>
+        </a>
+        <a href="/blog/auto-repair-case-study-marchetti" class="reveal group bg-slate-50 dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 hover:border-primary-500 transition-colors">
+          <span class="text-xs font-semibold text-accent-600 dark:text-accent-400 uppercase tracking-wider">Case Study</span>
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-2 mb-2 group-hover:text-primary-600">How Marchetti's Auto Care Increased Service Requests by 125%</h3>
+          <p class="text-slate-600 dark:text-slate-400">See how this Hamilton shop transformed their business with automated marketing.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 lg:py-24 bg-gradient-to-br from-red-500 to-red-700">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">
+        Ready to Fill Your Bays?
+      </h2>
+      <p class="text-lg text-red-100 mb-8">
+        Book a free strategy call and we'll show you exactly how we can help your auto repair shop attract more customers and build lasting trust.
+      </p>
+      <a href="/contact" class="inline-flex items-center px-8 py-4 bg-white text-red-700 font-bold text-lg rounded-xl hover:bg-red-50 transition-colors duration-200 shadow-xl">
+        Book Your Free Strategy Call
+        <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+      <p class="text-red-200 text-sm mt-4">
+        No obligation. 15-minute call. We'll tell you honestly if we can help.
+      </p>
+    </div>
+  </section>
+</Layout>

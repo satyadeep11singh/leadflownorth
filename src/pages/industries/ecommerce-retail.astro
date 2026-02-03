@@ -1,0 +1,212 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const industry = {
+  name: "E-commerce & Retail",
+  icon: "🛒",
+  headline: "Grow Your Online & Retail Sales",
+  description: "Drive more traffic, convert browsers to buyers, and build customer loyalty for lasting growth.",
+  stats: [
+    { value: "156%", label: "Sales increase" },
+    { value: "3.2x", label: "ROAS" },
+    { value: "42%", label: "Repeat customers" }
+  ],
+  challenges: [
+    "Standing out in a crowded online marketplace",
+    "Converting traffic into actual sales",
+    "Competing with Amazon and big-box retailers",
+    "Building customer loyalty and repeat purchases"
+  ],
+  solutions: [
+    "Conversion-optimized store design",
+    "Abandoned cart recovery automation",
+    "Customer loyalty and rewards programs",
+    "Email marketing for promotions and launches",
+    "Review collection and social proof",
+    "Local SEO for brick-and-mortar locations"
+  ],
+  features: [
+    { title: "Conversion Optimization", desc: "Turn more browsers into buyers with proven UX patterns" },
+    { title: "Cart Recovery", desc: "Automatically recover abandoned carts with smart email sequences" },
+    { title: "Loyalty Programs", desc: "Build repeat business with rewards and VIP programs" },
+    { title: "Review Automation", desc: "Collect and showcase reviews to build trust" }
+  ],
+  testimonial: {
+    quote: "Our conversion rate jumped 40% after the redesign. The abandoned cart emails alone pay for the entire service.",
+    author: "Lisa Chen",
+    title: "Founder, Maple & Oak Home",
+    location: "Vancouver, BC",
+    image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=100&h=100&fit=crop&crop=face"
+  },
+  subIndustries: [
+    { name: "Online Stores", href: "/industries/ecommerce-retail/online-stores", desc: "Shopify, WooCommerce, custom builds" },
+    { name: "Brick & Mortar", href: "/industries/ecommerce-retail/brick-and-mortar", desc: "Local retail with online presence" },
+    { name: "Fashion & Apparel", href: "/industries/ecommerce-retail/fashion-apparel", desc: "Clothing, accessories, footwear" },
+    { name: "Beauty & Cosmetics", href: "/industries/ecommerce-retail/beauty-cosmetics", desc: "Skincare, makeup, beauty products" },
+    { name: "Home Goods", href: "/industries/ecommerce-retail/home-goods", desc: "Furniture, decor, housewares" },
+    { name: "Food & Beverage", href: "/industries/ecommerce-retail/food-beverage", desc: "Specialty foods, beverages, subscriptions" },
+    { name: "Electronics", href: "/industries/ecommerce-retail/electronics", desc: "Tech, gadgets, accessories" },
+    { name: "Specialty Retail", href: "/industries/ecommerce-retail/specialty-retail", desc: "Niche products, collectibles, hobbies" }
+  ]
+};
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "E-commerce & Retail Web Design and Marketing",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Lead Flow North"
+  },
+  "areaServed": ["Ontario", "Alberta", "British Columbia"],
+  "description": "Web design and marketing automation for e-commerce stores and retail businesses in Canada."
+};
+---
+
+<Layout 
+  title={`${industry.name} Web Design & Marketing`}
+  description={`${industry.description} Web design and marketing automation for online stores and retail businesses in Canada.`}
+  structuredData={schema}
+>
+  <!-- Hero -->
+  <section class="py-16 lg:py-24 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary-100 dark:bg-primary-900/30 rounded-full mb-6">
+            <span class="text-2xl">{industry.icon}</span>
+            <span class="text-sm font-medium text-primary-700 dark:text-primary-300">{industry.name}</span>
+          </div>
+          <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white mb-6">
+            {industry.headline}
+          </h1>
+          <p class="text-lg text-slate-600 dark:text-slate-300 mb-8">
+            {industry.description} We help e-commerce brands and retailers across Canada convert more traffic and build lasting customer relationships.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="/contact" class="inline-flex items-center justify-center px-6 py-3 bg-accent-500 hover:bg-accent-600 text-white font-semibold rounded-xl transition-colors duration-200">
+              Get Your Free Strategy Call
+            </a>
+            <a href="/case-studies" class="inline-flex items-center justify-center px-6 py-3 border-2 border-slate-300 dark:border-slate-600 hover:border-primary-500 text-slate-700 dark:text-slate-300 font-semibold rounded-xl transition-colors duration-200">
+              See Case Studies
+            </a>
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-4">
+          {industry.stats.map((stat) => (
+            <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 text-center shadow-lg">
+              <p class="text-3xl font-extrabold text-primary-600 mb-1">{stat.value}</p>
+              <p class="text-sm text-slate-500 dark:text-slate-400">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sub-Industries -->
+  <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+          Specialized for Your Retail Niche
+        </h2>
+        <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+          We understand the unique challenges of different retail segments. Click to learn more about solutions for your specific business type.
+        </p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {industry.subIndustries.map((sub) => (
+          <a href={sub.href} class="group bg-slate-50 dark:bg-slate-800 rounded-xl p-6 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors border border-slate-200 dark:border-slate-700 hover:border-primary-300">
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-2 group-hover:text-primary-600">{sub.name}</h3>
+            <p class="text-sm text-slate-600 dark:text-slate-400">{sub.desc}</p>
+            <span class="inline-flex items-center text-sm font-medium text-primary-600 mt-3 group-hover:underline">
+              Learn more →
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Challenges -->
+  <section class="py-16 lg:py-24 bg-slate-50 dark:bg-slate-800/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-6">
+            We Understand E-commerce Challenges
+          </h2>
+          <ul class="space-y-4">
+            {industry.challenges.map((challenge) => (
+              <li class="flex items-start gap-3">
+                <svg class="w-6 h-6 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                <span class="text-slate-700 dark:text-slate-300">{challenge}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-6">
+            Our Solutions Work
+          </h2>
+          <ul class="space-y-4">
+            {industry.solutions.map((solution) => (
+              <li class="flex items-start gap-3">
+                <svg class="w-6 h-6 text-accent-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                <span class="text-slate-700 dark:text-slate-300">{solution}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial -->
+  <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-gradient-to-br from-primary-50 to-accent-50 dark:from-primary-900/20 dark:to-accent-900/20 rounded-3xl p-8 md:p-12">
+        <div class="flex flex-col md:flex-row gap-6 items-start">
+          <img 
+            src={industry.testimonial.image} 
+            alt={industry.testimonial.author}
+            class="w-16 h-16 rounded-full object-cover"
+          />
+          <div>
+            <blockquote class="text-xl md:text-2xl font-medium text-slate-900 dark:text-white mb-4">
+              "{industry.testimonial.quote}"
+            </blockquote>
+            <div>
+              <p class="font-semibold text-slate-900 dark:text-white">{industry.testimonial.author}</p>
+              <p class="text-slate-600 dark:text-slate-400">{industry.testimonial.title}</p>
+              <p class="text-sm text-slate-500 dark:text-slate-500">{industry.testimonial.location}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 lg:py-24 bg-gradient-to-br from-primary-600 to-primary-800">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">
+        Ready to Grow Your Sales?
+      </h2>
+      <p class="text-lg text-primary-100 mb-8">
+        Book a free strategy call and we'll show you exactly how to increase conversions and build customer loyalty.
+      </p>
+      <a href="/contact" class="inline-flex items-center px-8 py-4 bg-white text-primary-700 font-bold text-lg rounded-xl hover:bg-primary-50 transition-colors duration-200 shadow-xl">
+        Get Your Free Strategy Call
+        <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+  </section>
+</Layout>

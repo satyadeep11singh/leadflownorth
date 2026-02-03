@@ -1,0 +1,222 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const caseStudies = [
+  {
+    slug: "valenti-plumbing",
+    client: "Valenti Plumbing & Mechanical",
+    industry: "Home Services",
+    location: "Scarborough, ON",
+    image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&h=400&fit=crop",
+    challenge: "Third-generation family plumbing business was getting buried by competitors with bigger marketing budgets. Their 15-year-old website wasn't mobile-friendly, and they were losing emergency calls to faster responders.",
+    solution: "Built a lightning-fast website with click-to-call functionality, 24/7 emergency booking forms, and automated SMS responses that engage leads within 60 seconds—even at 2 AM.",
+    results: [
+      { metric: "340%", label: "Increase in qualified leads" },
+      { metric: "18", label: "Calls per week (up from 4)" },
+      { metric: "$52K", label: "Monthly revenue increase" },
+      { metric: "12 days", label: "Time to launch" }
+    ],
+    testimonial: "We were invisible online. Now we're booked 3 weeks out. Lead Flow North built us a system that actually brings in quality jobs, not tire-kickers.",
+    testimonialAuthor: "Marco Valenti, Owner"
+  },
+  {
+    slug: "sharma-gupta-law",
+    client: "Sharma Gupta LLP",
+    industry: "Legal Services",
+    location: "Edmonton, AB",
+    image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=600&h=400&fit=crop",
+    challenge: "Growing immigration law firm was drowning in administrative work. Consultations were being scheduled manually, intake forms were paper-based, and follow-ups were inconsistent.",
+    solution: "Implemented an authoritative practice website with automated consultation scheduling, digital intake forms that sync to their case management system, and a nurture sequence for leads not ready to hire.",
+    results: [
+      { metric: "2x", label: "Qualified consultations" },
+      { metric: "70%", label: "Reduction in admin time" },
+      { metric: "4.8", label: "Google rating (up from 3.9)" },
+      { metric: "$18K", label: "Annual cost savings" }
+    ],
+    testimonial: "Our intake was a mess—calls getting lost, follow-ups falling through the cracks. Now every lead is tracked and nurtured automatically. Game changer.",
+    testimonialAuthor: "Anika Sharma, Managing Partner"
+  },
+  {
+    slug: "lakeshore-family-dental",
+    client: "Lakeshore Family Dental",
+    industry: "Medical & Dental",
+    location: "Etobicoke, ON",
+    image: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=600&h=400&fit=crop",
+    challenge: "Two-location dental practice was losing $8,000+ monthly to no-shows. Front desk was overwhelmed with confirmation calls, and patients complained about the clunky booking process.",
+    solution: "Deployed a unified online booking system with automated SMS/email confirmations, day-before and day-of reminders, and a review request sequence that triggers after positive appointments.",
+    results: [
+      { metric: "60%", label: "Reduction in no-shows" },
+      { metric: "45", label: "New patients monthly" },
+      { metric: "156", label: "New 5-star reviews" },
+      { metric: "12 hrs", label: "Staff time saved weekly" }
+    ],
+    testimonial: "No-shows were killing us. The automated reminders and easy online booking have completely changed how we run the front desk.",
+    testimonialAuthor: "Dr. Kwame Asante, Clinic Director"
+  },
+  {
+    slug: "northside-fitness-collective",
+    client: "Northside Fitness Collective",
+    industry: "Fitness & Gyms",
+    location: "St. Albert, AB",
+    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=400&fit=crop",
+    challenge: "Boutique gym struggling to compete against GoodLife and Anytime Fitness. Great trainers and community, but no online visibility and a broken class booking system.",
+    solution: "Created a community-focused brand website with integrated class scheduling, member referral tracking, and automated onboarding sequences that improve 90-day retention.",
+    results: [
+      { metric: "92%", label: "Membership growth" },
+      { metric: "184", label: "New members in 6 months" },
+      { metric: "38%", label: "Referral rate" },
+      { metric: "4.9", label: "Google rating" }
+    ],
+    testimonial: "We finally have a brand that matches who we are. Members are proud to share us now, and the referrals just keep coming.",
+    testimonialAuthor: "Taryn Blackwood, Co-Owner"
+  },
+  {
+    slug: "queen-west-eats",
+    client: "Queen West Eats",
+    industry: "Restaurants",
+    location: "Toronto, ON",
+    image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&h=400&fit=crop",
+    challenge: "Three-location restaurant group was paying 30% commission fees to delivery apps. Wanted to build direct ordering to protect margins and own customer relationships.",
+    solution: "Built a branded online ordering platform with loyalty rewards, reservation management across all locations, and email campaigns that drive repeat visits.",
+    results: [
+      { metric: "280%", label: "Direct order increase" },
+      { metric: "$34K", label: "Monthly direct revenue" },
+      { metric: "3,200", label: "Loyalty members" },
+      { metric: "24%", label: "Repeat visit increase" }
+    ],
+    testimonial: "We cut our delivery app dependency in half. Our regulars order direct now, and we actually make money on those orders.",
+    testimonialAuthor: "Daniela Ricci, Operations Director"
+  },
+  {
+    slug: "reliable-auto-centre",
+    client: "Reliable Auto Centre",
+    industry: "Auto Services",
+    location: "Brampton, ON",
+    image: "https://images.unsplash.com/photo-1625047509248-ec889cbff17f?w=600&h=400&fit=crop",
+    challenge: "Independent shop losing customers to dealership service departments. Great reputation locally, but no way to showcase trust and expertise online.",
+    solution: "Developed a trust-first website with transparent pricing, customer video testimonials, easy appointment booking, and automated service reminder emails.",
+    results: [
+      { metric: "145%", label: "Appointment increase" },
+      { metric: "91%", label: "Service recommendation rate" },
+      { metric: "$19K", label: "Monthly revenue increase" },
+      { metric: "67", label: "Video testimonials" }
+    ],
+    testimonial: "People tell us they chose us because our website felt honest. In this industry, that trust is everything.",
+    testimonialAuthor: "Harpreet Gill, Owner"
+  }
+];
+---
+
+<Layout 
+  title="Case Studies" 
+  description="See real results from real Canadian businesses. Our case studies showcase how we've helped companies across Ontario and Alberta generate more leads and grow revenue."
+>
+  <!-- Hero -->
+  <section class="py-16 lg:py-24 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white mb-6">
+        Real Results from Real Businesses
+      </h1>
+      <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+        Don't just take our word for it. See how we've helped Canadian businesses like yours generate more leads and grow revenue.
+      </p>
+    </div>
+  </section>
+
+  <!-- Stats Banner -->
+  <section class="py-12 bg-primary-600 dark:bg-primary-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center text-white">
+        <div>
+          <p class="text-4xl font-extrabold">3.2x</p>
+          <p class="text-primary-200">Average ROI</p>
+        </div>
+        <div>
+          <p class="text-4xl font-extrabold">150+</p>
+          <p class="text-primary-200">Projects Completed</p>
+        </div>
+        <div>
+          <p class="text-4xl font-extrabold">$4.2M</p>
+          <p class="text-primary-200">Revenue Generated</p>
+        </div>
+        <div>
+          <p class="text-4xl font-extrabold">94%</p>
+          <p class="text-primary-200">Client Retention</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Case Studies Grid -->
+  <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="space-y-16">
+        {caseStudies.map((study, index) => (
+          <article class={`reveal grid lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''}`}>
+            <div class={index % 2 === 1 ? 'lg:order-2' : ''}>
+              <img 
+                src={study.image} 
+                alt={study.client}
+                class="rounded-2xl shadow-xl w-full h-64 lg:h-80 object-cover"
+                loading="lazy"
+                width="600"
+                height="400"
+              />
+            </div>
+            <div class={index % 2 === 1 ? 'lg:order-1' : ''}>
+              <div class="flex items-center gap-3 mb-4">
+                <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-sm font-medium rounded-full">
+                  {study.industry}
+                </span>
+                <span class="text-sm text-slate-500 dark:text-slate-400">{study.location}</span>
+              </div>
+              <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-4">
+                {study.client}
+              </h2>
+              <p class="text-slate-600 dark:text-slate-300 mb-6">
+                <strong>Challenge:</strong> {study.challenge}
+              </p>
+              <p class="text-slate-600 dark:text-slate-300 mb-6">
+                <strong>Solution:</strong> {study.solution}
+              </p>
+              
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+                {study.results.map((result) => (
+                  <div class="bg-slate-50 dark:bg-slate-800 rounded-xl p-4 text-center">
+                    <p class="text-2xl font-bold text-accent-500">{result.metric}</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">{result.label}</p>
+                  </div>
+                ))}
+              </div>
+              
+              <blockquote class="border-l-4 border-primary-500 pl-4 italic text-slate-600 dark:text-slate-300">
+                "{study.testimonial}"
+                <footer class="mt-2 text-sm font-medium text-slate-900 dark:text-white not-italic">
+                  — {study.testimonialAuthor}
+                </footer>
+              </blockquote>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 lg:py-24 bg-gradient-to-br from-primary-600 to-primary-800">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">
+        Want Results Like These?
+      </h2>
+      <p class="text-lg text-primary-100 mb-8">
+        Every business is different, but our approach works. Book a free strategy call and we'll show you what's possible for your business.
+      </p>
+      <a href="/contact" class="inline-flex items-center px-8 py-4 bg-white text-primary-700 font-bold text-lg rounded-xl hover:bg-primary-50 transition-colors duration-200 shadow-xl">
+        Book Your Free Strategy Call
+        <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,396 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const industry = {
+  name: "Daycare Centers",
+  icon: "👶",
+  headline: "Fill Your Daycare Spots Faster & Keep Parents Happy",
+  description: "Attract more families, manage your waitlist effortlessly, and build lasting relationships with automated enrollment systems.",
+  stats: [
+    { value: "65%", label: "Tour-to-enrollment rate" },
+    { value: "<5min", label: "Inquiry response time" },
+    { value: "40%", label: "Less admin time" }
+  ],
+  challenges: [
+    "Parents choosing competitors who respond faster to inquiries",
+    "Families ghosting after adding themselves to your waitlist",
+    "Spending evenings and weekends returning parent calls and emails",
+    "Open spots despite having a long waitlist",
+    "No system to keep waitlisted families engaged until spots open",
+    "Struggling to get reviews from happy families"
+  ],
+  solutions: [
+    "Instant automated responses to parent inquiries 24/7",
+    "Self-service tour booking that works while you sleep",
+    "Automated waitlist communication and engagement",
+    "Post-tour follow-up sequences that convert families",
+    "Parent onboarding automation with daily updates",
+    "Review request campaigns from happy families",
+    "Re-enrollment reminders and campaigns",
+    "Referral program tracking and rewards"
+  ],
+  features: [
+    { title: "Instant Inquiry Response", desc: "Parents get a warm, personalized response within minutes—even at midnight—so they don't look elsewhere" },
+    { title: "Self-Service Tour Booking", desc: "Let parents book tours directly from your website with automatic confirmations and reminders" },
+    { title: "Waitlist Automation", desc: "Keep waitlisted families engaged with monthly updates and 'are you still interested?' check-ins" },
+    { title: "Post-Tour Follow-Up", desc: "Automated sequences that nurture toured families toward enrollment without being pushy" },
+    { title: "Parent Communication Hub", desc: "Send daily updates, photos, and announcements through a single platform parents love" },
+    { title: "Review Generation", desc: "Automatically request reviews at the perfect moment—when parents are happiest" }
+  ],
+  testimonial: {
+    quote: "Before Lead Flow North, I was losing families because I couldn't respond fast enough. Now inquiries get answered instantly, tours book themselves, and I've filled 12 spots in 8 weeks. I finally have my evenings back.",
+    author: "Sarah Mitchell",
+    title: "Director, Little Explorers Early Learning",
+    location: "Mississauga, ON",
+    image: "https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=100&h=100&fit=crop&crop=face"
+  },
+  canadianStats: {
+    marketSize: "$7.5+ billion",
+    facilities: "15,000+ licensed",
+    avgWaitlist: "6-18 months",
+    federalProgram: "$10/day childcare program"
+  }
+};
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Daycare Center Web Design and Enrollment Automation",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Lead Flow North"
+  },
+  "areaServed": ["Ontario", "Alberta", "British Columbia"],
+  "description": "Web design and enrollment automation services specifically for daycare centers and childcare facilities in Canada."
+};
+---
+
+<Layout 
+  title={`${industry.name} Web Design & Enrollment Automation`}
+  description={`${industry.description} Marketing automation for daycare centers and childcare facilities across Canada.`}
+  structuredData={schema}
+>
+  <!-- Hero -->
+  <section class="py-16 lg:py-24 bg-gradient-to-br from-amber-50 to-orange-100 dark:from-slate-900 dark:to-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-flex items-center gap-2 px-4 py-2 bg-amber-100 dark:bg-amber-900/30 rounded-full mb-6">
+            <span class="text-2xl">{industry.icon}</span>
+            <span class="text-sm font-medium text-amber-700 dark:text-amber-300">{industry.name}</span>
+          </div>
+          <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white mb-6">
+            {industry.headline}
+          </h1>
+          <p class="text-lg text-slate-600 dark:text-slate-300 mb-8">
+            {industry.description} We help childcare facilities across Canada fill their enrollment and reduce administrative burden.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="/contact" class="inline-flex items-center justify-center px-6 py-3 bg-accent-500 hover:bg-accent-600 text-white font-semibold rounded-xl transition-colors duration-200">
+              Get Your Free Strategy Call
+            </a>
+            <a href="/case-studies" class="inline-flex items-center justify-center px-6 py-3 border-2 border-slate-300 dark:border-slate-600 hover:border-primary-500 text-slate-700 dark:text-slate-300 font-semibold rounded-xl transition-colors duration-200">
+              See Case Studies
+            </a>
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-4">
+          {industry.stats.map((stat) => (
+            <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 text-center shadow-lg">
+              <p class="text-3xl font-extrabold text-amber-600 dark:text-amber-400 mb-1">{stat.value}</p>
+              <p class="text-sm text-slate-500 dark:text-slate-400">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Canadian Childcare Context -->
+  <section class="py-12 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div class="reveal">
+          <p class="text-2xl font-bold text-primary-600 dark:text-primary-400">{industry.canadianStats.marketSize}</p>
+          <p class="text-sm text-slate-500 dark:text-slate-400">Canadian childcare industry</p>
+        </div>
+        <div class="reveal">
+          <p class="text-2xl font-bold text-primary-600 dark:text-primary-400">{industry.canadianStats.facilities}</p>
+          <p class="text-sm text-slate-500 dark:text-slate-400">Licensed facilities nationwide</p>
+        </div>
+        <div class="reveal">
+          <p class="text-2xl font-bold text-primary-600 dark:text-primary-400">{industry.canadianStats.avgWaitlist}</p>
+          <p class="text-sm text-slate-500 dark:text-slate-400">Average waitlist time</p>
+        </div>
+        <div class="reveal">
+          <p class="text-2xl font-bold text-primary-600 dark:text-primary-400">{industry.canadianStats.federalProgram}</p>
+          <p class="text-sm text-slate-500 dark:text-slate-400">Changing the landscape</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Challenges -->
+  <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="reveal">
+          <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-6">
+            The Reality of Running a Daycare Today
+          </h2>
+          <p class="text-lg text-slate-600 dark:text-slate-300 mb-8">
+            You got into childcare to work with kids—not to spend your evenings answering emails and your weekends managing waitlists. But that's often the reality.
+          </p>
+          <ul class="space-y-4">
+            {industry.challenges.map((challenge) => (
+              <li class="flex items-start gap-3">
+                <svg class="w-6 h-6 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                <span class="text-slate-700 dark:text-slate-300">{challenge}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="reveal">
+          <img 
+            src="https://images.unsplash.com/photo-1587654780291-39c9404d746b?w=600&h=400&fit=crop" 
+            alt="Children playing in a bright daycare classroom"
+            class="rounded-2xl shadow-xl w-full"
+            loading="lazy"
+            width="600"
+            height="400"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Speed Problem -->
+  <section class="py-16 lg:py-24 bg-amber-50 dark:bg-slate-800/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center reveal">
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-6">
+          73% of Parents Choose the First 3 Centers That Respond
+        </h2>
+        <p class="text-lg text-slate-600 dark:text-slate-300 mb-8">
+          Not necessarily the best center. Not the most affordable. The ones that responded quickly and made booking a tour easy.
+        </p>
+        <div class="bg-white dark:bg-slate-900 rounded-2xl p-8 border border-slate-200 dark:border-slate-700">
+          <div class="grid md:grid-cols-3 gap-8">
+            <div>
+              <p class="text-4xl font-bold text-red-500 mb-2">8 PM</p>
+              <p class="text-slate-600 dark:text-slate-400">Parent submits inquiry after kids are in bed</p>
+            </div>
+            <div>
+              <p class="text-4xl font-bold text-amber-500 mb-2">9 AM</p>
+              <p class="text-slate-600 dark:text-slate-400">You see it during breakfast chaos the next day</p>
+            </div>
+            <div>
+              <p class="text-4xl font-bold text-slate-400 mb-2">Too Late</p>
+              <p class="text-slate-600 dark:text-slate-400">They've already booked tours at 3 other centers</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solutions -->
+  <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+          Enrollment Automation That Works While You Sleep
+        </h2>
+        <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+          We give independent daycare centers the same tools as big corporate chains—without the corporate budget.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        {industry.features.map((feature) => (
+          <div class="reveal bg-slate-50 dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 hover:border-amber-300 dark:hover:border-amber-600 transition-colors">
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">{feature.title}</h3>
+            <p class="text-slate-600 dark:text-slate-400">{feature.desc}</p>
+          </div>
+        ))}
+      </div>
+      
+      <div class="reveal bg-gradient-to-br from-amber-500 to-orange-600 rounded-2xl p-8 text-white">
+        <h3 class="text-2xl font-bold mb-6 text-center">Everything You Need to Fill Your Spots</h3>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {industry.solutions.map((solution) => (
+            <div class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-amber-200 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <span class="text-sm">{solution}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="py-16 lg:py-24 bg-slate-50 dark:bg-slate-800/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+          The Parent Journey—Automated
+        </h2>
+        <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+          From first inquiry to enrolled family, every step is streamlined.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-4 gap-8">
+        <div class="reveal text-center">
+          <div class="w-16 h-16 bg-amber-100 dark:bg-amber-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl">📱</span>
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-2">1. Instant Response</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400">Parent inquires at 9 PM, gets a warm, personalized response within minutes</p>
+        </div>
+        <div class="reveal text-center">
+          <div class="w-16 h-16 bg-amber-100 dark:bg-amber-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl">📅</span>
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-2">2. Self-Book Tour</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400">They pick a time slot that works, get automated confirmations and reminders</p>
+        </div>
+        <div class="reveal text-center">
+          <div class="w-16 h-16 bg-amber-100 dark:bg-amber-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl">✉️</span>
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-2">3. Nurture Sequence</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400">Post-tour follow-ups answer questions and build trust without being pushy</p>
+        </div>
+        <div class="reveal text-center">
+          <div class="w-16 h-16 bg-amber-100 dark:bg-amber-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+            <span class="text-2xl">🎉</span>
+          </div>
+          <h3 class="font-bold text-slate-900 dark:text-white mb-2">4. Enrolled!</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400">Onboarding automation welcomes them and sets expectations</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial -->
+  <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="reveal bg-gradient-to-br from-amber-50 to-orange-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl p-8 lg:p-12 text-center border border-amber-200 dark:border-slate-700">
+        <img 
+          src={industry.testimonial.image} 
+          alt={industry.testimonial.author}
+          class="w-20 h-20 rounded-full mx-auto mb-6 object-cover border-4 border-amber-200"
+          loading="lazy"
+          width="80"
+          height="80"
+        />
+        <blockquote class="text-xl lg:text-2xl text-slate-700 dark:text-slate-300 mb-6 italic">
+          "{industry.testimonial.quote}"
+        </blockquote>
+        <div>
+          <p class="font-bold text-slate-900 dark:text-white">{industry.testimonial.author}</p>
+          <p class="text-slate-500 dark:text-slate-400">{industry.testimonial.title}</p>
+          <p class="text-sm text-slate-400">{industry.testimonial.location}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Canadian Subsidy Info -->
+  <section class="py-16 lg:py-24 bg-slate-50 dark:bg-slate-800/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="reveal">
+          <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-6">
+            The $10/Day Program Changed Everything
+          </h2>
+          <p class="text-lg text-slate-600 dark:text-slate-300 mb-6">
+            With the Canada-Wide Early Learning and Child Care agreement, more families than ever can afford quality childcare. But that also means more competition for those families.
+          </p>
+          <p class="text-lg text-slate-600 dark:text-slate-300 mb-6">
+            Centers that respond fastest, communicate best, and provide the smoothest enrollment experience will win.
+          </p>
+          <ul class="space-y-3">
+            <li class="flex items-center gap-3 text-slate-700 dark:text-slate-300">
+              <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              We help you navigate subsidy documentation with parents
+            </li>
+            <li class="flex items-center gap-3 text-slate-700 dark:text-slate-300">
+              <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              Automated messaging explains program benefits
+            </li>
+            <li class="flex items-center gap-3 text-slate-700 dark:text-slate-300">
+              <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              Highlight your compliance status prominently
+            </li>
+          </ul>
+        </div>
+        <div class="reveal">
+          <img 
+            src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=600&h=400&fit=crop" 
+            alt="Happy children at daycare"
+            class="rounded-2xl shadow-xl w-full"
+            loading="lazy"
+            width="600"
+            height="400"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Teaser -->
+  <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="reveal">
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-6">
+          Investment That Pays for Itself
+        </h2>
+        <p class="text-lg text-slate-600 dark:text-slate-300 mb-8">
+          If our system helps you fill just <strong>one extra spot per month</strong>, that's $12,000-$24,000 in additional annual revenue. Most centers see ROI within the first 60 days.
+        </p>
+        <div class="bg-slate-50 dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700">
+          <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Starting at</p>
+          <p class="text-4xl font-bold text-slate-900 dark:text-white mb-4">$497<span class="text-lg font-normal text-slate-500">/month</span></p>
+          <p class="text-slate-600 dark:text-slate-400 mb-6">Includes website, automation setup, and ongoing support</p>
+          <a href="/services" class="text-primary-600 dark:text-primary-400 font-semibold hover:underline">
+            See all pricing options →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 lg:py-24 bg-gradient-to-br from-amber-500 to-orange-600">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">
+        Ready to Fill Your Spots Faster?
+      </h2>
+      <p class="text-lg text-amber-100 mb-8">
+        Book a free strategy call and we'll show you exactly how we can help you attract more families, reduce admin time, and grow your daycare.
+      </p>
+      <a href="/contact" class="inline-flex items-center px-8 py-4 bg-white text-amber-700 font-bold text-lg rounded-xl hover:bg-amber-50 transition-colors duration-200 shadow-xl">
+        Book Your Free Strategy Call
+        <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+      <p class="text-amber-200 text-sm mt-4">
+        No obligation. 15-minute call. We'll tell you honestly if we can help.
+      </p>
+    </div>
+  </section>
+</Layout>

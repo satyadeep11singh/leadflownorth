@@ -1,0 +1,385 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const post = {
+  title: "The Complete Auto Repair Marketing Guide for Canadian Shops (2026)",
+  description: "Learn how to attract more customers, build trust online, and grow your auto repair business with proven marketing strategies tailored for Canadian independent shops.",
+  publishDate: "January 28, 2026",
+  author: "Marcus Chen",
+  authorRole: "Digital Marketing Strategist",
+  authorImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
+  readTime: "12 min read",
+  category: "Auto Services",
+  image: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=1200&h=630&fit=crop",
+  tags: ["Auto Repair", "Marketing", "Lead Generation", "Local SEO"]
+};
+---
+
+<Layout 
+  title={post.title}
+  description={post.description}
+>
+  <article class="py-12 lg:py-20 bg-white dark:bg-slate-900">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Header -->
+      <header class="mb-12">
+        <div class="flex items-center gap-4 text-sm mb-6">
+          <a href="/industries/auto-services/auto-repair" class="text-primary-600 dark:text-primary-400 hover:underline">← Back to Auto Repair</a>
+          <span class="text-slate-300 dark:text-slate-600">|</span>
+          <span class="bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 px-3 py-1 rounded-full font-medium">{post.category}</span>
+        </div>
+        
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white mb-6 leading-tight">
+          {post.title}
+        </h1>
+        
+        <p class="text-xl text-slate-600 dark:text-slate-300 mb-8">
+          {post.description}
+        </p>
+        
+        <div class="flex items-center gap-4 pb-8 border-b border-slate-200 dark:border-slate-700">
+          <img 
+            src={post.authorImage} 
+            alt={post.author}
+            class="w-12 h-12 rounded-full object-cover"
+            width="48"
+            height="48"
+          />
+          <div>
+            <p class="font-semibold text-slate-900 dark:text-white">{post.author}</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400">{post.authorRole}</p>
+          </div>
+          <div class="ml-auto text-right">
+            <p class="text-sm text-slate-500 dark:text-slate-400">{post.publishDate}</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400">{post.readTime}</p>
+          </div>
+        </div>
+      </header>
+
+      <!-- Featured Image -->
+      <img 
+        src={post.image}
+        alt="Mechanic working on car"
+        class="w-full rounded-2xl mb-12 shadow-lg"
+        width="1200"
+        height="630"
+        loading="eager"
+      />
+
+      <!-- Content -->
+      <div class="prose prose-lg dark:prose-invert max-w-none">
+        
+        <p class="lead text-xl text-slate-600 dark:text-slate-300">
+          Running an independent auto repair shop in Canada is challenging. You're competing against dealership service departments with massive marketing budgets, fighting for trust in an industry plagued by negative stereotypes, and trying to grow while actually working on cars. Sound familiar?
+        </p>
+
+        <p>
+          The good news? Smart marketing can level the playing field. This guide covers everything you need to know about attracting more customers, building trust online, and creating systems that bring customers back—all without requiring you to become a full-time marketer.
+        </p>
+
+        <h2>Why Most Auto Shop Marketing Fails</h2>
+        
+        <p>
+          Before we dive into what works, let's talk about what doesn't. Most auto repair marketing fails for three reasons:
+        </p>
+
+        <ol>
+          <li><strong>It ignores the trust problem.</strong> 76% of Canadians don't trust auto mechanics. If your marketing doesn't address this head-on, you're fighting with one hand tied behind your back.</li>
+          <li><strong>It's one-and-done.</strong> A nice website is great, but it's not a strategy. You need systems that consistently generate and nurture leads.</li>
+          <li><strong>It doesn't measure results.</strong> If you can't track where customers come from, you can't optimize your spending.</li>
+        </ol>
+
+        <h2>The Foundation: Building Trust Online</h2>
+        
+        <p>
+          Trust is currency in the auto repair industry. Here's how to build it:
+        </p>
+
+        <h3>1. Professional Website with Transparent Pricing</h3>
+        
+        <p>
+          Your website is often the first impression. It needs to communicate trustworthiness within seconds:
+        </p>
+
+        <ul>
+          <li><strong>Display certifications prominently</strong> - Red Seal, ASE, manufacturer certifications</li>
+          <li><strong>Show your team</strong> - Real photos of your technicians, not stock images</li>
+          <li><strong>Transparent pricing</strong> - At minimum, show price ranges for common services</li>
+          <li><strong>Warranty information</strong> - What do you stand behind?</li>
+          <li><strong>Before/after galleries</strong> - Visual proof of your work</li>
+        </ul>
+
+        <div class="bg-slate-100 dark:bg-slate-800 rounded-xl p-6 my-8">
+          <h4 class="font-bold text-slate-900 dark:text-white mt-0">Pro Tip: The Price Objection</h4>
+          <p class="mb-0 text-slate-600 dark:text-slate-400">
+            Many shop owners worry that showing prices will scare customers away. The opposite is true—transparency builds trust. Customers who see your prices and still call are pre-qualified. They're not tire-kickers looking for the cheapest option.
+          </p>
+        </div>
+
+        <h3>2. Google Business Profile Optimization</h3>
+        
+        <p>
+          Your Google Business Profile is arguably more important than your website. When someone searches "auto repair near me," this is what they see first.
+        </p>
+
+        <ul>
+          <li><strong>Complete every field</strong> - Hours, services, attributes</li>
+          <li><strong>Add photos weekly</strong> - Google rewards active profiles</li>
+          <li><strong>Respond to every review</strong> - Good and bad</li>
+          <li><strong>Use Google Posts</strong> - Share updates, offers, and tips</li>
+          <li><strong>Enable messaging</strong> - Make it easy to reach you</li>
+        </ul>
+
+        <h3>3. Review Generation Systems</h3>
+        
+        <p>
+          Reviews are the most powerful trust signal online. But they don't happen automatically—you need a system:
+        </p>
+
+        <ol>
+          <li><strong>Ask at the right moment</strong> - Right after the customer picks up their car, when satisfaction is highest</li>
+          <li><strong>Make it effortless</strong> - Send a direct link via text or email</li>
+          <li><strong>Automate follow-up</strong> - If they don't leave a review within 48 hours, send a gentle reminder</li>
+          <li><strong>Respond publicly</strong> - Thank positive reviewers, address negative reviews professionally</li>
+        </ol>
+
+        <h2>Lead Generation: Getting More Customers</h2>
+        
+        <p>
+          Once trust is established, you need systems to bring in new customers consistently.
+        </p>
+
+        <h3>Local SEO: Be Found When It Matters</h3>
+        
+        <p>
+          When someone's car breaks down, they're not browsing Facebook—they're Googling. Local SEO ensures you show up when they search.
+        </p>
+
+        <p>
+          Key strategies:
+        </p>
+
+        <ul>
+          <li><strong>Location pages</strong> - Create pages for each area you serve (but keep content unique)</li>
+          <li><strong>Service pages</strong> - Detailed pages for each service: oil changes, brake repair, etc.</li>
+          <li><strong>Blog content</strong> - Answer common questions: "Why is my car making that noise?"</li>
+          <li><strong>Local citations</strong> - Ensure your NAP (name, address, phone) is consistent everywhere</li>
+        </ul>
+
+        <h3>Google Local Services Ads</h3>
+        
+        <p>
+          These "Google Guaranteed" ads appear above traditional ads. For auto repair, they're highly effective because:
+        </p>
+
+        <ul>
+          <li>You only pay for actual leads (not clicks)</li>
+          <li>The "Google Guaranteed" badge builds instant trust</li>
+          <li>They appear for high-intent searches</li>
+        </ul>
+
+        <h3>Referral Programs That Actually Work</h3>
+        
+        <p>
+          Word-of-mouth remains the best lead source. Formalize it:
+        </p>
+
+        <ul>
+          <li><strong>Offer a compelling incentive</strong> - $25 off for both the referrer and new customer</li>
+          <li><strong>Make it trackable</strong> - Unique referral codes or tracking links</li>
+          <li><strong>Remind customers regularly</strong> - Include referral info in every receipt and follow-up email</li>
+        </ul>
+
+        <h2>Customer Retention: The Money You're Leaving on the Table</h2>
+        
+        <p>
+          Acquiring a new customer costs 5-7x more than retaining an existing one. Yet most shops do nothing to bring customers back.
+        </p>
+
+        <h3>Maintenance Reminders</h3>
+        
+        <p>
+          This is the lowest-hanging fruit. Set up automated reminders for:
+        </p>
+
+        <ul>
+          <li>Oil changes (based on mileage or time)</li>
+          <li>Tire rotations</li>
+          <li>Safety inspections (Ontario requires annual emissions tests for older vehicles)</li>
+          <li>Seasonal services (winter tire swaps, AC checks)</li>
+        </ul>
+
+        <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-6 my-8">
+          <h4 class="font-bold text-green-800 dark:text-green-300 mt-0">Real Results</h4>
+          <p class="mb-0 text-green-700 dark:text-green-400">
+            One Hamilton shop we worked with implemented automated maintenance reminders and saw a 34% increase in repeat visits within 6 months. The system runs completely on autopilot.
+          </p>
+        </div>
+
+        <h3>Customer Loyalty Programs</h3>
+        
+        <p>
+          Simple works best:
+        </p>
+
+        <ul>
+          <li>Every 5th oil change free</li>
+          <li>10% off parts for returning customers</li>
+          <li>Priority scheduling for loyalty members</li>
+        </ul>
+
+        <h3>Post-Service Follow-Up</h3>
+        
+        <p>
+          A simple follow-up email or text 3 days after service accomplishes multiple goals:
+        </p>
+
+        <ul>
+          <li>Shows you care about their satisfaction</li>
+          <li>Catches any issues before they become complaints</li>
+          <li>Opens the door to request a review</li>
+        </ul>
+
+        <h2>The Technology Stack for Modern Auto Shops</h2>
+        
+        <p>
+          You don't need a dozen different tools. Here's what actually matters:
+        </p>
+
+        <ol>
+          <li><strong>CRM with automation</strong> - Track customers, schedule reminders, send campaigns</li>
+          <li><strong>Online booking</strong> - Let customers schedule appointments 24/7</li>
+          <li><strong>Text messaging</strong> - Most people prefer text over phone calls</li>
+          <li><strong>Review management</strong> - Monitor and respond to reviews from one place</li>
+          <li><strong>Digital vehicle inspections</strong> - Send photo/video reports that build trust</li>
+        </ol>
+
+        <p>
+          We use GoHighLevel because it handles all of this in one platform, but there are other options depending on your needs and budget.
+        </p>
+
+        <h2>Seasonal Marketing Calendar</h2>
+        
+        <p>
+          Canadian auto repair is inherently seasonal. Plan your marketing around it:
+        </p>
+
+        <table class="min-w-full">
+          <thead>
+            <tr>
+              <th>Season</th>
+              <th>Focus Areas</th>
+              <th>Campaign Ideas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Spring (Mar-May)</strong></td>
+              <td>Post-winter repairs, tire swaps</td>
+              <td>"Winter Damage Inspection," Summer tire promotions</td>
+            </tr>
+            <tr>
+              <td><strong>Summer (Jun-Aug)</strong></td>
+              <td>AC service, road trip prep</td>
+              <td>"Road Trip Ready" package, AC tune-up specials</td>
+            </tr>
+            <tr>
+              <td><strong>Fall (Sep-Nov)</strong></td>
+              <td>Winter prep, tire swaps</td>
+              <td>Winter tire promotions, heating system checks</td>
+            </tr>
+            <tr>
+              <td><strong>Winter (Dec-Feb)</strong></td>
+              <td>Emergency repairs, battery service</td>
+              <td>"Cold Weather" specials, battery testing promos</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Measuring What Matters</h2>
+        
+        <p>
+          Don't track everything—track what matters:
+        </p>
+
+        <ul>
+          <li><strong>Lead sources</strong> - Where do customers find you?</li>
+          <li><strong>Conversion rate</strong> - What percentage of leads become customers?</li>
+          <li><strong>Customer lifetime value</strong> - How much does an average customer spend over time?</li>
+          <li><strong>Review velocity</strong> - How many reviews are you getting monthly?</li>
+          <li><strong>Return rate</strong> - What percentage of customers come back?</li>
+        </ul>
+
+        <h2>Getting Started: Your 90-Day Plan</h2>
+        
+        <p>
+          Feel overwhelmed? Here's a prioritized action plan:
+        </p>
+
+        <h3>Month 1: Foundation</h3>
+        <ul>
+          <li>Optimize your Google Business Profile</li>
+          <li>Set up a review request system</li>
+          <li>Audit your website for trust signals</li>
+        </ul>
+
+        <h3>Month 2: Lead Generation</h3>
+        <ul>
+          <li>Create service pages optimized for local search</li>
+          <li>Set up online booking</li>
+          <li>Launch a referral program</li>
+        </ul>
+
+        <h3>Month 3: Retention</h3>
+        <ul>
+          <li>Implement automated maintenance reminders</li>
+          <li>Create a post-service follow-up sequence</li>
+          <li>Launch a simple loyalty program</li>
+        </ul>
+
+        <h2>Need Help Implementing This?</h2>
+        
+        <p>
+          We specialize in helping independent auto repair shops across Canada implement these strategies without the headache of figuring it all out yourself.
+        </p>
+
+        <p>
+          Our process:
+        </p>
+
+        <ol>
+          <li>Free strategy call to understand your situation</li>
+          <li>Custom roadmap based on your goals and budget</li>
+          <li>Implementation handled by our team</li>
+          <li>Ongoing optimization and support</li>
+        </ol>
+
+      </div>
+
+      <!-- CTA -->
+      <div class="mt-12 bg-gradient-to-br from-red-500 to-red-700 rounded-2xl p-8 text-center text-white">
+        <h3 class="text-2xl font-bold mb-4">Ready to Grow Your Auto Repair Shop?</h3>
+        <p class="text-red-100 mb-6">Book a free 15-minute strategy call. We'll tell you honestly if we can help.</p>
+        <a href="/contact" class="inline-flex items-center px-6 py-3 bg-white text-red-700 font-bold rounded-xl hover:bg-red-50 transition-colors">
+          Book Your Free Call
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Tags -->
+      <div class="mt-12 pt-8 border-t border-slate-200 dark:border-slate-700">
+        <div class="flex flex-wrap gap-2">
+          {post.tags.map((tag) => (
+            <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-full text-sm">
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </article>
+</Layout>

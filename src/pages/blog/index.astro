@@ -1,0 +1,293 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// General blog posts
+const generalPosts = [
+  {
+    slug: "local-seo-guide-canadian-small-business",
+    title: "The Complete Local SEO Guide for Canadian Small Businesses",
+    excerpt: "Learn how to dominate local search results and attract more customers from your area.",
+    category: "SEO",
+    date: "January 10, 2026"
+  },
+  {
+    slug: "website-conversion-rate-optimization",
+    title: "10 Quick Wins to Boost Your Website Conversion Rate",
+    excerpt: "Simple changes you can make today to turn more website visitors into leads.",
+    category: "Conversion",
+    date: "January 5, 2026"
+  },
+  {
+    slug: "why-small-business-needs-automation",
+    title: "Why Every Small Business Needs Marketing Automation in 2026",
+    excerpt: "Stop losing leads because you're too busy. Here's how automation can help.",
+    category: "Automation",
+    date: "December 28, 2025"
+  }
+];
+
+// Industry-specific guides and case studies
+const industryContent = [
+  // Home Services
+  { slug: "plumbing-marketing-guide-canada", title: "Plumbing Marketing Automation Guide", industry: "Home Services", type: "Guide" },
+  { slug: "plumbing-case-study-rodriguez", title: "Case Study: Rodriguez Plumbing", industry: "Home Services", type: "Case Study" },
+  { slug: "hvac-marketing-guide-canada", title: "HVAC Marketing Automation Guide", industry: "Home Services", type: "Guide" },
+  { slug: "hvac-case-study-blackwood", title: "Case Study: Blackwood HVAC", industry: "Home Services", type: "Case Study" },
+  { slug: "electrical-marketing-guide-canada", title: "Electrical Contractor Marketing Guide", industry: "Home Services", type: "Guide" },
+  { slug: "electrical-case-study-williams", title: "Case Study: Williams Electric", industry: "Home Services", type: "Case Study" },
+  { slug: "general-contractor-marketing-guide-canada", title: "General Contractor Marketing Guide", industry: "Home Services", type: "Guide" },
+  { slug: "general-contractor-case-study-morrison", title: "Case Study: Morrison Construction", industry: "Home Services", type: "Case Study" },
+  
+  // Legal Services
+  { slug: "personal-injury-marketing-guide-canada", title: "Personal Injury Marketing Guide", industry: "Legal", type: "Guide" },
+  { slug: "personal-injury-case-study-martinez", title: "Case Study: Martinez Law", industry: "Legal", type: "Case Study" },
+  { slug: "family-law-marketing-guide-canada", title: "Family Law Marketing Guide", industry: "Legal", type: "Guide" },
+  { slug: "family-law-case-study-kim", title: "Case Study: Kim Family Law", industry: "Legal", type: "Case Study" },
+  { slug: "criminal-defense-marketing-guide-canada", title: "Criminal Defense Marketing Guide", industry: "Legal", type: "Guide" },
+  { slug: "criminal-defense-case-study-torres", title: "Case Study: Torres Defense", industry: "Legal", type: "Case Study" },
+  { slug: "estate-planning-marketing-guide-canada", title: "Estate Planning Marketing Guide", industry: "Legal", type: "Guide" },
+  { slug: "estate-planning-case-study-leblanc", title: "Case Study: LeBlanc Estate", industry: "Legal", type: "Case Study" },
+  { slug: "immigration-marketing-guide-canada", title: "Immigration Law Marketing Guide", industry: "Legal", type: "Guide" },
+  { slug: "immigration-case-study-sharma", title: "Case Study: Sharma Immigration", industry: "Legal", type: "Case Study" },
+  { slug: "real-estate-law-marketing-guide-canada", title: "Real Estate Law Marketing Guide", industry: "Legal", type: "Guide" },
+  { slug: "real-estate-law-case-study-patel", title: "Case Study: Patel Real Estate Law", industry: "Legal", type: "Case Study" },
+  { slug: "small-business-law-marketing-guide-canada", title: "Small Business Law Marketing Guide", industry: "Legal", type: "Guide" },
+  { slug: "small-business-law-case-study-wong", title: "Case Study: Wong Business Law", industry: "Legal", type: "Case Study" },
+  
+  // Medical & Dental
+  { slug: "medical-clinics-marketing-guide-canada", title: "Medical Clinic Marketing Guide", industry: "Medical", type: "Guide" },
+  { slug: "medical-clinics-case-study-desai", title: "Case Study: Desai Medical Clinic", industry: "Medical", type: "Case Study" },
+  { slug: "dental-practices-marketing-guide-canada", title: "Dental Practice Marketing Guide", industry: "Medical", type: "Guide" },
+  { slug: "dental-practices-case-study-chen", title: "Case Study: Chen Dental", industry: "Medical", type: "Case Study" },
+  { slug: "specialty-practices-marketing-guide-canada", title: "Specialty Practice Marketing Guide", industry: "Medical", type: "Guide" },
+  { slug: "specialty-practices-case-study-thompson", title: "Case Study: Thompson Specialist", industry: "Medical", type: "Case Study" },
+  
+  // Fitness & Gyms
+  { slug: "gym-marketing-guide-canada", title: "Gym Marketing Automation Guide", industry: "Fitness", type: "Guide" },
+  { slug: "gym-case-study-peak-fitness", title: "Case Study: Peak Fitness", industry: "Fitness", type: "Case Study" },
+  { slug: "personal-training-marketing-guide-canada", title: "Personal Training Marketing Guide", industry: "Fitness", type: "Guide" },
+  { slug: "personal-training-case-study-sarah", title: "Case Study: Sarah Personal Training", industry: "Fitness", type: "Case Study" },
+  { slug: "yoga-studio-marketing-guide-canada", title: "Yoga Studio Marketing Guide", industry: "Fitness", type: "Guide" },
+  { slug: "yoga-studio-case-study-lotus", title: "Case Study: Lotus Yoga", industry: "Fitness", type: "Case Study" },
+  { slug: "crossfit-marketing-guide-canada", title: "CrossFit Marketing Guide", industry: "Fitness", type: "Guide" },
+  { slug: "crossfit-case-study-northern", title: "Case Study: Northern CrossFit", industry: "Fitness", type: "Case Study" },
+  { slug: "martial-arts-marketing-guide-canada", title: "Martial Arts Marketing Guide", industry: "Fitness", type: "Guide" },
+  { slug: "martial-arts-case-study-dragon", title: "Case Study: Dragon Martial Arts", industry: "Fitness", type: "Case Study" },
+  { slug: "dance-studio-marketing-guide-canada", title: "Dance Studio Marketing Guide", industry: "Fitness", type: "Guide" },
+  { slug: "dance-studio-case-study-spotlight", title: "Case Study: Spotlight Dance", industry: "Fitness", type: "Case Study" },
+  
+  // Auto Services
+  { slug: "auto-repair-marketing-guide-canada", title: "Auto Repair Marketing Guide", industry: "Auto", type: "Guide" },
+  { slug: "auto-repair-case-study-marchetti", title: "Case Study: Marchetti Auto", industry: "Auto", type: "Case Study" },
+  { slug: "dealership-marketing-guide-canada", title: "Dealership Marketing Guide", industry: "Auto", type: "Guide" },
+  { slug: "dealership-case-study-kowalski", title: "Case Study: Kowalski Motors", industry: "Auto", type: "Case Study" },
+  { slug: "body-shop-marketing-guide-canada", title: "Body Shop Marketing Guide", industry: "Auto", type: "Guide" },
+  { slug: "body-shop-case-study-deluca", title: "Case Study: DeLuca Body Shop", industry: "Auto", type: "Case Study" },
+  { slug: "detailing-marketing-guide-canada", title: "Detailing Business Marketing Guide", industry: "Auto", type: "Guide" },
+  { slug: "detailing-case-study-pristine", title: "Case Study: Pristine Detailing", industry: "Auto", type: "Case Study" },
+  { slug: "service-center-marketing-guide-canada", title: "Service Center Marketing Guide", industry: "Auto", type: "Guide" },
+  { slug: "service-center-case-study-precision", title: "Case Study: Precision Service", industry: "Auto", type: "Case Study" },
+  { slug: "tire-shop-marketing-guide-canada", title: "Tire Shop Marketing Guide", industry: "Auto", type: "Guide" },
+  { slug: "tire-shop-case-study-northern", title: "Case Study: Northern Tire", industry: "Auto", type: "Case Study" },
+  
+  // Salons & Spas
+  { slug: "hair-salons-marketing-guide-canada", title: "Hair Salon Marketing Guide", industry: "Salons", type: "Guide" },
+  { slug: "hair-salons-case-study-studiolv", title: "Case Study: Studio LV Hair", industry: "Salons", type: "Case Study" },
+  { slug: "barbershops-marketing-guide-canada", title: "Barbershop Marketing Guide", industry: "Salons", type: "Guide" },
+  { slug: "barbershops-case-study-sharpcuts", title: "Case Study: Sharp Cuts", industry: "Salons", type: "Case Study" },
+  { slug: "day-spas-marketing-guide-canada", title: "Day Spa Marketing Guide", industry: "Salons", type: "Guide" },
+  { slug: "day-spas-case-study-serenity", title: "Case Study: Serenity Spa", industry: "Salons", type: "Case Study" },
+  { slug: "med-spas-marketing-guide-canada", title: "Med Spa Marketing Guide", industry: "Salons", type: "Guide" },
+  { slug: "med-spas-case-study-radiance", title: "Case Study: Radiance Med Spa", industry: "Salons", type: "Case Study" },
+  
+  // E-commerce & Retail
+  { slug: "online-store-marketing-guide-canada", title: "Online Store Marketing Guide", industry: "Retail", type: "Guide" },
+  { slug: "online-store-case-study-maple", title: "Case Study: Maple & Oak", industry: "Retail", type: "Case Study" },
+  { slug: "brick-mortar-retail-marketing-guide-canada", title: "Brick & Mortar Retail Marketing Guide", industry: "Retail", type: "Guide" },
+  { slug: "brick-mortar-case-study-urban-finds", title: "Case Study: Urban Finds", industry: "Retail", type: "Case Study" },
+  { slug: "fashion-apparel-marketing-guide-canada", title: "Fashion & Apparel Marketing Guide", industry: "Retail", type: "Guide" },
+  { slug: "fashion-apparel-case-study-atelier", title: "Case Study: Atelier Fashion", industry: "Retail", type: "Case Study" },
+  { slug: "beauty-cosmetics-marketing-guide-canada", title: "Beauty & Cosmetics Marketing Guide", industry: "Retail", type: "Guide" },
+  { slug: "beauty-cosmetics-case-study-glow", title: "Case Study: Glow Beauty", industry: "Retail", type: "Case Study" },
+  { slug: "home-goods-marketing-guide-canada", title: "Home Goods Marketing Guide", industry: "Retail", type: "Guide" },
+  { slug: "home-goods-case-study-northwood", title: "Case Study: Northwood Home", industry: "Retail", type: "Case Study" },
+  { slug: "food-beverage-marketing-guide-canada", title: "Food & Beverage Marketing Guide", industry: "Retail", type: "Guide" },
+  { slug: "food-beverage-case-study-harvest", title: "Case Study: Harvest Foods", industry: "Retail", type: "Case Study" },
+  { slug: "electronics-marketing-guide-canada", title: "Electronics Retail Marketing Guide", industry: "Retail", type: "Guide" },
+  { slug: "electronics-case-study-techzone", title: "Case Study: TechZone", industry: "Retail", type: "Case Study" },
+  { slug: "specialty-retail-marketing-guide-canada", title: "Specialty Retail Marketing Guide", industry: "Retail", type: "Guide" },
+  { slug: "specialty-retail-case-study-northstar", title: "Case Study: Northstar Specialty", industry: "Retail", type: "Case Study" },
+  
+  // Professional Services
+  { slug: "accountants-marketing-guide-canada", title: "Accountant Marketing Guide", industry: "Professional", type: "Guide" },
+  { slug: "accountants-case-study-singh", title: "Case Study: Singh & Associates CPA", industry: "Professional", type: "Case Study" },
+  { slug: "financial-advisors-marketing-guide-canada", title: "Financial Advisor Marketing Guide", industry: "Professional", type: "Guide" },
+  { slug: "financial-advisors-case-study-kaplan", title: "Case Study: Kaplan Wealth", industry: "Professional", type: "Case Study" },
+  { slug: "business-consultants-marketing-guide-canada", title: "Business Consultant Marketing Guide", industry: "Professional", type: "Guide" },
+  { slug: "business-consultants-case-study-wong", title: "Case Study: Wong Consulting", industry: "Professional", type: "Case Study" },
+  { slug: "executive-coaches-marketing-guide-canada", title: "Executive Coach Marketing Guide", industry: "Professional", type: "Guide" },
+  { slug: "executive-coaches-case-study-laurent", title: "Case Study: Laurent Coaching", industry: "Professional", type: "Case Study" },
+  { slug: "it-consultants-marketing-guide-canada", title: "IT Consultant Marketing Guide", industry: "Professional", type: "Guide" },
+  { slug: "it-consultants-case-study-johal", title: "Case Study: Johal Tech", industry: "Professional", type: "Case Study" },
+  
+  // Nonprofits
+  { slug: "charities-marketing-guide-canada", title: "Charity Marketing Guide", industry: "Nonprofit", type: "Guide" },
+  { slug: "charities-case-study-northshore", title: "Case Study: Northshore Charity", industry: "Nonprofit", type: "Case Study" },
+  { slug: "foundations-marketing-guide-canada", title: "Foundation Marketing Guide", industry: "Nonprofit", type: "Guide" },
+  { slug: "foundations-case-study-acef", title: "Case Study: ACEF Foundation", industry: "Nonprofit", type: "Case Study" },
+  { slug: "associations-marketing-guide-canada", title: "Association Marketing Guide", industry: "Nonprofit", type: "Guide" },
+  { slug: "associations-case-study-ctpa", title: "Case Study: CTPA Association", industry: "Nonprofit", type: "Case Study" },
+  { slug: "faith-organizations-marketing-guide-canada", title: "Faith Organization Marketing Guide", industry: "Nonprofit", type: "Guide" },
+  { slug: "faith-organizations-case-study-newlife", title: "Case Study: New Life Church", industry: "Nonprofit", type: "Case Study" },
+  
+  // Daycare Centers
+  { slug: "daycare-marketing-guide-canada", title: "Daycare Marketing Guide", industry: "Daycare", type: "Guide" },
+  { slug: "daycare-case-study-sunshine", title: "Case Study: Sunshine Daycare", industry: "Daycare", type: "Case Study" },
+  { slug: "childcare-programs-marketing-guide-canada", title: "Childcare Programs Marketing Guide", industry: "Daycare", type: "Guide" },
+  { slug: "childcare-programs-case-study-adventure", title: "Case Study: Adventure Learning", industry: "Daycare", type: "Case Study" },
+  
+  // Contractors & Trades
+  { slug: "general-contractors-marketing-guide-canada", title: "General Contractor Marketing Guide", industry: "Contractors", type: "Guide" },
+  { slug: "general-contractors-case-study-nguyen", title: "Case Study: Nguyen Contracting", industry: "Contractors", type: "Case Study" },
+  { slug: "painting-contractor-marketing-guide-canada", title: "Painting Contractor Marketing Guide", industry: "Contractors", type: "Guide" },
+  { slug: "painting-contractor-case-study-ricci", title: "Case Study: Ricci Painting", industry: "Contractors", type: "Case Study" }
+];
+
+// Get unique industries for filter
+const industries = [...new Set(industryContent.map(p => p.industry))];
+---
+
+<Layout 
+  title="Blog" 
+  description="Marketing guides, case studies, and strategies for Canadian small businesses. Industry-specific content for legal, medical, fitness, auto services, and more."
+>
+  <!-- Hero -->
+  <section class="py-16 lg:py-24 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white mb-6">
+        Insights & Resources
+      </h1>
+      <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+        Marketing guides, case studies, and strategies to help your business grow. Industry-specific content that actually works.
+      </p>
+    </div>
+  </section>
+
+  <!-- General Posts -->
+  <section class="py-16 lg:py-20 bg-white dark:bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-8">Featured Articles</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        {generalPosts.map((post) => (
+          <article class="bg-slate-50 dark:bg-slate-800 rounded-xl p-6 hover:shadow-lg transition-shadow">
+            <span class="inline-block px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-xs font-medium rounded-full mb-4">
+              {post.category}
+            </span>
+            <a href={`/blog/${post.slug}`}>
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 hover:text-primary-600 transition-colors">
+                {post.title}
+              </h3>
+            </a>
+            <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">{post.excerpt}</p>
+            <span class="text-xs text-slate-500">{post.date}</span>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Industry Content -->
+  <section class="py-16 lg:py-20 bg-slate-50 dark:bg-slate-800/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Industry Marketing Guides & Case Studies</h2>
+      <p class="text-slate-600 dark:text-slate-400 mb-8">
+        Explore our collection of 100+ industry-specific marketing resources with real Canadian business success stories.
+      </p>
+      
+      {industries.map((industry) => (
+        <div class="mb-12">
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center">
+            <span class="w-8 h-8 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center mr-3 text-sm">
+              {industry === "Home Services" && "🔧"}
+              {industry === "Legal" && "⚖️"}
+              {industry === "Medical" && "🏥"}
+              {industry === "Fitness" && "💪"}
+              {industry === "Auto" && "🚗"}
+              {industry === "Salons" && "💅"}
+              {industry === "Retail" && "🛒"}
+              {industry === "Professional" && "💼"}
+              {industry === "Nonprofit" && "💚"}
+              {industry === "Daycare" && "👶"}
+              {industry === "Contractors" && "🔨"}
+            </span>
+            {industry === "Professional" ? "Professional Services" : 
+             industry === "Nonprofit" ? "Nonprofits" : 
+             industry === "Salons" ? "Salons & Spas" : 
+             industry === "Auto" ? "Auto Services" : 
+             industry === "Retail" ? "E-commerce & Retail" : 
+             industry}
+          </h3>
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+            {industryContent.filter(p => p.industry === industry).map((post) => (
+              <a 
+                href={`/blog/${post.slug}`}
+                class={`px-4 py-3 rounded-lg text-sm font-medium transition-colors border ${
+                  post.type === "Guide" 
+                    ? "bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-600 hover:border-primary-300 hover:text-primary-600" 
+                    : "bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 border-green-200 dark:border-green-800 hover:border-green-400"
+                }`}
+              >
+                <span class="text-xs uppercase tracking-wider opacity-60 block mb-1">{post.type}</span>
+                {post.title.replace("Case Study: ", "").replace(" Marketing Guide", "").replace(" Canada", "")}
+              </a>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Newsletter CTA -->
+  <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+        Get Growth Tips in Your Inbox
+      </h2>
+      <p class="text-lg text-slate-600 dark:text-slate-300 mb-8">
+        Subscribe for weekly tips on growing your small business online. No spam, just practical advice.
+      </p>
+      <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+        <input 
+          type="email" 
+          placeholder="Enter your email" 
+          required
+          class="flex-1 px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+        />
+        <button 
+          type="submit"
+          class="px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white font-semibold rounded-xl transition-colors duration-200"
+        >
+          Subscribe
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 lg:py-24 bg-gradient-to-br from-primary-600 to-primary-800">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">
+        Ready to Put These Tips Into Action?
+      </h2>
+      <p class="text-lg text-primary-100 mb-8">
+        Book a free strategy call and we'll create a custom plan to grow your business online.
+      </p>
+      <a href="/contact" class="inline-flex items-center px-8 py-4 bg-white text-primary-700 font-bold text-lg rounded-xl hover:bg-primary-50 transition-colors duration-200 shadow-xl">
+        Get Your Free Strategy Call
+        <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+  </section>
+</Layout>

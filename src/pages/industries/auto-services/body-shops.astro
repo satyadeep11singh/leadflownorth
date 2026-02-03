@@ -1,0 +1,347 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+
+const subIndustry = {
+  name: "Auto Body Shops",
+  parent: "Auto Services",
+  parentSlug: "auto-services",
+  icon: "🚗",
+  headline: "Fill Your Paint Booths with Insurance Jobs and Direct Customers",
+  description: "Attract collision repair work, build insurance partnerships, and grow your body shop with marketing that showcases your quality craftsmanship.",
+  stats: [
+    { value: "85%", label: "More collision leads" },
+    { value: "40%", label: "Direct customers" },
+    { value: "4.9★", label: "Average rating" }
+  ],
+  canadianContext: {
+    marketSize: "$5.2 billion",
+    shops: "4,500+ collision centres",
+    avgTicket: "$2,500-8,000",
+    challenge: "Insurance company referral dependency"
+  },
+  challenges: [
+    "Over-reliance on insurance company DRP programs",
+    "Competing with dealership body shops for premium work",
+    "Long repair times affecting customer satisfaction",
+    "Difficulty showcasing quality work online",
+    "Getting reviews when customers are stressed about accidents",
+    "Parts delays and supply chain issues"
+  ],
+  solutions: [
+    "Direct-to-consumer marketing to reduce insurance dependency",
+    "Before/after gallery showcasing paint match perfection",
+    "Real-time repair status updates for customers",
+    "Review generation timed for vehicle pickup",
+    "Insurance liaison services as differentiator",
+    "Rental car coordination automation"
+  ],
+  features: [
+    { title: "Repair Status Portal", desc: "Give customers real-time updates on their vehicle's repair progress with photos and estimated completion" },
+    { title: "Insurance Coordination", desc: "Automated communication with insurance adjusters and customers to keep everyone aligned" },
+    { title: "Before/After Galleries", desc: "Showcase your craftsmanship with stunning repair transformations" },
+    { title: "Estimate Follow-Up", desc: "Automated nurturing for customers who got estimates but haven't committed" },
+    { title: "Review Timing", desc: "Request reviews at the perfect moment—when customers see their restored vehicle" },
+    { title: "Referral Network", desc: "Build relationships with mechanics, dealerships, and towing companies" }
+  ],
+  testimonial: {
+    quote: "We reduced our insurance dependency from 90% to 60% of revenue. The direct customers pay faster and appreciate our work more.",
+    author: "Mike Deluca",
+    title: "Owner, Deluca Collision Centre",
+    location: "Mississauga, ON",
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face"
+  },
+  services: [
+    "Collision repair",
+    "Paint and refinishing",
+    "Dent removal (PDR)",
+    "Frame straightening",
+    "Bumper repair",
+    "Hail damage repair"
+  ]
+};
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Auto Body Shop Web Design and Marketing",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Lead Flow North"
+  },
+  "areaServed": ["Ontario", "Alberta", "British Columbia"],
+  "description": "Web design and lead generation services for collision repair and auto body shops across Canada."
+};
+---
+
+<Layout 
+  title={`${subIndustry.name} Web Design & Marketing | ${subIndustry.parent}`}
+  description={`${subIndustry.description} Marketing automation for body shops in Ontario and Alberta.`}
+  structuredData={schema}
+>
+  <!-- Breadcrumb -->
+  <nav class="bg-slate-100 dark:bg-slate-800 py-3" aria-label="Breadcrumb">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <ol class="flex items-center gap-2 text-sm">
+        <li><a href="/" class="text-slate-500 hover:text-primary-600">Home</a></li>
+        <li class="text-slate-400">/</li>
+        <li><a href="/industries" class="text-slate-500 hover:text-primary-600">Industries</a></li>
+        <li class="text-slate-400">/</li>
+        <li><a href={`/industries/${subIndustry.parentSlug}`} class="text-slate-500 hover:text-primary-600">{subIndustry.parent}</a></li>
+        <li class="text-slate-400">/</li>
+        <li class="text-slate-900 dark:text-white font-medium">{subIndustry.name}</li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="py-16 lg:py-24 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-flex items-center gap-2 px-4 py-2 bg-orange-100 dark:bg-orange-900/30 rounded-full mb-6">
+            <span class="text-2xl">{subIndustry.icon}</span>
+            <span class="text-sm font-medium text-orange-700 dark:text-orange-300">{subIndustry.name}</span>
+          </div>
+          <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white mb-6">
+            {subIndustry.headline}
+          </h1>
+          <p class="text-lg text-slate-600 dark:text-slate-300 mb-8">
+            {subIndustry.description}
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="/contact" class="inline-flex items-center justify-center px-6 py-3 bg-accent-500 hover:bg-accent-600 text-white font-semibold rounded-xl transition-colors duration-200">
+              Get Your Free Strategy Call
+            </a>
+            <a href="/case-studies" class="inline-flex items-center justify-center px-6 py-3 border-2 border-slate-300 dark:border-slate-600 hover:border-primary-500 text-slate-700 dark:text-slate-300 font-semibold rounded-xl transition-colors duration-200">
+              See Case Studies
+            </a>
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-4">
+          {subIndustry.stats.map((stat) => (
+            <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 text-center shadow-lg">
+              <p class="text-3xl font-extrabold text-orange-600 dark:text-orange-400 mb-1">{stat.value}</p>
+              <p class="text-sm text-slate-500 dark:text-slate-400">{stat.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Canadian Market Context -->
+  <section class="py-12 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div class="reveal">
+          <p class="text-2xl font-bold text-primary-600 dark:text-primary-400">{subIndustry.canadianContext.marketSize}</p>
+          <p class="text-sm text-slate-500 dark:text-slate-400">Canadian collision market</p>
+        </div>
+        <div class="reveal">
+          <p class="text-2xl font-bold text-primary-600 dark:text-primary-400">{subIndustry.canadianContext.shops}</p>
+          <p class="text-sm text-slate-500 dark:text-slate-400">Across Canada</p>
+        </div>
+        <div class="reveal">
+          <p class="text-2xl font-bold text-primary-600 dark:text-primary-400">{subIndustry.canadianContext.avgTicket}</p>
+          <p class="text-sm text-slate-500 dark:text-slate-400">Average repair order</p>
+        </div>
+        <div class="reveal">
+          <p class="text-2xl font-bold text-primary-600 dark:text-primary-400">{subIndustry.canadianContext.challenge}</p>
+          <p class="text-sm text-slate-500 dark:text-slate-400">Your biggest challenge</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Insurance Problem -->
+  <section class="py-16 lg:py-24 bg-slate-50 dark:bg-slate-800/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl mx-auto text-center reveal">
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-6">
+          Tired of Being at the Mercy of Insurance Companies?
+        </h2>
+        <p class="text-lg text-slate-600 dark:text-slate-300 mb-8">
+          Most body shops depend on DRP referrals for 80-90% of their work. That means insurance companies control your pricing, your processes, and your profits. It's time to take back control.
+        </p>
+        <div class="bg-white dark:bg-slate-900 rounded-2xl p-8 border border-slate-200 dark:border-slate-700">
+          <div class="grid md:grid-cols-3 gap-8">
+            <div>
+              <p class="text-4xl font-bold text-orange-500 mb-2">Direct Work</p>
+              <p class="text-slate-600 dark:text-slate-400">Cash-pay and customer-choice repairs with better margins</p>
+            </div>
+            <div>
+              <p class="text-4xl font-bold text-orange-500 mb-2">Your Rates</p>
+              <p class="text-slate-600 dark:text-slate-400">Set prices based on your quality, not insurance schedules</p>
+            </div>
+            <div>
+              <p class="text-4xl font-bold text-orange-500 mb-2">Your Rules</p>
+              <p class="text-slate-600 dark:text-slate-400">Use OEM parts, take your time, do it right</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Challenges -->
+  <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="reveal">
+          <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-6">
+            The Challenges Body Shops Face
+          </h2>
+          <p class="text-lg text-slate-600 dark:text-slate-300 mb-8">
+            Collision repair is stressful—for customers and for you. The right systems can smooth out the process for everyone.
+          </p>
+          <ul class="space-y-4">
+            {subIndustry.challenges.map((challenge) => (
+              <li class="flex items-start gap-3">
+                <svg class="w-6 h-6 text-orange-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                <span class="text-slate-700 dark:text-slate-300">{challenge}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="reveal">
+          <img 
+            src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=600&h=400&fit=crop" 
+            alt="Auto body technician working on car"
+            class="rounded-2xl shadow-xl w-full"
+            loading="lazy"
+            width="600"
+            height="400"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solutions -->
+  <section class="py-16 lg:py-24 bg-slate-50 dark:bg-slate-800/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+          Systems That Showcase Your Craftsmanship
+        </h2>
+        <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+          Let customers see your quality work before they ever step into your shop.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        {subIndustry.features.map((feature) => (
+          <div class="reveal bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 hover:border-orange-300 dark:hover:border-orange-600 transition-colors">
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">{feature.title}</h3>
+            <p class="text-slate-600 dark:text-slate-400">{feature.desc}</p>
+          </div>
+        ))}
+      </div>
+      
+      <div class="reveal bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl p-8 text-white">
+        <h3 class="text-2xl font-bold mb-6 text-center">Everything Your Body Shop Needs</h3>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {subIndustry.solutions.map((solution) => (
+            <div class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-orange-200 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <span class="text-sm">{solution}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial -->
+  <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="reveal bg-gradient-to-br from-orange-50 to-red-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl p-8 lg:p-12 text-center border border-orange-200 dark:border-slate-700">
+        <img 
+          src={subIndustry.testimonial.image} 
+          alt={subIndustry.testimonial.author}
+          class="w-20 h-20 rounded-full mx-auto mb-6 object-cover border-4 border-orange-200"
+          loading="lazy"
+          width="80"
+          height="80"
+        />
+        <blockquote class="text-xl lg:text-2xl text-slate-700 dark:text-slate-300 mb-6 italic">
+          "{subIndustry.testimonial.quote}"
+        </blockquote>
+        <div>
+          <p class="font-bold text-slate-900 dark:text-white">{subIndustry.testimonial.author}</p>
+          <p class="text-slate-500 dark:text-slate-400">{subIndustry.testimonial.title}</p>
+          <p class="text-sm text-slate-400">{subIndustry.testimonial.location}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="py-16 lg:py-24 bg-slate-50 dark:bg-slate-800/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12 reveal">
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+          Services We Help You Promote
+        </h2>
+        <p class="text-lg text-slate-600 dark:text-slate-300">
+          We create targeted campaigns for each of your service offerings.
+        </p>
+      </div>
+      <div class="flex flex-wrap justify-center gap-4">
+        {subIndustry.services.map((service) => (
+          <span class="reveal px-6 py-3 bg-white dark:bg-slate-900 rounded-full border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-medium">
+            {service}
+          </span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Content -->
+  <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12 reveal">
+        <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">
+          Body Shop Resources
+        </h2>
+        <p class="text-slate-600 dark:text-slate-300">
+          Learn more about growing your collision repair business.
+        </p>
+      </div>
+      <div class="grid md:grid-cols-2 gap-8">
+        <a href="/blog/body-shop-marketing-guide-canada" class="reveal group bg-slate-50 dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 hover:border-primary-500 transition-colors">
+          <span class="text-xs font-semibold text-primary-600 dark:text-primary-400 uppercase tracking-wider">Guide</span>
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-2 mb-2 group-hover:text-primary-600">The Complete Body Shop Marketing Guide for Canadian Collision Centres</h3>
+          <p class="text-slate-600 dark:text-slate-400">How to reduce insurance dependency and attract direct customers.</p>
+        </a>
+        <a href="/blog/body-shop-case-study-deluca" class="reveal group bg-slate-50 dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700 hover:border-primary-500 transition-colors">
+          <span class="text-xs font-semibold text-accent-600 dark:text-accent-400 uppercase tracking-wider">Case Study</span>
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mt-2 mb-2 group-hover:text-primary-600">How Deluca Collision Reduced Insurance Dependency by 30%</h3>
+          <p class="text-slate-600 dark:text-slate-400">See how this Mississauga shop built a direct customer base.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 lg:py-24 bg-gradient-to-br from-orange-500 to-red-600">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">
+        Ready to Fill Your Paint Booths?
+      </h2>
+      <p class="text-lg text-orange-100 mb-8">
+        Book a free strategy call and we'll show you how to attract more direct customers and reduce insurance dependency.
+      </p>
+      <a href="/contact" class="inline-flex items-center px-8 py-4 bg-white text-orange-700 font-bold text-lg rounded-xl hover:bg-orange-50 transition-colors duration-200 shadow-xl">
+        Book Your Free Strategy Call
+        <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+  </section>
+</Layout>

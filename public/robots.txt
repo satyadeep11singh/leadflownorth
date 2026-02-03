@@ -1,0 +1,13 @@
+# Lead Flow North - robots.txt
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://leadflownorth.com/sitemap-index.xml
+
+# Block admin/api paths if any
+Disallow: /api/
+Disallow: /_astro/
+
+# Crawl delay for polite bots
+Crawl-delay: 1

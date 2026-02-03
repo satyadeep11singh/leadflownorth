@@ -1,0 +1,285 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const team = [
+  {
+    name: "Satyadeep Singh",
+    role: "Co-Founder & CEO",
+    bio: "Full-stack developer and digital strategist with a passion for building systems that drive real business results. Deep founded Lead Flow North to bridge the gap between enterprise technology and small business needs.",
+    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&h=300&fit=crop&crop=face",
+    linkedin: "https://www.linkedin.com/in/satyadeep-singh/",
+    email: "Deep@leadflownorth.com"
+  },
+  {
+    name: "Naveen Gangishetty",
+    role: "Co-Founder & COO",
+    bio: "15+ years of experience in enterprise solutions and client success across tech giants and Fortune 500 companies. Naveen brings operational excellence and a client-first approach to every project.",
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face",
+    email: "Naveen@leadflownorth.com"
+  },
+  {
+    name: "Marcus Williams",
+    role: "Lead Developer",
+    bio: "Full-stack developer specializing in high-performance websites. Obsessed with page speed and user experience.",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face"
+  },
+  {
+    name: "Elena Rodriguez",
+    role: "Client Success Manager",
+    bio: "Your main point of contact. 8 years in client services, ensuring every project exceeds expectations.",
+    image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=300&h=300&fit=crop&crop=face"
+  }
+];
+
+const values = [
+  {
+    icon: "🎯",
+    title: "Results Over Aesthetics",
+    description: "We measure success in leads and revenue, not design awards. Your business growth is our only metric."
+  },
+  {
+    icon: "💬",
+    title: "Radical Transparency",
+    description: "No hidden fees, no surprises. You'll always know what's happening, what it costs, and why."
+  },
+  {
+    icon: "🤝",
+    title: "Partnership Mindset",
+    description: "We're not vendors—we're partners invested in your success. Your win is our win."
+  },
+  {
+    icon: "⚡",
+    title: "Speed & Efficiency",
+    description: "Time is money. We move fast without sacrificing quality, because you can't wait months for results."
+  }
+];
+---
+
+<Layout 
+  title="About Us" 
+  description="Meet the team behind Lead Flow North. We're a Toronto-based web agency helping Canadian small businesses generate more leads through conversion-focused websites and marketing automation."
+>
+  <!-- Hero -->
+  <section class="py-16 lg:py-24 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white mb-6">
+            We Help Canadian Small Businesses
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-accent-500">Grow Online</span>
+          </h1>
+          <p class="text-lg text-slate-600 dark:text-slate-300 mb-6">
+            Lead Flow North was founded on a simple idea: small businesses deserve the same quality digital marketing as big corporations—without the big corporation price tag.
+          </p>
+          <p class="text-lg text-slate-600 dark:text-slate-300">
+            Based in Toronto, we specialize in helping service businesses across Ontario and Alberta generate more leads through high-converting websites and smart automation.
+          </p>
+        </div>
+        <div class="relative">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-4">
+              <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg">
+                <p class="text-4xl font-extrabold text-primary-600 mb-1">150+</p>
+                <p class="text-slate-600 dark:text-slate-400">Projects delivered</p>
+              </div>
+              <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg">
+                <p class="text-4xl font-extrabold text-accent-500 mb-1">94%</p>
+                <p class="text-slate-600 dark:text-slate-400">Client retention</p>
+              </div>
+            </div>
+            <div class="space-y-4 mt-8">
+              <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg">
+                <p class="text-4xl font-extrabold text-purple-600 mb-1">8</p>
+                <p class="text-slate-600 dark:text-slate-400">Industries served</p>
+              </div>
+              <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg">
+                <p class="text-4xl font-extrabold text-amber-500 mb-1">2019</p>
+                <p class="text-slate-600 dark:text-slate-400">Year founded</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Story -->
+  <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12 reveal">
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+          Our Story
+        </h2>
+      </div>
+      <div class="prose prose-lg dark:prose-invert mx-auto reveal">
+        <p>
+          Lead Flow North was born from a shared frustration. Satyadeep Singh, a developer who had built digital solutions for businesses of all sizes, and Naveen Gangishetty, who spent 15 years consulting for enterprise giants like Dell, Genpact, and government organizations, both saw the same problem: small businesses were getting left behind.
+        </p>
+        <p>
+          Naveen's journey took him from technical support at Genpact, to sales expertise at Dell, to consulting roles at the College of Saint Rose, Supervek, Belairdirect, and Service Canada. Along the way, he learned what makes organizations succeed—and what makes them fail. The answer was always the same: <strong>systems that actually work for real people</strong>.
+        </p>
+        <p>
+          Meanwhile, Deep was building websites and marketing systems, watching small business owners struggle with agencies that delivered pretty designs but zero results. They'd pay thousands for a website, then wonder why their phone never rang.
+        </p>
+        <p>
+          In 2019, the two connected and realized they had complementary skills: Deep's technical expertise and Naveen's enterprise-level operational knowledge. Together, they could bring Fortune 500 marketing systems to Main Street businesses—at prices that made sense.
+        </p>
+        <p>
+          <strong>That's Lead Flow North.</strong> We're not trying to be the biggest agency. We're focused on being the best partner for Canadian small businesses who want real results—not just a pretty website that collects dust.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="py-16 lg:py-24 bg-slate-50 dark:bg-slate-800/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+          What We Stand For
+        </h2>
+        <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+          These aren't just words on a wall. They're the principles we use to make every decision.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 gap-8">
+        {values.map((value) => (
+          <div class="reveal bg-white dark:bg-slate-900 rounded-2xl p-8 border border-slate-200 dark:border-slate-700">
+            <span class="text-4xl mb-4 block">{value.icon}</span>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">{value.title}</h3>
+            <p class="text-slate-600 dark:text-slate-400">{value.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+          Meet the Team
+        </h2>
+        <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+          Small team, big results. Every person here is dedicated to your success.
+        </p>
+      </div>
+      
+      <!-- Founders Row -->
+      <div class="grid md:grid-cols-2 gap-8 mb-12 max-w-4xl mx-auto">
+        {team.slice(0, 2).map((member) => (
+          <div class="reveal bg-slate-50 dark:bg-slate-800 rounded-2xl p-8 text-center">
+            <img 
+              src={member.image} 
+              alt={member.name}
+              class="w-40 h-40 rounded-full mx-auto mb-6 object-cover border-4 border-white dark:border-slate-700 shadow-lg"
+              loading="lazy"
+              width="160"
+              height="160"
+            />
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white">{member.name}</h3>
+            <p class="text-primary-600 dark:text-primary-400 font-medium mb-3">{member.role}</p>
+            <p class="text-slate-600 dark:text-slate-400 mb-4">{member.bio}</p>
+            <div class="flex items-center justify-center gap-3">
+              {member.linkedin && (
+                <a href={member.linkedin} target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-primary-600 transition-colors" aria-label={`${member.name} on LinkedIn`}>
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                </a>
+              )}
+              {member.email && (
+                <a href={`mailto:${member.email}`} class="text-slate-400 hover:text-primary-600 transition-colors" aria-label={`Email ${member.name}`}>
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                </a>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+      
+      <!-- Other Team Members -->
+      <div class="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
+        {team.slice(2).map((member) => (
+          <div class="reveal text-center">
+            <img 
+              src={member.image} 
+              alt={member.name}
+              class="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
+              loading="lazy"
+              width="128"
+              height="128"
+            />
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white">{member.name}</h3>
+            <p class="text-primary-600 dark:text-primary-400 font-medium mb-3">{member.role}</p>
+            <p class="text-sm text-slate-600 dark:text-slate-400">{member.bio}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Location -->
+  <section class="py-16 lg:py-24 bg-slate-50 dark:bg-slate-800/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="reveal">
+          <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-6">
+            Proudly Canadian
+          </h2>
+          <p class="text-lg text-slate-600 dark:text-slate-300 mb-6">
+            We're based in Toronto, but we serve businesses across Ontario and Alberta. We understand the Canadian market, the local business landscape, and what it takes to succeed here.
+          </p>
+          <div class="space-y-4">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center">
+                <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+              </div>
+              <div>
+                <p class="font-semibold text-slate-900 dark:text-white">Toronto, Ontario</p>
+                <p class="text-sm text-slate-500">100 King Street West, Suite 5700</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center">
+                <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <p class="font-semibold text-slate-900 dark:text-white">Business Hours</p>
+                <p class="text-sm text-slate-500">Monday - Friday, 9:00 AM - 5:00 PM EST</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="reveal bg-gradient-to-br from-red-500 to-red-700 rounded-2xl p-8 text-white text-center">
+          <div class="text-6xl mb-4">🍁</div>
+          <p class="text-xl font-bold mb-2">Built for Canadian Business</p>
+          <p class="text-red-100">We understand PIPEDA, CASL, and local market dynamics.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 lg:py-24 bg-gradient-to-br from-primary-600 to-primary-800">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">
+        Let's Work Together
+      </h2>
+      <p class="text-lg text-primary-100 mb-8">
+        Ready to grow your business? We'd love to learn more about your goals and show you how we can help.
+      </p>
+      <a href="/contact" class="inline-flex items-center px-8 py-4 bg-white text-primary-700 font-bold text-lg rounded-xl hover:bg-primary-50 transition-colors duration-200 shadow-xl">
+        Get in Touch
+        <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+  </section>
+</Layout>

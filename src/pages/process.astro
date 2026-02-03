@@ -1,0 +1,256 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const steps = [
+  {
+    number: "01",
+    title: "Discovery Call",
+    duration: "30 minutes",
+    description: "We start with a free strategy call to understand your business, goals, and challenges. No sales pressure—just honest advice.",
+    tasks: [
+      "Review your current online presence",
+      "Understand your target customers",
+      "Identify quick wins and opportunities",
+      "Discuss budget and timeline",
+      "Determine if we're a good fit"
+    ],
+    deliverable: "Strategy recommendations (even if you don't hire us)"
+  },
+  {
+    number: "02",
+    title: "Strategy & Planning",
+    duration: "Week 1",
+    description: "Once you sign on, we dive deep into your business to create a custom lead generation strategy tailored to your industry and market.",
+    tasks: [
+      "Competitor analysis",
+      "Customer journey mapping",
+      "Conversion strategy development",
+      "Content and messaging plan",
+      "Technical requirements gathering"
+    ],
+    deliverable: "Detailed project plan with milestones"
+  },
+  {
+    number: "03",
+    title: "Design & Development",
+    duration: "Weeks 2-4",
+    description: "Our team builds your high-converting website and automation systems. You'll see progress every week with regular updates.",
+    tasks: [
+      "Wireframes and mockups for approval",
+      "Mobile-first responsive design",
+      "Landing page development",
+      "Form and funnel setup",
+      "Automation workflow building"
+    ],
+    deliverable: "Staging site for review"
+  },
+  {
+    number: "04",
+    title: "Testing & Refinement",
+    duration: "Week 4-5",
+    description: "Before launch, we rigorously test everything. You'll have time to review, request changes, and ensure everything is perfect.",
+    tasks: [
+      "Cross-device testing",
+      "Performance optimization",
+      "SEO audit and fixes",
+      "Automation testing",
+      "Client review and revisions"
+    ],
+    deliverable: "Launch-ready website"
+  },
+  {
+    number: "05",
+    title: "Launch & Training",
+    duration: "Week 5-6",
+    description: "We handle the technical launch and train your team on managing leads, updating content, and using your new systems.",
+    tasks: [
+      "Domain and DNS setup",
+      "Go-live deployment",
+      "Analytics configuration",
+      "Team training sessions",
+      "Documentation handoff"
+    ],
+    deliverable: "Live website + training videos"
+  },
+  {
+    number: "06",
+    title: "Optimize & Grow",
+    duration: "Ongoing",
+    description: "Launch is just the beginning. We monitor performance, optimize conversions, and help you scale what's working.",
+    tasks: [
+      "60-day post-launch support",
+      "Performance monitoring",
+      "Conversion optimization",
+      "Monthly strategy calls (Pro+)",
+      "Continuous improvements"
+    ],
+    deliverable: "Monthly reports + optimization"
+  }
+];
+---
+
+<Layout 
+  title="Our Process" 
+  description="Learn how we work. Our proven 6-step process takes you from strategy to launch in as little as 3-4 weeks, with weekly updates and clear milestones every step of the way."
+>
+  <!-- Hero -->
+  <section class="py-16 lg:py-24 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white mb-6">
+        How We Work
+      </h1>
+      <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto mb-8">
+        No surprises, no mystery. Here's exactly what happens when you work with Lead Flow North—from first call to ongoing success.
+      </p>
+      <div class="flex flex-wrap justify-center gap-6 text-sm">
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          </svg>
+          <span class="text-slate-600 dark:text-slate-300">Weekly updates</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          </svg>
+          <span class="text-slate-600 dark:text-slate-300">Clear milestones</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          </svg>
+          <span class="text-slate-600 dark:text-slate-300">3-6 week delivery</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Steps -->
+  <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="relative">
+        <!-- Timeline line -->
+        <div class="absolute left-8 top-0 bottom-0 w-0.5 bg-slate-200 dark:bg-slate-700 hidden md:block" aria-hidden="true"></div>
+        
+        <div class="space-y-12">
+          {steps.map((step, index) => (
+            <div class="reveal relative">
+              <div class="md:flex gap-8">
+                <!-- Step number -->
+                <div class="flex-shrink-0 mb-4 md:mb-0">
+                  <div class="w-16 h-16 rounded-full bg-primary-500 text-white flex items-center justify-center font-bold text-xl relative z-10">
+                    {step.number}
+                  </div>
+                </div>
+                
+                <!-- Content -->
+                <div class="bg-slate-50 dark:bg-slate-800 rounded-2xl p-6 lg:p-8 flex-1 border border-slate-200 dark:border-slate-700">
+                  <div class="flex flex-wrap items-center gap-3 mb-4">
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white">{step.title}</h2>
+                    <span class="px-3 py-1 bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-sm font-medium rounded-full">
+                      {step.duration}
+                    </span>
+                  </div>
+                  
+                  <p class="text-slate-600 dark:text-slate-300 mb-6">{step.description}</p>
+                  
+                  <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <h3 class="font-semibold text-slate-900 dark:text-white mb-3">What we do:</h3>
+                      <ul class="space-y-2">
+                        {step.tasks.map((task) => (
+                          <li class="flex items-start gap-2 text-sm text-slate-600 dark:text-slate-400">
+                            <svg class="w-4 h-4 text-accent-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                            </svg>
+                            {task}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <h3 class="font-semibold text-slate-900 dark:text-white mb-3">You get:</h3>
+                      <div class="bg-accent-50 dark:bg-accent-900/20 rounded-xl p-4 border border-accent-200 dark:border-accent-800">
+                        <p class="text-accent-700 dark:text-accent-300 font-medium">{step.deliverable}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Communication Promise -->
+  <section class="py-16 lg:py-24 bg-slate-50 dark:bg-slate-800/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12 reveal">
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+          Our Communication Promise
+        </h2>
+        <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+          No more wondering what's happening with your project. Here's how we keep you informed.
+        </p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="reveal bg-white dark:bg-slate-900 rounded-2xl p-8 text-center border border-slate-200 dark:border-slate-700">
+          <div class="w-16 h-16 bg-primary-100 dark:bg-primary-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Weekly Video Updates</h3>
+          <p class="text-slate-600 dark:text-slate-400">
+            Every Friday, you'll receive a short video walking through what we accomplished and what's coming next week.
+          </p>
+        </div>
+        
+        <div class="reveal bg-white dark:bg-slate-900 rounded-2xl p-8 text-center border border-slate-200 dark:border-slate-700">
+          <div class="w-16 h-16 bg-accent-100 dark:bg-accent-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Project Dashboard</h3>
+          <p class="text-slate-600 dark:text-slate-400">
+            Real-time access to your project status, tasks, and timeline. See exactly where things stand at any moment.
+          </p>
+        </div>
+        
+        <div class="reveal bg-white dark:bg-slate-900 rounded-2xl p-8 text-center border border-slate-200 dark:border-slate-700">
+          <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">24-Hour Response</h3>
+          <p class="text-slate-600 dark:text-slate-400">
+            Email us anytime. We guarantee a response within 24 hours on business days—usually much faster.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 lg:py-24 bg-gradient-to-br from-primary-600 to-primary-800">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">
+        Ready to Start?
+      </h2>
+      <p class="text-lg text-primary-100 mb-8">
+        The first step is a free 30-minute discovery call. No sales pitch—just honest advice about your online presence.
+      </p>
+      <a href="/contact" class="inline-flex items-center px-8 py-4 bg-white text-primary-700 font-bold text-lg rounded-xl hover:bg-primary-50 transition-colors duration-200 shadow-xl">
+        Book Your Discovery Call
+        <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+      </a>
+    </div>
+  </section>
+</Layout>

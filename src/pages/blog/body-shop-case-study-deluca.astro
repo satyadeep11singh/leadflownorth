@@ -1,0 +1,376 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const post = {
+  title: "Case Study: How Deluca Collision Reduced Insurance Dependency by 30%",
+  description: "See how this Mississauga body shop built a direct customer base and increased profit margins with strategic marketing.",
+  publishDate: "January 18, 2026",
+  author: "Sarah Mitchell",
+  authorRole: "Client Success Manager",
+  authorImage: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&h=100&fit=crop&crop=face",
+  readTime: "9 min read",
+  category: "Case Study",
+  image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=1200&h=630&fit=crop",
+  tags: ["Body Shop", "Case Study", "Mississauga", "Direct Marketing"]
+};
+
+const results = {
+  before: {
+    insuranceRatio: "90%",
+    directRatio: "10%",
+    avgRO: "$4,200",
+    monthlyLeads: 12,
+    estimateConversion: "25%",
+    reviewRating: "4.1"
+  },
+  after: {
+    insuranceRatio: "60%",
+    directRatio: "40%",
+    avgRO: "$5,100",
+    monthlyLeads: 38,
+    estimateConversion: "42%",
+    reviewRating: "4.9"
+  }
+};
+---
+
+<Layout 
+  title={post.title}
+  description={post.description}
+>
+  <article class="py-12 lg:py-20 bg-white dark:bg-slate-900">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Header -->
+      <header class="mb-12">
+        <div class="flex items-center gap-4 text-sm mb-6">
+          <a href="/industries/auto-services/body-shops" class="text-primary-600 dark:text-primary-400 hover:underline">← Back to Body Shops</a>
+          <span class="text-slate-300 dark:text-slate-600">|</span>
+          <span class="bg-accent-100 dark:bg-accent-900/30 text-accent-700 dark:text-accent-300 px-3 py-1 rounded-full font-medium">{post.category}</span>
+        </div>
+        
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white mb-6 leading-tight">
+          {post.title}
+        </h1>
+        
+        <p class="text-xl text-slate-600 dark:text-slate-300 mb-8">
+          {post.description}
+        </p>
+        
+        <div class="flex items-center gap-4 pb-8 border-b border-slate-200 dark:border-slate-700">
+          <img 
+            src={post.authorImage} 
+            alt={post.author}
+            class="w-12 h-12 rounded-full object-cover"
+            width="48"
+            height="48"
+          />
+          <div>
+            <p class="font-semibold text-slate-900 dark:text-white">{post.author}</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400">{post.authorRole}</p>
+          </div>
+          <div class="ml-auto text-right">
+            <p class="text-sm text-slate-500 dark:text-slate-400">{post.publishDate}</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400">{post.readTime}</p>
+          </div>
+        </div>
+      </header>
+
+      <!-- Results Summary -->
+      <div class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-2xl p-8 mb-12 border border-green-200 dark:border-green-800">
+        <h2 class="text-2xl font-bold text-green-800 dark:text-green-300 mb-6 text-center">Results at a Glance</h2>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+          <div class="text-center">
+            <p class="text-4xl font-extrabold text-green-600 dark:text-green-400">40%</p>
+            <p class="text-sm text-green-700 dark:text-green-300">Direct Work Ratio</p>
+          </div>
+          <div class="text-center">
+            <p class="text-4xl font-extrabold text-green-600 dark:text-green-400">+21%</p>
+            <p class="text-sm text-green-700 dark:text-green-300">Higher Average RO</p>
+          </div>
+          <div class="text-center">
+            <p class="text-4xl font-extrabold text-green-600 dark:text-green-400">217%</p>
+            <p class="text-sm text-green-700 dark:text-green-300">More Monthly Leads</p>
+          </div>
+          <div class="text-center">
+            <p class="text-4xl font-extrabold text-green-600 dark:text-green-400">4.9★</p>
+            <p class="text-sm text-green-700 dark:text-green-300">Google Rating</p>
+          </div>
+          <div class="text-center">
+            <p class="text-4xl font-extrabold text-green-600 dark:text-green-400">42%</p>
+            <p class="text-sm text-green-700 dark:text-green-300">Estimate Conversion</p>
+          </div>
+          <div class="text-center">
+            <p class="text-4xl font-extrabold text-green-600 dark:text-green-400">30%</p>
+            <p class="text-sm text-green-700 dark:text-green-300">Less Insurance Dependent</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Featured Image -->
+      <img 
+        src={post.image}
+        alt="Collision repair vehicle"
+        class="w-full rounded-2xl mb-12 shadow-lg"
+        width="1200"
+        height="630"
+        loading="eager"
+      />
+
+      <!-- Content -->
+      <div class="prose prose-lg dark:prose-invert max-w-none">
+        
+        <h2>The Client</h2>
+        
+        <p>
+          <strong>Deluca Collision Centre</strong> is a family-owned body shop in Mississauga, Ontario. Mike Deluca took over from his father in 2019, inheriting a 12,000 sq ft facility, a skilled team of 8, and a business that was almost entirely dependent on insurance company referrals.
+        </p>
+
+        <p>
+          The shop had a solid reputation for quality work, but like most collision centres, they were caught in the DRP trap—90% of their business came through insurance programs, which meant compressed rates, parts restrictions, and constant pressure.
+        </p>
+
+        <div class="bg-slate-100 dark:bg-slate-800 rounded-xl p-6 my-8">
+          <p class="italic text-slate-600 dark:text-slate-300 mb-4">
+            "We were doing good work, but we were at the mercy of insurance companies. Every year they'd squeeze us a little more on labor rates. I knew we needed to find our own customers, but I didn't know how."
+          </p>
+          <p class="font-semibold text-slate-900 dark:text-white mb-0">— Mike Deluca, Owner</p>
+        </div>
+
+        <h2>The Challenge</h2>
+        
+        <p>
+          When Mike contacted us in January 2025, his situation was typical of many Canadian body shops:
+        </p>
+
+        <ul>
+          <li><strong>90% insurance work</strong> at rates 25% below his standard</li>
+          <li><strong>Only 12 direct leads per month</strong> from his outdated website</li>
+          <li><strong>4.1 star rating on Google</strong> with only 38 reviews</li>
+          <li><strong>No follow-up system</strong> for estimates that didn't convert</li>
+          <li><strong>No differentiation</strong> from the 15 other body shops within 10 km</li>
+        </ul>
+
+        <p>
+          Mike's goal was ambitious but clear: Get to 50% direct work within 2 years.
+        </p>
+
+        <h2>The Strategy</h2>
+        
+        <p>
+          We developed a comprehensive plan focused on four pillars:
+        </p>
+
+        <h3>1. Visual Trust Building</h3>
+        
+        <p>
+          Body work is visual—customers need to see that you can restore their car to perfection. We implemented:
+        </p>
+
+        <ul>
+          <li><strong>Professional before/after photography</strong> for every significant repair</li>
+          <li><strong>A gallery-focused website redesign</strong> showcasing their best work</li>
+          <li><strong>Weekly social media posts</strong> featuring repair transformations</li>
+          <li><strong>Video content</strong> showing the paint booth, frame machine, and technicians at work</li>
+        </ul>
+
+        <p>
+          <strong>Result:</strong> Website time-on-site increased from 45 seconds to 3.5 minutes.
+        </p>
+
+        <h3>2. Local SEO for Direct Keywords</h3>
+        
+        <p>
+          We targeted keywords that indicated direct-pay intent:
+        </p>
+
+        <ul>
+          <li>"Bumper repair Mississauga" (often cash-pay)</li>
+          <li>"Dent removal near me" (typically non-claim)</li>
+          <li>"Best body shop Mississauga" (quality shoppers)</li>
+          <li>"Lease return damage repair" (direct-pay opportunity)</li>
+          <li>"Classic car restoration GTA" (premium customers)</li>
+        </ul>
+
+        <p>
+          We also created content educating customers about their right to choose any body shop, regardless of what their insurance says.
+        </p>
+
+        <p>
+          <strong>Result:</strong> Organic search traffic up 340% in 12 months.
+        </p>
+
+        <h3>3. Estimate Follow-Up Automation</h3>
+        
+        <p>
+          Mike was giving out 30+ estimates per month but only converting about 25% of non-insurance ones. Most shops do zero follow-up.
+        </p>
+
+        <p>
+          We built an automated sequence:
+        </p>
+
+        <ol>
+          <li><strong>Same day:</strong> Text with estimate PDF and thank you</li>
+          <li><strong>Day 2:</strong> Email with before/after gallery link</li>
+          <li><strong>Day 5:</strong> Text checking in, addressing common concerns</li>
+          <li><strong>Day 10:</strong> Final follow-up with limited-time incentive</li>
+        </ol>
+
+        <p>
+          <strong>Result:</strong> Estimate conversion increased from 25% to 42%.
+        </p>
+
+        <h3>4. Review Generation at the Perfect Moment</h3>
+        
+        <p>
+          The best time to ask for a review from a body shop customer? The moment they see their fully restored car.
+        </p>
+
+        <p>
+          We trained the team to:
+        </p>
+
+        <ol>
+          <li>Personally walk the customer to their vehicle</li>
+          <li>Point out the repair work</li>
+          <li>While they're admiring it, mention the review</li>
+          <li>Hand them a card with QR code to Google reviews</li>
+          <li>Follow up with automated text 2 hours later</li>
+        </ol>
+
+        <p>
+          <strong>Result:</strong> Monthly reviews increased from 2-3 to 12-15, rating improved from 4.1 to 4.9 stars.
+        </p>
+
+        <h2>The Results (After 12 Months)</h2>
+        
+        <div class="overflow-x-auto my-8">
+          <table class="min-w-full">
+            <thead>
+              <tr>
+                <th class="text-left">Metric</th>
+                <th class="text-center">Before</th>
+                <th class="text-center">After</th>
+                <th class="text-center">Change</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Insurance Work Ratio</td>
+                <td class="text-center">{results.before.insuranceRatio}</td>
+                <td class="text-center font-bold text-green-600">{results.after.insuranceRatio}</td>
+                <td class="text-center text-green-600">-30%</td>
+              </tr>
+              <tr>
+                <td>Direct Work Ratio</td>
+                <td class="text-center">{results.before.directRatio}</td>
+                <td class="text-center font-bold text-green-600">{results.after.directRatio}</td>
+                <td class="text-center text-green-600">+300%</td>
+              </tr>
+              <tr>
+                <td>Average Repair Order</td>
+                <td class="text-center">{results.before.avgRO}</td>
+                <td class="text-center font-bold text-green-600">{results.after.avgRO}</td>
+                <td class="text-center text-green-600">+21%</td>
+              </tr>
+              <tr>
+                <td>Monthly Direct Leads</td>
+                <td class="text-center">{results.before.monthlyLeads}</td>
+                <td class="text-center font-bold text-green-600">{results.after.monthlyLeads}</td>
+                <td class="text-center text-green-600">+217%</td>
+              </tr>
+              <tr>
+                <td>Estimate Conversion</td>
+                <td class="text-center">{results.before.estimateConversion}</td>
+                <td class="text-center font-bold text-green-600">{results.after.estimateConversion}</td>
+                <td class="text-center text-green-600">+68%</td>
+              </tr>
+              <tr>
+                <td>Google Rating</td>
+                <td class="text-center">{results.before.reviewRating}★</td>
+                <td class="text-center font-bold text-green-600">{results.after.reviewRating}★</td>
+                <td class="text-center text-green-600">+0.8</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>The Financial Impact</h2>
+        
+        <p>
+          Let's look at the numbers:
+        </p>
+
+        <ul>
+          <li><strong>Monthly repairs:</strong> ~40</li>
+          <li><strong>Direct repairs (before):</strong> 4 at $4,200 avg = $16,800</li>
+          <li><strong>Direct repairs (after):</strong> 16 at $5,100 avg = $81,600</li>
+          <li><strong>Monthly revenue increase from direct work:</strong> ~$64,800</li>
+          <li><strong>Annual additional revenue:</strong> ~$777,600</li>
+          <li><strong>Investment:</strong> $2,997/month</li>
+          <li><strong>ROI:</strong> 1,800%+</li>
+        </ul>
+
+        <div class="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-6 my-8">
+          <p class="italic text-green-700 dark:text-green-300 mb-4">
+            "The direct customers are a completely different experience. They chose us—they appreciate our work, they pay faster, and they refer friends. I wish I'd done this years ago."
+          </p>
+          <p class="font-semibold text-green-800 dark:text-green-200 mb-0">— Mike Deluca</p>
+        </div>
+
+        <h2>Key Takeaways</h2>
+        
+        <ol>
+          <li><strong>Visual proof wins.</strong> Body shops sell transformations. Show your work obsessively.</li>
+          <li><strong>Direct customers exist.</strong> Many people don't want to file claims or are under-insured. Reach them.</li>
+          <li><strong>Estimates aren't the end.</strong> Systematic follow-up recovers leads you're currently losing.</li>
+          <li><strong>Review timing matters.</strong> Ask when they're standing next to their restored vehicle, not a week later.</li>
+          <li><strong>Diversification is protection.</strong> The less you depend on insurance, the more control you have.</li>
+        </ol>
+
+        <h2>Is This Right for Your Shop?</h2>
+        
+        <p>
+          This approach works best for body shops that:
+        </p>
+
+        <ul>
+          <li>Do quality work they're proud to showcase</li>
+          <li>Are tired of insurance company rate compression</li>
+          <li>Have capacity to handle more work</li>
+          <li>Want to build a business that's less vulnerable to DRP changes</li>
+        </ul>
+
+        <p>
+          If that sounds like you, let's talk. We'll do a free audit of your current situation and show you the opportunities.
+        </p>
+
+      </div>
+
+      <!-- CTA -->
+      <div class="mt-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-2xl p-8 text-center text-white">
+        <h3 class="text-2xl font-bold mb-4">Want Results Like This?</h3>
+        <p class="text-orange-100 mb-6">Book a free strategy call and we'll show you how we can help your body shop grow.</p>
+        <a href="/contact" class="inline-flex items-center px-6 py-3 bg-white text-orange-700 font-bold rounded-xl hover:bg-orange-50 transition-colors">
+          Book Your Free Strategy Call
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Tags -->
+      <div class="mt-12 pt-8 border-t border-slate-200 dark:border-slate-700">
+        <div class="flex flex-wrap gap-2">
+          {post.tags.map((tag) => (
+            <span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-full text-sm">
+              {tag}
+            </span>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </article>
+</Layout>
