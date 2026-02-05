@@ -15,7 +15,7 @@ const applySchema = {
 ---
 
 <Layout 
-  title={`Apply for ${jobTitle}`}
+  title="Apply for {position || 'this position'}"
   description="Submit your application to join the Lead Flow North team. We're excited to hear from you!"
   structuredData={applySchema}
 >
@@ -29,7 +29,7 @@ const applySchema = {
           Back to Careers
         </a>
         <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mb-3">
-          Apply for <span class="text-primary-600">{jobTitle}</span>
+          Apply for <span id="job-title-display" class="text-primary-600">this position</span>
         </h1>
         <p class="text-lg text-slate-600 dark:text-slate-400">
           Fill out the form below and we'll be in touch soon.
@@ -42,8 +42,8 @@ const applySchema = {
           <!-- Hidden Fields -->
           <input type="hidden" name="access_key" value="1044dd8b-eacf-4d46-bd1a-261f931c40da">
           <input type="hidden" name="redirect" value="https://leadflownorth.com/thank-you">
-          <input type="hidden" name="position" value={position}>
-          <input type="hidden" name="subject" value={`Job Application: ${jobTitle}`}>
+          <input type="hidden" id="position-hidden" name="position" value="">
+          <input type="hidden" id="subject-hidden" name="subject" value="">
           
           <!-- Position Display (Read-only) -->
           <div>
@@ -52,7 +52,8 @@ const applySchema = {
             </label>
             <input 
               type="text" 
-              value={jobTitle}
+              id="position-display"
+              value="this position"
               disabled
               class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-slate-100 dark:bg-slate-900/50 text-slate-900 dark:text-white font-medium cursor-not-allowed"
             >
@@ -197,6 +198,15 @@ const applySchema = {
 </Layout>
 
 <script>
+  // Hydrate position and title from query params
+  const params = new URLSearchParams(window.location.search);
+  const position = params.get('position') || '';
+  const jobTitle = params.get('title') || 'this position';
+  document.getElementById('position-display').value = jobTitle;
+  document.getElementById('job-title-display').textContent = jobTitle;
+  document.getElementById('position-hidden').value = position;
+  document.getElementById('subject-hidden').value = `Job Application: ${jobTitle}`;
+  
   // File upload elements
   const resumeInput = document.getElementById('resume') as HTMLInputElement;
   const resumeLabel = document.getElementById('resume-label');
