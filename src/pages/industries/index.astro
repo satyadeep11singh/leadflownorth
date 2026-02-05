@@ -6,6 +6,7 @@ const industries = [
     slug: "home-services",
     name: "Home Services",
     icon: "🔧",
+    tagline: "75% of leads call only once—we make sure you answer",
     description: "Plumbing, HVAC, electrical, and renovation contractors",
     subIndustries: [
       { name: "Plumbing", href: "/industries/home-services/plumbing" },
@@ -18,6 +19,7 @@ const industries = [
     slug: "legal",
     name: "Legal Services",
     icon: "⚖️",
+    tagline: "Build trust before the first consultation",
     description: "Law firms and legal practices across all specialties",
     subIndustries: [
       { name: "Personal Injury", href: "/industries/legal-services/personal-injury" },
@@ -33,6 +35,7 @@ const industries = [
     slug: "medical-dental",
     name: "Medical & Dental",
     icon: "🏥",
+    tagline: "HIPAA-aware designs that convert patients",
     description: "Clinics, dental practices, and specialty healthcare",
     subIndustries: [
       { name: "Medical Clinics", href: "/industries/medical-dental/medical-clinics" },
@@ -44,6 +47,7 @@ const industries = [
     slug: "fitness",
     name: "Fitness & Gyms",
     icon: "💪",
+    tagline: "Turn website visitors into paying members",
     description: "Gyms, studios, personal training, and fitness businesses",
     subIndustries: [
       { name: "Gyms", href: "/industries/fitness-gyms/gyms" },
@@ -58,6 +62,7 @@ const industries = [
     slug: "auto-services",
     name: "Auto Services",
     icon: "🚗",
+    tagline: "Book more appointments, reduce no-shows",
     description: "Auto repair, dealerships, detailing, and automotive businesses",
     subIndustries: [
       { name: "Auto Repair", href: "/industries/auto-services/auto-repair" },
@@ -72,6 +77,7 @@ const industries = [
     slug: "salons-spas",
     name: "Salons & Spas",
     icon: "💅",
+    tagline: "Online booking that fills your calendar",
     description: "Hair salons, barbershops, day spas, and med spas",
     subIndustries: [
       { name: "Hair Salons", href: "/industries/salons-spas/hair-salons" },
@@ -84,6 +90,7 @@ const industries = [
     slug: "ecommerce-retail",
     name: "E-commerce & Retail",
     icon: "🛒",
+    tagline: "Conversion-focused stores that sell",
     description: "Online stores and retail businesses",
     subIndustries: [
       { name: "Online Stores", href: "/industries/ecommerce-retail/online-stores" },
@@ -100,6 +107,7 @@ const industries = [
     slug: "professional-services",
     name: "Professional Services",
     icon: "💼",
+    tagline: "Establish authority and attract high-value clients",
     description: "Accountants, consultants, and business professionals",
     subIndustries: [
       { name: "Accountants", href: "/industries/professional-services/accountants" },
@@ -113,6 +121,7 @@ const industries = [
     slug: "nonprofits",
     name: "Nonprofits",
     icon: "💚",
+    tagline: "Inspire donors and grow your mission",
     description: "Charities, foundations, and nonprofit organizations",
     subIndustries: [
       { name: "Charities", href: "/industries/nonprofits/charities" },
@@ -125,6 +134,7 @@ const industries = [
     slug: "daycare-centers",
     name: "Daycare Centers",
     icon: "👶",
+    tagline: "Help parents find and trust you faster",
     description: "Childcare centers and early learning programs",
     subIndustries: [
       { name: "Daycare Centers", href: "/industries/daycare-centers/daycare-centers" },
@@ -135,6 +145,7 @@ const industries = [
     slug: "contractors-trades",
     name: "Contractors & Trades",
     icon: "🔨",
+    tagline: "Stand out from the competition locally",
     description: "General contractors and specialized trades",
     subIndustries: [
       { name: "General Contractors", href: "/industries/contractors-trades/general-contractors" },
@@ -145,6 +156,7 @@ const industries = [
     slug: "real-estate",
     name: "Real Estate",
     icon: "🏠",
+    tagline: "Generate buyer and seller leads on autopilot",
     description: "Real estate agents and property professionals",
     subIndustries: []
   },
@@ -152,63 +164,158 @@ const industries = [
     slug: "restaurants",
     name: "Restaurants",
     icon: "🍽️",
+    tagline: "Fill tables and boost online orders",
     description: "Restaurants and food service businesses",
     subIndustries: []
   }
 ];
+
+// Build search index for all industries and sub-industries
+const searchItems = industries.flatMap(industry => [
+  { name: industry.name, href: `/industries/${industry.slug}`, type: 'industry', icon: industry.icon },
+  ...industry.subIndustries.map(sub => ({
+    name: sub.name,
+    href: sub.href,
+    type: 'specialty',
+    parent: industry.name,
+    icon: industry.icon
+  }))
+]);
 ---
 
 <Layout 
   title="Industries We Serve" 
-  description="We specialize in web design and lead generation for 13 key industries including legal, medical, fitness, auto services, and more. 50+ specialized sub-industries."
+  description="We specialize in web design and lead generation for Canadian small businesses across 13 industries. Find your industry and see how we can help you grow."
 >
-  <!-- Hero -->
-  <section class="py-16 lg:py-24 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white mb-6">
-        Industries We Specialize In
+  <!-- Hero with Search -->
+  <section class="py-12 lg:py-20 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white mb-4">
+        Find Your Industry
       </h1>
-      <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-        We've worked with over 150 businesses across 13 industries and 50+ specialized niches. We understand your unique challenges.
+      <p class="text-lg text-slate-600 dark:text-slate-300 mb-8 max-w-2xl mx-auto">
+        We build websites and lead systems tailored to your specific business. Search below or browse our specialties.
       </p>
+      
+      <!-- Search Box -->
+      <div class="relative max-w-xl mx-auto">
+        <div class="relative">
+          <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <input 
+            type="text" 
+            id="industry-search"
+            placeholder="Search industries (e.g., plumbing, dental, fitness...)"
+            autocomplete="off"
+            class="w-full pl-12 pr-4 py-4 text-lg rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:border-primary-500 focus:ring-4 focus:ring-primary-500/20 transition-all"
+          />
+        </div>
+        
+        <!-- Dropdown Results -->
+        <div id="search-dropdown" class="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden z-50 hidden">
+          <div id="search-results" class="max-h-80 overflow-y-auto"></div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Industries Grid -->
-  <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
+  <!-- Industry Stats Bar -->
+  <section class="py-8 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="space-y-12">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+        <div>
+          <p class="text-2xl lg:text-3xl font-bold text-primary-600">60%+</p>
+          <p class="text-sm text-slate-600 dark:text-slate-400">Of your traffic is mobile</p>
+        </div>
+        <div>
+          <p class="text-2xl lg:text-3xl font-bold text-accent-500">75%</p>
+          <p class="text-sm text-slate-600 dark:text-slate-400">Of leads call only once</p>
+        </div>
+        <div>
+          <p class="text-2xl lg:text-3xl font-bold text-purple-600">90%</p>
+          <p class="text-sm text-slate-600 dark:text-slate-400">Of agencies hide pricing</p>
+        </div>
+        <div>
+          <p class="text-2xl lg:text-3xl font-bold text-emerald-600">&lt;3s</p>
+          <p class="text-sm text-slate-600 dark:text-slate-400">Load time we target</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Industries Accordion -->
+  <section class="py-12 lg:py-20 bg-white dark:bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="space-y-4" id="industries-accordion">
         {industries.map((industry) => (
-          <div class="bg-slate-50 dark:bg-slate-800 rounded-2xl p-6 lg:p-8">
-            <div class="flex flex-col lg:flex-row lg:items-center gap-4 mb-6">
-              <span class="text-4xl">{industry.icon}</span>
-              <div class="flex-1">
-                <a href={`/industries/${industry.slug}`} class="group">
-                  <h2 class="text-2xl font-bold text-slate-900 dark:text-white group-hover:text-primary-600 transition-colors">
-                    {industry.name}
-                  </h2>
-                </a>
-                <p class="text-slate-600 dark:text-slate-400">{industry.description}</p>
+          <div 
+            class="industry-card bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden transition-all duration-300"
+            data-slug={industry.slug}
+            data-name={industry.name.toLowerCase()}
+            data-subs={industry.subIndustries.map(s => s.name.toLowerCase()).join(',')}
+          >
+            <!-- Card Header (Always Visible) -->
+            <button 
+              class="accordion-trigger w-full p-5 lg:p-6 flex items-center gap-4 text-left hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-colors"
+              aria-expanded="false"
+            >
+              <span class="text-3xl lg:text-4xl flex-shrink-0">{industry.icon}</span>
+              <div class="flex-1 min-w-0">
+                <h2 class="text-xl lg:text-2xl font-bold text-slate-900 dark:text-white">
+                  {industry.name}
+                </h2>
+                <p class="text-sm lg:text-base text-slate-500 dark:text-slate-400 mt-1">
+                  {industry.tagline}
+                </p>
               </div>
-              <a 
-                href={`/industries/${industry.slug}`} 
-                class="inline-flex items-center px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-lg transition-colors"
-              >
-                View Industry →
-              </a>
-            </div>
-            {industry.subIndustries.length > 0 && (
-              <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3">
-                {industry.subIndustries.map((sub) => (
+              <div class="flex items-center gap-3 flex-shrink-0">
+                {industry.subIndustries.length > 0 && (
+                  <span class="hidden sm:inline-flex items-center px-2.5 py-1 text-xs font-medium bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-full">
+                    {industry.subIndustries.length} specialties
+                  </span>
+                )}
+                <svg class="accordion-icon w-5 h-5 text-slate-400 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+            </button>
+            
+            <!-- Expandable Content -->
+            <div class="accordion-content hidden">
+              <div class="px-5 lg:px-6 pb-5 lg:pb-6 pt-0">
+                <div class="border-t border-slate-200 dark:border-slate-600 pt-5">
+                  <p class="text-slate-600 dark:text-slate-300 mb-4">{industry.description}</p>
+                  
+                  {industry.subIndustries.length > 0 ? (
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-4">
+                      {industry.subIndustries.map((sub) => (
+                        <a 
+                          href={sub.href} 
+                          class="px-3 py-2 bg-white dark:bg-slate-700 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors border border-slate-200 dark:border-slate-600 text-center"
+                        >
+                          {sub.name}
+                        </a>
+                      ))}
+                    </div>
+                  ) : (
+                    <p class="text-sm text-slate-500 dark:text-slate-400 italic mb-4">
+                      Full industry page coming soon
+                    </p>
+                  )}
+                  
                   <a 
-                    href={sub.href} 
-                    class="bg-white dark:bg-slate-700 px-4 py-3 rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-primary-50 dark:hover:bg-primary-900/20 hover:text-primary-600 dark:hover:text-primary-400 transition-colors border border-slate-200 dark:border-slate-600"
+                    href={`/industries/${industry.slug}`}
+                    class="inline-flex items-center text-primary-600 dark:text-primary-400 font-medium hover:underline"
                   >
-                    {sub.name}
+                    View {industry.name} page
+                    <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
                   </a>
-                ))}
+                </div>
               </div>
-            )}
+            </div>
           </div>
         ))}
       </div>
@@ -216,25 +323,25 @@ const industries = [
   </section>
 
   <!-- Why Industry Focus -->
-  <section class="py-16 lg:py-24 bg-slate-50 dark:bg-slate-800/50">
+  <section class="py-12 lg:py-20 bg-slate-50 dark:bg-slate-800/50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div>
-          <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-6">
-            Why We Specialize
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-6">
+            Why We Specialize by Industry
           </h2>
           <p class="text-lg text-slate-600 dark:text-slate-300 mb-6">
-            Generic agencies try to serve everyone. We focus on industries where we've proven we can deliver results.
+            Generic agencies try to serve everyone. We focus on industries where we understand your customers and what makes them buy.
           </p>
           <ul class="space-y-4">
             {[
               "We understand your customers' buying journey",
               "We know what messaging converts in your industry",
               "We've built templates optimized for your business type",
-              "We can show you case studies from similar businesses"
+              "We speak your language—no tech jargon"
             ].map((item) => (
-              <li class="flex items-center gap-3">
-                <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-accent-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                 </svg>
                 <span class="text-slate-700 dark:text-slate-300">{item}</span>
@@ -244,12 +351,12 @@ const industries = [
         </div>
         <div>
           <div class="bg-white dark:bg-slate-900 rounded-2xl p-8 shadow-xl border border-slate-200 dark:border-slate-700">
-            <p class="text-4xl font-extrabold text-primary-600 mb-2">150+</p>
-            <p class="text-slate-600 dark:text-slate-400 mb-6">Businesses served across these industries</p>
-            <p class="text-4xl font-extrabold text-accent-500 mb-2">94%</p>
-            <p class="text-slate-600 dark:text-slate-400 mb-6">Client retention rate</p>
-            <p class="text-4xl font-extrabold text-purple-600 mb-2">3.2x</p>
-            <p class="text-slate-600 dark:text-slate-400">Average ROI for our clients</p>
+            <p class="text-3xl lg:text-4xl font-extrabold text-primary-600 mb-2">13</p>
+            <p class="text-slate-600 dark:text-slate-400 mb-6">Industries we specialize in</p>
+            <p class="text-3xl lg:text-4xl font-extrabold text-accent-500 mb-2">50+</p>
+            <p class="text-slate-600 dark:text-slate-400 mb-6">Sub-industry specialties</p>
+            <p class="text-3xl lg:text-4xl font-extrabold text-purple-600 mb-2">100%</p>
+            <p class="text-slate-600 dark:text-slate-400">Transparent pricing</p>
           </div>
         </div>
       </div>
@@ -257,9 +364,9 @@ const industries = [
   </section>
 
   <!-- CTA -->
-  <section class="py-16 lg:py-24 bg-gradient-to-br from-primary-600 to-primary-800">
+  <section class="py-12 lg:py-20 bg-gradient-to-br from-primary-600 to-primary-800">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">
         Don't See Your Industry?
       </h2>
       <p class="text-lg text-primary-100 mb-8">
@@ -274,3 +381,125 @@ const industries = [
     </div>
   </section>
 </Layout>
+
+<script define:vars={{ searchItems }}>
+  // Search functionality
+  const searchInput = document.getElementById('industry-search');
+  const searchDropdown = document.getElementById('search-dropdown');
+  const searchResults = document.getElementById('search-results');
+  const industryCards = document.querySelectorAll('.industry-card');
+  
+  // Accordion functionality
+  const accordionTriggers = document.querySelectorAll('.accordion-trigger');
+  
+  accordionTriggers.forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const card = trigger.closest('.industry-card');
+      const content = card.querySelector('.accordion-content');
+      const icon = trigger.querySelector('.accordion-icon');
+      const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+      
+      // Close all other accordions
+      accordionTriggers.forEach(otherTrigger => {
+        if (otherTrigger !== trigger) {
+          const otherCard = otherTrigger.closest('.industry-card');
+          const otherContent = otherCard.querySelector('.accordion-content');
+          const otherIcon = otherTrigger.querySelector('.accordion-icon');
+          otherTrigger.setAttribute('aria-expanded', 'false');
+          otherContent.classList.add('hidden');
+          otherIcon.classList.remove('rotate-180');
+        }
+      });
+      
+      // Toggle current accordion
+      trigger.setAttribute('aria-expanded', !isExpanded);
+      content.classList.toggle('hidden');
+      icon.classList.toggle('rotate-180');
+      
+      // Update URL hash
+      if (!isExpanded) {
+        history.replaceState(null, '', `#${card.dataset.slug}`);
+      } else {
+        history.replaceState(null, '', window.location.pathname);
+      }
+    });
+  });
+  
+  // Open accordion from URL hash on page load
+  function openFromHash() {
+    const hash = window.location.hash.slice(1);
+    if (hash) {
+      const targetCard = document.querySelector(`[data-slug="${hash}"]`);
+      if (targetCard) {
+        const trigger = targetCard.querySelector('.accordion-trigger');
+        trigger.click();
+        targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+  }
+  
+  // Run on page load
+  openFromHash();
+  
+  // Listen for hash changes
+  window.addEventListener('hashchange', openFromHash);
+  
+  // Search functionality
+  searchInput.addEventListener('input', (e) => {
+    const query = e.target.value.toLowerCase().trim();
+    
+    if (query.length === 0) {
+      searchDropdown.classList.add('hidden');
+      // Show all cards
+      industryCards.forEach(card => card.classList.remove('hidden'));
+      return;
+    }
+    
+    // Filter search items
+    const matches = searchItems.filter(item => 
+      item.name.toLowerCase().includes(query) ||
+      (item.parent && item.parent.toLowerCase().includes(query))
+    ).slice(0, 8);
+    
+    // Filter visible industry cards
+    industryCards.forEach(card => {
+      const name = card.dataset.name;
+      const subs = card.dataset.subs;
+      const isMatch = name.includes(query) || subs.includes(query);
+      card.classList.toggle('hidden', !isMatch);
+    });
+    
+    if (matches.length > 0) {
+      searchResults.innerHTML = matches.map(item => `
+        <a href="${item.href}" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors border-b border-slate-100 dark:border-slate-700 last:border-0">
+          <span class="text-2xl">${item.icon}</span>
+          <div class="flex-1">
+            <p class="font-medium text-slate-900 dark:text-white">${item.name}</p>
+            ${item.type === 'specialty' ? `<p class="text-xs text-slate-500 dark:text-slate-400">${item.parent}</p>` : ''}
+          </div>
+          <span class="text-xs px-2 py-1 rounded-full ${item.type === 'industry' ? 'bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300' : 'bg-slate-100 dark:bg-slate-600 text-slate-600 dark:text-slate-300'}">
+            ${item.type === 'industry' ? 'Industry' : 'Specialty'}
+          </span>
+        </a>
+      `).join('');
+      searchDropdown.classList.remove('hidden');
+    } else {
+      searchDropdown.classList.add('hidden');
+    }
+  });
+  
+  // Close dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!searchInput.contains(e.target) && !searchDropdown.contains(e.target)) {
+      searchDropdown.classList.add('hidden');
+    }
+  });
+  
+  // Close dropdown on escape
+  searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      searchDropdown.classList.add('hidden');
+      searchInput.blur();
+    }
+  });
+</script>

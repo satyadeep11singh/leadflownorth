@@ -4,7 +4,7 @@ import Layout from '../layouts/Layout.astro';
 const team = [
   {
     name: "Satyadeep Singh",
-    role: "Co-Founder & COO",
+    role: "Co-Founder & CTO",
     bio: "Full-stack developer and digital strategist with a passion for building systems that drive real business results. Deep founded Lead Flow North to bridge the gap between enterprise technology and small business needs.",
     image: "/images/founders/satyadeep.jpeg",
     linkedin: "https://www.linkedin.com/in/satyadeep-singh/",
@@ -15,19 +15,15 @@ const team = [
     role: "Co-Founder & CEO",
     bio: "15+ years of experience in enterprise solutions and client success across tech giants and Fortune 500 companies. Naveen brings operational excellence and a client-first approach to every project.",
     image: "/images/founders/naveen.jpg",
+    linkedin: "https://www.linkedin.com/in/naveen-gangishetty/",
     email: "Naveen@leadflownorth.com"
   },
   {
-    name: "Marcus Williams",
-    role: "Lead Developer",
-    bio: "Full-stack developer specializing in high-performance websites. Obsessed with page speed and user experience.",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face"
-  },
-  {
-    name: "Elena Rodriguez",
-    role: "Client Success Manager",
-    bio: "Your main point of contact. 8 years in client services, ensuring every project exceeds expectations.",
-    image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=300&h=300&fit=crop&crop=face"
+    name: "Monika Singh",
+    role: "COO",
+    bio: "Operations specialist ensuring seamless project delivery and client satisfaction. Monika keeps everything running smoothly behind the scenes.",
+    image: "/images/founders/monika.jpeg",
+    linkedin: "https://www.linkedin.com/in/monika2023singh/"
   }
 ];
 
@@ -79,21 +75,21 @@ const values = [
           <div class="grid grid-cols-2 gap-4">
             <div class="space-y-4">
               <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg">
-                <p class="text-4xl font-extrabold text-primary-600 mb-1">150+</p>
-                <p class="text-slate-600 dark:text-slate-400">Projects delivered</p>
+                <p class="text-4xl font-extrabold text-primary-600 mb-1">50%</p>
+                <p class="text-slate-600 dark:text-slate-400">Founding client discount</p>
               </div>
               <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg">
-                <p class="text-4xl font-extrabold text-accent-500 mb-1">94%</p>
-                <p class="text-slate-600 dark:text-slate-400">Client retention</p>
+                <p class="text-4xl font-extrabold text-accent-500 mb-1">14</p>
+                <p class="text-slate-600 dark:text-slate-400">Day launch guarantee</p>
               </div>
             </div>
             <div class="space-y-4 mt-8">
               <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg">
-                <p class="text-4xl font-extrabold text-purple-600 mb-1">8</p>
-                <p class="text-slate-600 dark:text-slate-400">Industries served</p>
+                <p class="text-4xl font-extrabold text-purple-600 mb-1">60</p>
+                <p class="text-slate-600 dark:text-slate-400">Days free support</p>
               </div>
               <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg">
-                <p class="text-4xl font-extrabold text-amber-500 mb-1">2019</p>
+                <p class="text-4xl font-extrabold text-amber-500 mb-1">2026</p>
                 <p class="text-slate-600 dark:text-slate-400">Year founded</p>
               </div>
             </div>
@@ -122,10 +118,10 @@ const values = [
           Meanwhile, Deep was building websites and marketing systems, watching small business owners struggle with agencies that delivered pretty designs but zero results. They'd pay thousands for a website, then wonder why their phone never rang.
         </p>
         <p>
-          In 2019, the two connected and realized they had complementary skills: Deep's technical expertise and Naveen's enterprise-level operational knowledge. Together, they could bring Fortune 500 marketing systems to Main Street businesses—at prices that made sense.
+          In 2026, the two connected and realized they had complementary skills: Deep's technical expertise and Naveen's enterprise-level operational knowledge. Together, they could bring Fortune 500 marketing systems to Main Street businesses—at prices that made sense.
         </p>
         <p>
-          <strong>That's Lead Flow North.</strong> We're not trying to be the biggest agency. We're focused on being the best partner for Canadian small businesses who want real results—not just a pretty website that collects dust.
+          <strong>That's Lead Flow North.</strong> We're a brand new company, and we're looking for founding clients to build something special together. We're not trying to be the biggest agency. We're focused on being the best partner for Canadian small businesses who want real results—not just a pretty website that collects dust.
         </p>
       </div>
     </div>
@@ -167,21 +163,22 @@ const values = [
         </p>
       </div>
       
-      <!-- Founders Row -->
-      <div class="grid md:grid-cols-2 gap-8 mb-12 max-w-4xl mx-auto">
-        {team.slice(0, 2).map((member) => (
+      <!-- Team Members -->
+      <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        {team.map((member) => (
           <div class="reveal bg-slate-50 dark:bg-slate-800 rounded-2xl p-8 text-center">
             <img 
               src={member.image} 
               alt={member.name}
-              class="w-40 h-40 rounded-full mx-auto mb-6 object-cover border-4 border-white dark:border-slate-700 shadow-lg"
+              class="w-32 h-32 rounded-full mx-auto mb-6 object-cover border-4 border-white dark:border-slate-700 shadow-lg"
               loading="lazy"
-              width="160"
-              height="160"
+              decoding="async"
+              width="128"
+              height="128"
             />
             <h3 class="text-xl font-bold text-slate-900 dark:text-white">{member.name}</h3>
             <p class="text-primary-600 dark:text-primary-400 font-medium mb-3">{member.role}</p>
-            <p class="text-slate-600 dark:text-slate-400 mb-4">{member.bio}</p>
+            <p class="text-slate-600 dark:text-slate-400 mb-4 text-sm">{member.bio}</p>
             <div class="flex items-center justify-center gap-3">
               {member.linkedin && (
                 <a href={member.linkedin} target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-primary-600 transition-colors" aria-label={`${member.name} on LinkedIn`}>
@@ -194,25 +191,6 @@ const values = [
                 </a>
               )}
             </div>
-          </div>
-        ))}
-      </div>
-      
-      <!-- Other Team Members -->
-      <div class="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
-        {team.slice(2).map((member) => (
-          <div class="reveal text-center">
-            <img 
-              src={member.image} 
-              alt={member.name}
-              class="w-32 h-32 rounded-full mx-auto mb-4 object-cover"
-              loading="lazy"
-              width="128"
-              height="128"
-            />
-            <h3 class="text-lg font-bold text-slate-900 dark:text-white">{member.name}</h3>
-            <p class="text-primary-600 dark:text-primary-400 font-medium mb-3">{member.role}</p>
-            <p class="text-sm text-slate-600 dark:text-slate-400">{member.bio}</p>
           </div>
         ))}
       </div>
@@ -265,21 +243,51 @@ const values = [
     </div>
   </section>
 
+  <!-- Industry Stats Bar -->
+  <section class="py-8 bg-white dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+        <div>
+          <p class="text-2xl lg:text-3xl font-bold text-primary-600">60%+</p>
+          <p class="text-sm text-slate-600 dark:text-slate-400">Of your traffic is mobile</p>
+        </div>
+        <div>
+          <p class="text-2xl lg:text-3xl font-bold text-accent-500">75%</p>
+          <p class="text-sm text-slate-600 dark:text-slate-400">Of leads call only once</p>
+        </div>
+        <div>
+          <p class="text-2xl lg:text-3xl font-bold text-purple-600">90%</p>
+          <p class="text-sm text-slate-600 dark:text-slate-400">Of agencies hide pricing</p>
+        </div>
+        <div>
+          <p class="text-2xl lg:text-3xl font-bold text-emerald-600">&lt;3s</p>
+          <p class="text-sm text-slate-600 dark:text-slate-400">Load time we target</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA -->
-  <section class="py-16 lg:py-24 bg-gradient-to-br from-primary-600 to-primary-800">
+  <section class="py-16 lg:py-24 bg-gradient-to-br from-primary-600 to-primary-800 dark:from-primary-800 dark:to-primary-950">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">
-        Let's Work Together
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
+        Let's Build Something Together
       </h2>
-      <p class="text-lg text-primary-100 mb-8">
-        Ready to grow your business? We'd love to learn more about your goals and show you how we can help.
+      <p class="text-lg sm:text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
+        Book a free 15-minute discovery call. No sales pitch—just an honest conversation about your goals and whether we're the right fit. As a founding client, you'll get 50% off and direct founder access.
       </p>
-      <a href="/contact" class="inline-flex items-center px-8 py-4 bg-white text-primary-700 font-bold text-lg rounded-xl hover:bg-primary-50 transition-colors duration-200 shadow-xl">
-        Get in Touch
-        <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-        </svg>
-      </a>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/contact?founding=true" class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary-700 font-bold text-lg rounded-xl hover:bg-primary-50 transition-colors duration-200 shadow-xl">
+          Apply as Founding Client
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+        </a>
+        <a href="/services" class="inline-flex items-center justify-center px-8 py-4 bg-transparent text-white font-semibold text-lg rounded-xl border-2 border-white/50 hover:bg-white/10 hover:border-white transition-colors duration-200">
+          View Pricing
+        </a>
+      </div>
+      <p class="mt-6 text-sm text-primary-200">Only 5 founding client spots available. Transparent pricing on our services page.</p>
     </div>
   </section>
 </Layout>

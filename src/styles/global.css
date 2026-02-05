@@ -193,6 +193,22 @@ html {
   contain-intrinsic-size: auto 500px;
 }
 
+/* Optimize image rendering */
+img {
+  content-visibility: auto;
+}
+
+/* GPU acceleration for animated elements */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Optimize large text blocks */
+.optimize-legibility {
+  text-rendering: optimizeLegibility;
+}
+
 /* Custom scrollbar for dark mode */
 :root.dark ::-webkit-scrollbar {
   width: 10px;

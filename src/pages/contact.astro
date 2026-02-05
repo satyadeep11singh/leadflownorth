@@ -12,7 +12,7 @@ const contactSchema = {
 
 <Layout 
   title="Contact Us" 
-  description="Get in touch with Lead Flow North. Book a free 30-minute strategy call or send us a message. We typically respond within 24 hours."
+  description="Get in touch with Lead Flow North. Book a free 15-minute discovery call or send us a message. We typically respond within 24 hours."
   structuredData={contactSchema}
 >
   <!-- Hero -->
@@ -25,7 +25,7 @@ const contactSchema = {
             Let's Talk About Growing Your Business
           </h1>
           <p class="text-lg text-slate-600 dark:text-slate-300 mb-8">
-            Book a free 30-minute strategy call or send us a message. No sales pressure—just honest advice about your online presence and how we can help.
+            Book a free 15-minute discovery call or send us a message. No sales pressure—just honest advice about your online presence and how we can help.
           </p>
           
           <!-- Contact Info -->
@@ -220,6 +220,30 @@ const contactSchema = {
     </div>
   </section>
 
+  <!-- Industry Stats Bar -->
+  <section class="py-8 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+        <div>
+          <p class="text-2xl lg:text-3xl font-bold text-primary-600">60%+</p>
+          <p class="text-sm text-slate-600 dark:text-slate-400">Of your traffic is mobile</p>
+        </div>
+        <div>
+          <p class="text-2xl lg:text-3xl font-bold text-accent-500">75%</p>
+          <p class="text-sm text-slate-600 dark:text-slate-400">Of leads call only once</p>
+        </div>
+        <div>
+          <p class="text-2xl lg:text-3xl font-bold text-purple-600">90%</p>
+          <p class="text-sm text-slate-600 dark:text-slate-400">Of agencies hide pricing</p>
+        </div>
+        <div>
+          <p class="text-2xl lg:text-3xl font-bold text-emerald-600">&lt;3s</p>
+          <p class="text-sm text-slate-600 dark:text-slate-400">Load time we target</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Book a Call CTA -->
   <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -228,7 +252,7 @@ const contactSchema = {
           Prefer to Talk?
         </h2>
         <p class="text-lg text-slate-600 dark:text-slate-300 mb-8 max-w-2xl mx-auto">
-          Book a free 30-minute strategy call. We'll review your current online presence, discuss your goals, and give you honest advice—whether you hire us or not.
+          Book a free 15-minute discovery call. We'll review your current online presence, discuss your goals, and give you honest advice—whether you hire us or not.
         </p>
         <a 
           href="#" 
@@ -255,7 +279,7 @@ const contactSchema = {
       <div class="space-y-4">
         {[
           { q: "How quickly do you respond?", a: "We typically respond to all inquiries within 24 hours on business days. Most messages get a reply within a few hours." },
-          { q: "Do you offer free consultations?", a: "Yes! Our 30-minute strategy call is completely free with no obligation. We'll give you honest advice whether you hire us or not." },
+          { q: "Do you offer free consultations?", a: "Yes! Our 15-minute discovery call is completely free with no obligation. We'll give you honest advice whether you hire us or not." },
           { q: "What's the best way to reach you?", a: "For quick questions, email is best. For project discussions, we recommend booking a call so we can give you our full attention." }
         ].map((faq) => (
           <details class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700">
@@ -271,6 +295,30 @@ const contactSchema = {
           </details>
         ))}
       </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 lg:py-24 bg-gradient-to-br from-primary-600 to-primary-800 dark:from-primary-800 dark:to-primary-950">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
+        Let's Build Something Together
+      </h2>
+      <p class="text-lg sm:text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
+        Book a free 15-minute discovery call. No sales pitch—just an honest conversation about your goals and whether we're the right fit. As a founding client, you'll get 50% off and direct founder access.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/contact?founding=true" class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary-700 font-bold text-lg rounded-xl hover:bg-primary-50 transition-colors duration-200 shadow-xl">
+          Apply as Founding Client
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+        </a>
+        <a href="/services" class="inline-flex items-center justify-center px-8 py-4 bg-transparent text-white font-semibold text-lg rounded-xl border-2 border-white/50 hover:bg-white/10 hover:border-white transition-colors duration-200">
+          View Pricing
+        </a>
+      </div>
+      <p class="mt-6 text-sm text-primary-200">Only 5 founding client spots available. Transparent pricing on our services page.</p>
     </div>
   </section>
 </Layout>

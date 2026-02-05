@@ -1,102 +1,41 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-// Home page structured data with AggregateRating
+// Home page structured data - Clean, honest schema for pre-launch startup
 const homeSchema = {
   "@context": "https://schema.org",
   "@type": "WebPage",
   "name": "Lead Flow North - Web Design & Lead Generation for Canadian Small Businesses",
-  "description": "We build high-converting websites and automated lead generation systems for small businesses in Ontario and Alberta. Transparent pricing, real results.",
+  "description": "We build high-converting websites and automated lead generation systems for small businesses in Ontario and Alberta. Transparent pricing, founder-led service.",
   "url": "https://leadflownorth.com",
   "mainEntity": {
     "@type": "LocalBusiness",
     "name": "Lead Flow North",
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "reviewCount": "47",
-      "bestRating": "5",
-      "worstRating": "1"
-    },
-    "review": [
-      {
-        "@type": "Review",
-        "reviewRating": {
-          "@type": "Rating",
-          "ratingValue": "5",
-          "bestRating": "5"
-        },
-        "author": {
-          "@type": "Person",
-          "name": "Marco Valenti"
-        },
-        "datePublished": "2024-11-15",
-        "reviewBody": "We were invisible online. Now we're booked 3 weeks out. Lead Flow North built us a system that actually brings in quality jobs, not tire-kickers."
-      },
-      {
-        "@type": "Review",
-        "reviewRating": {
-          "@type": "Rating",
-          "ratingValue": "5",
-          "bestRating": "5"
-        },
-        "author": {
-          "@type": "Person",
-          "name": "Anika Sharma"
-        },
-        "datePublished": "2024-10-28",
-        "reviewBody": "Our intake was a mess—calls getting lost, follow-ups falling through the cracks. Now every lead is tracked and nurtured automatically. Game changer."
-      },
-      {
-        "@type": "Review",
-        "reviewRating": {
-          "@type": "Rating",
-          "ratingValue": "5",
-          "bestRating": "5"
-        },
-        "author": {
-          "@type": "Person",
-          "name": "Dr. Kwame Asante"
-        },
-        "datePublished": "2024-09-12",
-        "reviewBody": "No-shows were killing us. The automated reminders and easy online booking have completely changed how we run the front desk."
-      }
-    ]
+    "description": "A founder-led web design and lead generation agency helping Canadian small businesses grow online with transparent pricing and modern marketing systems.",
+    "foundingDate": "2026",
+    "areaServed": ["Ontario", "Alberta", "Canada"],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+1-905-783-5996",
+      "email": "hello@leadflownorth.com",
+      "contactType": "sales"
+    }
   }
 };
 
-// Testimonials data with optimized image URLs
-const testimonials = [
-  {
-    name: "Marco Valenti",
-    role: "Owner",
-    company: "Valenti Plumbing & Mechanical",
-    location: "Scarborough, ON",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=112&h=112&fit=crop&crop=face&q=80",
-    quote: "We were invisible online. Now we're booked 3 weeks out. Lead Flow North built us a system that actually brings in quality jobs, not tire-kickers.",
-    stat: "340%",
-    statLabel: "more leads"
-  },
-  {
-    name: "Anika Sharma",
-    role: "Managing Partner",
-    company: "Sharma Gupta LLP",
-    location: "Edmonton, AB",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=112&h=112&fit=crop&crop=face&q=80",
-    quote: "Our intake was a mess—calls getting lost, follow-ups falling through the cracks. Now every lead is tracked and nurtured automatically. Game changer.",
-    stat: "2x",
-    statLabel: "consultations"
-  },
-  {
-    name: "Dr. Kwame Asante",
-    role: "Clinic Director",
-    company: "Lakeshore Family Dental",
-    location: "Etobicoke, ON",
-    image: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=112&h=112&fit=crop&crop=face&q=80",
-    quote: "No-shows were killing us. The automated reminders and easy online booking have completely changed how we run the front desk.",
-    stat: "60%",
-    statLabel: "fewer no-shows"
-  }
+// Founding client benefits for early adopter program
+const foundingClientBenefits = [
+  "50% off any website package",
+  "Lifetime pricing lock on monthly services",
+  "Featured as a case study (with your permission)",
+  "Direct access to founders throughout your project"
+];
+
+// What we ask in return
+const foundingClientAsk = [
+  "Honest feedback as we build your system",
+  "A testimonial if you're happy with results",
+  "Patience as we fine-tune our process"
 ];
 
 // Industries we serve - matching actual page routes
@@ -115,56 +54,12 @@ const industries = [
   { name: "Restaurants", icon: "🍽️", href: "/industries/restaurants" }
 ];
 
-// Stats
-const stats = [
-  { value: "150+", label: "Projects Delivered" },
-  { value: "94%", label: "Client Retention" },
-  { value: "3.2x", label: "Average ROI" },
-  { value: "14 days", label: "Avg. Launch Time" }
-];
-
-// Partner Badges with local logos
-const partnerBadges = [
-  { 
-    name: "Google Partner", 
-    logo: "/images/partners/google-partner.svg",
-    alt: "Google Partner certified digital marketing agency"
-  },
-  { 
-    name: "Meta Business Partner", 
-    logo: "/images/partners/meta-partner.png",
-    alt: "Meta Business Partner certified for Facebook and Instagram advertising"
-  },
-  { 
-    name: "BBB Accredited", 
-    logo: "/images/partners/bbb-accredited.png",
-    alt: "Better Business Bureau accredited business with A+ rating"
-  },
-  { 
-    name: "Canadian Chamber", 
-    logo: "/images/partners/canadian-chamber.png",
-    alt: "Canadian Chamber of Commerce member business"
-  },
-  { 
-    name: "Shopify Partner", 
-    logo: "/images/partners/shopify-partner.png",
-    alt: "Official Shopify Partner for e-commerce development"
-  },
-  { 
-    name: "HubSpot Partner", 
-    logo: "/images/partners/hubspot-partner.png",
-    alt: "HubSpot Solutions Partner for marketing automation"
-  },
-  { 
-    name: "Cloudflare Partner", 
-    logo: "/images/partners/cloudflare-partner.png",
-    alt: "Cloudflare Partner for web security and performance"
-  },
-  { 
-    name: "Stripe Verified", 
-    logo: "/images/partners/stripe-partner.png",
-    alt: "Stripe Verified Partner for secure payment processing"
-  }
+// Guarantees - replacing fake stats with real commitments
+const guarantees = [
+  { icon: "💰", title: "Fixed Pricing", description: "Know exactly what you're paying upfront—no surprises" },
+  { icon: "🚀", title: "14-Day Launch", description: "Live site in 2 weeks, not 2 months" },
+  { icon: "🤝", title: "60-Day Support", description: "We're with you after launch, not gone the next day" },
+  { icon: "🔓", title: "No Lock-In", description: "Month-to-month service, cancel anytime" }
 ];
 ---
 
@@ -185,18 +80,18 @@ const partnerBadges = [
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <!-- Left: Content -->
         <div class="animate-fade-in">
-          <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary-100 dark:bg-primary-900/30 rounded-full mb-6">
+          <div class="inline-flex items-center gap-2 px-4 py-2 bg-accent-100 dark:bg-accent-900/30 rounded-full mb-6">
             <span class="w-2 h-2 bg-accent-500 rounded-full animate-pulse"></span>
-            <span class="text-sm font-medium text-primary-700 dark:text-primary-300">Trusted by 150+ Canadian businesses</span>
+            <span class="text-sm font-medium text-accent-700 dark:text-accent-300">🎉 Founding Client Special: 50% off for our first 5 clients</span>
           </div>
           
           <h1 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-slate-900 dark:text-white leading-tight mb-6">
-            We Build Websites That
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-accent-500">Generate Leads</span>
+            Your Website Should Be Your
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-accent-500">Best Salesperson</span>
           </h1>
           
           <p class="text-lg sm:text-xl text-slate-700 dark:text-slate-300 mb-8 max-w-prose leading-relaxed">
-            Stop paying for pretty websites that don't convert. We create high-performance lead generation systems for Canadian small businesses with <strong>transparent pricing</strong> and <strong>guaranteed results</strong>.
+            We've spent years building conversion systems for brands and agencies. Now we're bringing that expertise directly to Canadian small businesses—<strong>without the agency markup</strong>.
           </p>
           
           <div class="flex flex-col sm:flex-row gap-4 mb-8">
@@ -226,7 +121,7 @@ const partnerBadges = [
               <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
               </svg>
-              <span>No contracts</span>
+              <span>No long-term contracts</span>
             </div>
             <div class="flex items-center gap-2">
               <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
@@ -238,7 +133,7 @@ const partnerBadges = [
               <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
               </svg>
-              <span>Results guaranteed</span>
+              <span>Direct founder access</span>
             </div>
           </div>
         </div>
@@ -297,127 +192,21 @@ const partnerBadges = [
     </div>
   </section>
 
-  <!-- Stats Section - Quick credibility -->
+  <!-- Guarantees Section - Replacing fake stats with real commitments -->
   <section class="py-12 lg:py-16 bg-slate-900 dark:bg-slate-950">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <p class="text-center text-sm font-medium text-slate-400 mb-8 tracking-wide uppercase">Our Guarantee to You</p>
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
-        {stats.map((stat) => (
+        {guarantees.map((item) => (
           <div class="text-center reveal">
-            <p class="text-4xl sm:text-5xl font-extrabold text-white mb-2">{stat.value}</p>
-            <p class="text-slate-300">{stat.label}</p>
+            <p class="text-4xl mb-3">{item.icon}</p>
+            <p class="text-xl font-bold text-white mb-2">{item.title}</p>
+            <p class="text-slate-400 text-sm">{item.description}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
-
-  <!-- Partner Badges Carousel -->
-  <section class="py-12 bg-white dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800 overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <p class="text-center text-sm font-medium text-slate-600 dark:text-slate-400 mb-8 tracking-wide">
-        CERTIFICATIONS & PARTNERSHIPS
-      </p>
-      
-      <!-- Carousel Container -->
-      <div class="relative overflow-hidden">
-        <!-- Gradient Masks for smooth edges - hidden on mobile, visible on larger screens -->
-        <div class="hidden sm:block absolute left-0 top-0 bottom-0 w-16 md:w-24 lg:w-32 xl:w-48 bg-gradient-to-r from-white to-transparent dark:from-slate-900 z-10 pointer-events-none"></div>
-        <div class="hidden sm:block absolute right-0 top-0 bottom-0 w-16 md:w-24 lg:w-32 xl:w-48 bg-gradient-to-l from-white to-transparent dark:from-slate-900 z-10 pointer-events-none"></div>
-        
-        <!-- Scrolling Track -->
-        <div class="partner-carousel flex items-center">
-          <!-- First set of logos -->
-          <div class="partner-track flex items-center gap-8 sm:gap-12 lg:gap-20 xl:gap-24 animate-scroll px-4">
-            {partnerBadges.map((partner, index) => (
-              <div class="flex-shrink-0 flex flex-col items-center gap-2 min-w-[100px] sm:min-w-[140px] lg:min-w-[160px]">
-                <div class="h-12 lg:h-14 w-auto flex items-center justify-center hover:scale-105 transition-transform duration-300">
-                  <img 
-                    src={partner.logo} 
-                    alt={partner.alt} 
-                    class="h-10 lg:h-12 w-auto max-w-[100px] sm:max-w-[120px] lg:max-w-[140px] object-contain"
-                    loading={index < 4 ? "eager" : "lazy"}
-                    fetchpriority={index === 0 ? "high" : undefined}
-                    decoding={index < 4 ? "sync" : "async"}
-                    width="140"
-                    height="48"
-                  />
-                </div>
-                <span class="text-xs text-slate-700 dark:text-slate-300 text-center whitespace-nowrap font-medium">{partner.name}</span>
-              </div>
-            ))}
-          </div>
-          <!-- Duplicate set for seamless loop -->
-          <div class="partner-track flex items-center gap-8 sm:gap-12 lg:gap-20 xl:gap-24 animate-scroll px-4" aria-hidden="true">
-            {partnerBadges.map((partner) => (
-              <div class="flex-shrink-0 flex flex-col items-center gap-2 min-w-[100px] sm:min-w-[140px] lg:min-w-[160px]">
-                <div class="h-12 lg:h-14 w-auto flex items-center justify-center hover:scale-105 transition-transform duration-300">
-                  <img 
-                    src={partner.logo} 
-                    alt="" 
-                    class="h-10 lg:h-12 w-auto max-w-[100px] sm:max-w-[120px] lg:max-w-[140px] object-contain"
-                    loading="lazy"
-                    width="140"
-                    height="48"
-                  />
-                </div>
-                <span class="text-xs text-slate-700 dark:text-slate-300 text-center whitespace-nowrap font-medium">{partner.name}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <style>
-    .partner-carousel {
-      width: max-content;
-      contain: layout style;
-    }
-    
-    .animate-scroll {
-      animation: scroll 35s linear infinite;
-      will-change: transform;
-    }
-    
-    .partner-carousel:hover .animate-scroll {
-      animation-play-state: paused;
-    }
-    
-    @keyframes scroll {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(calc(-100% - 2rem));
-      }
-    }
-    
-    /* Responsive animation speeds */
-    @media (max-width: 640px) {
-      .animate-scroll {
-        animation-duration: 20s;
-      }
-    }
-    
-    @media (min-width: 641px) and (max-width: 1024px) {
-      .animate-scroll {
-        animation-duration: 30s;
-      }
-    }
-    
-    @media (min-width: 1025px) and (max-width: 1280px) {
-      .animate-scroll {
-        animation-duration: 40s;
-      }
-    }
-    
-    @media (min-width: 1281px) {
-      .animate-scroll {
-        animation-duration: 50s;
-      }
-    }
-  </style>
 
   <!-- Problem/Solution Section -->
   <section class="py-16 lg:py-24 bg-slate-50 dark:bg-slate-800/50">
@@ -496,44 +285,109 @@ const partnerBadges = [
     </div>
   </section>
 
-  <!-- Testimonials Section - Social proof before services -->
+  <!-- Founder Story Section - Why We Started Lead Flow North -->
   <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12 reveal">
         <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4 leading-tight">
-          Real Results from Real Clients
+          Here's Why We Started Lead Flow North
+        </h2>
+      </div>
+      
+      <div class="reveal bg-slate-50 dark:bg-slate-800 rounded-2xl p-8 lg:p-12 border border-slate-200 dark:border-slate-700">
+        <blockquote class="text-lg text-slate-700 dark:text-slate-300 leading-relaxed space-y-4">
+          <p>
+            "We spent years watching small businesses get ripped off by agencies. $10,000 websites that looked pretty but generated zero leads. 6-month contracts for 'SEO' that was just blog posts nobody read. 12-week timelines for what should take 2 weeks.
+          </p>
+          <p>
+            Canadian small businesses deserve better. They need websites that actually bring in customers, transparent pricing they can understand, and someone who answers the phone.
+          </p>
+          <p class="font-semibold text-slate-900 dark:text-white">
+            That's why we built Lead Flow North. No BS. No hidden fees. No being ghosted after launch.
+          </p>
+        </blockquote>
+        <div class="mt-8 flex items-center gap-4">
+          <img 
+            src="/images/founders/satyadeep.jpeg" 
+            alt="Satyadeep Singh, Co-Founder" 
+            class="w-14 h-14 rounded-full object-cover border-2 border-primary-500"
+            loading="lazy"
+            decoding="async"
+            width="56"
+            height="56"
+          />
+          <div>
+            <p class="font-semibold text-slate-900 dark:text-white">Satyadeep Singh</p>
+            <p class="text-sm text-slate-600 dark:text-slate-400">Co-Founder & COO, Lead Flow North</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Founding Client Program Section -->
+  <section class="py-16 lg:py-24 bg-gradient-to-br from-accent-50 to-primary-50 dark:from-accent-900/20 dark:to-primary-900/20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12 reveal">
+        <div class="inline-flex items-center gap-2 px-4 py-2 bg-accent-100 dark:bg-accent-900/30 rounded-full mb-6">
+          <span class="text-2xl">🎁</span>
+          <span class="text-sm font-bold text-accent-700 dark:text-accent-300">LIMITED OFFER</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4 leading-tight">
+          Become a Founding Client
         </h2>
         <p class="text-lg text-slate-700 dark:text-slate-300 leading-relaxed">
-          Don't just take our word for it. Here's what Canadian business owners are saying about working with Lead Flow North.
+          We're launching Lead Flow North and looking for <strong>5 businesses</strong> to partner with.
         </p>
       </div>
       
-      <div class="grid md:grid-cols-3 gap-8">
-        {testimonials.map((testimonial) => (
-          <div class="reveal bg-slate-50 dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-200 dark:border-slate-700 hover-lift">
-            <div class="flex items-center gap-4 mb-6">
-              <img 
-                src={testimonial.image} 
-                alt={`${testimonial.name}, ${testimonial.role}`} 
-                class="w-14 h-14 rounded-full object-cover" 
-                loading="lazy" 
-                decoding="async"
-                width="56" 
-                height="56" 
-              />
-              <div>
-                <p class="font-semibold text-slate-900 dark:text-white">{testimonial.name}</p>
-                <p class="text-sm text-slate-700 dark:text-slate-400">{testimonial.company}</p>
-                <p class="text-xs text-slate-600 dark:text-slate-400">{testimonial.location}</p>
-              </div>
-            </div>
-            <blockquote class="text-slate-700 dark:text-slate-300 mb-6 leading-relaxed">"{testimonial.quote}"</blockquote>
-            <div class="flex items-center gap-2 pt-4 border-t border-slate-200 dark:border-slate-700">
-              <span class="text-2xl font-bold text-accent-500">{testimonial.stat}</span>
-              <span class="text-sm text-slate-700 dark:text-slate-400">{testimonial.statLabel}</span>
-            </div>
-          </div>
-        ))}
+      <div class="grid md:grid-cols-2 gap-8 mb-12">
+        <div class="reveal bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700">
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+            <span class="text-2xl">✨</span> As a founding client, you get:
+          </h3>
+          <ul class="space-y-4">
+            {foundingClientBenefits.map((benefit) => (
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-accent-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                <span class="text-slate-700 dark:text-slate-300">{benefit}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        
+        <div class="reveal bg-white dark:bg-slate-800 rounded-2xl p-8 border border-slate-200 dark:border-slate-700">
+          <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+            <span class="text-2xl">🤝</span> In exchange, we ask for:
+          </h3>
+          <ul class="space-y-4">
+            {foundingClientAsk.map((ask) => (
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-primary-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                <span class="text-slate-700 dark:text-slate-300">{ask}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      
+      <div class="text-center reveal">
+        <p class="text-lg font-semibold text-slate-900 dark:text-white mb-6">
+          Limited to 5 businesses. First come, first served.
+        </p>
+        <a 
+          href="/contact?founding=true" 
+          class="inline-flex items-center justify-center px-8 py-4 bg-accent-600 hover:bg-accent-700 text-white font-bold text-lg rounded-xl transition-all duration-200 hover:shadow-xl hover:shadow-accent-600/25 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-accent-500"
+        >
+          Apply to be a Founding Client
+          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
       </div>
     </div>
   </section>
@@ -551,7 +405,7 @@ const partnerBadges = [
         <p class="mt-3 text-sm text-slate-600 dark:text-slate-400">
           <span class="inline-flex items-center gap-1.5">
             <svg class="w-4 h-4 text-accent-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-            Projects start at $2,500 · Monthly plans from $500/mo
+            Projects start at $1,997 · Monthly plans from $500/mo
           </span>
         </p>
       </div>
@@ -653,14 +507,14 @@ const partnerBadges = [
   <section class="py-16 lg:py-24 bg-gradient-to-br from-primary-600 to-primary-800 dark:from-primary-800 dark:to-primary-950 content-visibility-auto">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
-        Ready to Generate More Leads?
+        Let's Build Something Together
       </h2>
       <p class="text-lg sm:text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
-        Book a free 30-minute strategy call. We'll audit your current website, identify opportunities, and show you exactly how we can help grow your business.
+        Book a free 15-minute discovery call. No sales pitch—just an honest conversation about your goals and whether we're the right fit. As a founding client, you'll get 50% off and direct founder access.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/contact" class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary-700 font-bold text-lg rounded-xl hover:bg-primary-50 transition-colors duration-200 shadow-xl focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white">
-          Book Your Free Audit
+        <a href="/contact?founding=true" class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary-700 font-bold text-lg rounded-xl hover:bg-primary-50 transition-colors duration-200 shadow-xl focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-white">
+          Apply as Founding Client
           <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
           </svg>
@@ -669,7 +523,7 @@ const partnerBadges = [
           View Pricing
         </a>
       </div>
-      <p class="mt-6 text-sm text-primary-200">No commitment required. See our transparent pricing before you book.</p>
+      <p class="mt-6 text-sm text-primary-200">Only 5 founding client spots available. Transparent pricing on our services page.</p>
     </div>
   </section>
 </Layout>

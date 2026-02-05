@@ -47,7 +47,7 @@ const organizationSchema = {
   "description": "Web design and digital marketing agency specializing in lead generation for small businesses in Ontario and Alberta, Canada.",
   "url": "https://leadflownorth.com",
   "logo": "https://leadflownorth.com/logo.svg",
-  "telephone": "+1-647-555-0123",
+  "telephone": "+1-905-783-5996",
   "email": "hello@leadflownorth.com",
   "address": {
     "@type": "PostalAddress",
@@ -137,11 +137,6 @@ const organizationSchema = {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
-    
-    <!-- Preload critical above-fold image for LCP optimization -->
-    {Astro.url.pathname === '/' && (
-      <link rel="preload" href="/images/partners/google-partner.svg" as="image" type="image/svg+xml" fetchpriority="high" />
-    )}
     
     <!-- Font - Inter with display swap for better LCP -->
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
