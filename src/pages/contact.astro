@@ -96,9 +96,11 @@ const contactSchema = {
               Send Us a Message
             </h2>
             
-            <form action="https://formspree.io/f/mzdapyga"  method="POST" enctype="multipart/form-data" class="space-y-6" id="contact-form">
+            <form action="https://api.web3forms.com/submit"  method="POST" enctype="multipart/form-data" class="space-y-6" id="contact-form">
               <div class="grid sm:grid-cols-2 gap-6">
                 <div>
+                  <input type="hidden" name="access_key" value="15bec992-3ea8-445a-970d-778fb89c93c5">
+                  <input type="hidden" name="redirect" value="https://leadflownorth.com/thank-you">
                   <label for="firstName" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                     First Name <span class="text-red-500">*</span>
                   </label>

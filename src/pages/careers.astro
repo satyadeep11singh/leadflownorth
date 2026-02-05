@@ -289,11 +289,13 @@ const jobPostingSchema = jobs.map(job => ({
             </div>
             
             <!-- Application Form -->
-            <form action="https://formspree.io/f/xdalnyza" method="POST" enctype="multipart/form-data" id="application-form" class="space-y-5">
+            <form action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data" id="application-form" class="space-y-5">
               <input type="hidden" id="position" name="position" value="">
               
               <!-- Name -->
               <div>
+                <input type="hidden" name="access_key" value="1044dd8b-eacf-4d46-bd1a-261f931c40da">
+                <input type="hidden" name="redirect" value="https://leadflownorth.com/thank-you">
                 <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Full Name <span class="text-red-500">*</span></label>
                 <input 
                   type="text" 
