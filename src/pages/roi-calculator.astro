@@ -276,6 +276,17 @@ const calculatorSchema = {
                 </p>
               </div>
 
+              <!-- Founding Client Discount -->
+              <div>
+                <label class="flex items-center">
+                  <input type="checkbox" id="founding-discount" class="mr-2" />
+                  <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Apply Founding Client Discount (50% off all services)</span>
+                </label>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                  For our first 5 clients only.
+                </p>
+              </div>
+
             </div>
           </div>
 
@@ -632,7 +643,8 @@ const calculatorSchema = {
     trafficIncrease: document.getElementById('traffic-increase'),
     newConversion: document.getElementById('new-conversion'),
     websiteCost: document.getElementById('website-cost'),
-    monthlyServicesCheckboxes: document.getElementById('monthly-services-checkboxes')
+    monthlyServicesCheckboxes: document.getElementById('monthly-services-checkboxes'),
+    foundingDiscount: document.getElementById('founding-discount')
   };
 
   // Result elements
@@ -707,7 +719,13 @@ const calculatorSchema = {
     const closeRate = parseFloat(inputs.closeRate.value) || 0;
     const trafficIncrease = parseFloat(inputs.trafficIncrease.value) || 0;
     const newConversion = parseFloat(inputs.newConversion.value) || 0;
-    const websiteCost = parseFloat(inputs.websiteCost.value) || 0;
+    let websiteCost = parseFloat(inputs.websiteCost.value) || 0;
+    const foundingDiscount = inputs.foundingDiscount.checked;
+
+    // Apply founding discount to website cost
+    if (foundingDiscount) {
+      websiteCost *= 0.5;
+    }
 
     // Get selected monthly services
     const checkboxes = inputs.monthlyServicesCheckboxes.querySelectorAll('input[type="checkbox"]');
@@ -721,6 +739,7 @@ const calculatorSchema = {
       selectedServices = ['Full-Service Marketing'];
       checkboxes.forEach(cb => {
         if (cb.value !== 'Full-Service Marketing') {
+          cb.checked = false;
           cb.disabled = true;
         }
       });
@@ -733,7 +752,9 @@ const calculatorSchema = {
     // Sum monthly cost
     let monthlyCost = 0;
     selectedServices.forEach(service => {
-      monthlyCost += monthlyServicePrices[service] || 0;
+      let price = monthlyServicePrices[service] || 0;
+      if (foundingDiscount) price *= 0.5;
+      monthlyCost += price;
     });
 
     // Calculate current state
@@ -779,9 +800,9 @@ const calculatorSchema = {
     results.revenue.textContent = formatCurrency(newRevenue);
     results.revenueIncrease.textContent = revenueIncrease > 0 ? `+${formatCurrency(revenueIncrease)}` : 'no change';
     results.cpl.textContent = cpl > 0 ? formatCurrency(cpl) : 'N/A';
-    results.roi.textContent = roi > 0 ? `${formatNumber(Math.round(roi))}%` : 'N/A';
-    results.roiDollars.textContent = roiDollars > 0 ? formatCurrency(roiDollars) : '$0';
-    results.payback.textContent = payback > 0 && payback < 99 ? payback.toFixed(1) : 'N/A';
+    results.roi.textContent = `${formatNumber(Math.round(roi))}%`;
+    results.roiDollars.textContent = formatCurrency(roiDollars);
+    results.payback.textContent = payback > 0 && payback < 99 ? payback.toFixed(1) : payback >= 99 ? '>99' : 'N/A';
     results.hoursSaved.textContent = formatNumber(Math.round(hoursSaved));
     results.timeValue.textContent = formatCurrency(timeValue);
 
