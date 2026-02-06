@@ -99,6 +99,7 @@ const contactSchema = {
             <form action="https://formsubmit.co/support@leadflownorth.com"  method="POST" enctype="multipart/form-data" class="space-y-6" id="contact-form">
               <div class="grid sm:grid-cols-2 gap-6">
                 <div>
+                <input type="hidden" name="_subject" value="New Contact Form submission!">
                   <input type="hidden" name="_next" value="https://leadflownorth.com/thank-you">
                   <label for="firstName" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                     First Name <span class="text-red-500">*</span>
