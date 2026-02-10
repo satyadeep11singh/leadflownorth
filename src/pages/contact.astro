@@ -96,7 +96,19 @@ const contactSchema = {
               Send Us a Message
             </h2>
             
+            <!-- Founding Client Badge (shown via JS when ?founding=true) -->
+            <div id="founding-badge" class="hidden mb-6 p-4 bg-gradient-to-r from-accent-50 to-primary-50 dark:from-accent-900/20 dark:to-primary-900/20 rounded-xl border border-accent-200 dark:border-accent-800">
+              <div class="flex items-center gap-3">
+                <span class="text-2xl">🎁</span>
+                <div>
+                  <p class="font-bold text-accent-700 dark:text-accent-300 text-sm">Founding Client Application</p>
+                  <p class="text-xs text-slate-600 dark:text-slate-400">You're applying for 50% off + lifetime pricing lock</p>
+                </div>
+              </div>
+            </div>
+            
             <form action="https://formsubmit.co/support@leadflownorth.com"  method="POST" enctype="multipart/form-data" class="space-y-6" id="contact-form">
+              <input type="hidden" name="_foundingClient" id="foundingClientField" value="false">
               <div class="grid sm:grid-cols-2 gap-6">
                 <div>
                 <input type="hidden" name="_subject" value="New Contact Form submission!">
@@ -222,29 +234,6 @@ const contactSchema = {
     </div>
   </section>
 
-  <!-- Industry Stats Bar -->
-  <section class="py-8 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
-        <div>
-          <p class="text-2xl lg:text-3xl font-bold text-primary-600">60%+</p>
-          <p class="text-sm text-slate-600 dark:text-slate-400">Of your traffic is mobile</p>
-        </div>
-        <div>
-          <p class="text-2xl lg:text-3xl font-bold text-accent-500">75%</p>
-          <p class="text-sm text-slate-600 dark:text-slate-400">Of leads call only once</p>
-        </div>
-        <div>
-          <p class="text-2xl lg:text-3xl font-bold text-purple-600">90%</p>
-          <p class="text-sm text-slate-600 dark:text-slate-400">Of agencies hide pricing</p>
-        </div>
-        <div>
-          <p class="text-2xl lg:text-3xl font-bold text-emerald-600">&lt;3s</p>
-          <p class="text-sm text-slate-600 dark:text-slate-400">Load time we target</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- Book a Call CTA -->
   <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
@@ -254,17 +243,28 @@ const contactSchema = {
           Prefer to Talk?
         </h2>
         <p class="text-lg text-slate-600 dark:text-slate-300 mb-8 max-w-2xl mx-auto">
-          Book a free 15-minute discovery call. We'll review your current online presence, discuss your goals, and give you honest advice—whether you hire us or not.
+          Call us for a free 15-minute discovery call. We'll review your current online presence, discuss your goals, and give you honest advice—whether you hire us or not.
         </p>
-        <a 
-          href="#" 
-          class="inline-flex items-center px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-bold text-lg rounded-xl transition-colors duration-200 shadow-lg"
-        >
-          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-          </svg>
-          Book Your Free Call
-        </a>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="tel:+19057835996" 
+            class="inline-flex items-center justify-center px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-bold text-lg rounded-xl transition-colors duration-200 shadow-lg"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            Call (905) 783-5996
+          </a>
+          <a 
+            href="mailto:hello@leadflownorth.com?subject=Discovery%20Call%20Request" 
+            class="inline-flex items-center justify-center px-8 py-4 bg-white dark:bg-slate-800 text-primary-700 dark:text-primary-300 font-semibold text-lg rounded-xl border-2 border-primary-200 dark:border-primary-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors duration-200"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            Email to Book a Call
+          </a>
+        </div>
         <p class="mt-4 text-sm text-slate-500 dark:text-slate-400">
           No obligation. No sales pressure. Just helpful advice.
         </p>
@@ -304,23 +304,50 @@ const contactSchema = {
   <section class="py-16 lg:py-24 bg-gradient-to-br from-primary-600 to-primary-800 dark:from-primary-800 dark:to-primary-950">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
-        Let's Build Something Together
+        Still Have Questions?
       </h2>
       <p class="text-lg sm:text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
-        Book a free 15-minute discovery call. No sales pitch—just an honest conversation about your goals and whether we're the right fit. As a founding client, you'll get 50% off and direct founder access.
+        We're here to help. Reach out directly and we'll get back to you within 24 hours—usually much faster.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/contact?founding=true" class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary-700 font-bold text-lg rounded-xl hover:bg-primary-50 transition-colors duration-200 shadow-xl">
-          Apply as Founding Client
-          <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        <a href="tel:+19057835996" class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary-700 font-bold text-lg rounded-xl hover:bg-primary-50 transition-colors duration-200 shadow-xl">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
           </svg>
+          Call (905) 783-5996
         </a>
-        <a href="/services" class="inline-flex items-center justify-center px-8 py-4 bg-transparent text-white font-semibold text-lg rounded-xl border-2 border-white/50 hover:bg-white/10 hover:border-white transition-colors duration-200">
-          View Pricing
+        <a href="mailto:hello@leadflownorth.com" class="inline-flex items-center justify-center px-8 py-4 bg-transparent text-white font-semibold text-lg rounded-xl border-2 border-white/50 hover:bg-white/10 hover:border-white transition-colors duration-200">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          hello@leadflownorth.com
         </a>
       </div>
-      <p class="mt-6 text-sm text-primary-200">Only 5 founding client spots available. Transparent pricing on our services page.</p>
+      <p class="mt-6 text-sm text-primary-200">Monday – Friday, 9 AM – 5 PM EST · We typically respond within 24 hours.</p>
     </div>
   </section>
 </Layout>
+
+<script is:inline>
+  // Detect ?founding=true and customize form
+  (function() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('founding') === 'true') {
+      // Show founding badge
+      const badge = document.getElementById('founding-badge');
+      if (badge) badge.classList.remove('hidden');
+      
+      // Set hidden field
+      const field = document.getElementById('foundingClientField');
+      if (field) field.value = 'true';
+      
+      // Pre-select "New Website" in dropdown
+      const serviceSelect = document.getElementById('service');
+      if (serviceSelect) serviceSelect.value = 'website';
+      
+      // Update form subject for email tracking
+      const subjectField = document.querySelector('input[name="_subject"]');
+      if (subjectField) subjectField.value = '🎁 Founding Client Application!';
+    }
+  })();
+</script>
