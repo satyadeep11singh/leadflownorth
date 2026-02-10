@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-// ROI Calculator structured data
 const calculatorSchema = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
@@ -30,436 +29,327 @@ const calculatorSchema = {
   
   <main class="pt-20">
     <!-- Hero Section -->
-    <section class="bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 py-16 lg:py-20">
+    <section class="bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 py-12 lg:py-16">
       <div class="max-w-4xl mx-auto px-4 text-center">
-        <h1 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6">
-          ROI Calculator
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4">
+          How Much More Revenue Could Your Website Generate?
         </h1>
-        <p class="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-          See exactly how much revenue a professional website and lead generation system could bring your business. 
-          <strong class="text-slate-800 dark:text-white">Real numbers. No guesswork.</strong>
+        <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+          Answer 3 simple questions and see your potential results instantly. Takes less than 30 seconds.
         </p>
       </div>
     </section>
 
-    <!-- Quick Help Link -->
-    <div class="flex justify-center px-4 py-6">
-      <div class="inline-flex bg-gradient-to-r from-primary-50 to-blue-50 dark:from-slate-700/50 dark:to-slate-700/30 border border-primary-100 dark:border-slate-600 rounded-xl p-4 items-start gap-4">
-        <div class="flex-shrink-0 w-10 h-10 bg-primary-100 dark:bg-primary-900/50 rounded-lg flex items-center justify-center">
-          <svg class="w-6 h-6 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-          </svg>
-        </div>
-        <div>
-          <p class="font-semibold text-slate-900 dark:text-white">New to this?</p>
-          <p class="text-slate-600 dark:text-slate-400 text-sm">We've got you covered: <a href="/blog/how-to-use-roi-calculator" class="text-primary-600 dark:text-primary-400 font-medium hover:underline">Read our step-by-step guide →</a></p>
-        </div>
-      </div>
-    </div>
-
     <!-- Calculator Section -->
-    <section class="py-16 lg:py-20 bg-white dark:bg-slate-800">
-      <div class="max-w-6xl mx-auto px-4">
+    <section class="py-12 lg:py-16 bg-white dark:bg-slate-800">
+      <div class="max-w-5xl mx-auto px-4">
         
-        <!-- Industry Preset Selector -->
-        <div class="mb-12 text-center">
-          <label for="industry-preset" class="block text-lg font-semibold text-slate-900 dark:text-white mb-4">
-            Select Your Industry (Optional)
-          </label>
-          <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">
-            Pre-fills typical values based on industry data. You can adjust any field.
-          </p>
-          <select 
-            id="industry-preset" 
-            class="w-full max-w-md mx-auto px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          >
-            <option value="custom">Custom / Other Industry</option>
-            <option value="plumber">Plumbing Services</option>
-            <option value="hvac">HVAC / Heating & Cooling</option>
-            <option value="electrician">Electrical Services</option>
-            <option value="roofing">Roofing & Exteriors</option>
-            <option value="landscaping">Landscaping & Lawn Care</option>
-            <option value="dental">Dental Practice</option>
-            <option value="chiro">Chiropractic / Physiotherapy</option>
-            <option value="legal">Legal Services</option>
-            <option value="accounting">Accounting & Bookkeeping</option>
-            <option value="realestate">Real Estate Agent</option>
-            <option value="cleaning">Cleaning Services</option>
-            <option value="auto">Auto Repair Shop</option>
-          </select>
-          <p id="industry-source" class="text-xs text-slate-400 dark:text-slate-500 mt-2 hidden">
-            <!-- Populated by JS with source citation -->
-          </p>
-        </div>
-
-        <div class="grid lg:grid-cols-2 gap-12">
+        <!-- Step 1: Industry -->
+        <div class="max-w-2xl mx-auto mb-10">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="w-9 h-9 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">1</span>
+            <h2 class="text-xl font-bold text-slate-900 dark:text-white">What industry are you in?</h2>
+          </div>
           
-          <!-- Input Panel -->
-          <div class="bg-slate-50 dark:bg-slate-900 rounded-2xl p-6 lg:p-8 shadow-lg">
-            <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-8 flex items-center gap-3">
-              <span class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center text-lg font-bold">1</span>
-              Your Business Numbers
+          <div id="industry-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+            <button data-industry="plumber" class="industry-btn group flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-slate-200 dark:border-slate-600 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-200 text-center">
+              <span class="text-2xl">🔧</span>
+              <span class="text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-primary-600">Plumbing</span>
+            </button>
+            <button data-industry="hvac" class="industry-btn group flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-slate-200 dark:border-slate-600 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-200 text-center">
+              <span class="text-2xl">❄️</span>
+              <span class="text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-primary-600">HVAC</span>
+            </button>
+            <button data-industry="electrician" class="industry-btn group flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-slate-200 dark:border-slate-600 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-200 text-center">
+              <span class="text-2xl">⚡</span>
+              <span class="text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-primary-600">Electrical</span>
+            </button>
+            <button data-industry="roofing" class="industry-btn group flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-slate-200 dark:border-slate-600 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-200 text-center">
+              <span class="text-2xl">🏠</span>
+              <span class="text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-primary-600">Roofing</span>
+            </button>
+            <button data-industry="landscaping" class="industry-btn group flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-slate-200 dark:border-slate-600 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-200 text-center">
+              <span class="text-2xl">🌿</span>
+              <span class="text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-primary-600">Landscaping</span>
+            </button>
+            <button data-industry="dental" class="industry-btn group flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-slate-200 dark:border-slate-600 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-200 text-center">
+              <span class="text-2xl">🦷</span>
+              <span class="text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-primary-600">Dental</span>
+            </button>
+            <button data-industry="legal" class="industry-btn group flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-slate-200 dark:border-slate-600 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-200 text-center">
+              <span class="text-2xl">⚖️</span>
+              <span class="text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-primary-600">Legal</span>
+            </button>
+            <button data-industry="realestate" class="industry-btn group flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-slate-200 dark:border-slate-600 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-200 text-center">
+              <span class="text-2xl">🏡</span>
+              <span class="text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-primary-600">Real Estate</span>
+            </button>
+            <button data-industry="cleaning" class="industry-btn group flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-slate-200 dark:border-slate-600 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-200 text-center">
+              <span class="text-2xl">🧹</span>
+              <span class="text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-primary-600">Cleaning</span>
+            </button>
+            <button data-industry="auto" class="industry-btn group flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-slate-200 dark:border-slate-600 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-200 text-center">
+              <span class="text-2xl">🚗</span>
+              <span class="text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-primary-600">Auto Repair</span>
+            </button>
+            <button data-industry="chiro" class="industry-btn group flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-slate-200 dark:border-slate-600 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-200 text-center">
+              <span class="text-2xl">💆</span>
+              <span class="text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-primary-600">Chiro / Physio</span>
+            </button>
+            <button data-industry="custom" class="industry-btn group flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-slate-200 dark:border-slate-600 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-200 text-center">
+              <span class="text-2xl">🏢</span>
+              <span class="text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-primary-600">Other</span>
+            </button>
+          </div>
+          <p id="industry-source" class="text-xs text-slate-400 dark:text-slate-500 mt-3 text-center hidden"></p>
+        </div>
+
+        <!-- Step 2: Job Value -->
+        <div class="max-w-2xl mx-auto mb-10">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="w-9 h-9 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">2</span>
+            <h2 class="text-xl font-bold text-slate-900 dark:text-white">What's your average job or sale worth?</h2>
+          </div>
+          
+          <div class="bg-slate-50 dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-700">
+            <div class="flex items-center justify-center gap-3 mb-4">
+              <span class="text-2xl text-slate-400">$</span>
+              <input 
+                type="number" 
+                id="avg-job-value" 
+                value="750" 
+                min="50"
+                max="100000"
+                class="text-4xl font-bold text-center text-slate-900 dark:text-white bg-transparent border-b-2 border-primary-400 focus:border-primary-600 focus:outline-none w-40 appearance-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+              />
+              <span class="text-lg text-slate-400">CAD</span>
+            </div>
+            <input 
+              type="range" 
+              id="avg-job-slider" 
+              value="750" 
+              min="50" 
+              max="20000"
+              step="50"
+              class="w-full h-2 bg-slate-200 dark:bg-slate-600 rounded-lg appearance-none cursor-pointer accent-primary-600"
+            />
+            <div class="flex justify-between text-xs text-slate-400 mt-1">
+              <span>$50</span>
+              <span>$5,000</span>
+              <span>$10,000</span>
+              <span>$20,000</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-3 text-center">
+              How much you typically charge per customer or project
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 3: Current Traffic -->
+        <div class="max-w-2xl mx-auto mb-12">
+          <div class="flex items-center gap-3 mb-6">
+            <span class="w-9 h-9 bg-primary-600 text-white rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">3</span>
+            <h2 class="text-xl font-bold text-slate-900 dark:text-white">How much website traffic do you get now?</h2>
+          </div>
+          
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <button data-visitors="0" class="traffic-btn flex flex-col items-center gap-1 p-4 rounded-xl border-2 border-slate-200 dark:border-slate-600 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-200 text-center">
+              <span class="text-lg font-bold text-slate-700 dark:text-slate-300">None</span>
+              <span class="text-xs text-slate-500">New / No site yet</span>
+            </button>
+            <button data-visitors="300" class="traffic-btn flex flex-col items-center gap-1 p-4 rounded-xl border-2 border-slate-200 dark:border-slate-600 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-200 text-center">
+              <span class="text-lg font-bold text-slate-700 dark:text-slate-300">Under 500</span>
+              <span class="text-xs text-slate-500">Getting started</span>
+            </button>
+            <button data-visitors="1000" class="traffic-btn flex flex-col items-center gap-1 p-4 rounded-xl border-2 border-slate-200 dark:border-slate-600 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-200 text-center">
+              <span class="text-lg font-bold text-slate-700 dark:text-slate-300">500 – 2,000</span>
+              <span class="text-xs text-slate-500">Some traffic</span>
+            </button>
+            <button data-visitors="3000" class="traffic-btn flex flex-col items-center gap-1 p-4 rounded-xl border-2 border-slate-200 dark:border-slate-600 hover:border-primary-400 dark:hover:border-primary-400 transition-all duration-200 text-center">
+              <span class="text-lg font-bold text-slate-700 dark:text-slate-300">2,000+</span>
+              <span class="text-xs text-slate-500">Good traffic</span>
+            </button>
+          </div>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-3 text-center">
+            Don't know? Check Google Analytics. If unsure, pick "Under 500" — that's typical for small businesses.
+          </p>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results-section" class="max-w-4xl mx-auto">
+          <div class="text-center mb-8">
+            <h2 class="text-2xl lg:text-3xl font-bold text-slate-900 dark:text-white mb-2">
+              Your Projected Results
             </h2>
-            
-            <div class="space-y-6">
-              <!-- Current Monthly Visitors -->
-              <div>
-                <label for="current-visitors" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Current Monthly Website Visitors
-                </label>
-                <input 
-                  type="number" 
-                  id="current-visitors" 
-                  value="500" 
-                  min="0"
-                  class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                  Check Google Analytics or estimate. New site? Use 0.
-                </p>
+            <p class="text-slate-600 dark:text-slate-400">Based on your industry data and conservative estimates</p>
+          </div>
+
+          <!-- Main Results Cards -->
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <!-- New Inquiries -->
+            <div class="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/20 rounded-2xl p-6 border border-blue-200 dark:border-blue-800 text-center">
+              <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/50 rounded-full flex items-center justify-center mx-auto mb-3">
+                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
               </div>
+              <p class="text-sm text-blue-700 dark:text-blue-300 font-medium mb-1">New Inquiries / Month</p>
+              <p id="result-leads" class="text-3xl font-bold text-blue-900 dark:text-blue-100">60</p>
+              <p id="result-leads-increase" class="text-xs text-blue-600 dark:text-blue-400 mt-1">+50 more than now</p>
+            </div>
 
-              <!-- Current Conversion Rate -->
-              <div>
-                <label for="current-conversion" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Current Website Conversion Rate (%)
-                </label>
-                <input 
-                  type="number" 
-                  id="current-conversion" 
-                  value="2" 
-                  min="0" 
-                  max="100" 
-                  step="0.1"
-                  class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                  % of visitors who contact you. Industry avg: 2-3%. Good sites: 5-10%.
-                </p>
+            <!-- Monthly Revenue -->
+            <div class="bg-gradient-to-br from-emerald-50 to-emerald-100 dark:from-emerald-900/30 dark:to-emerald-800/20 rounded-2xl p-6 border border-emerald-200 dark:border-emerald-800 text-center">
+              <div class="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/50 rounded-full flex items-center justify-center mx-auto mb-3">
+                <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
               </div>
+              <p class="text-sm text-emerald-700 dark:text-emerald-300 font-medium mb-1">Extra Monthly Revenue</p>
+              <p id="result-revenue" class="text-3xl font-bold text-emerald-900 dark:text-emerald-100">$15,000</p>
+              <p class="text-xs text-emerald-600 dark:text-emerald-400 mt-1">additional revenue</p>
+            </div>
 
-              <!-- Average Job Value -->
-              <div>
-                <label for="avg-job-value" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Average Job/Sale Value ($CAD)
-                </label>
-                <input 
-                  type="number" 
-                  id="avg-job-value" 
-                  value="750" 
-                  min="0"
-                  class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                  Typical invoice amount per customer.
-                </p>
+            <!-- Pays for Itself -->
+            <div class="bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-900/30 dark:to-amber-800/20 rounded-2xl p-6 border border-amber-200 dark:border-amber-800 text-center">
+              <div class="w-12 h-12 bg-amber-100 dark:bg-amber-900/50 rounded-full flex items-center justify-center mx-auto mb-3">
+                <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
               </div>
+              <p class="text-sm text-amber-700 dark:text-amber-300 font-medium mb-1">Pays for Itself In</p>
+              <p id="result-payback" class="text-3xl font-bold text-amber-900 dark:text-amber-100">1.2</p>
+              <p class="text-xs text-amber-600 dark:text-amber-400 mt-1">months</p>
+            </div>
 
-              <!-- Lead Close Rate -->
-              <div>
-                <label for="close-rate" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Lead-to-Customer Close Rate (%)
-                </label>
-                <input 
-                  type="number" 
-                  id="close-rate" 
-                  value="40" 
-                  min="0" 
-                  max="100"
-                  class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                  % of leads you convert to paying customers. Home services avg: 40-60%.
-                </p>
+            <!-- Year 1 ROI -->
+            <div class="bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-900/30 dark:to-purple-800/20 rounded-2xl p-6 border border-purple-200 dark:border-purple-800 text-center">
+              <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/50 rounded-full flex items-center justify-center mx-auto mb-3">
+                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
               </div>
-
-              <hr class="border-slate-200 dark:border-slate-700 my-6" />
-
-              <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">
-                With Lead Flow North
-              </h3>
-
-              <!-- Expected Traffic Increase -->
-              <div>
-                <label for="traffic-increase" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Expected Traffic Increase (%)
-                </label>
-                <input 
-                  type="range" 
-                  id="traffic-increase" 
-                  value="100" 
-                  min="25" 
-                  max="300"
-                  step="25"
-                  class="w-full h-2 bg-slate-200 dark:bg-slate-600 rounded-lg appearance-none cursor-pointer accent-blue-600"
-                />
-                <div class="flex justify-between text-xs text-slate-500 dark:text-slate-400 mt-1">
-                  <span>+25%</span>
-                  <span id="traffic-increase-value" class="font-semibold text-blue-600 dark:text-blue-400">+100%</span>
-                  <span>+300%</span>
-                </div>
-                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                  SEO + Local listings typically increase traffic 50-200%.
-                </p>
-              </div>
-
-              <!-- New Conversion Rate -->
-              <div>
-                <label for="new-conversion" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Expected New Conversion Rate (%)
-                </label>
-                <input 
-                  type="number" 
-                  id="new-conversion" 
-                  value="6" 
-                  min="0" 
-                  max="100" 
-                  step="0.5"
-                  class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                  Median landing page conversion: 6.6%. Our sites target 5-10%.
-                  <a href="https://unbounce.com/conversion-benchmark-report/" target="_blank" rel="noopener" class="text-blue-600 dark:text-blue-400 hover:underline">Source: Unbounce 2024</a>
-                </p>
-              </div>
-
-              <hr class="border-slate-200 dark:border-slate-700 my-6" />
-
-              <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">
-                Investment
-              </h3>
-
-              <!-- Website Package -->
-              <div>
-                <label for="website-cost" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Website Build (One-Time)
-                </label>
-                <select 
-                  id="website-cost" 
-                  class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                >
-                  <option value="1997">Starter Website - $1,997</option>
-                  <option value="3497" selected>Professional Website - $3,497</option>
-                  <option value="5997">Lead Generation System - $5,997</option>
-                  <option value="0">Already have a website</option>
-                </select>
-                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                  Founding Client Special: 50% off for first 5 clients.
-                </p>
-              </div>
-
-              <!-- Monthly Services -->
-              <div>
-                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Monthly Services (Select one or more)
-                </label>
-                <div id="monthly-services-checkboxes" class="space-y-2">
-                  <div>
-                    <input type="checkbox" id="service-care" value="Website Care" class="mr-2" />
-                    <label for="service-care">Website Care ($197/mo)</label>
-                  </div>
-                  <div>
-                    <input type="checkbox" id="service-email" value="Email Marketing" class="mr-2" />
-                    <label for="service-email">Email Marketing ($497/mo)</label>
-                  </div>
-                  <div>
-                    <input type="checkbox" id="service-seo" value="SEO & Content" class="mr-2" />
-                    <label for="service-seo">SEO & Content ($797/mo)</label>
-                  </div>
-                  <div>
-                    <input type="checkbox" id="service-full" value="Full-Service Marketing" class="mr-2" />
-                    <label for="service-full">Full-Service Marketing ($1,997/mo, includes all above)</label>
-                  </div>
-                </div>
-                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                  Selecting Full-Service Marketing disables other options.
-                </p>
-              </div>
-
-              <!-- Founding Client Discount -->
-              <div>
-                <label class="flex items-center">
-                  <input type="checkbox" id="founding-discount" class="mr-2" />
-                  <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Apply Founding Client Discount (50% off all services)</span>
-                </label>
-                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                  For our first 5 clients only.
-                </p>
-              </div>
-
+              <p class="text-sm text-purple-700 dark:text-purple-300 font-medium mb-1">Year 1 Return</p>
+              <p id="result-roi" class="text-3xl font-bold text-purple-900 dark:text-purple-100">847%</p>
+              <p id="result-roi-dollars" class="text-xs text-purple-600 dark:text-purple-400 mt-1">$8.47 back for every $1 spent</p>
             </div>
           </div>
 
-          <!-- Results Panel -->
-          <div>
-            <div class="bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl p-6 lg:p-8 text-white shadow-lg mb-8">
-              <h2 class="text-2xl font-bold mb-8 flex items-center gap-3">
-                <span class="w-10 h-10 bg-white text-blue-600 rounded-full flex items-center justify-center text-lg font-bold">2</span>
-                Your Projected Results
-              </h2>
-
-              <div class="space-y-6">
-                <!-- Monthly Leads -->
-                <div class="bg-white/10 rounded-xl p-4">
-                  <p class="text-blue-100 text-sm mb-1">New Monthly Leads</p>
-                  <div class="flex items-baseline gap-2">
-                    <span id="result-leads" class="text-4xl font-bold">60</span>
-                    <span class="text-blue-200 text-sm">leads/month</span>
-                  </div>
-                  <p class="text-blue-200 text-xs mt-1">
-                    <span id="result-leads-increase" class="text-green-300">+50 more</span> than current
-                  </p>
+          <!-- Before / After Comparison -->
+          <div class="grid md:grid-cols-2 gap-4 mb-8">
+            <!-- Before -->
+            <div class="bg-slate-100 dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-700">
+              <div class="flex items-center gap-2 mb-4">
+                <span class="w-3 h-3 bg-slate-400 rounded-full"></span>
+                <h3 class="text-lg font-bold text-slate-700 dark:text-slate-300">Now (Without Us)</h3>
+              </div>
+              <div class="space-y-3">
+                <div class="flex justify-between items-center">
+                  <span class="text-sm text-slate-600 dark:text-slate-400">Monthly visitors</span>
+                  <span id="compare-visitors-old" class="font-semibold text-slate-700 dark:text-slate-300">500</span>
                 </div>
-
-                <!-- Monthly Revenue -->
-                <div class="bg-white/10 rounded-xl p-4">
-                  <p class="text-blue-100 text-sm mb-1">New Monthly Revenue</p>
-                  <div class="flex items-baseline gap-2">
-                    <span id="result-revenue" class="text-4xl font-bold">$18,000</span>
-                    <span class="text-blue-200 text-sm">/month</span>
-                  </div>
-                  <p class="text-blue-200 text-xs mt-1">
-                    <span id="result-revenue-increase" class="text-green-300">+$15,000</span> increase
-                  </p>
+                <div class="flex justify-between items-center">
+                  <span class="text-sm text-slate-600 dark:text-slate-400">Customer inquiries</span>
+                  <span id="compare-leads-old" class="font-semibold text-slate-700 dark:text-slate-300">10</span>
                 </div>
-
-                <!-- Cost Per Lead -->
-                <div class="bg-white/10 rounded-xl p-4">
-                  <p class="text-blue-100 text-sm mb-1">Cost Per Lead</p>
-                  <div class="flex items-baseline gap-2">
-                    <span id="result-cpl" class="text-4xl font-bold">$8.33</span>
-                  </div>
-                  <p class="text-blue-200 text-xs mt-1">
-                    Industry avg: $50-200/lead via paid ads
-                  </p>
+                <div class="flex justify-between items-center">
+                  <span class="text-sm text-slate-600 dark:text-slate-400">New customers</span>
+                  <span id="compare-customers-old" class="font-semibold text-slate-700 dark:text-slate-300">4</span>
                 </div>
-
-                <!-- Annual ROI -->
-                <div class="bg-white/10 rounded-xl p-4 border-2 border-white/30">
-                  <p class="text-blue-100 text-sm mb-1">12-Month ROI</p>
-                  <div class="flex items-baseline gap-2">
-                    <span id="result-roi" class="text-5xl font-bold">847%</span>
-                  </div>
-                  <p class="text-blue-200 text-xs mt-1">
-                    For every $1 invested, you get <span id="result-roi-dollars">$8.47</span> back
-                  </p>
-                </div>
-
-                <!-- Payback Period -->
-                <div class="bg-white/10 rounded-xl p-4">
-                  <p class="text-blue-100 text-sm mb-1">Payback Period</p>
-                  <div class="flex items-baseline gap-2">
-                    <span id="result-payback" class="text-4xl font-bold">1.2</span>
-                    <span class="text-blue-200 text-sm">months</span>
-                  </div>
-                  <p class="text-blue-200 text-xs mt-1">
-                    Time to recover your investment
-                  </p>
+                <hr class="border-slate-300 dark:border-slate-600"/>
+                <div class="flex justify-between items-center">
+                  <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Monthly revenue</span>
+                  <span id="compare-revenue-old" class="text-lg font-bold text-slate-700 dark:text-slate-300">$3,000</span>
                 </div>
               </div>
             </div>
 
-            <!-- Time Saved -->
-            <div class="bg-slate-100 dark:bg-slate-900 rounded-2xl p-6 shadow-lg">
-              <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                Time Saved with Automation
-              </h3>
-              <div class="grid grid-cols-2 gap-4">
+            <!-- After -->
+            <div class="bg-gradient-to-br from-primary-50 to-emerald-50 dark:from-primary-900/20 dark:to-emerald-900/20 rounded-2xl p-6 border-2 border-primary-300 dark:border-primary-700 relative">
+              <div class="absolute -top-3 right-4 px-3 py-1 bg-primary-600 text-white text-xs font-bold rounded-full">PROJECTED</div>
+              <div class="flex items-center gap-2 mb-4">
+                <span class="w-3 h-3 bg-primary-500 rounded-full"></span>
+                <h3 class="text-lg font-bold text-primary-700 dark:text-primary-300">With Lead Flow North</h3>
+              </div>
+              <div class="space-y-3">
+                <div class="flex justify-between items-center">
+                  <span class="text-sm text-slate-600 dark:text-slate-400">Monthly visitors</span>
+                  <span id="compare-visitors-new" class="font-semibold text-primary-700 dark:text-primary-300">1,000</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-sm text-slate-600 dark:text-slate-400">Customer inquiries</span>
+                  <span id="compare-leads-new" class="font-semibold text-primary-700 dark:text-primary-300">60</span>
+                </div>
+                <div class="flex justify-between items-center">
+                  <span class="text-sm text-slate-600 dark:text-slate-400">New customers</span>
+                  <span id="compare-customers-new" class="font-semibold text-primary-700 dark:text-primary-300">24</span>
+                </div>
+                <hr class="border-primary-200 dark:border-primary-700"/>
+                <div class="flex justify-between items-center">
+                  <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Monthly revenue</span>
+                  <span id="compare-revenue-new" class="text-lg font-bold text-emerald-600 dark:text-emerald-400">$18,000</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Annual Summary Banner -->
+          <div class="bg-gradient-to-r from-emerald-600 to-primary-600 rounded-2xl p-6 text-center text-white mb-8">
+            <p class="text-emerald-100 text-sm mb-1">Potential additional revenue over 12 months</p>
+            <p id="result-annual" class="text-4xl lg:text-5xl font-bold">$180,000</p>
+            <p class="text-emerald-100 text-sm mt-2">
+              Based on a one-time investment of <span id="result-investment" class="font-semibold text-white">$3,497</span>
+            </p>
+          </div>
+
+          <!-- Advanced Settings (Collapsed) -->
+          <details class="max-w-2xl mx-auto mb-8 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700">
+            <summary class="flex items-center justify-between p-5 cursor-pointer list-none select-none">
+              <div class="flex items-center gap-2">
+                <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                <span class="font-semibold text-slate-700 dark:text-slate-300">Advanced Settings</span>
+              </div>
+              <svg class="w-5 h-5 text-slate-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="px-5 pb-5 space-y-5">
+              <p class="text-xs text-slate-500 dark:text-slate-400">These values are pre-filled based on your industry. Adjust if you know your specific numbers.</p>
+              
+              <div class="grid sm:grid-cols-2 gap-4">
                 <div>
-                  <p class="text-3xl font-bold text-slate-900 dark:text-white" id="result-hours-saved">20</p>
-                  <p class="text-sm text-slate-600 dark:text-slate-400">hours/month</p>
+                  <label for="current-visitors" class="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Current monthly visitors</label>
+                  <input type="number" id="current-visitors" value="500" min="0" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent"/>
                 </div>
                 <div>
-                  <p class="text-3xl font-bold text-green-600 dark:text-green-400" id="result-time-value">$600</p>
-                  <p class="text-sm text-slate-600 dark:text-slate-400">value (at $30/hr)</p>
+                  <label for="current-conversion" class="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Current conversion rate (%)</label>
+                  <input type="number" id="current-conversion" value="2" min="0" max="100" step="0.1" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent"/>
+                  <p class="text-xs text-slate-400 mt-0.5">% of visitors who contact you (avg: 2-3%)</p>
+                </div>
+                <div>
+                  <label for="close-rate" class="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Close rate (%)</label>
+                  <input type="number" id="close-rate" value="40" min="0" max="100" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent"/>
+                  <p class="text-xs text-slate-400 mt-0.5">% of inquiries that become customers</p>
+                </div>
+                <div>
+                  <label for="new-conversion" class="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Projected conversion rate (%)</label>
+                  <input type="number" id="new-conversion" value="6" min="0" max="100" step="0.5" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent"/>
+                  <p class="text-xs text-slate-400 mt-0.5">Our sites target 5-10% (median: 6.6% per <a href="https://unbounce.com/conversion-benchmark-report/" target="_blank" rel="noopener" class="text-primary-500 hover:underline">Unbounce</a>)</p>
+                </div>
+                <div>
+                  <label for="traffic-increase" class="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Expected traffic increase (%)</label>
+                  <input type="number" id="traffic-increase" value="100" min="0" max="500" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent"/>
+                  <p class="text-xs text-slate-400 mt-0.5">SEO + Local listings typically add 50-200%</p>
+                </div>
+                <div>
+                  <label for="website-cost" class="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Website package</label>
+                  <select id="website-cost" class="w-full px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                    <option value="999">Starter - $999 (founding)</option>
+                    <option value="1749" selected>Professional - $1,749 (founding)</option>
+                    <option value="2999">Lead Gen System - $2,999 (founding)</option>
+                    <option value="0">Already have a website</option>
+                  </select>
                 </div>
               </div>
-              <p class="text-xs text-slate-500 dark:text-slate-400 mt-4">
-                Automated follow-ups, appointment booking, and lead nurturing eliminate manual tasks.
-              </p>
             </div>
-          </div>
+          </details>
 
-        </div>
-
-        <!-- Comparison Section -->
-        <div class="mt-16">
-          <h2 class="text-3xl font-bold text-slate-900 dark:text-white text-center mb-4">
-            Current State vs. With Lead Flow North
-          </h2>
-          <p class="text-slate-600 dark:text-slate-400 text-center mb-8 max-w-2xl mx-auto">
-            See the difference a professional website and lead generation system makes
-          </p>
-
-          <div class="overflow-x-auto">
-            <table class="w-full max-w-4xl mx-auto bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden">
-              <thead class="bg-slate-100 dark:bg-slate-900">
-                <tr>
-                  <th class="text-left py-4 px-6 font-semibold text-slate-700 dark:text-slate-300">Metric</th>
-                  <th class="text-center py-4 px-6 font-semibold text-slate-500">
-                    <span class="block text-xs uppercase tracking-wide">Current</span>
-                    Without LFN
-                  </th>
-                  <th class="text-center py-4 px-6 font-semibold text-blue-600 dark:text-blue-400">
-                    <span class="block text-xs uppercase tracking-wide">Projected</span>
-                    With LFN
-                  </th>
-                  <th class="text-center py-4 px-6 font-semibold text-green-600">
-                    Improvement
-                  </th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-slate-200 dark:divide-slate-700">
-                <tr>
-                  <td class="py-4 px-6 text-slate-700 dark:text-slate-300">Monthly Website Visitors</td>
-                  <td id="compare-visitors-old" class="text-center py-4 px-6 text-slate-500">500</td>
-                  <td id="compare-visitors-new" class="text-center py-4 px-6 font-semibold text-blue-600 dark:text-blue-400">1,000</td>
-                  <td id="compare-visitors-diff" class="text-center py-4 px-6 text-green-600 font-semibold">+100%</td>
-                </tr>
-                <tr class="bg-slate-50 dark:bg-slate-800/50">
-                  <td class="py-4 px-6 text-slate-700 dark:text-slate-300">Conversion Rate</td>
-                  <td id="compare-conv-old" class="text-center py-4 px-6 text-slate-500">2%</td>
-                  <td id="compare-conv-new" class="text-center py-4 px-6 font-semibold text-blue-600 dark:text-blue-400">6%</td>
-                  <td id="compare-conv-diff" class="text-center py-4 px-6 text-green-600 font-semibold">+200%</td>
-                </tr>
-                <tr>
-                  <td class="py-4 px-6 text-slate-700 dark:text-slate-300">Monthly Leads</td>
-                  <td id="compare-leads-old" class="text-center py-4 px-6 text-slate-500">10</td>
-                  <td id="compare-leads-new" class="text-center py-4 px-6 font-semibold text-blue-600 dark:text-blue-400">60</td>
-                  <td id="compare-leads-diff" class="text-center py-4 px-6 text-green-600 font-semibold">+500%</td>
-                </tr>
-                <tr class="bg-slate-50 dark:bg-slate-800/50">
-                  <td class="py-4 px-6 text-slate-700 dark:text-slate-300">Monthly Customers</td>
-                  <td id="compare-customers-old" class="text-center py-4 px-6 text-slate-500">4</td>
-                  <td id="compare-customers-new" class="text-center py-4 px-6 font-semibold text-blue-600 dark:text-blue-400">24</td>
-                  <td id="compare-customers-diff" class="text-center py-4 px-6 text-green-600 font-semibold">+500%</td>
-                </tr>
-                <tr>
-                  <td class="py-4 px-6 text-slate-700 dark:text-slate-300 font-semibold">Monthly Revenue</td>
-                  <td id="compare-revenue-old" class="text-center py-4 px-6 text-slate-500">$3,000</td>
-                  <td id="compare-revenue-new" class="text-center py-4 px-6 font-bold text-blue-600 dark:text-blue-400">$18,000</td>
-                  <td id="compare-revenue-diff" class="text-center py-4 px-6 text-green-600 font-bold">+$15,000</td>
-                </tr>
-                <tr class="bg-green-50 dark:bg-green-900/20">
-                  <td class="py-4 px-6 text-slate-800 dark:text-white font-bold">Annual Revenue Gain</td>
-                  <td class="text-center py-4 px-6 text-slate-400">—</td>
-                  <td id="compare-annual-gain" class="text-center py-4 px-6 font-bold text-green-600 dark:text-green-400 text-xl">$180,000</td>
-                  <td class="text-center py-4 px-6 text-slate-400">—</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Disclaimer -->
-        <div class="mt-12 text-center">
-          <p class="text-xs text-slate-400 dark:text-slate-500 max-w-2xl mx-auto">
-            <strong>Disclaimer:</strong> Results are projections based on your inputs and industry benchmarks. Actual results vary based on market conditions, competition, service quality, and other factors. These calculations assume consistent effort and proper implementation of marketing strategies.
+          <!-- Disclaimer -->
+          <p class="text-xs text-slate-400 dark:text-slate-500 max-w-2xl mx-auto text-center mb-8">
+            <strong>Disclaimer:</strong> These are projections based on your inputs and industry benchmarks. Actual results vary based on market conditions, competition, and implementation. We use conservative estimates from <a href="https://unbounce.com/conversion-benchmark-report/" target="_blank" rel="noopener" class="text-primary-500 hover:underline">Unbounce</a> and <a href="https://www.homeadvisor.com/cost/" target="_blank" rel="noopener" class="text-primary-500 hover:underline">HomeAdvisor</a>.
           </p>
         </div>
+
       </div>
     </section>
 
@@ -474,23 +364,17 @@ const calculatorSchema = {
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a 
-            href="https://cal.com/lead-flow-north/discovery" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+            href="/contact" 
+            class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
           >
             Book Free Strategy Call
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-            </svg>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
           </a>
           <a 
             href="tel:+19057835996"
-            class="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-slate-600 hover:border-slate-500 text-white font-semibold rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+            class="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-slate-600 hover:border-slate-500 text-white font-semibold rounded-lg transition-colors"
           >
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-            </svg>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
             Call (905) 783-5996
           </a>
         </div>
@@ -499,379 +383,232 @@ const calculatorSchema = {
         </p>
       </div>
     </section>
-
-    <!-- Data Sources Section -->
-    <section class="py-12 bg-slate-100 dark:bg-slate-900">
-      <div class="max-w-4xl mx-auto px-4">
-        <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4 text-center">
-          Data Sources & Methodology
-        </h3>
-        <div class="grid md:grid-cols-2 gap-6 text-sm text-slate-600 dark:text-slate-400">
-          <div>
-            <h4 class="font-medium text-slate-800 dark:text-slate-200 mb-2">Conversion Rates</h4>
-            <p>
-              Median landing page conversion rate of 6.6% from <a href="https://unbounce.com/conversion-benchmark-report/" target="_blank" rel="noopener" class="text-blue-600 dark:text-blue-400 hover:underline">Unbounce Conversion Benchmark Report (Q4 2024)</a>, analyzing 464M visitors across 41,000 pages.
-            </p>
-          </div>
-          <div>
-            <h4 class="font-medium text-slate-800 dark:text-slate-200 mb-2">Customer Acquisition Costs</h4>
-            <p>
-              Industry CAC benchmarks from <a href="https://www.propellercrm.com/blog/customer-acquisition-cost" target="_blank" rel="noopener" class="text-blue-600 dark:text-blue-400 hover:underline">PropellerCRM industry research</a>, citing Entrepreneur and Kurt Kummerer studies.
-            </p>
-          </div>
-          <div>
-            <h4 class="font-medium text-slate-800 dark:text-slate-200 mb-2">Service Pricing</h4>
-            <p>
-              Average job values from <a href="https://www.homeadvisor.com/cost/" target="_blank" rel="noopener" class="text-blue-600 dark:text-blue-400 hover:underline">HomeAdvisor Cost Guides</a> and Canadian market research.
-            </p>
-          </div>
-          <div>
-            <h4 class="font-medium text-slate-800 dark:text-slate-200 mb-2">Traffic Growth</h4>
-            <p>
-              SEO traffic improvement estimates based on industry case studies. Results vary by competition, market, and implementation.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
   </main>
 </Layout>
 
 <script>
-  // Industry presets with realistic data
+  // ─── Industry presets ───
   const industryPresets = {
-    custom: {
-      avgJobValue: 750,
-      closeRate: 40,
-      currentConversion: 2,
-      newConversion: 6,
-      source: null
-    },
-    plumber: {
-      avgJobValue: 450,
-      closeRate: 50,
-      currentConversion: 2,
-      newConversion: 7,
-      source: 'Avg plumbing job $175-$450 (HomeAdvisor 2024). Close rates higher due to urgent nature of repairs.'
-    },
-    hvac: {
-      avgJobValue: 800,
-      closeRate: 45,
-      currentConversion: 2,
-      newConversion: 6,
-      source: 'HVAC repairs $150-$600, installations $2,000-$7,000 (HomeAdvisor). Blended average for mixed service calls.'
-    },
-    electrician: {
-      avgJobValue: 400,
-      closeRate: 50,
-      currentConversion: 2,
-      newConversion: 7,
-      source: 'Electrical work $150-$500 avg (HomeAdvisor). High close rate due to safety urgency.'
-    },
-    roofing: {
-      avgJobValue: 8500,
-      closeRate: 25,
-      currentConversion: 3,
-      newConversion: 8,
-      source: 'Avg roof replacement $8,000-$15,000 (HomeAdvisor). Lower close rate but high ticket.'
-    },
-    landscaping: {
-      avgJobValue: 350,
-      closeRate: 55,
-      currentConversion: 2,
-      newConversion: 6,
-      source: 'Landscaping services $200-$500 avg per visit. High seasonality factor.'
-    },
-    dental: {
-      avgJobValue: 1200,
-      closeRate: 60,
-      currentConversion: 3,
-      newConversion: 8,
-      source: 'Dental procedures avg $300-$3,000. Lifetime patient value significantly higher.'
-    },
-    chiro: {
-      avgJobValue: 250,
-      closeRate: 55,
-      currentConversion: 3,
-      newConversion: 7,
-      source: 'Chiropractic visit $50-$200. Recurring patient model increases LTV.'
-    },
-    legal: {
-      avgJobValue: 3500,
-      closeRate: 30,
-      currentConversion: 2,
-      newConversion: 6,
-      source: 'Legal services vary widely. Family/personal injury avg $1,500-$5,000+ per case.'
-    },
-    accounting: {
-      avgJobValue: 1500,
-      closeRate: 45,
-      currentConversion: 2,
-      newConversion: 5,
-      source: 'Small business accounting $100-$300/month. Annual value + tax prep = $1,500+ avg.'
-    },
-    realestate: {
-      avgJobValue: 12000,
-      closeRate: 15,
-      currentConversion: 2,
-      newConversion: 5,
-      source: 'Avg Canadian home $650K, 2.5% commission = ~$16K. Net after splits ~$8-12K.'
-    },
-    cleaning: {
-      avgJobValue: 200,
-      closeRate: 60,
-      currentConversion: 2,
-      newConversion: 7,
-      source: 'House cleaning $100-$300 per visit. High repeat customer rate.'
-    },
-    auto: {
-      avgJobValue: 550,
-      closeRate: 50,
-      currentConversion: 2,
-      newConversion: 6,
-      source: 'Auto repair avg $300-$800. Repeat maintenance increases LTV.'
-    }
+    custom:       { avgJobValue: 750,   closeRate: 40, currentConversion: 2, newConversion: 6,  trafficIncrease: 100, source: null },
+    plumber:      { avgJobValue: 450,   closeRate: 50, currentConversion: 2, newConversion: 7,  trafficIncrease: 100, source: 'Avg plumbing job $175–$450 (HomeAdvisor 2024)' },
+    hvac:         { avgJobValue: 800,   closeRate: 45, currentConversion: 2, newConversion: 6,  trafficIncrease: 100, source: 'HVAC repairs $150–$600, installs $2K–$7K (HomeAdvisor)' },
+    electrician:  { avgJobValue: 400,   closeRate: 50, currentConversion: 2, newConversion: 7,  trafficIncrease: 100, source: 'Electrical work $150–$500 avg (HomeAdvisor)' },
+    roofing:      { avgJobValue: 8500,  closeRate: 25, currentConversion: 3, newConversion: 8,  trafficIncrease: 100, source: 'Avg roof replacement $8K–$15K (HomeAdvisor)' },
+    landscaping:  { avgJobValue: 350,   closeRate: 55, currentConversion: 2, newConversion: 6,  trafficIncrease: 100, source: 'Landscaping $200–$500 avg per visit' },
+    dental:       { avgJobValue: 1200,  closeRate: 60, currentConversion: 3, newConversion: 8,  trafficIncrease: 100, source: 'Dental procedures avg $300–$3,000' },
+    chiro:        { avgJobValue: 250,   closeRate: 55, currentConversion: 3, newConversion: 7,  trafficIncrease: 100, source: 'Chiropractic visit $50–$200, recurring' },
+    legal:        { avgJobValue: 3500,  closeRate: 30, currentConversion: 2, newConversion: 6,  trafficIncrease: 100, source: 'Family/personal injury avg $1.5K–$5K/case' },
+    accounting:   { avgJobValue: 1500,  closeRate: 45, currentConversion: 2, newConversion: 5,  trafficIncrease: 100, source: 'Annual accounting + tax prep = ~$1,500+ avg' },
+    realestate:   { avgJobValue: 12000, closeRate: 15, currentConversion: 2, newConversion: 5,  trafficIncrease: 100, source: 'Avg commission ~$8K–$12K net after splits' },
+    cleaning:     { avgJobValue: 200,   closeRate: 60, currentConversion: 2, newConversion: 7,  trafficIncrease: 100, source: 'House cleaning $100–$300/visit, high repeat' },
+    auto:         { avgJobValue: 550,   closeRate: 50, currentConversion: 2, newConversion: 6,  trafficIncrease: 100, source: 'Auto repair avg $300–$800' }
   };
 
-  // Get all input elements
-  const inputs = {
-    industryPreset: document.getElementById('industry-preset'),
-    currentVisitors: document.getElementById('current-visitors'),
-    currentConversion: document.getElementById('current-conversion'),
-    avgJobValue: document.getElementById('avg-job-value'),
-    closeRate: document.getElementById('close-rate'),
-    trafficIncrease: document.getElementById('traffic-increase'),
-    newConversion: document.getElementById('new-conversion'),
-    websiteCost: document.getElementById('website-cost'),
-    monthlyServicesCheckboxes: document.getElementById('monthly-services-checkboxes'),
-    foundingDiscount: document.getElementById('founding-discount')
+  // ─── State ───
+  let selectedIndustry = 'custom';
+  let selectedVisitors = 500;
+
+  // ─── DOM elements ───
+  const el = {
+    avgJobValue:       document.getElementById('avg-job-value') as HTMLInputElement,
+    avgJobSlider:      document.getElementById('avg-job-slider') as HTMLInputElement,
+    currentVisitors:   document.getElementById('current-visitors') as HTMLInputElement,
+    currentConversion: document.getElementById('current-conversion') as HTMLInputElement,
+    closeRate:         document.getElementById('close-rate') as HTMLInputElement,
+    newConversion:     document.getElementById('new-conversion') as HTMLInputElement,
+    trafficIncrease:   document.getElementById('traffic-increase') as HTMLInputElement,
+    websiteCost:       document.getElementById('website-cost') as HTMLSelectElement,
+    industrySource:    document.getElementById('industry-source')!,
+    // Results
+    resultLeads:          document.getElementById('result-leads')!,
+    resultLeadsIncrease:  document.getElementById('result-leads-increase')!,
+    resultRevenue:        document.getElementById('result-revenue')!,
+    resultPayback:        document.getElementById('result-payback')!,
+    resultRoi:            document.getElementById('result-roi')!,
+    resultRoiDollars:     document.getElementById('result-roi-dollars')!,
+    resultAnnual:         document.getElementById('result-annual')!,
+    resultInvestment:     document.getElementById('result-investment')!,
+    // Comparison
+    compareVisitorsOld:  document.getElementById('compare-visitors-old')!,
+    compareVisitorsNew:  document.getElementById('compare-visitors-new')!,
+    compareLeadsOld:     document.getElementById('compare-leads-old')!,
+    compareLeadsNew:     document.getElementById('compare-leads-new')!,
+    compareCustomersOld: document.getElementById('compare-customers-old')!,
+    compareCustomersNew: document.getElementById('compare-customers-new')!,
+    compareRevenueOld:   document.getElementById('compare-revenue-old')!,
+    compareRevenueNew:   document.getElementById('compare-revenue-new')!,
   };
 
-  // Result elements
-  const results = {
-    leads: document.getElementById('result-leads'),
-    leadsIncrease: document.getElementById('result-leads-increase'),
-    revenue: document.getElementById('result-revenue'),
-    revenueIncrease: document.getElementById('result-revenue-increase'),
-    cpl: document.getElementById('result-cpl'),
-    roi: document.getElementById('result-roi'),
-    roiDollars: document.getElementById('result-roi-dollars'),
-    payback: document.getElementById('result-payback'),
-    hoursSaved: document.getElementById('result-hours-saved'),
-    timeValue: document.getElementById('result-time-value'),
-    trafficValue: document.getElementById('traffic-increase-value')
-  };
-
-  // Comparison elements
-  const compare = {
-    visitorsOld: document.getElementById('compare-visitors-old'),
-    visitorsNew: document.getElementById('compare-visitors-new'),
-    visitorsDiff: document.getElementById('compare-visitors-diff'),
-    convOld: document.getElementById('compare-conv-old'),
-    convNew: document.getElementById('compare-conv-new'),
-    convDiff: document.getElementById('compare-conv-diff'),
-    leadsOld: document.getElementById('compare-leads-old'),
-    leadsNew: document.getElementById('compare-leads-new'),
-    leadsDiff: document.getElementById('compare-leads-diff'),
-    customersOld: document.getElementById('compare-customers-old'),
-    customersNew: document.getElementById('compare-customers-new'),
-    customersDiff: document.getElementById('compare-customers-diff'),
-    revenueOld: document.getElementById('compare-revenue-old'),
-    revenueNew: document.getElementById('compare-revenue-new'),
-    revenueDiff: document.getElementById('compare-revenue-diff'),
-    annualGain: document.getElementById('compare-annual-gain')
-  };
-
-  const industrySource = document.getElementById('industry-source');
-
-  // Format currency
-  function formatCurrency(num) {
-    if (num >= 1000000) {
-      return '$' + (num / 1000000).toFixed(1) + 'M';
-    } else if (num >= 1000) {
-      return '$' + num.toLocaleString('en-CA', { maximumFractionDigits: 0 });
-    } else if (num >= 1) {
-      return '$' + num.toFixed(2);
-    } else {
-      return '$' + num.toFixed(2);
-    }
+  // ─── Formatters ───
+  function fmt$(n: number): string {
+    if (n >= 1000000) return '$' + (n / 1000000).toFixed(1) + 'M';
+    if (n >= 1000) return '$' + n.toLocaleString('en-CA', { maximumFractionDigits: 0 });
+    return '$' + n.toFixed(n < 1 ? 2 : 0);
+  }
+  function fmtN(n: number): string {
+    return Math.round(n).toLocaleString('en-CA');
   }
 
-  // Format number with commas
-  function formatNumber(num) {
-    return num.toLocaleString('en-CA', { maximumFractionDigits: 0 });
-  }
-
-  // Monthly service prices
-  const monthlyServicePrices = {
-    'Website Care': 197,
-    'Email Marketing': 497,
-    'SEO & Content': 797,
-    'Full-Service Marketing': 1997
-  };
-
-  // Calculate ROI
+  // ─── Core calculation ───
   function calculate() {
-    // Get input values
-    const currentVisitors = parseFloat(inputs.currentVisitors.value) || 0;
-    const currentConversion = parseFloat(inputs.currentConversion.value) || 0;
-    const avgJobValue = parseFloat(inputs.avgJobValue.value) || 0;
-    const closeRate = parseFloat(inputs.closeRate.value) || 0;
-    const trafficIncrease = parseFloat(inputs.trafficIncrease.value) || 0;
-    const newConversion = parseFloat(inputs.newConversion.value) || 0;
-    let websiteCost = parseFloat(inputs.websiteCost.value) || 0;
-    const foundingDiscount = inputs.foundingDiscount.checked;
+    const currentVisitors   = parseFloat(el.currentVisitors.value) || 0;
+    const currentConversion = parseFloat(el.currentConversion.value) || 0;
+    const avgJobValue       = parseFloat(el.avgJobValue.value) || 0;
+    const closeRate         = parseFloat(el.closeRate.value) || 0;
+    const trafficIncrease   = parseFloat(el.trafficIncrease.value) || 0;
+    const newConversion     = parseFloat(el.newConversion.value) || 0;
+    const websiteCost       = parseFloat(el.websiteCost.value) || 0;
 
-    // Apply founding discount to website cost
-    if (foundingDiscount) {
-      websiteCost *= 0.5;
-    }
-
-    // Get selected monthly services
-    const checkboxes = inputs.monthlyServicesCheckboxes.querySelectorAll('input[type="checkbox"]');
-    let selectedServices = [];
-    checkboxes.forEach(cb => {
-      if (cb.checked) selectedServices.push(cb.value);
-    });
-
-    // Exclude other services if Full-Service Marketing is selected
-    if (selectedServices.includes('Full-Service Marketing')) {
-      selectedServices = ['Full-Service Marketing'];
-      checkboxes.forEach(cb => {
-        if (cb.value !== 'Full-Service Marketing') {
-          cb.checked = false;
-          cb.disabled = true;
-        }
-      });
-    } else {
-      checkboxes.forEach(cb => {
-        cb.disabled = false;
-      });
-    }
-
-    // Sum monthly cost
-    let monthlyCost = 0;
-    selectedServices.forEach(service => {
-      let price = monthlyServicePrices[service] || 0;
-      if (foundingDiscount) price *= 0.5;
-      monthlyCost += price;
-    });
-
-    // Calculate current state
-    const currentLeads = currentVisitors * (currentConversion / 100);
+    // Current state
+    const currentLeads     = currentVisitors * (currentConversion / 100);
     const currentCustomers = currentLeads * (closeRate / 100);
-    const currentRevenue = currentCustomers * avgJobValue;
+    const currentRevenue   = currentCustomers * avgJobValue;
 
-    // Calculate new state
-    const newVisitors = currentVisitors * (1 + trafficIncrease / 100);
-    const newLeads = newVisitors * (newConversion / 100);
+    // New state
+    const newVisitors  = currentVisitors * (1 + trafficIncrease / 100);
+    const newLeads     = newVisitors * (newConversion / 100);
     const newCustomers = newLeads * (closeRate / 100);
-    const newRevenue = newCustomers * avgJobValue;
+    const newRevenue   = newCustomers * avgJobValue;
 
-    // Calculate differences
-    const leadsIncrease = newLeads - currentLeads;
+    // Differences
+    const leadsIncrease   = newLeads - currentLeads;
     const revenueIncrease = newRevenue - currentRevenue;
     const annualRevenueIncrease = revenueIncrease * 12;
 
-    // Calculate investment
-    const yearOneCost = websiteCost + (monthlyCost * 12);
+    // Investment: amortized website cost over 12 months (no monthly services in simple view)
+    const totalYearCost = websiteCost;
+    const monthlyCostAmortized = websiteCost / 12;
 
-    // Calculate ROI
-    const roi = yearOneCost > 0 ? ((annualRevenueIncrease - yearOneCost) / yearOneCost) * 100 : 0;
-    const roiDollars = yearOneCost > 0 ? (annualRevenueIncrease / yearOneCost) : 0;
+    // ROI = (gain - cost) / cost
+    const roi = totalYearCost > 0 ? ((annualRevenueIncrease - totalYearCost) / totalYearCost) * 100 : 0;
+    const roiDollars = totalYearCost > 0 ? annualRevenueIncrease / totalYearCost : 0;
 
-    // Calculate payback period (in months)
-    const monthlyNetGain = revenueIncrease - monthlyCost;
-    let payback = monthlyNetGain > 0 ? websiteCost / monthlyNetGain : 99;
-    if (websiteCost === 0) {
-      payback = monthlyCost > 0 && revenueIncrease > monthlyCost ? 1 : 0;
+    // Payback: months until website cost recovered by extra monthly revenue
+    let payback = 0;
+    if (revenueIncrease > 0 && websiteCost > 0) {
+      payback = websiteCost / revenueIncrease;
+    } else if (websiteCost === 0 && revenueIncrease > 0) {
+      payback = 0; // Free — immediate ROI
+    } else {
+      payback = 99;
     }
 
-    // Calculate cost per lead
-    const cpl = newLeads > 0 && monthlyCost > 0 ? monthlyCost / newLeads : 0;
+    // ─── Update DOM ───
+    el.resultLeads.textContent = fmtN(newLeads);
+    if (leadsIncrease > 0) {
+      el.resultLeadsIncrease.textContent = `+${fmtN(leadsIncrease)} more than now`;
+    } else {
+      el.resultLeadsIncrease.textContent = currentLeads > 0 ? 'same as now' : 'new inquiries';
+    }
 
-    // Time saved calculation (based on automation)
-    const hoursSaved = monthlyCost >= 500 ? Math.min(newLeads * 0.5, 40) : 0;
-    const timeValue = hoursSaved * 30; // $30/hr assumed value
+    el.resultRevenue.textContent = fmt$(revenueIncrease);
+    
+    if (payback === 0) {
+      el.resultPayback.textContent = 'Instant';
+    } else if (payback >= 99) {
+      el.resultPayback.textContent = '—';
+    } else {
+      el.resultPayback.textContent = payback < 1 ? '< 1' : payback.toFixed(1);
+    }
 
-    // Update results
-    results.leads.textContent = formatNumber(Math.round(newLeads));
-    results.leadsIncrease.textContent = leadsIncrease > 0 ? `+${formatNumber(Math.round(leadsIncrease))} more` : 'same';
-    results.revenue.textContent = formatCurrency(newRevenue);
-    results.revenueIncrease.textContent = revenueIncrease > 0 ? `+${formatCurrency(revenueIncrease)}` : 'no change';
-    results.cpl.textContent = cpl > 0 ? formatCurrency(cpl) : 'N/A';
-    results.roi.textContent = `${formatNumber(Math.round(roi))}%`;
-    results.roiDollars.textContent = formatCurrency(roiDollars);
-    results.payback.textContent = payback > 0 && payback < 99 ? payback.toFixed(1) : payback >= 99 ? '>99' : 'N/A';
-    results.hoursSaved.textContent = formatNumber(Math.round(hoursSaved));
-    results.timeValue.textContent = formatCurrency(timeValue);
+    el.resultRoi.textContent = roi > 0 ? `${fmtN(roi)}%` : '—';
+    el.resultRoiDollars.textContent = roiDollars > 0 ? `${fmt$(roiDollars)} back for every $1 spent` : 'Enter values above';
 
-    // Update comparison table
-    compare.visitorsOld.textContent = formatNumber(Math.round(currentVisitors));
-    compare.visitorsNew.textContent = formatNumber(Math.round(newVisitors));
-    compare.visitorsDiff.textContent = trafficIncrease > 0 ? `+${trafficIncrease}%` : '—';
+    el.resultAnnual.textContent = fmt$(annualRevenueIncrease);
+    el.resultInvestment.textContent = fmt$(websiteCost);
 
-    compare.convOld.textContent = `${currentConversion}%`;
-    compare.convNew.textContent = `${newConversion}%`;
-    const convDiffPercent = currentConversion > 0 ? Math.round(((newConversion - currentConversion) / currentConversion) * 100) : 0;
-    compare.convDiff.textContent = convDiffPercent > 0 ? `+${convDiffPercent}%` : '—';
-
-    compare.leadsOld.textContent = formatNumber(Math.round(currentLeads));
-    compare.leadsNew.textContent = formatNumber(Math.round(newLeads));
-    const leadsDiffPercent = currentLeads > 0 ? Math.round(((newLeads - currentLeads) / currentLeads) * 100) : 0;
-    compare.leadsDiff.textContent = leadsIncrease > 0 ? `+${leadsDiffPercent}%` : '—';
-
-    compare.customersOld.textContent = formatNumber(Math.round(currentCustomers));
-    compare.customersNew.textContent = formatNumber(Math.round(newCustomers));
-    const customersDiffPercent = currentCustomers > 0 ? Math.round(((newCustomers - currentCustomers) / currentCustomers) * 100) : 0;
-    compare.customersDiff.textContent = newCustomers > currentCustomers ? `+${customersDiffPercent}%` : '—';
-
-    compare.revenueOld.textContent = formatCurrency(currentRevenue);
-    compare.revenueNew.textContent = formatCurrency(newRevenue);
-    compare.revenueDiff.textContent = revenueIncrease > 0 ? `+${formatCurrency(revenueIncrease)}` : '—';
-
-    compare.annualGain.textContent = formatCurrency(annualRevenueIncrease);
+    // Comparison cards
+    el.compareVisitorsOld.textContent = fmtN(currentVisitors);
+    el.compareVisitorsNew.textContent = fmtN(newVisitors);
+    el.compareLeadsOld.textContent = fmtN(currentLeads);
+    el.compareLeadsNew.textContent = fmtN(newLeads);
+    el.compareCustomersOld.textContent = fmtN(currentCustomers);
+    el.compareCustomersNew.textContent = fmtN(newCustomers);
+    el.compareRevenueOld.textContent = fmt$(currentRevenue);
+    el.compareRevenueNew.textContent = fmt$(newRevenue);
   }
 
-  // Handle industry preset change
-  inputs.industryPreset.addEventListener('change', (e) => {
-    const preset = industryPresets[e.target.value];
-    if (preset) {
-      inputs.avgJobValue.value = preset.avgJobValue;
-      inputs.closeRate.value = preset.closeRate;
-      inputs.currentConversion.value = preset.currentConversion;
-      inputs.newConversion.value = preset.newConversion;
+  // ─── Industry button selection ───
+  document.querySelectorAll('.industry-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const industry = (btn as HTMLElement).dataset.industry!;
+      selectedIndustry = industry;
       
-      if (preset.source) {
-        industrySource.textContent = `📊 ${preset.source}`;
-        industrySource.classList.remove('hidden');
-      } else {
-        industrySource.classList.add('hidden');
+      // Visual toggle
+      document.querySelectorAll('.industry-btn').forEach(b => {
+        b.classList.remove('border-primary-500', 'bg-primary-50', 'dark:bg-primary-900/20', 'ring-2', 'ring-primary-500/30');
+        b.classList.add('border-slate-200', 'dark:border-slate-600');
+      });
+      btn.classList.remove('border-slate-200', 'dark:border-slate-600');
+      btn.classList.add('border-primary-500', 'bg-primary-50', 'dark:bg-primary-900/20', 'ring-2', 'ring-primary-500/30');
+
+      // Apply preset
+      const preset = industryPresets[industry as keyof typeof industryPresets];
+      if (preset) {
+        el.avgJobValue.value = String(preset.avgJobValue);
+        el.avgJobSlider.value = String(preset.avgJobValue);
+        el.closeRate.value = String(preset.closeRate);
+        el.currentConversion.value = String(preset.currentConversion);
+        el.newConversion.value = String(preset.newConversion);
+        el.trafficIncrease.value = String(preset.trafficIncrease);
+
+        if (preset.source) {
+          el.industrySource.textContent = `📊 ${preset.source}`;
+          el.industrySource.classList.remove('hidden');
+        } else {
+          el.industrySource.classList.add('hidden');
+        }
       }
-      
       calculate();
-    }
+    });
   });
 
-  // Handle traffic slider
-  inputs.trafficIncrease.addEventListener('input', (e) => {
-    results.trafficValue.textContent = `+${e.target.value}%`;
+  // ─── Traffic button selection ───
+  document.querySelectorAll('.traffic-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      selectedVisitors = parseInt((btn as HTMLElement).dataset.visitors!, 10);
+      el.currentVisitors.value = String(selectedVisitors);
+
+      // Visual toggle
+      document.querySelectorAll('.traffic-btn').forEach(b => {
+        b.classList.remove('border-primary-500', 'bg-primary-50', 'dark:bg-primary-900/20', 'ring-2', 'ring-primary-500/30');
+        b.classList.add('border-slate-200', 'dark:border-slate-600');
+      });
+      btn.classList.remove('border-slate-200', 'dark:border-slate-600');
+      btn.classList.add('border-primary-500', 'bg-primary-50', 'dark:bg-primary-900/20', 'ring-2', 'ring-primary-500/30');
+
+      calculate();
+    });
+  });
+
+  // ─── Job value slider sync ───
+  el.avgJobSlider.addEventListener('input', () => {
+    el.avgJobValue.value = el.avgJobSlider.value;
+    calculate();
+  });
+  el.avgJobValue.addEventListener('input', () => {
+    const val = parseInt(el.avgJobValue.value, 10);
+    if (val >= 50 && val <= 20000) {
+      el.avgJobSlider.value = String(val);
+    }
     calculate();
   });
 
-  // Add event listeners to all inputs
-  Object.values(inputs).forEach(input => {
-    if (input && input !== inputs.monthlyServicesCheckboxes) {
-      input.addEventListener('input', calculate);
-      input.addEventListener('change', calculate);
-    }
+  // ─── Advanced settings listeners ───
+  [el.currentVisitors, el.currentConversion, el.closeRate, el.newConversion, el.trafficIncrease].forEach(input => {
+    input.addEventListener('input', calculate);
   });
-  // Add event listeners to monthly service checkboxes
-  const checkboxes = inputs.monthlyServicesCheckboxes.querySelectorAll('input[type="checkbox"]');
-  checkboxes.forEach(cb => {
-    cb.addEventListener('change', calculate);
-  });
+  el.websiteCost.addEventListener('change', calculate);
 
-  // Initial calculation
+  // ─── Initial state ───
+  // Pre-select "Under 500" traffic button
+  const defaultTrafficBtn = document.querySelector('.traffic-btn[data-visitors="300"]');
+  if (defaultTrafficBtn) {
+    selectedVisitors = 300;
+    el.currentVisitors.value = '300';
+    defaultTrafficBtn.classList.remove('border-slate-200', 'dark:border-slate-600');
+    defaultTrafficBtn.classList.add('border-primary-500', 'bg-primary-50', 'dark:bg-primary-900/20', 'ring-2', 'ring-primary-500/30');
+  }
+
   calculate();
 </script>
