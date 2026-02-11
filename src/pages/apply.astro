@@ -1,9 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-// Get position from URL params (Astro.url is always available and includes query params)
-const position = Astro.url.searchParams.get('position') || '';
-const jobTitle = Astro.url.searchParams.get('title') || 'this position';
+// Position and title are read client-side from URL params via the script below
 
 const applySchema = {
   "@context": "https://schema.org",
@@ -202,10 +200,14 @@ const applySchema = {
   const params = new URLSearchParams(window.location.search);
   const position = params.get('position') || '';
   const jobTitle = params.get('title') || 'this position';
-  document.getElementById('position-display').value = jobTitle;
-  document.getElementById('job-title-display').textContent = jobTitle;
-  document.getElementById('position-hidden').value = position;
-  document.getElementById('subject-hidden').value = `Job Application: ${jobTitle}`;
+  const positionDisplay = document.getElementById('position-display') as HTMLInputElement | null;
+  const jobTitleDisplay = document.getElementById('job-title-display');
+  const positionHidden = document.getElementById('position-hidden') as HTMLInputElement | null;
+  const subjectHidden = document.getElementById('subject-hidden') as HTMLInputElement | null;
+  if (positionDisplay) positionDisplay.value = jobTitle;
+  if (jobTitleDisplay) jobTitleDisplay.textContent = jobTitle;
+  if (positionHidden) positionHidden.value = position;
+  if (subjectHidden) subjectHidden.value = `Job Application: ${jobTitle}`;
   
   // File upload elements
   const resumeInput = document.getElementById('resume') as HTMLInputElement;

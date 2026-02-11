@@ -10,116 +10,81 @@ const contactSchema = {
 };
 ---
 
-<Layout 
-  title="Contact Us" 
+<Layout
+  title="Contact Us"
   description="Get in touch with Lead Flow North. Book a free 15-minute discovery call or send us a message. We typically respond within 24 hours."
   structuredData={contactSchema}
 >
   <!-- Hero -->
   <section class="py-16 lg:py-24 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid lg:grid-cols-2 gap-12">
-        <!-- Left: Info -->
-        <div>
-          <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white mb-6">
-            Let's Talk About Growing Your Business
-          </h1>
-          <p class="text-lg text-slate-600 dark:text-slate-300 mb-8">
-            Book a free 15-minute discovery call or send us a message. No sales pressure—just honest advice about your online presence and how we can help.
-          </p>
-          
-          <!-- Contact Info -->
-          <div class="space-y-6 mb-8">
-            <div class="flex items-start gap-4">
-              <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
-                <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+      <!-- Header -->
+      <div class="text-center mb-12">
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white mb-4">
+          Let's Talk About Growing Your Business
+        </h1>
+        <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+          Book a free 15-minute discovery call or send us a message. No sales pressure—just honest advice about your online presence.
+        </p>
+      </div>
+
+      <!-- Two Column Layout: Cal.com + Contact Form -->
+      <div class="grid lg:grid-cols-2 gap-8">
+        <!-- Left Column: Book a Call (Cal.com) -->
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col">
+          <div class="p-6 lg:p-8 border-b border-slate-200 dark:border-slate-700">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
               </div>
-              <div>
-                <p class="font-semibold text-slate-900 dark:text-white">Phone</p>
-                <a href="tel:+19057835996" class="text-primary-600 dark:text-primary-400 hover:underline">(905) 783-5996</a>
-              </div>
+              <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
+                Book a Free Call
+              </h2>
             </div>
-            
-            <div class="flex items-start gap-4">
-              <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
-                <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <p class="text-slate-600 dark:text-slate-400 text-sm">
+              Pick a time that works for you. We'll review your online presence, discuss your goals, and give you honest advice—whether you hire us or not.
+            </p>
+          </div>
+          <!-- Cal.com Embed -->
+          <div class="flex-1 min-h-[600px] relative" id="cal-embed">
+            <div id="cal-loading" class="absolute inset-0 flex flex-col items-center justify-center gap-4 p-8">
+              <div class="w-10 h-10 border-4 border-primary-200 border-t-primary-600 rounded-full animate-spin"></div>
+              <p class="text-sm text-slate-500 dark:text-slate-400">Loading calendar...</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Send a Message (Custom form → HubSpot API) -->
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col">
+          <div class="p-6 lg:p-8 border-b border-slate-200 dark:border-slate-700">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-accent-100 dark:bg-accent-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
               </div>
-              <div>
-                <p class="font-semibold text-slate-900 dark:text-white">Email</p>
-                <a href="mailto:hello@leadflownorth.com" class="text-primary-600 dark:text-primary-400 hover:underline">hello@leadflownorth.com</a>
-              </div>
+              <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
+                Send Us a Message
+              </h2>
             </div>
-            
-            <div class="flex items-start gap-4">
-              <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
-                <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </div>
-              <div>
-                <p class="font-semibold text-slate-900 dark:text-white">Offices</p>
-                <p class="text-slate-600 dark:text-slate-400">Toronto, ON<br />Edmonton, AB</p>
-              </div>
-            </div>
-            
-            <div class="flex items-start gap-4">
-              <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
-                <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </div>
-              <div>
-                <p class="font-semibold text-slate-900 dark:text-white">Business Hours</p>
-                <p class="text-slate-600 dark:text-slate-400">Monday - Friday, 9:00 AM - 5:00 PM EST</p>
-              </div>
-            </div>
+            <p class="text-slate-600 dark:text-slate-400 text-sm">
+              Prefer email? Fill out the form below and we'll get back to you within 24 hours—usually much faster.
+            </p>
           </div>
-          
-          <!-- Response time badge -->
-          <div class="inline-flex items-center gap-2 px-4 py-2 bg-accent-100 dark:bg-accent-900/30 rounded-full">
-            <svg class="w-5 h-5 text-accent-600" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-            </svg>
-            <span class="text-sm font-medium text-accent-700 dark:text-accent-300">We typically respond within 24 hours</span>
-          </div>
-        </div>
-        
-        <!-- Right: Form -->
-        <div>
-          <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 border border-slate-200 dark:border-slate-700">
-            <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">
-              Send Us a Message
-            </h2>
-            
-            <!-- Founding Client Badge (shown via JS when ?founding=true) -->
-            <div id="founding-badge" class="hidden mb-6 p-4 bg-gradient-to-r from-accent-50 to-primary-50 dark:from-accent-900/20 dark:to-primary-900/20 rounded-xl border border-accent-200 dark:border-accent-800">
-              <div class="flex items-center gap-3">
-                <span class="text-2xl">🎁</span>
+          <!-- Custom Form -->
+          <div class="p-6 lg:p-8 flex-1">
+            <form id="contact-form" class="space-y-5">
+              <div class="grid sm:grid-cols-2 gap-5">
                 <div>
-                  <p class="font-bold text-accent-700 dark:text-accent-300 text-sm">Founding Client Application</p>
-                  <p class="text-xs text-slate-600 dark:text-slate-400">You're applying for 50% off + lifetime pricing lock</p>
-                </div>
-              </div>
-            </div>
-            
-            <form action="https://formsubmit.co/support@leadflownorth.com"  method="POST" enctype="multipart/form-data" class="space-y-6" id="contact-form">
-              <input type="hidden" name="_foundingClient" id="foundingClientField" value="false">
-              <div class="grid sm:grid-cols-2 gap-6">
-                <div>
-                <input type="hidden" name="_subject" value="New Contact Form submission!">
-                  <input type="hidden" name="_next" value="https://leadflownorth.com/thank-you">
-                  <label for="firstName" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                  <label for="firstname" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
                     First Name <span class="text-red-500">*</span>
                   </label>
-                  <input 
-                    type="text" 
-                    id="firstName" 
-                    name="firstName" 
+                  <input
+                    type="text"
+                    id="firstname"
+                    name="firstname"
                     required
                     autocomplete="given-name"
                     class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
@@ -127,13 +92,13 @@ const contactSchema = {
                   />
                 </div>
                 <div>
-                  <label for="lastName" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                  <label for="lastname" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
                     Last Name <span class="text-red-500">*</span>
                   </label>
-                  <input 
-                    type="text" 
-                    id="lastName" 
-                    name="lastName" 
+                  <input
+                    type="text"
+                    id="lastname"
+                    name="lastname"
                     required
                     autocomplete="family-name"
                     class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
@@ -141,89 +106,110 @@ const contactSchema = {
                   />
                 </div>
               </div>
-              
+
               <div>
-                <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
                   Email <span class="text-red-500">*</span>
                 </label>
-                <input 
-                  type="email" 
-                  id="email" 
-                  name="email" 
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
                   required
                   autocomplete="email"
                   class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
                   placeholder="john@company.com"
                 />
               </div>
-              
+
               <div>
-                <label for="phone" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <label for="phone" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
                   Phone
                 </label>
-                <input 
-                  type="tel" 
-                  id="phone" 
+                <input
+                  type="tel"
+                  id="phone"
                   name="phone"
                   autocomplete="tel"
                   class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
                   placeholder="(416) 555-0123"
                 />
               </div>
-              
+
               <div>
-                <label for="company" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <label for="company" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
                   Company / Business Name
                 </label>
-                <input 
-                  type="text" 
-                  id="company" 
+                <input
+                  type="text"
+                  id="company"
                   name="company"
                   autocomplete="organization"
                   class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
                   placeholder="Your Company Inc."
                 />
               </div>
-              
+
               <div>
-                <label for="service" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  What are you interested in?
+                <label for="interested_in" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+                  What are you interested in? <span class="text-red-500">*</span>
                 </label>
-                <select 
-                  id="service" 
-                  name="service"
+                <select
+                  id="interested_in"
+                  name="interested_in"
+                  required
                   class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
                 >
-                  <option value="">Select an option...</option>
-                  <option value="website">New Website</option>
-                  <option value="redesign">Website Redesign</option>
-                  <option value="lead-gen">Lead Generation</option>
-                  <option value="automation">Marketing Automation</option>
-                  <option value="other">Other / Not Sure</option>
+                  <option value="" disabled selected>Select a service...</option>
+                  <option value="Web Design & Development">Web Design & Development</option>
+                  <option value="Lead Generation">Lead Generation</option>
+                  <option value="Marketing Automation">Marketing Automation</option>
+                  <option value="SEO & Local Search">SEO & Local Search</option>
+                  <option value="Full Digital Package">Full Digital Package</option>
+                  <option value="Other">Other</option>
                 </select>
               </div>
-              
+
               <div>
-                <label for="message" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                <label for="message" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
                   Message <span class="text-red-500">*</span>
                 </label>
-                <textarea 
-                  id="message" 
-                  name="message" 
+                <textarea
+                  id="message"
+                  name="message"
                   rows="4"
                   required
                   class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200 resize-none"
                   placeholder="Tell us about your project or ask us anything..."
                 ></textarea>
               </div>
-              
-              <button 
+
+              <!-- Status messages -->
+              <div id="form-success" class="hidden p-4 bg-accent-50 dark:bg-accent-900/20 border border-accent-200 dark:border-accent-800 rounded-xl">
+                <div class="flex items-center gap-3">
+                  <svg class="w-5 h-5 text-accent-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                  </svg>
+                  <p class="text-sm font-medium text-accent-700 dark:text-accent-300">Message sent! We'll get back to you within 24 hours.</p>
+                </div>
+              </div>
+              <div id="form-error" class="hidden p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl">
+                <div class="flex items-center gap-3">
+                  <svg class="w-5 h-5 text-red-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                  </svg>
+                  <p class="text-sm font-medium text-red-700 dark:text-red-300">Something went wrong. Please try again or email us directly.</p>
+                </div>
+              </div>
+
+              <button
                 type="submit"
-                class="w-full py-4 px-6 bg-accent-500 hover:bg-accent-600 text-white font-bold text-lg rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-accent-500/25 btn-pulse"
+                id="submit-btn"
+                class="w-full py-4 px-6 bg-accent-500 hover:bg-accent-600 text-white font-bold text-lg rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-accent-500/25 btn-pulse disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Send Message
               </button>
-              
+
               <p class="text-xs text-slate-500 dark:text-slate-400 text-center">
                 By submitting this form, you agree to our <a href="/privacy" class="underline hover:text-primary-600">Privacy Policy</a>.
               </p>
@@ -234,40 +220,63 @@ const contactSchema = {
     </div>
   </section>
 
-
-  <!-- Book a Call CTA -->
-  <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <div class="bg-gradient-to-br from-primary-50 to-primary-100 dark:from-primary-900/30 dark:to-primary-800/20 rounded-2xl p-8 lg:p-12 border border-primary-200 dark:border-primary-800">
-        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
-          Prefer to Talk?
-        </h2>
-        <p class="text-lg text-slate-600 dark:text-slate-300 mb-8 max-w-2xl mx-auto">
-          Call us for a free 15-minute discovery call. We'll review your current online presence, discuss your goals, and give you honest advice—whether you hire us or not.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a 
-            href="tel:+19057835996" 
-            class="inline-flex items-center justify-center px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-bold text-lg rounded-xl transition-colors duration-200 shadow-lg"
-          >
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+  <!-- Contact Info Bar -->
+  <section class="py-12 lg:py-16 bg-white dark:bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
             </svg>
-            Call (905) 783-5996
-          </a>
-          <a 
-            href="mailto:hello@leadflownorth.com?subject=Discovery%20Call%20Request" 
-            class="inline-flex items-center justify-center px-8 py-4 bg-white dark:bg-slate-800 text-primary-700 dark:text-primary-300 font-semibold text-lg rounded-xl border-2 border-primary-200 dark:border-primary-700 hover:border-primary-500 dark:hover:border-primary-500 transition-colors duration-200"
-          >
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          </div>
+          <div>
+            <p class="font-semibold text-slate-900 dark:text-white">Phone</p>
+            <a href="tel:+19057835996" class="text-primary-600 dark:text-primary-400 hover:underline">(905) 783-5996</a>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
-            Email to Book a Call
-          </a>
+          </div>
+          <div>
+            <p class="font-semibold text-slate-900 dark:text-white">Email</p>
+            <a href="mailto:hello@leadflownorth.com" class="text-primary-600 dark:text-primary-400 hover:underline">hello@leadflownorth.com</a>
+          </div>
         </div>
-        <p class="mt-4 text-sm text-slate-500 dark:text-slate-400">
-          No obligation. No sales pressure. Just helpful advice.
-        </p>
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+          <div>
+            <p class="font-semibold text-slate-900 dark:text-white">Offices</p>
+            <p class="text-slate-600 dark:text-slate-400">Toronto, ON · Edmonton, AB</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
+            <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <div>
+            <p class="font-semibold text-slate-900 dark:text-white">Business Hours</p>
+            <p class="text-slate-600 dark:text-slate-400">Mon – Fri, 9 AM – 5 PM EST</p>
+          </div>
+        </div>
+      </div>
+      <div class="mt-8 flex justify-center">
+        <div class="inline-flex items-center gap-2 px-4 py-2 bg-accent-50 dark:bg-accent-900/20 rounded-full">
+          <svg class="w-5 h-5 text-accent-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          </svg>
+          <span class="text-sm font-medium text-accent-700 dark:text-accent-400">We typically respond within 24 hours</span>
+        </div>
       </div>
     </div>
   </section>
@@ -282,12 +291,13 @@ const contactSchema = {
         {[
           { q: "How quickly do you respond?", a: "We typically respond to all inquiries within 24 hours on business days. Most messages get a reply within a few hours." },
           { q: "Do you offer free consultations?", a: "Yes! Our 15-minute discovery call is completely free with no obligation. We'll give you honest advice whether you hire us or not." },
-          { q: "What's the best way to reach you?", a: "For quick questions, email is best. For project discussions, we recommend booking a call so we can give you our full attention." }
+          { q: "What's the best way to reach you?", a: "For quick questions, the message form is best. For project discussions, we recommend booking a call so we can give you our full attention." },
+          { q: "What happens after I book a call?", a: "You'll receive a calendar invite with a video meeting link. On the call, we'll review your online presence, discuss your goals, and outline potential next steps." }
         ].map((faq) => (
           <details class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700">
             <summary class="flex items-center justify-between p-6 cursor-pointer list-none">
               <span class="font-semibold text-slate-900 dark:text-white">{faq.q}</span>
-              <svg class="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-5 h-5 text-slate-500 flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
               </svg>
             </summary>
@@ -300,7 +310,7 @@ const contactSchema = {
     </div>
   </section>
 
-  <!-- CTA -->
+  <!-- Bottom CTA -->
   <section class="py-16 lg:py-24 bg-gradient-to-br from-primary-600 to-primary-800 dark:from-primary-800 dark:to-primary-950">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
@@ -326,28 +336,129 @@ const contactSchema = {
       <p class="mt-6 text-sm text-primary-200">Monday – Friday, 9 AM – 5 PM EST · We typically respond within 24 hours.</p>
     </div>
   </section>
-</Layout>
 
-<script is:inline>
-  // Detect ?founding=true and customize form
-  (function() {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('founding') === 'true') {
-      // Show founding badge
-      const badge = document.getElementById('founding-badge');
-      if (badge) badge.classList.remove('hidden');
-      
-      // Set hidden field
-      const field = document.getElementById('foundingClientField');
-      if (field) field.value = 'true';
-      
-      // Pre-select "New Website" in dropdown
-      const serviceSelect = document.getElementById('service');
-      if (serviceSelect) serviceSelect.value = 'website';
-      
-      // Update form subject for email tracking
-      const subjectField = document.querySelector('input[name="_subject"]');
-      if (subjectField) subjectField.value = '🎁 Founding Client Application!';
-    }
-  })();
-</script>
+  <!-- Cal.com Embed Script -->
+  <script is:inline>
+    (function (C, A, L) {
+      let p = function (a, ar) { a.q.push(ar); };
+      let d = C.document;
+      C.Cal = C.Cal || function () {
+        let cal = C.Cal;
+        let ar = arguments;
+        if (!cal.loaded) {
+          cal.ns = {};
+          cal.q = cal.q || [];
+          d.head.appendChild(d.createElement("script")).src = A;
+          cal.loaded = true;
+        }
+        if (ar[0] === L) {
+          const api = function () { p(api, arguments); };
+          const namespace = ar[1];
+          api.q = api.q || [];
+          if (typeof namespace === "string") {
+            cal.ns[namespace] = cal.ns[namespace] || api;
+            p(cal.ns[namespace], ar);
+            p(cal, ["initNamespace", namespace]);
+          } else {
+            p(cal, ar);
+          }
+          return;
+        }
+        p(cal, ar);
+      };
+    })(window, "https://app.cal.com/embed/embed.js", "init");
+
+    Cal("init", { origin: "https://cal.com" });
+    Cal("inline", {
+      elementOrSelector: "#cal-embed",
+      calLink: "leadflownorth/15min",
+      layout: "month_view",
+      config: {
+        theme: document.documentElement.classList.contains("dark") ? "dark" : "light"
+      }
+    });
+    Cal("ui", { hideEventTypeDetails: false, layout: "month_view" });
+
+    var calCheck = setInterval(function() {
+      var iframe = document.querySelector('#cal-embed iframe');
+      if (iframe) {
+        var loader = document.getElementById('cal-loading');
+        if (loader) loader.style.display = 'none';
+        clearInterval(calCheck);
+      }
+    }, 500);
+  </script>
+
+  <!-- Contact Form → HubSpot Forms API -->
+  <script is:inline>
+    (function() {
+      var form = document.getElementById('contact-form');
+      var submitBtn = document.getElementById('submit-btn');
+      var successMsg = document.getElementById('form-success');
+      var errorMsg = document.getElementById('form-error');
+
+      if (!form) return;
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Hide previous messages
+        successMsg.classList.add('hidden');
+        errorMsg.classList.add('hidden');
+
+        // Disable button
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+
+        // Collect form data
+        var fields = [
+          { name: 'firstname', value: document.getElementById('firstname').value },
+          { name: 'lastname', value: document.getElementById('lastname').value },
+          { name: 'email', value: document.getElementById('email').value }
+        ];
+
+        var phone = document.getElementById('phone').value;
+        if (phone) fields.push({ name: 'phone', value: phone });
+
+        var company = document.getElementById('company').value;
+        if (company) fields.push({ name: 'company', value: company });
+
+        var interested = document.getElementById('interested_in').value;
+        if (interested) fields.push({ name: 'what_are_you_interested_in_', value: interested });
+
+        var message = document.getElementById('message').value;
+        if (message) fields.push({ name: 'message', value: message });
+
+        // Submit to HubSpot Forms API
+        fetch('https://api.hsforms.com/submissions/v3/integration/submit/342962653/d6f4baca-e5a8-433c-9690-a0cc3c302a0a', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            fields: fields,
+            context: {
+              pageUri: window.location.href,
+              pageName: 'Contact Us'
+            }
+          })
+        })
+        .then(function(response) {
+          if (response.ok || response.status === 200) {
+            // Success
+            successMsg.classList.remove('hidden');
+            form.reset();
+          } else {
+            // API returned an error
+            errorMsg.classList.remove('hidden');
+          }
+        })
+        .catch(function() {
+          errorMsg.classList.remove('hidden');
+        })
+        .finally(function() {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send Message';
+        });
+      });
+    })();
+  </script>
+</Layout>

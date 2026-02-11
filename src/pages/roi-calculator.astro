@@ -405,7 +405,6 @@ const calculatorSchema = {
   };
 
   // ─── State ───
-  let selectedIndustry = 'custom';
   let selectedVisitors = 500;
 
   // ─── DOM elements ───
@@ -477,8 +476,6 @@ const calculatorSchema = {
 
     // Investment: amortized website cost over 12 months (no monthly services in simple view)
     const totalYearCost = websiteCost;
-    const monthlyCostAmortized = websiteCost / 12;
-
     // ROI = (gain - cost) / cost
     const roi = totalYearCost > 0 ? ((annualRevenueIncrease - totalYearCost) / totalYearCost) * 100 : 0;
     const roiDollars = totalYearCost > 0 ? annualRevenueIncrease / totalYearCost : 0;
@@ -532,7 +529,6 @@ const calculatorSchema = {
   document.querySelectorAll('.industry-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const industry = (btn as HTMLElement).dataset.industry!;
-      selectedIndustry = industry;
       
       // Visual toggle
       document.querySelectorAll('.industry-btn').forEach(b => {
