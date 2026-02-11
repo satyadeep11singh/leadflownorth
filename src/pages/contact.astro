@@ -161,12 +161,11 @@ const contactSchema = {
                   class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
                 >
                   <option value="" disabled selected>Select a service...</option>
-                  <option value="Web Design & Development">Web Design & Development</option>
-                  <option value="Lead Generation">Lead Generation</option>
+                  <option value="New Website">New Website</option>
+                  <option value="Website Redesign">Website Redesign</option>
+                  <option value="Lead generation">Lead Generation</option>
                   <option value="Marketing Automation">Marketing Automation</option>
-                  <option value="SEO & Local Search">SEO & Local Search</option>
-                  <option value="Full Digital Package">Full Digital Package</option>
-                  <option value="Other">Other</option>
+                  <option value="Other / Not Sure">Other / Not Sure</option>
                 </select>
               </div>
 
@@ -399,6 +398,12 @@ const contactSchema = {
 
       if (!form) return;
 
+      // Helper to read HubSpot tracking cookie
+      function getHubspotCookie() {
+        var match = document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]*)/);
+        return match ? decodeURIComponent(match[1]) : null;
+      }
+
       form.addEventListener('submit', function(e) {
         e.preventDefault();
 
@@ -412,46 +417,57 @@ const contactSchema = {
 
         // Collect form data
         var fields = [
-          { name: 'firstname', value: document.getElementById('firstname').value },
-          { name: 'lastname', value: document.getElementById('lastname').value },
-          { name: 'email', value: document.getElementById('email').value }
+          { name: 'firstname', value: document.getElementById('firstname').value.trim() },
+          { name: 'lastname', value: document.getElementById('lastname').value.trim() },
+          { name: 'email', value: document.getElementById('email').value.trim() }
         ];
 
-        var phone = document.getElementById('phone').value;
+        var phone = document.getElementById('phone').value.trim();
         if (phone) fields.push({ name: 'phone', value: phone });
 
-        var company = document.getElementById('company').value;
+        var company = document.getElementById('company').value.trim();
         if (company) fields.push({ name: 'company', value: company });
 
         var interested = document.getElementById('interested_in').value;
         if (interested) fields.push({ name: 'what_are_you_interested_in_', value: interested });
 
-        var message = document.getElementById('message').value;
+        var message = document.getElementById('message').value.trim();
         if (message) fields.push({ name: 'message', value: message });
+
+        // Build context with optional HubSpot tracking cookie
+        var context = {
+          pageUri: window.location.href,
+          pageName: 'Contact Us'
+        };
+        var hutk = getHubspotCookie();
+        if (hutk) context.hutk = hutk;
+
+        // Build payload
+        var payload = {
+          fields: fields,
+          context: context
+        };
 
         // Submit to HubSpot Forms API
         fetch('https://api.hsforms.com/submissions/v3/integration/submit/342962653/d6f4baca-e5a8-433c-9690-a0cc3c302a0a', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            fields: fields,
-            context: {
-              pageUri: window.location.href,
-              pageName: 'Contact Us'
-            }
-          })
+          body: JSON.stringify(payload)
         })
         .then(function(response) {
-          if (response.ok || response.status === 200) {
-            // Success
+          if (response.ok) {
             successMsg.classList.remove('hidden');
             form.reset();
-          } else {
-            // API returned an error
-            errorMsg.classList.remove('hidden');
+            return;
           }
+          // Log the actual HubSpot error for debugging
+          return response.json().then(function(data) {
+            console.error('HubSpot form error:', response.status, data);
+            errorMsg.classList.remove('hidden');
+          });
         })
-        .catch(function() {
+        .catch(function(err) {
+          console.error('HubSpot form network error:', err);
           errorMsg.classList.remove('hidden');
         })
         .finally(function() {
