@@ -1,0 +1,445 @@
+---
+import SampleLayout from '../../../layouts/SampleLayout.astro';
+import { demoIndustries, type IndustryDemo } from '../../../data/demo-industries';
+import { sampleData } from '../../../data/sample-page-data';
+import { landingData } from '../../../data/landing-page-data';
+
+export function getStaticPaths() {
+  return demoIndustries.map((ind) => ({
+    params: { industry: ind.slug },
+    props: { industry: ind },
+  }));
+}
+
+interface Props {
+  industry: IndustryDemo;
+}
+
+const { industry } = Astro.props;
+const { defaults, services, preview } = industry;
+const sample = sampleData[industry.slug];
+const landing = landingData[industry.slug];
+---
+
+<SampleLayout
+  title={`${defaults.businessName} — ${landing.primaryOffer} | ${industry.name} Landing Page Demo`}
+  description={landing.heroSubheadline}
+  themeColor={defaults.primaryColor}
+>
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 1: Floating LFN Bar               -->
+  <!-- ═══════════════════════════════════════════ -->
+  <div class="fixed top-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-sm border-b border-slate-700">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="/logos/lfn-bw-white-64.png" alt="" class="h-5 w-5 object-contain" width="64" height="64" />
+        <span class="text-white/70 text-xs sm:text-sm">
+          Sample landing page by <a href="/" class="text-white font-semibold hover:text-blue-400 transition-colors">Lead Flow North</a>
+        </span>
+      </div>
+      <div class="flex items-center gap-2 sm:gap-3">
+        <a href={`/demos/${industry.slug}`} class="text-xs sm:text-sm text-slate-300 hover:text-white transition-colors hidden sm:inline-flex items-center gap-1">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          Customize This
+        </a>
+        <a href="/contact" class="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 bg-green-500 hover:bg-green-600 text-white text-xs sm:text-sm font-semibold rounded-lg transition-colors">
+          Get This Landing Page Built
+          <svg class="w-3.5 h-3.5 hidden sm:inline" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="h-11"></div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 2: Hero                            -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="relative py-20 sm:py-28 lg:py-36 overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 opacity-25" style={`background-image: url('${landing.heroImage}'); background-size: cover; background-position: center;`}></div>
+      <div class="absolute inset-0" style={`background: linear-gradient(135deg, ${defaults.primaryColor}, ${defaults.primaryColor}dd);`}></div>
+    </div>
+
+    <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-[1fr_auto] gap-10 items-center">
+        <div class="text-center lg:text-left">
+          <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 text-sm font-semibold" style={`background-color: ${defaults.accentColor}; color: white;`}>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            {landing.offerValue} — Limited Time
+          </div>
+
+          <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-5 leading-tight">
+            {landing.heroHeadline}
+          </h1>
+          <p class="text-lg sm:text-xl text-white/85 mb-8 max-w-2xl">
+            {landing.heroSubheadline}
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-4 lg:justify-start justify-center mb-6">
+            <button class="inline-flex items-center justify-center px-8 py-4 rounded-xl font-bold text-lg transition-all duration-200 shadow-xl hover:shadow-2xl hover:-translate-y-0.5 cursor-default" style={`background-color: ${defaults.accentColor}; color: white;`}>
+              {landing.ctaButtonText}
+              <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </button>
+          </div>
+          <p class="text-white/60 text-sm">{landing.ctaMicroCopy}</p>
+        </div>
+
+        <div class="hidden lg:block bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 text-center min-w-[200px]">
+          <div class="text-4xl font-extrabold text-white mb-1">{landing.stats[0].value}</div>
+          <div class="text-white/70 text-sm">{landing.stats[0].label}</div>
+          <div class="mt-3 pt-3 border-t border-white/20">
+            <span class="text-white/80 text-xs">{landing.trustStat}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 3: Urgency Bar                     -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="py-3 text-center" style={`background-color: ${defaults.accentColor};`}>
+    {landing.urgencyType === 'countdown' && (
+      <div class="max-w-4xl mx-auto px-4 flex flex-wrap items-center justify-center gap-3 text-white font-bold">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span class="text-sm sm:text-base">{landing.urgencyText}</span>
+        <div class="flex gap-2 text-sm font-mono">
+          <span class="bg-white/20 px-2 py-1 rounded">02d</span>
+          <span class="bg-white/20 px-2 py-1 rounded">14h</span>
+          <span class="bg-white/20 px-2 py-1 rounded">32m</span>
+          <span class="bg-white/20 px-2 py-1 rounded">08s</span>
+        </div>
+      </div>
+    )}
+
+    {landing.urgencyType === 'limited-spots' && (
+      <div class="max-w-4xl mx-auto px-4 flex flex-wrap items-center justify-center gap-2 text-white font-bold text-sm sm:text-base">
+        <span class="relative flex h-3 w-3">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
+        </span>
+        <span>{landing.urgencyText}</span>
+        {landing.urgencySubtext && <span class="text-white/80 font-normal">— {landing.urgencySubtext}</span>}
+      </div>
+    )}
+
+    {landing.urgencyType === 'expiring' && (
+      <div class="max-w-4xl mx-auto px-4 flex items-center justify-center gap-2 text-white font-bold text-sm sm:text-base">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4.5c-.77-.833-2.694-.833-3.464 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z"/></svg>
+        <span>{landing.urgencyText}</span>
+      </div>
+    )}
+
+    {landing.urgencyType === 'progress-bar' && (
+      <div class="max-w-lg mx-auto px-4">
+        <div class="flex justify-between text-white text-xs font-semibold mb-1">
+          <span>{landing.urgencyText}</span>
+          <span>{landing.progressPercent}% of {landing.progressGoal}</span>
+        </div>
+        <div class="w-full bg-white/30 rounded-full h-3">
+          <div class="h-3 rounded-full bg-white transition-all" style={`width: ${landing.progressPercent}%;`}></div>
+        </div>
+      </div>
+    )}
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 4: Pain Points                     -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="py-16 lg:py-20 bg-slate-50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-10">Sound Familiar?</h2>
+      <div class="grid sm:grid-cols-3 gap-6 mb-8">
+        {sample.painPoints.map((point) => (
+          <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+            <div class="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4" style={`background-color: ${defaults.primaryColor}15;`}>
+              <svg class="w-6 h-6" style={`color: ${defaults.primaryColor};`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4.5c-.77-.833-2.694-.833-3.464 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z"/></svg>
+            </div>
+            <p class="text-slate-700 text-lg font-medium">{point}</p>
+          </div>
+        ))}
+      </div>
+      <p class="text-lg text-slate-600">
+        You're not alone. <span class="font-bold" style={`color: ${defaults.primaryColor};`}>Here's how we help.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 5: Offer Details                   -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="py-16 lg:py-24 bg-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold mb-4 uppercase tracking-wider" style={`background-color: ${defaults.accentColor}20; color: ${defaults.accentColor};`}>
+            Limited Time Offer
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-bold mb-6" style={`color: ${defaults.primaryColor};`}>
+            {landing.primaryOffer}
+          </h2>
+          <ul class="space-y-4 mb-8">
+            {landing.offerDetails.map((detail) => (
+              <li class="flex items-start gap-3">
+                <div class="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style={`background-color: ${defaults.accentColor};`}>
+                  <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <span class="text-slate-700 text-lg">{detail}</span>
+              </li>
+            ))}
+          </ul>
+          <button class="inline-flex items-center px-8 py-4 rounded-xl font-bold text-lg text-white shadow-lg cursor-default" style={`background-color: ${defaults.accentColor};`}>
+            {landing.ctaButtonText}
+            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </button>
+          <p class="text-slate-500 text-sm mt-3">{landing.ctaMicroCopy}</p>
+        </div>
+
+        <div class="rounded-2xl overflow-hidden shadow-2xl border" style={`border-color: ${defaults.primaryColor}30;`}>
+          <div class="p-6 text-white text-center" style={`background-color: ${defaults.primaryColor};`}>
+            <p class="text-sm font-medium opacity-80 uppercase tracking-wider">Your Exclusive Offer</p>
+            <p class="text-3xl sm:text-4xl font-extrabold mt-2">{landing.offerValue}</p>
+          </div>
+          <div class="bg-white p-6">
+            {landing.offerDetails.map((detail) => (
+              <div class="flex items-center gap-3 py-3 border-b border-slate-100 last:border-0">
+                <svg class="w-4 h-4 flex-shrink-0" style={`color: ${defaults.accentColor};`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-slate-700 text-sm">{detail}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 6: Social Proof / Testimonials     -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="py-16 lg:py-24" style={`background-color: ${defaults.primaryColor}08;`}>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <div class="flex items-center justify-center gap-1 mb-2">
+          {[1,2,3,4,5].map(() => (
+            <svg class="w-6 h-6 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          ))}
+        </div>
+        <p class="text-lg font-semibold text-slate-900">4.9 out of 5 from 200+ verified reviews</p>
+      </div>
+
+      <div class={`grid gap-6 ${landing.testimonials.length === 2 ? 'md:grid-cols-2 max-w-3xl mx-auto' : 'md:grid-cols-3'}`}>
+        {landing.testimonials.map((t) => (
+          <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+            <div class="flex gap-1 mb-3">
+              {[1,2,3,4,5].map(() => (
+                <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              ))}
+            </div>
+            <p class="text-slate-600 italic mb-4">"{t.quote}"</p>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm" style={`background-color: ${defaults.primaryColor};`}>
+                {t.initials}
+              </div>
+              <div>
+                <p class="font-bold text-slate-900 text-sm">{t.name}</p>
+                <p class="text-xs text-slate-500">{t.role}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 7: How It Works                    -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="py-16 lg:py-24 bg-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-3" style={`color: ${defaults.primaryColor};`}>How It Works</h2>
+        <p class="text-lg text-slate-600">Simple. Fast. No surprises.</p>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-8">
+        {sample.processSteps.map((step, i) => (
+          <div class="text-center">
+            <div class="w-14 h-14 rounded-full flex items-center justify-center text-white text-xl font-extrabold mx-auto mb-4 shadow-lg" style={`background-color: ${defaults.accentColor};`}>
+              {i + 1}
+            </div>
+            <h3 class="text-lg font-bold text-slate-900 mb-2">{step.title}</h3>
+            <p class="text-slate-600 text-sm">{step.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 8: Stats Bar                       -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="py-12" style={`background-color: ${defaults.primaryColor};`}>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+        {landing.stats.map((stat) => (
+          <div>
+            <div class="text-3xl sm:text-4xl font-extrabold text-white">{stat.value}</div>
+            <div class="text-white/70 text-sm mt-1">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 9: Lead Capture Form               -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="py-16 lg:py-24 bg-slate-50" id="form-section">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-3" style={`color: ${defaults.primaryColor};`}>
+          {landing.formHeadline}
+        </h2>
+        <p class="text-lg text-slate-600">{landing.formSubheadline}</p>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+        <div class="flex border-b border-slate-200">
+          <div class="flex-1 px-4 py-3 text-center text-sm font-semibold text-white" style={`background-color: ${defaults.primaryColor};`}>
+            Step 1: Your Info
+          </div>
+          <div class="flex-1 px-4 py-3 text-center text-sm font-semibold text-slate-400 bg-slate-50">
+            Step 2: Details
+          </div>
+        </div>
+
+        <div class="p-6 sm:p-8 space-y-5">
+          {landing.formStep1Fields.map((field) => (
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">{field.label}</label>
+              {field.type === 'select' ? (
+                <select class="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-400 text-sm cursor-default" disabled>
+                  <option>{field.placeholder}</option>
+                  {field.options?.map((opt) => <option>{opt}</option>)}
+                </select>
+              ) : field.type === 'textarea' ? (
+                <textarea rows={3} placeholder={field.placeholder} class="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-400 text-sm resize-none cursor-default" disabled></textarea>
+              ) : (
+                <input type={field.type} placeholder={field.placeholder} class="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-400 text-sm cursor-default" disabled />
+              )}
+            </div>
+          ))}
+
+          <div class="flex items-center gap-3 py-2">
+            <div class="flex-1 border-t border-slate-200"></div>
+            <span class="text-xs font-semibold text-slate-400 uppercase">Step 2</span>
+            <div class="flex-1 border-t border-slate-200"></div>
+          </div>
+
+          {landing.formStep2Fields.map((field) => (
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">{field.label}</label>
+              {field.type === 'select' ? (
+                <select class="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-400 text-sm cursor-default" disabled>
+                  <option>{field.placeholder}</option>
+                  {field.options?.map((opt) => <option>{opt}</option>)}
+                </select>
+              ) : field.type === 'textarea' ? (
+                <textarea rows={3} placeholder={field.placeholder} class="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-400 text-sm resize-none cursor-default" disabled></textarea>
+              ) : (
+                <input type={field.type} placeholder={field.placeholder} class="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-400 text-sm cursor-default" disabled />
+              )}
+            </div>
+          ))}
+
+          <button class="w-full py-4 rounded-xl text-white font-bold text-lg cursor-default shadow-lg" style={`background-color: ${defaults.accentColor};`}>
+            {landing.ctaButtonText}
+          </button>
+          <p class="text-center text-slate-500 text-xs">{landing.ctaMicroCopy}</p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 mt-6 text-slate-500 text-xs">
+        <span class="flex items-center gap-1">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+          SSL Encrypted
+        </span>
+        <span class="flex items-center gap-1">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          No Spam, Ever
+        </span>
+        <span class="flex items-center gap-1">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          Response in 15 min
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 10: FAQ                            -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="py-16 lg:py-20 bg-white">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold text-center mb-10" style={`color: ${defaults.primaryColor};`}>
+        Common Questions
+      </h2>
+      <div class="space-y-3">
+        {landing.faqs.map((faq, i) => (
+          <details class="group bg-slate-50 rounded-xl border border-slate-200 overflow-hidden" open={i === 0}>
+            <summary class="flex items-center justify-between px-6 py-4 cursor-pointer list-none font-semibold text-slate-900 hover:bg-slate-100 transition-colors">
+              <span>{faq.question}</span>
+              <svg class="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform duration-200 flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="px-6 pb-5 text-slate-600">{faq.answer}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 11: Final CTA                      -->
+  <!-- ═══════════════════════════════════════════ -->
+  <section class="py-16 lg:py-24" style={`background: linear-gradient(135deg, ${defaults.primaryColor}, ${defaults.primaryColor}cc);`}>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-5">
+        {landing.closingHeadline}
+      </h2>
+      <p class="text-xl text-white/80 mb-4 max-w-2xl mx-auto">
+        {landing.closingSubheadline}
+      </p>
+      <p class="text-sm font-semibold mb-8" style={`color: ${defaults.accentColor};`}>
+        {landing.urgencyText}
+      </p>
+      <button class="inline-flex items-center px-10 py-5 rounded-xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all cursor-default" style={`background-color: ${defaults.accentColor}; color: white;`}>
+        {landing.ctaButtonText}
+        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </button>
+      <p class="text-white/50 text-sm mt-4">{landing.ctaMicroCopy}</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- SECTION 12: Minimal Footer                 -->
+  <!-- ═══════════════════════════════════════════ -->
+  <footer class="py-8 text-white" style={`background-color: ${defaults.primaryColor};`}>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="flex items-center justify-center gap-3 mb-3">
+        <div class="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-sm" style={`background-color: ${defaults.accentColor};`}>
+          {defaults.businessName.charAt(0)}
+        </div>
+        <span class="font-bold text-lg">{defaults.businessName}</span>
+      </div>
+      <p class="text-white/60 text-sm mb-2">{defaults.phone} &bull; {defaults.email}</p>
+      <p class="text-white/40 text-xs">&copy; 2026 {defaults.businessName}. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Sticky Mobile CTA -->
+  <div class="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-slate-200 p-3 sm:hidden shadow-[0_-4px_12px_rgba(0,0,0,0.1)]">
+    <button class="w-full py-3 rounded-xl text-white font-bold text-sm cursor-default" style={`background-color: ${defaults.accentColor};`}>
+      {landing.ctaButtonText}
+    </button>
+  </div>
+  <div class="h-16 sm:hidden"></div>
+</SampleLayout>

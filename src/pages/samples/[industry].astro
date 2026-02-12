@@ -1,0 +1,535 @@
+---
+import SampleLayout from '../../layouts/SampleLayout.astro';
+import { demoIndustries, type IndustryDemo } from '../../data/demo-industries';
+import { sampleData, type SamplePageData } from '../../data/sample-page-data';
+
+export function getStaticPaths() {
+  return demoIndustries.map((ind) => ({
+    params: { industry: ind.slug },
+    props: { industry: ind },
+  }));
+}
+
+interface Props {
+  industry: IndustryDemo;
+}
+
+const { industry } = Astro.props;
+const { defaults, services, preview, faqs } = industry;
+const sample = sampleData[industry.slug];
+---
+
+<SampleLayout
+  title={`${defaults.businessName} — ${defaults.tagline}`}
+  description={`${defaults.businessName} in ${defaults.location}. ${industry.description} Sample website by Lead Flow North.`}
+  themeColor={defaults.primaryColor}
+>
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- FLOATING LEAD FLOW NORTH BAR                   -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <div class="fixed top-0 left-0 right-0 z-50 bg-slate-900/95 backdrop-blur-sm border-b border-slate-700">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="/logos/lfn-bw-white-64.png" alt="" class="h-5 w-5 object-contain" width="64" height="64" />
+        <span class="text-white/70 text-xs sm:text-sm">
+          Sample website by <a href="/" class="text-white font-semibold hover:text-blue-400 transition-colors">Lead Flow North</a>
+        </span>
+      </div>
+      <div class="flex items-center gap-2 sm:gap-3">
+        <a href={`/demos/${industry.slug}`} class="text-xs sm:text-sm text-slate-300 hover:text-white transition-colors hidden sm:inline-flex items-center gap-1">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg>
+          Customize This
+        </a>
+        <a href="/contact" class="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 bg-green-500 hover:bg-green-600 text-white text-xs sm:text-sm font-semibold rounded-lg transition-colors">
+          Get This Website Built
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Spacer for fixed top bar -->
+  <div class="h-11"></div>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- SAMPLE WEBSITE NAVIGATION                      -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <nav class="sticky top-11 z-40 shadow-sm" style={`background-color: ${defaults.primaryColor};`}>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-lg" style={`background-color: ${defaults.accentColor};`}>
+            {defaults.businessName.charAt(0)}
+          </div>
+          <span class="text-white font-bold text-lg hidden sm:inline">{defaults.businessName}</span>
+        </div>
+        <div class="hidden md:flex items-center gap-8 text-white/80 text-sm font-medium">
+          <span class="hover:text-white transition-colors cursor-default">Home</span>
+          <span class="hover:text-white transition-colors cursor-default">Services</span>
+          <span class="hover:text-white transition-colors cursor-default">About</span>
+          <span class="hover:text-white transition-colors cursor-default">Gallery</span>
+          <span class="hover:text-white transition-colors cursor-default">Contact</span>
+        </div>
+        <div class="flex items-center gap-3">
+          <a class="text-white text-sm font-medium flex items-center gap-2 cursor-default">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            <span class="hidden sm:inline">{defaults.phone}</span>
+          </a>
+          <button class="px-4 py-2 rounded-lg text-sm font-semibold text-white transition-colors cursor-default" style={`background-color: ${defaults.accentColor};`}>
+            {sample.ctaText}
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- HERO SECTION                                   -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="relative py-24 sm:py-32 lg:py-40 overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 opacity-20" style={`background-image: url('${preview.heroImage}'); background-size: cover; background-position: center;`}></div>
+      <div class="absolute inset-0" style={`background: linear-gradient(135deg, ${defaults.primaryColor}, ${defaults.primaryColor}dd);`}></div>
+    </div>
+    <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white mb-6 leading-tight">
+        {defaults.businessName}
+      </h1>
+      <p class="text-xl sm:text-2xl text-white/90 mb-10 max-w-3xl mx-auto">
+        {defaults.tagline}
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-10">
+        <button class="px-8 py-4 rounded-xl font-bold text-lg transition-all duration-200 shadow-xl hover:shadow-2xl hover:-translate-y-0.5 cursor-default" style={`background-color: ${defaults.accentColor}; color: white;`}>
+          {sample.ctaText}
+          <svg class="inline w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </button>
+        <button class="px-8 py-4 rounded-xl font-bold text-lg border-2 border-white/40 text-white hover:bg-white/10 transition-colors cursor-default">
+          {defaults.phone}
+        </button>
+      </div>
+      <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-white/80 text-sm">
+        <span class="flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          4.9 Star Rating
+        </span>
+        <span>&bull;</span>
+        <span>15+ Years Experience</span>
+        <span>&bull;</span>
+        <span>500+ Happy Clients</span>
+        <span>&bull;</span>
+        <span>{defaults.location}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- TRUST / CREDENTIALS BAR                        -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="py-6 border-b border-slate-200" style={`background-color: ${defaults.primaryColor}10;`}>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+        {sample.credentials.map((cred) => (
+          <div class="flex items-center gap-2 text-sm font-medium" style={`color: ${defaults.primaryColor};`}>
+            <svg class="w-5 h-5 flex-shrink-0" style={`color: ${defaults.accentColor};`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            {cred}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- PAIN POINTS SECTION                            -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="py-20 lg:py-28" style={`background-color: ${defaults.primaryColor}; background-image: linear-gradient(135deg, ${defaults.primaryColor}, ${defaults.primaryColor}ee);`}>
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-12">
+        Sound Familiar?
+      </h2>
+      <div class="grid sm:grid-cols-3 gap-6 mb-12">
+        {sample.painPoints.map((point) => (
+          <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+            <div class="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4" style={`background-color: ${defaults.accentColor};`}>
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <p class="text-white/90 text-lg font-medium">{point}</p>
+          </div>
+        ))}
+      </div>
+      <p class="text-xl text-white/80 font-medium">
+        You're not alone — and we can help. <span class="text-white font-bold">Here's how.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- SERVICES SECTION                               -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="py-20 lg:py-28 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-4" style={`color: ${defaults.primaryColor};`}>
+          Our Services
+        </h2>
+        <p class="text-lg text-slate-600 max-w-2xl mx-auto">
+          Comprehensive solutions tailored to your needs. We take pride in delivering exceptional results.
+        </p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {services.map((service) => (
+          <div class="group bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:shadow-lg hover:border-transparent transition-all duration-200" style={`hover:border-color: ${defaults.accentColor};`}>
+            <div class="w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-lg mb-4 transition-transform group-hover:scale-110" style={`background-color: ${defaults.accentColor};`}>
+              {service.charAt(0)}
+            </div>
+            <h3 class="font-bold text-slate-900 mb-2">{service}</h3>
+            <p class="text-sm text-slate-500">Professional {service.toLowerCase()} services you can count on.</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- INDUSTRY-SPECIFIC UNIQUE SECTION               -->
+  <!-- ═══════════════════════════════════════════════ -->
+  {preview.uniqueSection && (
+    <section class="py-20 lg:py-28" style={`background-color: ${defaults.primaryColor}08;`}>
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-14">
+          <h2 class="text-3xl sm:text-4xl font-bold mb-4" style={`color: ${defaults.primaryColor};`}>
+            {preview.uniqueSection.title}
+          </h2>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-4">
+          {preview.uniqueSection.items.map((item) => (
+            <div class="flex items-center gap-4 bg-white rounded-xl p-5 shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+              <div class="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style={`background-color: ${defaults.accentColor};`}>
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <span class="font-semibold text-slate-800">{item}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- HOW IT WORKS                                   -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="py-20 lg:py-28 bg-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-4" style={`color: ${defaults.primaryColor};`}>
+          How It Works
+        </h2>
+        <p class="text-lg text-slate-600">Simple, straightforward, and stress-free.</p>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-8">
+        {sample.processSteps.map((step, i) => (
+          <div class="text-center">
+            <div class="w-16 h-16 rounded-full flex items-center justify-center text-white text-2xl font-extrabold mx-auto mb-5 shadow-lg" style={`background-color: ${defaults.accentColor};`}>
+              {i + 1}
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-3">{step.title}</h3>
+            <p class="text-slate-600">{step.description}</p>
+          </div>
+        ))}
+      </div>
+      <div class="text-center mt-12">
+        <button class="px-8 py-4 rounded-xl font-bold text-lg text-white shadow-lg hover:shadow-xl transition-all cursor-default" style={`background-color: ${defaults.accentColor};`}>
+          {sample.ctaText}
+          <svg class="inline w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- ABOUT / TRUST SECTION                          -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="py-20 lg:py-28" style={`background-color: ${defaults.primaryColor}08;`}>
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl sm:text-4xl font-bold mb-6" style={`color: ${defaults.primaryColor};`}>
+            Why Choose {defaults.businessName}?
+          </h2>
+          <p class="text-lg text-slate-600 mb-8 leading-relaxed">
+            {sample.aboutText}
+          </p>
+          <p class="text-slate-600 mb-8">
+            Serving {defaults.location} and surrounding areas with dedication, professionalism, and a commitment to excellence that our clients have come to count on.
+          </p>
+          <div class="grid grid-cols-3 gap-6">
+            <div class="text-center">
+              <div class="text-3xl font-extrabold" style={`color: ${defaults.accentColor};`}>15+</div>
+              <div class="text-sm text-slate-500 font-medium">Years Experience</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-extrabold" style={`color: ${defaults.accentColor};`}>500+</div>
+              <div class="text-sm text-slate-500 font-medium">Happy Clients</div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-extrabold" style={`color: ${defaults.accentColor};`}>4.9</div>
+              <div class="text-sm text-slate-500 font-medium">Google Rating</div>
+            </div>
+          </div>
+        </div>
+        <div class="relative">
+          <div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
+            <div class="w-full h-full" style={`background-image: url('${preview.heroImage}'); background-size: cover; background-position: center;`}></div>
+          </div>
+          <div class="absolute -bottom-6 -left-6 bg-white rounded-xl shadow-lg p-4 hidden lg:block">
+            <div class="flex items-center gap-2">
+              <div class="flex -space-x-2">
+                <div class="w-8 h-8 rounded-full border-2 border-white flex items-center justify-center text-white text-xs font-bold" style={`background-color: ${defaults.primaryColor};`}>S</div>
+                <div class="w-8 h-8 rounded-full border-2 border-white flex items-center justify-center text-white text-xs font-bold" style={`background-color: ${defaults.accentColor};`}>M</div>
+                <div class="w-8 h-8 rounded-full border-2 border-white flex items-center justify-center text-white text-xs font-bold" style={`background-color: ${defaults.primaryColor};`}>J</div>
+              </div>
+              <div class="text-sm">
+                <span class="font-bold text-slate-900">500+ clients</span>
+                <span class="text-slate-500"> trust us</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- TESTIMONIALS                                   -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="py-20 lg:py-28 bg-white">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-4" style={`color: ${defaults.primaryColor};`}>
+          What Our Clients Say
+        </h2>
+        <div class="flex items-center justify-center gap-1">
+          {[1,2,3,4,5].map(() => (
+            <svg class="w-6 h-6 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          ))}
+          <span class="ml-2 text-slate-600 font-medium">4.9 out of 5 based on 200+ reviews</span>
+        </div>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-slate-50 rounded-2xl p-6 border border-slate-100">
+          <div class="flex gap-1 mb-3">
+            {[1,2,3,4,5].map(() => (
+              <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            ))}
+          </div>
+          <p class="text-slate-600 italic mb-4">"Absolutely fantastic service. Professional, reliable, and the results speak for themselves. Couldn't recommend more highly!"</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm" style={`background-color: ${defaults.primaryColor};`}>S</div>
+            <div>
+              <p class="font-bold text-slate-900 text-sm">Sarah M.</p>
+              <p class="text-xs text-slate-500">{defaults.location}</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-slate-50 rounded-2xl p-6 border border-slate-100">
+          <div class="flex gap-1 mb-3">
+            {[1,2,3,4,5].map(() => (
+              <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            ))}
+          </div>
+          <p class="text-slate-600 italic mb-4">"Best decision we made for our home. The team went above and beyond our expectations. We'll definitely be back for future needs!"</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm" style={`background-color: ${defaults.accentColor};`}>J</div>
+            <div>
+              <p class="font-bold text-slate-900 text-sm">James T.</p>
+              <p class="text-xs text-slate-500">{defaults.location}</p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-slate-50 rounded-2xl p-6 border border-slate-100">
+          <div class="flex gap-1 mb-3">
+            {[1,2,3,4,5].map(() => (
+              <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            ))}
+          </div>
+          <p class="text-slate-600 italic mb-4">"Outstanding quality and attention to detail. From start to finish, the communication was excellent. Highly, highly recommended!"</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm" style={`background-color: ${defaults.primaryColor};`}>R</div>
+            <div>
+              <p class="font-bold text-slate-900 text-sm">Rachel K.</p>
+              <p class="text-xs text-slate-500">{defaults.location}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- FAQ SECTION                                    -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="py-20 lg:py-28" style={`background-color: ${defaults.primaryColor}08;`}>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-14">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-4" style={`color: ${defaults.primaryColor};`}>
+          Frequently Asked Questions
+        </h2>
+      </div>
+      <div class="space-y-4">
+        {faqs.slice(0, 5).map((faq) => (
+          <details class="group bg-white rounded-xl border border-slate-200 overflow-hidden">
+            <summary class="flex items-center justify-between px-6 py-4 cursor-pointer list-none font-semibold text-slate-900 hover:bg-slate-50 transition-colors">
+              {faq.question}
+              <svg class="w-5 h-5 text-slate-400 flex-shrink-0 ml-4 transition-transform duration-200 group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="px-6 pb-5 text-slate-600">{faq.answer}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- CONTACT SECTION                                -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="py-20 lg:py-28 bg-white">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12">
+        <div>
+          <h2 class="text-3xl sm:text-4xl font-bold mb-6" style={`color: ${defaults.primaryColor};`}>
+            Get in Touch
+          </h2>
+          <p class="text-lg text-slate-600 mb-8">
+            Ready to get started? Reach out and we'll get back to you within 24 hours.
+          </p>
+          <div class="space-y-5">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={`background-color: ${defaults.primaryColor};`}>
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+              </div>
+              <div>
+                <p class="text-sm text-slate-500 font-medium">Phone</p>
+                <p class="font-bold text-slate-900">{defaults.phone}</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={`background-color: ${defaults.primaryColor};`}>
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              </div>
+              <div>
+                <p class="text-sm text-slate-500 font-medium">Email</p>
+                <p class="font-bold text-slate-900">{defaults.email}</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={`background-color: ${defaults.primaryColor};`}>
+                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              </div>
+              <div>
+                <p class="text-sm text-slate-500 font-medium">Location</p>
+                <p class="font-bold text-slate-900">{defaults.location}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-slate-50 rounded-2xl p-8 border border-slate-200">
+          <h3 class="text-xl font-bold text-slate-900 mb-6">{sample.ctaText}</h3>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Your Name</label>
+              <input type="text" placeholder="John Smith" class="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-400 text-sm" disabled />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
+              <input type="email" placeholder="john@example.com" class="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-400 text-sm" disabled />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Phone Number</label>
+              <input type="tel" placeholder="(905) 555-0000" class="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-400 text-sm" disabled />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-slate-700 mb-1">Message</label>
+              <textarea rows="3" placeholder="Tell us about your needs..." class="w-full px-4 py-3 rounded-lg border border-slate-300 bg-white text-slate-400 text-sm resize-none" disabled></textarea>
+            </div>
+            <button class="w-full py-3 rounded-xl text-white font-bold text-sm cursor-default" style={`background-color: ${defaults.accentColor};`}>
+              Send Message
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- FINAL CTA                                      -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="py-20 lg:py-28" style={`background: linear-gradient(135deg, ${defaults.primaryColor}, ${defaults.primaryColor}cc);`}>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
+        Ready to Get Started?
+      </h2>
+      <p class="text-xl text-white/80 mb-10 max-w-2xl mx-auto">
+        Join hundreds of satisfied clients who trust {defaults.businessName}. Contact us today for a free consultation.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <button class="px-8 py-4 rounded-xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all cursor-default" style={`background-color: ${defaults.accentColor}; color: white;`}>
+          {sample.ctaText}
+          <svg class="inline w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </button>
+        <button class="px-8 py-4 rounded-xl font-bold text-lg border-2 border-white/40 text-white hover:bg-white/10 transition-colors cursor-default">
+          {defaults.phone}
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════ -->
+  <!-- FOOTER                                         -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <footer class="py-12 text-white" style={`background-color: ${defaults.primaryColor}; border-top: 3px solid ${defaults.accentColor};`}>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-lg" style={`background-color: ${defaults.accentColor};`}>
+              {defaults.businessName.charAt(0)}
+            </div>
+            <span class="font-bold text-lg">{defaults.businessName}</span>
+          </div>
+          <p class="text-white/70 text-sm">{defaults.tagline}</p>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4">Services</h4>
+          <ul class="space-y-2 text-white/70 text-sm">
+            {services.slice(0, 4).map((s) => (
+              <li class="cursor-default hover:text-white transition-colors">{s}</li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4">Quick Links</h4>
+          <ul class="space-y-2 text-white/70 text-sm">
+            <li class="cursor-default hover:text-white transition-colors">Home</li>
+            <li class="cursor-default hover:text-white transition-colors">About Us</li>
+            <li class="cursor-default hover:text-white transition-colors">Services</li>
+            <li class="cursor-default hover:text-white transition-colors">Contact</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold mb-4">Contact</h4>
+          <ul class="space-y-2 text-white/70 text-sm">
+            <li>{defaults.phone}</li>
+            <li>{defaults.email}</li>
+            <li>{defaults.location}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-white/20 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+        <p class="text-white/50 text-sm">&copy; 2026 {defaults.businessName}. All rights reserved.</p>
+        <div class="flex gap-4 text-white/50 text-sm">
+          <span class="cursor-default hover:text-white transition-colors">Privacy Policy</span>
+          <span class="cursor-default hover:text-white transition-colors">Terms of Service</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+</SampleLayout>

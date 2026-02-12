@@ -103,7 +103,7 @@ export function GET(context: APIContext) {
       <category>Small Business</category>
       <ttl>60</ttl>
       <image>
-        <url>https://leadflownorth.com/logo.svg</url>
+        <url>https://leadflownorth.com/logos/lfn-light-200.png</url>
         <title>Lead Flow North Blog</title>
         <link>https://leadflownorth.com</link>
       </image>
