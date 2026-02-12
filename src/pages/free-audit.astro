@@ -1,0 +1,491 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const benefits = [
+  "Comprehensive SEO analysis with actionable recommendations",
+  "Conversion rate optimization opportunities identified",
+  "Mobile responsiveness and speed assessment",
+  "Security and technical health check",
+  "Competitive analysis against top performers in your industry",
+  "Prioritized action plan to improve your online presence"
+];
+
+const process = [
+  { step: "1", title: "Submit Your Info", desc: "Tell us about your business and website" },
+  { step: "2", title: "We Analyze", desc: "Our team performs a comprehensive audit (5-7 business days)" },
+  { step: "3", title: "Get Your Report", desc: "Receive detailed PDF with findings and recommendations" }
+];
+
+const faqs = [
+  {
+    question: "Is this really free?",
+    answer: "Yes! This is a genuine free audit with no obligation. We believe in demonstrating our expertise upfront. You'll get a detailed report regardless of whether you decide to work with us."
+  },
+  {
+    question: "How long does it take?",
+    answer: "We deliver your audit within 5-7 business days. We take the time to do a thorough analysis rather than using automated tools that miss important issues."
+  },
+  {
+    question: "What if I don't have a website yet?",
+    answer: "No problem! We can audit your competitors' websites or discuss your industry landscape to help you understand what you'll need when you're ready to build."
+  },
+  {
+    question: "Will I be pressured to buy something?",
+    answer: "Absolutely not. Our audit includes actionable recommendations you can implement yourself or with any provider. If we're a good fit to help, great. If not, you still get valuable insights for free."
+  }
+];
+---
+
+<Layout
+  title="Get Your Free Website & SEO Audit"
+  description="Get a comprehensive free website audit from Lead Flow North. Discover conversion opportunities, SEO issues, and technical improvements. No obligation, 5-7 day turnaround."
+>
+  <!-- Hero Section -->
+  <section class="relative py-20 lg:py-28 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 overflow-hidden">
+    <!-- Background decoration -->
+    <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
+      <div class="absolute -top-40 -right-40 w-80 h-80 bg-primary-500/10 rounded-full blur-3xl"></div>
+      <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-accent-500/10 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-12 items-start">
+        <!-- Left: Content -->
+        <div>
+          <div class="inline-flex items-center gap-2 px-4 py-2 bg-accent-100 dark:bg-accent-900/30 rounded-full mb-6">
+            <svg class="w-4 h-4 text-accent-600 dark:text-accent-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span class="text-sm font-semibold text-accent-700 dark:text-accent-300">100% Free • No Obligation • 5-7 Day Turnaround</span>
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white leading-tight mb-6">
+            Get Your Free Website & SEO Audit
+          </h1>
+
+          <p class="text-lg sm:text-xl text-slate-600 dark:text-slate-300 mb-8 leading-relaxed">
+            Discover what's holding your website back from generating more leads. Our team will analyze your site and deliver a detailed report with actionable recommendations—<strong>completely free.</strong>
+          </p>
+
+          <div class="space-y-3 mb-8">
+            <div class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-accent-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <span class="text-slate-700 dark:text-slate-300"><strong>No credit card required</strong> — truly free</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-accent-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <span class="text-slate-700 dark:text-slate-300"><strong>Detailed PDF report</strong> delivered in 5-7 days</span>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-accent-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <span class="text-slate-700 dark:text-slate-300"><strong>Actionable recommendations</strong> you can implement today</span>
+            </div>
+          </div>
+
+          <!-- Mobile: Show form link -->
+          <div class="lg:hidden">
+            <a href="#audit-form" class="inline-flex items-center justify-center w-full px-8 py-4 bg-accent-600 hover:bg-accent-700 text-white font-bold text-lg rounded-xl transition-all duration-200 shadow-xl">
+              Get My Free Audit
+              <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Form (Desktop) -->
+        <div id="audit-form" class="hidden lg:block bg-white dark:bg-slate-800 rounded-2xl shadow-2xl p-8 border border-slate-200 dark:border-slate-700">
+          <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Request Your Free Audit</h2>
+          <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm">Fill out the form below and we'll get started on your audit.</p>
+
+          <!-- Native Form → HubSpot API -->
+          <form id="audit-form-desktop" class="space-y-4">
+            <div>
+              <label for="business-name" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Business Name <span class="text-red-500">*</span></label>
+              <input type="text" id="business-name" name="business_name" required class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200" placeholder="Your Business Name" />
+            </div>
+
+            <div>
+              <label for="website-url" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Website URL <span class="text-red-500">*</span></label>
+              <input type="url" id="website-url" name="website_url" required class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200" placeholder="https://yourwebsite.com" />
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="firstname" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">First Name <span class="text-red-500">*</span></label>
+                <input type="text" id="firstname" name="firstname" required class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200" placeholder="John" />
+              </div>
+              <div>
+                <label for="lastname" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Last Name <span class="text-red-500">*</span></label>
+                <input type="text" id="lastname" name="lastname" required class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200" placeholder="Smith" />
+              </div>
+            </div>
+
+            <div>
+              <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Email Address <span class="text-red-500">*</span></label>
+              <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200" placeholder="john@yourbusiness.com" />
+            </div>
+
+            <div>
+              <label for="phone" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Phone Number</label>
+              <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200" placeholder="(555) 123-4567" />
+            </div>
+
+            <div>
+              <label for="industry" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Industry <span class="text-red-500">*</span></label>
+              <select id="industry" name="industry" required class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200">
+                <option value="">Select your industry</option>
+                <option value="Home Services">Home Services</option>
+                <option value="Legal Services">Legal Services</option>
+                <option value="Medical & Dental">Medical & Dental</option>
+                <option value="Fitness & Gyms">Fitness & Gyms</option>
+                <option value="Auto Services">Auto Services</option>
+                <option value="Salons & Spas">Salons & Spas</option>
+                <option value="E-commerce & Retail">E-commerce & Retail</option>
+                <option value="Professional Services">Professional Services</option>
+                <option value="Nonprofits">Nonprofits</option>
+                <option value="Daycare Centers">Daycare Centers</option>
+                <option value="Contractors & Trades">Contractors & Trades</option>
+                <option value="Real Estate">Real Estate</option>
+                <option value="Restaurants">Restaurants</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="message" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Anything specific we should look at?</label>
+              <textarea id="message" name="message" rows="3" class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none transition-colors duration-200" placeholder="E.g., We're not getting enough leads, site is slow, etc."></textarea>
+            </div>
+
+            <!-- Status messages -->
+            <div id="form-success-desktop" class="hidden p-4 bg-accent-50 dark:bg-accent-900/20 border border-accent-200 dark:border-accent-800 rounded-xl">
+              <div class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-accent-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                <p class="text-sm font-medium text-accent-700 dark:text-accent-300">Request received! We'll email you within 24 hours to confirm.</p>
+              </div>
+            </div>
+            <div id="form-error-desktop" class="hidden p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl">
+              <div class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-red-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                </svg>
+                <p class="text-sm font-medium text-red-700 dark:text-red-300">Something went wrong. Please try again or email us directly.</p>
+              </div>
+            </div>
+
+            <button type="submit" id="submit-btn-desktop" class="w-full py-4 px-6 bg-accent-600 hover:bg-accent-700 text-white font-bold text-lg rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed">
+              Get My Free Audit
+              <svg class="inline-block ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </button>
+
+            <p class="text-xs text-center text-slate-500 dark:text-slate-400">
+              We'll email you within 24 hours to confirm. Audit delivered in 5-7 business days.
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mobile Form -->
+  <section class="lg:hidden py-12 px-4">
+    <div class="max-w-md mx-auto bg-white dark:bg-slate-800 rounded-2xl shadow-2xl p-8 border border-slate-200 dark:border-slate-700">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Request Your Free Audit</h2>
+      <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm">Fill out the form below and we'll get started on your audit.</p>
+
+      <!-- Native Form for Mobile → HubSpot API -->
+      <form id="audit-form-mobile" class="space-y-4">
+        <div>
+          <label for="mobile-business-name" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Business Name <span class="text-red-500">*</span></label>
+          <input type="text" id="mobile-business-name" name="business_name" required class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="Your Business Name" />
+        </div>
+
+        <div>
+          <label for="mobile-website-url" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Website URL <span class="text-red-500">*</span></label>
+          <input type="url" id="mobile-website-url" name="website_url" required class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="https://yourwebsite.com" />
+        </div>
+
+        <div class="grid grid-cols-1 gap-4">
+          <div>
+            <label for="mobile-firstname" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">First Name <span class="text-red-500">*</span></label>
+            <input type="text" id="mobile-firstname" name="firstname" required class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="John" />
+          </div>
+          <div>
+            <label for="mobile-lastname" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Last Name <span class="text-red-500">*</span></label>
+            <input type="text" id="mobile-lastname" name="lastname" required class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="Smith" />
+          </div>
+        </div>
+
+        <div>
+          <label for="mobile-email" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Email Address <span class="text-red-500">*</span></label>
+          <input type="email" id="mobile-email" name="email" required class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="john@yourbusiness.com" />
+        </div>
+
+        <div>
+          <label for="mobile-phone" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Phone Number</label>
+          <input type="tel" id="mobile-phone" name="phone" class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="(555) 123-4567" />
+        </div>
+
+        <div>
+          <label for="mobile-industry" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Industry <span class="text-red-500">*</span></label>
+          <select id="mobile-industry" name="industry" required class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+            <option value="">Select your industry</option>
+            <option value="Home Services">Home Services</option>
+            <option value="Legal Services">Legal Services</option>
+            <option value="Medical & Dental">Medical & Dental</option>
+            <option value="Fitness & Gyms">Fitness & Gyms</option>
+            <option value="Auto Services">Auto Services</option>
+            <option value="Salons & Spas">Salons & Spas</option>
+            <option value="E-commerce & Retail">E-commerce & Retail</option>
+            <option value="Professional Services">Professional Services</option>
+            <option value="Nonprofits">Nonprofits</option>
+            <option value="Daycare Centers">Daycare Centers</option>
+            <option value="Contractors & Trades">Contractors & Trades</option>
+            <option value="Real Estate">Real Estate</option>
+            <option value="Restaurants">Restaurants</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="mobile-message" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Anything specific we should look at?</label>
+          <textarea id="mobile-message" name="message" rows="3" class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none" placeholder="E.g., We're not getting enough leads, site is slow, etc."></textarea>
+        </div>
+
+        <!-- Status messages -->
+        <div id="form-success-mobile" class="hidden p-4 bg-accent-50 dark:bg-accent-900/20 border border-accent-200 dark:border-accent-800 rounded-xl">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 text-accent-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <p class="text-sm font-medium text-accent-700 dark:text-accent-300">Request received! We'll email you within 24 hours to confirm.</p>
+          </div>
+        </div>
+        <div id="form-error-mobile" class="hidden p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl">
+          <div class="flex items-center gap-3">
+            <svg class="w-5 h-5 text-red-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+            </svg>
+            <p class="text-sm font-medium text-red-700 dark:text-red-300">Something went wrong. Please try again or email us directly.</p>
+          </div>
+        </div>
+
+        <button type="submit" id="submit-btn-mobile" class="w-full py-4 px-6 bg-accent-600 hover:bg-accent-700 text-white font-bold text-lg rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed">
+          Get My Free Audit
+          <svg class="inline-block ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </button>
+
+        <p class="text-xs text-center text-slate-500 dark:text-slate-400">
+          We'll email you within 24 hours to confirm. Audit delivered in 5-7 business days.
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <!-- What You'll Get -->
+  <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">What's Included in Your Free Audit</h2>
+        <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+          Our team manually reviews your website across multiple dimensions to deliver actionable insights.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {benefits.map((benefit) => (
+          <div class="bg-slate-50 dark:bg-slate-800 rounded-xl p-6 border border-slate-200 dark:border-slate-700">
+            <div class="flex items-start gap-4">
+              <svg class="w-6 h-6 text-accent-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+              <span class="text-slate-700 dark:text-slate-300">{benefit}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="py-16 lg:py-24 bg-slate-50 dark:bg-slate-800/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">How It Works</h2>
+        <p class="text-lg text-slate-600 dark:text-slate-400">Simple. Fast. No surprises.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+        {process.map((item) => (
+          <div class="text-center">
+            <div class="w-16 h-16 bg-accent-500 text-white text-2xl font-bold rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
+              {item.step}
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">{item.title}</h3>
+            <p class="text-slate-600 dark:text-slate-400">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-bold text-center text-slate-900 dark:text-white mb-12">Common Questions</h2>
+
+      <div class="space-y-4">
+        {faqs.map((faq, i) => (
+          <details class="group bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden" open={i === 0}>
+            <summary class="flex items-center justify-between px-6 py-4 cursor-pointer list-none font-semibold text-slate-900 dark:text-white hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+              <span>{faq.question}</span>
+              <svg class="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform duration-200 flex-shrink-0 ml-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="px-6 pb-5 text-slate-600 dark:text-slate-400">{faq.answer}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="py-16 lg:py-24 bg-gradient-to-br from-accent-600 to-primary-600 text-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4">Ready to Discover What's Holding You Back?</h2>
+      <p class="text-lg text-white/90 mb-8">Get your free audit in 5-7 business days. No credit card. No obligation.</p>
+      <a href="#audit-form" class="inline-flex items-center justify-center px-8 py-4 bg-white text-accent-700 font-bold text-lg rounded-xl hover:bg-accent-50 transition-colors duration-200 shadow-xl">
+        Get My Free Audit Now
+        <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Free Audit Form → HubSpot Forms API -->
+  <script is:inline>
+    (function() {
+      // Helper to read HubSpot tracking cookie
+      function getHubspotCookie() {
+        var match = document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]*)/);
+        return match ? decodeURIComponent(match[1]) : null;
+      }
+
+      // Helper to handle form submission
+      function handleAuditFormSubmit(form, submitBtn, successMsg, errorMsg) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+
+          // Hide previous messages
+          successMsg.classList.add('hidden');
+          errorMsg.classList.add('hidden');
+
+          // Disable button
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = 'Submitting...';
+
+          // Get form elements (handle both desktop and mobile IDs)
+          var businessName = form.querySelector('[name="business_name"]').value.trim();
+          var websiteUrl = form.querySelector('[name="website_url"]').value.trim();
+          var firstname = form.querySelector('[name="firstname"]').value.trim();
+          var lastname = form.querySelector('[name="lastname"]').value.trim();
+          var email = form.querySelector('[name="email"]').value.trim();
+          var phone = form.querySelector('[name="phone"]').value.trim();
+          var industry = form.querySelector('[name="industry"]').value;
+          var message = form.querySelector('[name="message"]').value.trim();
+
+          // Build fields array for HubSpot
+          var fields = [
+            { name: 'business_name', value: businessName },
+            { name: 'website', value: websiteUrl },
+            { name: 'firstname', value: firstname },
+            { name: 'lastname', value: lastname },
+            { name: 'email', value: email },
+            { name: 'industry', value: industry }
+          ];
+
+          // Add optional fields
+          if (phone) fields.push({ name: 'phone', value: phone });
+          if (message) fields.push({ name: 'message', value: message });
+
+          // Build context with optional HubSpot tracking cookie
+          var context = {
+            pageUri: window.location.href,
+            pageName: 'Free Website Audit'
+          };
+          var hutk = getHubspotCookie();
+          if (hutk) context.hutk = hutk;
+
+          // Build payload
+          var payload = {
+            fields: fields,
+            context: context
+          };
+
+          // Submit to HubSpot Forms API
+          fetch('https://api.hsforms.com/submissions/v3/integration/submit/342962653/39bb6fa5-8de1-4158-9b2a-081a076676f1', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          })
+          .then(function(response) {
+            if (response.ok) {
+              successMsg.classList.remove('hidden');
+              form.reset();
+              return;
+            }
+            // Log the actual HubSpot error for debugging
+            return response.json().then(function(data) {
+              console.error('HubSpot form error:', response.status, data);
+              errorMsg.classList.remove('hidden');
+            });
+          })
+          .catch(function(err) {
+            console.error('HubSpot form network error:', err);
+            errorMsg.classList.remove('hidden');
+          })
+          .finally(function() {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'Get My Free Audit <svg class="inline-block ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>';
+          });
+        });
+      }
+
+      // Initialize desktop form
+      var desktopForm = document.getElementById('audit-form-desktop');
+      if (desktopForm) {
+        handleAuditFormSubmit(
+          desktopForm,
+          document.getElementById('submit-btn-desktop'),
+          document.getElementById('form-success-desktop'),
+          document.getElementById('form-error-desktop')
+        );
+      }
+
+      // Initialize mobile form
+      var mobileForm = document.getElementById('audit-form-mobile');
+      if (mobileForm) {
+        handleAuditFormSubmit(
+          mobileForm,
+          document.getElementById('submit-btn-mobile'),
+          document.getElementById('form-success-mobile'),
+          document.getElementById('form-error-mobile')
+        );
+      }
+    })();
+  </script>
+</Layout>

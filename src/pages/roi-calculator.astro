@@ -344,8 +344,71 @@ const calculatorSchema = {
             </div>
           </details>
 
+          <!-- Email Results Section -->
+          <div class="mt-12 bg-gradient-to-br from-primary-50 to-accent-50 dark:from-primary-900/20 dark:to-accent-900/20 rounded-2xl p-8 border border-primary-200 dark:border-primary-800">
+            <div class="max-w-md mx-auto text-center">
+              <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Email Me These Results</h3>
+              <p class="text-slate-600 dark:text-slate-400 mb-6">Get a detailed report with your ROI analysis and personalized recommendations.</p>
+
+              <!-- Native HubSpot Form -->
+              <form id="roi-email-form" class="space-y-4 text-left">
+                <!-- Visible Fields -->
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <label for="roi-firstname" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">First Name <span class="text-red-500">*</span></label>
+                    <input type="text" id="roi-firstname" name="firstname" required class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors" placeholder="John" />
+                  </div>
+                  <div>
+                    <label for="roi-lastname" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Last Name <span class="text-red-500">*</span></label>
+                    <input type="text" id="roi-lastname" name="lastname" required class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors" placeholder="Smith" />
+                  </div>
+                </div>
+
+                <div>
+                  <label for="roi-email" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Email Address <span class="text-red-500">*</span></label>
+                  <input type="email" id="roi-email" name="email" required class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors" placeholder="john@yourbusiness.com" />
+                </div>
+
+                <!-- Hidden Fields for ROI Data -->
+                <input type="hidden" name="current_monthly_leads" id="roi-current-leads" />
+                <input type="hidden" name="target_monthly_leads" id="roi-target-leads" />
+                <input type="hidden" name="average_deal_value" id="roi-deal-value" />
+                <input type="hidden" name="close_rate_percentage" id="roi-close-rate" />
+                <input type="hidden" name="calculated_roi_value" id="roi-value" />
+                <input type="hidden" name="calculated_monthly_revenue" id="roi-monthly-revenue" />
+                <input type="hidden" name="calculated_annual_revenue" id="roi-annual-revenue" />
+
+                <!-- Status Messages -->
+                <div id="roi-form-success" class="hidden p-4 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-xl">
+                  <div class="flex items-center gap-3">
+                    <svg class="w-5 h-5 text-emerald-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                    </svg>
+                    <p class="text-sm font-medium text-emerald-700 dark:text-emerald-300">Check your email! Your ROI report is on its way.</p>
+                  </div>
+                </div>
+                <div id="roi-form-error" class="hidden p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl">
+                  <div class="flex items-center gap-3">
+                    <svg class="w-5 h-5 text-red-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                    </svg>
+                    <p class="text-sm font-medium text-red-700 dark:text-red-300">Something went wrong. Please try again or email us directly.</p>
+                  </div>
+                </div>
+
+                <button type="submit" id="roi-submit-btn" class="w-full py-3 bg-primary-600 hover:bg-primary-700 text-white font-bold rounded-lg transition-all duration-200 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed">
+                  Email My ROI Report
+                </button>
+
+                <p class="text-xs text-center text-slate-500 dark:text-slate-400">
+                  We'll email you a detailed breakdown with tips on achieving this ROI.
+                </p>
+              </form>
+            </div>
+          </div>
+
           <!-- Disclaimer -->
-          <p class="text-xs text-slate-400 dark:text-slate-500 max-w-2xl mx-auto text-center mb-8">
+          <p class="text-xs text-slate-400 dark:text-slate-500 max-w-2xl mx-auto text-center mb-8 mt-8">
             <strong>Disclaimer:</strong> These are projections based on your inputs and industry benchmarks. Actual results vary based on market conditions, competition, and implementation. We use conservative estimates from <a href="https://unbounce.com/conversion-benchmark-report/" target="_blank" rel="noopener" class="text-primary-500 hover:underline">Unbounce</a> and <a href="https://www.homeadvisor.com/cost/" target="_blank" rel="noopener" class="text-primary-500 hover:underline">HomeAdvisor</a>.
           </p>
         </div>
@@ -362,21 +425,17 @@ const calculatorSchema = {
         <p class="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
           Book a free strategy call. We'll review your business, validate these projections, and create a custom plan.
         </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a 
-            href="/contact" 
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <a
+            href="https://cal.com/leadflownorth/15min"
             class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
           >
-            Book Free Strategy Call
+            Book Your Free Discovery Call
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
           </a>
-          <a 
-            href="tel:+19057835996"
-            class="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-slate-600 hover:border-slate-500 text-white font-semibold rounded-lg transition-colors"
-          >
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-            Call (905) 783-5996
-          </a>
+          <a href="/audit" class="text-white hover:text-slate-300 font-medium transition-colors underline">Get Free Audit</a>
+          <span class="text-white/50">|</span>
+          <a href="/services" class="text-white hover:text-slate-300 font-medium transition-colors underline">View Pricing</a>
         </div>
         <p class="text-slate-400 text-sm mt-6">
           No pressure. No commitment. Just a conversation about your goals.
@@ -607,4 +666,108 @@ const calculatorSchema = {
   }
 
   calculate();
+
+  // ─── ROI Email Form Submission ───
+  const roiForm = document.getElementById('roi-email-form') as HTMLFormElement;
+  const roiSubmitBtn = document.getElementById('roi-submit-btn') as HTMLButtonElement;
+  const roiSuccessMsg = document.getElementById('roi-form-success')!;
+  const roiErrorMsg = document.getElementById('roi-form-error')!;
+
+  // Helper to read HubSpot tracking cookie
+  function getHubspotCookie(): string | null {
+    const match = document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]*)/);
+    return match ? decodeURIComponent(match[1]) : null;
+  }
+
+  roiForm?.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Hide previous messages
+    roiSuccessMsg.classList.add('hidden');
+    roiErrorMsg.classList.add('hidden');
+
+    // Disable button
+    roiSubmitBtn.disabled = true;
+    roiSubmitBtn.textContent = 'Sending...';
+
+    // Get visible form fields
+    const firstname = (document.getElementById('roi-firstname') as HTMLInputElement).value.trim();
+    const lastname = (document.getElementById('roi-lastname') as HTMLInputElement).value.trim();
+    const email = (document.getElementById('roi-email') as HTMLInputElement).value.trim();
+
+    // Calculate current ROI values from calculator
+    const currentVisitors = parseFloat(el.currentVisitors.value) || 0;
+    const currentConversion = parseFloat(el.currentConversion.value) || 0;
+    const avgJobValue = parseFloat(el.avgJobValue.value) || 0;
+    const closeRate = parseFloat(el.closeRate.value) || 0;
+    const trafficIncrease = parseFloat(el.trafficIncrease.value) || 0;
+    const newConversion = parseFloat(el.newConversion.value) || 0;
+
+    const currentLeads = currentVisitors * (currentConversion / 100);
+    const currentCustomers = currentLeads * (closeRate / 100);
+    const currentRevenue = currentCustomers * avgJobValue;
+
+    const newVisitors = currentVisitors * (1 + trafficIncrease / 100);
+    const newLeads = newVisitors * (newConversion / 100);
+    const newCustomers = newLeads * (closeRate / 100);
+    const newRevenue = newCustomers * avgJobValue;
+
+    const revenueIncrease = newRevenue - currentRevenue;
+    const annualRevenueIncrease = revenueIncrease * 12;
+
+    // Build fields array for HubSpot
+    const fields = [
+      { name: 'firstname', value: firstname },
+      { name: 'lastname', value: lastname },
+      { name: 'email', value: email },
+      { name: 'current_monthly_leads', value: String(Math.round(currentLeads)) },
+      { name: 'target_monthly_leads', value: String(Math.round(newLeads)) },
+      { name: 'average_deal_value', value: String(Math.round(avgJobValue)) },
+      { name: 'close_rate_percentage', value: String(Math.round(closeRate)) },
+      { name: 'calculated_roi_value', value: String(Math.round(revenueIncrease)) },
+      { name: 'calculated_monthly_revenue', value: String(Math.round(newRevenue)) },
+      { name: 'calculated_annual_revenue', value: String(Math.round(annualRevenueIncrease)) }
+    ];
+
+    // Build context with optional HubSpot tracking cookie
+    const context: any = {
+      pageUri: window.location.href,
+      pageName: 'ROI Calculator'
+    };
+    const hutk = getHubspotCookie();
+    if (hutk) context.hutk = hutk;
+
+    // Build payload
+    const payload = {
+      fields: fields,
+      context: context
+    };
+
+    // Submit to HubSpot Forms API
+    fetch('https://api.hsforms.com/submissions/v3/integration/submit/342962653/f7ba01b5-cafb-43d7-94c8-0d6dd9fdff90', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(function(response) {
+      if (response.ok) {
+        roiSuccessMsg.classList.remove('hidden');
+        roiForm.reset();
+        return;
+      }
+      // Log the actual HubSpot error for debugging
+      return response.json().then(function(data) {
+        console.error('HubSpot form error:', response.status, data);
+        roiErrorMsg.classList.remove('hidden');
+      });
+    })
+    .catch(function(err) {
+      console.error('HubSpot form network error:', err);
+      roiErrorMsg.classList.remove('hidden');
+    })
+    .finally(function() {
+      roiSubmitBtn.disabled = false;
+      roiSubmitBtn.textContent = 'Email My ROI Report';
+    });
+  });
 </script>
