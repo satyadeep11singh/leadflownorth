@@ -22,7 +22,7 @@ const landing = landingData[industry.slug];
 ---
 
 <SampleLayout
-  title={`${defaults.businessName} — ${landing.primaryOffer} | ${industry.name} Landing Page Demo`}
+  title={`${defaults.businessName}, ${landing.primaryOffer} | ${industry.name} Landing Page Demo`}
   description={landing.heroSubheadline}
   themeColor={defaults.primaryColor}
 >
@@ -65,7 +65,7 @@ const landing = landingData[industry.slug];
         <div class="text-center lg:text-left">
           <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 text-sm font-semibold" style={`background-color: ${defaults.accentColor}; color: white;`}>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            {landing.offerValue} — Limited Time
+            {landing.offerValue}. Limited Time
           </div>
 
           <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-5 leading-tight">

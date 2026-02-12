@@ -68,7 +68,7 @@ export const landingData: Record<string, LandingPageData> = {
     heroImage: 'https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?w=1200&h=600&fit=crop',
     trustStat: 'Trusted by 2,500+ Toronto homeowners',
 
-    primaryOffer: 'Emergency Service — 30-Min Response + $50 Off',
+    primaryOffer: 'Emergency Service, 30-Min Response + $50 Off',
     offerValue: '$50 Off',
     offerDetails: [
       'Guaranteed 30-minute response time, 24/7',
@@ -103,7 +103,7 @@ export const landingData: Record<string, LandingPageData> = {
     ],
     formStep2Fields: [
       { label: 'Email Address', type: 'email', placeholder: 'john@example.com' },
-      { label: 'Preferred Time', type: 'select', placeholder: 'When do you need us?', options: ['ASAP — Emergency', 'Today', 'This Week', 'I\'m Flexible'] },
+      { label: 'Preferred Time', type: 'select', placeholder: 'When do you need us?', options: ['ASAP. Emergency', 'Today', 'This Week', 'I\'m Flexible'] },
       { label: 'Anything else?', type: 'textarea', placeholder: 'Describe the issue briefly...' },
     ],
     formHeadline: 'Get Your Free Quote in 30 Seconds',
@@ -125,15 +125,15 @@ export const landingData: Record<string, LandingPageData> = {
   // ═══════════════════════════════════════════
   'legal': {
     heroHeadline: 'Injured? You Deserve a Lawyer Who Fights as Hard as You Do.',
-    heroSubheadline: 'Get the compensation you deserve. Free case evaluation — no fees unless we win your case.',
+    heroSubheadline: 'Get the compensation you deserve. Free case evaluation, no fees unless we win your case.',
     heroImage: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1200&h=600&fit=crop',
     trustStat: 'Over $25M recovered for our clients',
 
-    primaryOffer: 'Free Case Evaluation — No Win, No Fee',
+    primaryOffer: 'Free Case Evaluation. No Win, No Fee',
     offerValue: 'Free',
     offerDetails: [
       'Confidential case evaluation at no cost',
-      'No fees unless we win — guaranteed',
+      'No fees unless we win, guaranteed',
       'Direct access to a senior partner',
       'Same-day response on urgent matters',
     ],
@@ -188,7 +188,7 @@ export const landingData: Record<string, LandingPageData> = {
     heroImage: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1200&h=600&fit=crop',
     trustStat: 'Over 5,000 happy patients across the GTA',
 
-    primaryOffer: '$99 New Patient Special — Exam, X-Rays & Cleaning',
+    primaryOffer: '$99 New Patient Special. Exam, X-Rays & Cleaning',
     offerValue: '$99',
     offerDetails: [
       'Comprehensive dental exam with digital X-rays',
@@ -245,7 +245,7 @@ export const landingData: Record<string, LandingPageData> = {
   // ═══════════════════════════════════════════
   'fitness': {
     heroHeadline: 'Stop Starting Over. Start Seeing Results.',
-    heroSubheadline: 'Join Toronto\'s most supportive fitness community. Your first week is completely free — no contracts, no pressure.',
+    heroSubheadline: 'Join Toronto\'s most supportive fitness community. Your first week is completely free, no contracts, no pressure.',
     heroImage: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&h=600&fit=crop',
     trustStat: 'Over 1,200 members transforming their lives',
 
@@ -255,7 +255,7 @@ export const landingData: Record<string, LandingPageData> = {
       '7 full days of unlimited access to all classes & equipment',
       '1 complimentary personal training session ($75 value)',
       'Custom workout plan based on your goals',
-      'No commitment — cancel anytime with zero fees',
+      'No commitment, cancel anytime with zero fees',
     ],
     ctaButtonText: 'Claim My Free 7-Day Pass',
     ctaMicroCopy: 'No credit card required. No obligation. Walk in tomorrow.',
@@ -264,7 +264,7 @@ export const landingData: Record<string, LandingPageData> = {
     urgencyText: 'Free trial offer expires in',
 
     testimonials: [
-      { quote: 'I\'ve tried every gym in the city. Summit is different — the trainers actually care, the community keeps you accountable, and I\'ve lost 30 lbs in 4 months.', name: 'Chris B.', role: 'Member, 8 Months', initials: 'CB' },
+      { quote: 'I\'ve tried every gym in the city. Summit is different, the trainers actually care, the community keeps you accountable, and I\'ve lost 30 lbs in 4 months.', name: 'Chris B.', role: 'Member, 8 Months', initials: 'CB' },
       { quote: 'As someone who was intimidated by gyms, Summit made me feel welcome from day one. The beginner classes are amazing.', name: 'Priya S.', role: 'Member, 1 Year', initials: 'PS' },
       { quote: 'The personal training session during my free trial completely changed my approach to fitness. I signed up that same week.', name: 'Mark D.', role: 'Member, 6 Months', initials: 'MD' },
     ],
@@ -289,10 +289,10 @@ export const landingData: Record<string, LandingPageData> = {
     formSubheadline: 'Fill this out and your pass will be ready when you walk in.',
 
     faqs: [
-      { question: 'Do I really need no credit card for the trial?', answer: 'Correct — no credit card, no hidden fees, no auto-billing. Just show up with your ID and your free pass is activated. If you love it, we\'ll talk membership options on day 7.' },
-      { question: 'I\'m a complete beginner — will I fit in?', answer: 'Absolutely! Over 40% of our members started as complete beginners. We have dedicated beginner classes, and every trainer is certified to work with all fitness levels.' },
+      { question: 'Do I really need no credit card for the trial?', answer: 'Correct, no credit card, no hidden fees, no auto-billing. Just show up with your ID and your free pass is activated. If you love it, we\'ll talk membership options on day 7.' },
+      { question: 'I\'m a complete beginner, will I fit in?', answer: 'Absolutely! Over 40% of our members started as complete beginners. We have dedicated beginner classes, and every trainer is certified to work with all fitness levels.' },
       { question: 'What\'s included in the personal training session?', answer: 'A 45-minute one-on-one session with a certified trainer who will assess your fitness level, discuss your goals, and create a customized workout plan you can follow on your own.' },
-      { question: 'What happens after my 7-day trial?', answer: 'Nothing automatic — we\'ll never charge you without your consent. If you want to join, memberships start at $49/month with no long-term contracts.' },
+      { question: 'What happens after my 7-day trial?', answer: 'Nothing automatic, we\'ll never charge you without your consent. If you want to join, memberships start at $49/month with no long-term contracts.' },
     ],
 
     closingHeadline: 'Your Transformation Starts with Day One',
@@ -309,11 +309,11 @@ export const landingData: Record<string, LandingPageData> = {
     trustStat: 'Trusted by 3,000+ vehicle owners in the GTA',
 
     primaryOffer: 'Free 42-Point Vehicle Inspection ($89 Value)',
-    offerValue: '$89 Value — Free',
+    offerValue: '$89 Value. Free',
     offerDetails: [
       'Comprehensive 42-point safety inspection',
       'Written report with photos of any issues found',
-      'Honest recommendation — no pressure to repair',
+      'Honest recommendation, no pressure to repair',
       '12-month / 20,000 km warranty on all work',
     ],
     ctaButtonText: 'Book My Free Inspection',
@@ -346,7 +346,7 @@ export const landingData: Record<string, LandingPageData> = {
       { label: 'Preferred Day', type: 'select', placeholder: 'When works best?', options: ['As Soon as Possible', 'This Week', 'Next Week', 'I\'m Flexible'] },
     ],
     formHeadline: 'Book Your Free Vehicle Inspection',
-    formSubheadline: 'Drop off or wait — we\'ll have your report ready in about 30 minutes.',
+    formSubheadline: 'Drop off or wait, we\'ll have your report ready in about 30 minutes.',
 
     faqs: [
       { question: 'Is the 42-point inspection really free?', answer: 'Yes, completely free with no strings attached. We\'ll give you a detailed written report with photos. Whether you choose to repair with us or not is entirely up to you.' },
@@ -380,11 +380,11 @@ export const landingData: Record<string, LandingPageData> = {
     ctaMicroCopy: 'Book online in 30 seconds. Same-week appointments available.',
 
     urgencyType: 'expiring',
-    urgencyText: 'This week only — first visit special ends Sunday',
+    urgencyText: 'This week only, first visit special ends Sunday',
 
     testimonials: [
       { quote: 'I walked in with frizzy, damaged hair and walked out looking like I just left a magazine shoot. The deep conditioning treatment was a game-changer.', name: 'Nicole F.', role: 'First-Time Client', initials: 'NF' },
-      { quote: 'Best salon experience I\'ve ever had. The atmosphere, the service, the results — everything was perfect. I\'ve been coming back monthly for two years.', name: 'Rachel T.', role: 'Regular Client', initials: 'RT' },
+      { quote: 'Best salon experience I\'ve ever had. The atmosphere, the service, the results, everything was perfect. I\'ve been coming back monthly for two years.', name: 'Rachel T.', role: 'Regular Client', initials: 'RT' },
       { quote: 'My stylist actually listened to what I wanted and delivered exactly that. Plus the complimentary champagne was a nice touch!', name: 'Danielle M.', role: 'Color Client', initials: 'DM' },
     ],
 
@@ -404,16 +404,16 @@ export const landingData: Record<string, LandingPageData> = {
       { label: 'Email Address', type: 'email', placeholder: 'sarah@example.com' },
       { label: 'Preferred Day', type: 'select', placeholder: 'When works best?', options: ['This Week', 'Next Week', 'Weekday', 'Weekend'] },
     ],
-    formHeadline: 'Book Your First Visit — 25% Off',
+    formHeadline: 'Book Your First Visit, 25% Off',
     formSubheadline: 'Claim your new client special and enjoy the Blush Beauty experience.',
 
     faqs: [
-      { question: 'Can I use the 25% off on any service?', answer: 'Yes! The 25% discount applies to any single service on your first visit — hair, colour, spa treatments, facials, everything. Plus you get the free deep conditioning on top.' },
+      { question: 'Can I use the 25% off on any service?', answer: 'Yes! The 25% discount applies to any single service on your first visit, hair, colour, spa treatments, facials, everything. Plus you get the free deep conditioning on top.' },
       { question: 'How long should I expect my appointment to take?', answer: 'A cut and style is about 60-90 minutes. Colour services are 2-3 hours depending on the look. We\'ll give you an exact estimate when you book.' },
       { question: 'What if I\'m not happy with the result?', answer: 'Your satisfaction is our promise. If you\'re not thrilled with your service, we\'ll make it right within 7 days at no extra charge.' },
     ],
 
-    closingHeadline: 'Treat Yourself — You\'ve Earned It',
+    closingHeadline: 'Treat Yourself. You\'ve Earned It',
     closingSubheadline: 'Book your first visit this week and save 25%. Plus a free deep conditioning treatment on us.',
   },
 
@@ -429,7 +429,7 @@ export const landingData: Record<string, LandingPageData> = {
     primaryOffer: '15% Off Your First Order + Free Shipping',
     offerValue: '15% Off',
     offerDetails: [
-      '15% off your entire first order — no minimum',
+      '15% off your entire first order, no minimum',
       'Free shipping on all orders across Canada',
       '30-day hassle-free returns on everything',
       'Exclusive access to member-only sales',
@@ -464,13 +464,13 @@ export const landingData: Record<string, LandingPageData> = {
     formSubheadline: 'Enter your email and your discount code will arrive instantly.',
 
     faqs: [
-      { question: 'Is shipping really free?', answer: 'Yes — free standard shipping on all orders across Canada, no minimum purchase required. Express shipping is available at a flat rate of $9.99.' },
-      { question: 'What\'s your return policy?', answer: '30-day hassle-free returns on all items. If you\'re not happy, send it back for a full refund — we even cover return shipping on defective items.' },
+      { question: 'Is shipping really free?', answer: 'Yes, free standard shipping on all orders across Canada, no minimum purchase required. Express shipping is available at a flat rate of $9.99.' },
+      { question: 'What\'s your return policy?', answer: '30-day hassle-free returns on all items. If you\'re not happy, send it back for a full refund, we even cover return shipping on defective items.' },
       { question: 'Are all products really Canadian-made?', answer: 'Every product in our store is designed, crafted, or sourced from Canadian artisans and small businesses. We verify every supplier.' },
     ],
 
     closingHeadline: 'Don\'t Miss Out on 15% Off',
-    closingSubheadline: 'Join 10,000+ happy customers. Get your discount code now — offer ends soon.',
+    closingSubheadline: 'Join 10,000+ happy customers. Get your discount code now, offer ends soon.',
   },
 
   // ═══════════════════════════════════════════
@@ -478,11 +478,11 @@ export const landingData: Record<string, LandingPageData> = {
   // ═══════════════════════════════════════════
   'professional-services': {
     heroHeadline: 'Your Business Is Growing. Your Finances Should Keep Up.',
-    heroSubheadline: 'Strategic accounting, tax planning, and business advisory for entrepreneurs who want to scale — not just survive.',
+    heroSubheadline: 'Strategic accounting, tax planning, and business advisory for entrepreneurs who want to scale , not just survive.',
     heroImage: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&h=600&fit=crop',
     trustStat: 'Managing $200M+ in client assets',
 
-    primaryOffer: 'Free Business Financial Audit — Uncover Hidden Savings',
+    primaryOffer: 'Free Business Financial Audit. Uncover Hidden Savings',
     offerValue: 'Free Audit',
     offerDetails: [
       'Comprehensive review of your financial operations',
@@ -499,7 +499,7 @@ export const landingData: Record<string, LandingPageData> = {
 
     testimonials: [
       { quote: 'The free audit uncovered $47,000 in tax savings we were leaving on the table. Pinnacle paid for themselves in the first month.', name: 'Richard H.', role: 'Tech Startup Founder', initials: 'RH' },
-      { quote: 'Finally found an accounting firm that understands growing businesses. They don\'t just file taxes — they help us make strategic decisions.', name: 'Lisa W.', role: 'Restaurant Chain Owner', initials: 'LW' },
+      { quote: 'Finally found an accounting firm that understands growing businesses. They don\'t just file taxes, they help us make strategic decisions.', name: 'Lisa W.', role: 'Restaurant Chain Owner', initials: 'LW' },
       { quote: 'Switched from a big firm to Pinnacle and the difference is night and day. Personal attention, proactive advice, and they actually answer the phone.', name: 'James P.', role: 'Real Estate Investor', initials: 'JP' },
     ],
 
@@ -524,9 +524,9 @@ export const landingData: Record<string, LandingPageData> = {
     formSubheadline: 'A senior advisor will review your finances and present findings within 5 business days.',
 
     faqs: [
-      { question: 'What does the free audit include?', answer: 'We review your tax returns, financial statements, cash flow, and business structure. You\'ll receive a written report with specific, actionable recommendations — typically identifying $10,000-$100,000+ in potential savings.' },
+      { question: 'What does the free audit include?', answer: 'We review your tax returns, financial statements, cash flow, and business structure. You\'ll receive a written report with specific, actionable recommendations , typically identifying $10,000-$100,000+ in potential savings.' },
       { question: 'Is this really free? What\'s the catch?', answer: 'No catch. We offer the audit because most businesses we audit choose to become clients. But there\'s zero pressure or obligation. The audit report is yours to keep either way.' },
-      { question: 'How is this different from my current accountant?', answer: 'Most accountants are reactive — they file your taxes after the year ends. We\'re proactive strategic advisors who help you plan ahead, minimize tax liability, and make smarter financial decisions year-round.' },
+      { question: 'How is this different from my current accountant?', answer: 'Most accountants are reactive, they file your taxes after the year ends. We\'re proactive strategic advisors who help you plan ahead, minimize tax liability, and make smarter financial decisions year-round.' },
       { question: 'How long does the audit process take?', answer: 'We\'ll need about 30 minutes of your time for an initial call, plus access to your recent financial documents. We handle everything else and deliver your report within 5 business days.' },
     ],
 
@@ -587,7 +587,7 @@ export const landingData: Record<string, LandingPageData> = {
       { question: 'How much of my donation goes to programs?', answer: '92 cents of every dollar goes directly to our programs and services. Our administrative overhead is among the lowest in the sector, verified by independent auditors.' },
       { question: 'Will I receive a tax receipt?', answer: 'Yes, all donations are tax-deductible and you\'ll receive an official tax receipt via email within minutes of your donation.' },
       { question: 'Can I set up monthly donations?', answer: 'Absolutely! Monthly donors are the backbone of our work. You can set any amount, change it anytime, and you\'ll receive quarterly impact reports showing exactly how your donations are being used.' },
-      { question: 'How can I volunteer?', answer: 'We welcome volunteers year-round! Fill out the form above and select "Volunteer" — our coordinator will reach out within 48 hours with available opportunities in your area.' },
+      { question: 'How can I volunteer?', answer: 'We welcome volunteers year-round! Fill out the form above and select "Volunteer", our coordinator will reach out within 48 hours with available opportunities in your area.' },
     ],
 
     closingHeadline: 'Be the Difference Someone Needs Today',
@@ -599,7 +599,7 @@ export const landingData: Record<string, LandingPageData> = {
   // ═══════════════════════════════════════════
   'daycare-centers': {
     heroHeadline: 'Finding Childcare Shouldn\'t Feel Like a Second Full-Time Job.',
-    heroSubheadline: 'A safe, nurturing environment where your child learns, grows, and thrives — while you focus on work with peace of mind.',
+    heroSubheadline: 'A safe, nurturing environment where your child learns, grows, and thrives, while you focus on work with peace of mind.',
     heroImage: 'https://images.unsplash.com/photo-1587654780291-39c9404d7dd0?w=1200&h=600&fit=crop',
     trustStat: 'Trusted by 300+ families in the community',
 
@@ -615,7 +615,7 @@ export const landingData: Record<string, LandingPageData> = {
     ctaMicroCopy: 'Tours available Monday-Friday. Limited spots for Fall enrollment.',
 
     urgencyType: 'limited-spots',
-    urgencyText: 'Fall enrollment filling fast — only 6 spots remaining',
+    urgencyText: 'Fall enrollment filling fast, only 6 spots remaining',
     urgencySubtext: 'Waitlist starts after spots are filled',
 
     testimonials: [
@@ -645,7 +645,7 @@ export const landingData: Record<string, LandingPageData> = {
     formSubheadline: 'See our classrooms, meet our educators, and let your child enjoy a free trial day.',
 
     faqs: [
-      { question: 'What is your staff-to-child ratio?', answer: 'We maintain a 4:1 ratio for toddlers and a 8:1 ratio for preschoolers — exceeding provincial requirements. Every educator is certified in early childhood education and holds current first aid certification.' },
+      { question: 'What is your staff-to-child ratio?', answer: 'We maintain a 4:1 ratio for toddlers and a 8:1 ratio for preschoolers, exceeding provincial requirements. Every educator is certified in early childhood education and holds current first aid certification.' },
       { question: 'What does a typical day look like?', answer: 'Our structured curriculum includes circle time, creative play, outdoor exploration, music, early literacy, and rest periods. We follow a play-based learning philosophy that prepares children for school while keeping them engaged and happy.' },
       { question: 'Do you accommodate allergies and dietary needs?', answer: 'Absolutely. We are a nut-free facility and accommodate all dietary restrictions. Our on-site kitchen prepares nutritious meals and snacks daily, with menus available for parents to review.' },
       { question: 'What are your hours and holiday schedule?', answer: 'We\'re open Monday-Friday, 7:00 AM to 6:00 PM. We follow the Ontario statutory holiday schedule. A full calendar is provided upon enrollment.' },
@@ -660,7 +660,7 @@ export const landingData: Record<string, LandingPageData> = {
   // ═══════════════════════════════════════════
   'contractors-trades': {
     heroHeadline: 'Quality Craftsmanship Shouldn\'t Be This Hard to Find.',
-    heroSubheadline: 'Licensed, insured, and backed by a satisfaction guarantee. Get a transparent quote for your project — no surprises, no hidden fees.',
+    heroSubheadline: 'Licensed, insured, and backed by a satisfaction guarantee. Get a transparent quote for your project, no surprises, no hidden fees.',
     heroImage: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&h=600&fit=crop',
     trustStat: 'Over 800 projects completed across the GTA',
 
@@ -669,7 +669,7 @@ export const landingData: Record<string, LandingPageData> = {
     offerDetails: [
       'Detailed written estimate with material breakdown',
       'We\'ll review any competing quote for free',
-      'Timeline commitment — we start and finish on schedule',
+      'Timeline commitment, we start and finish on schedule',
       '5-year workmanship warranty on all projects',
     ],
     ctaButtonText: 'Get My Free Estimate',
@@ -680,7 +680,7 @@ export const landingData: Record<string, LandingPageData> = {
     urgencySubtext: 'Currently booking 3-4 weeks out',
 
     testimonials: [
-      { quote: 'They rebuilt our entire kitchen on time and on budget. The attention to detail was incredible — crown moulding, custom cabinets, everything perfect.', name: 'Paul D.', role: 'Kitchen Renovation', initials: 'PD' },
+      { quote: 'They rebuilt our entire kitchen on time and on budget. The attention to detail was incredible, crown moulding, custom cabinets, everything perfect.', name: 'Paul D.', role: 'Kitchen Renovation', initials: 'PD' },
       { quote: 'After two bad contractor experiences, Ironwood restored my faith. They showed up when they said they would, did what they promised, and cleaned up after themselves.', name: 'Martha S.', role: 'Bathroom Renovation', initials: 'MS' },
       { quote: 'Got three quotes for our deck build. Ironwood wasn\'t the cheapest, but they were the most transparent about materials and timelines. Worth every penny.', name: 'Andrew B.', role: 'Deck & Patio Build', initials: 'AB' },
     ],
@@ -706,14 +706,14 @@ export const landingData: Record<string, LandingPageData> = {
     formSubheadline: 'Tell us about your project and we\'ll schedule an on-site estimate within 48 hours.',
 
     faqs: [
-      { question: 'Do you provide a detailed written estimate?', answer: 'Yes — every estimate includes a full breakdown of materials, labour, timelines, and total cost. No vague numbers or hidden fees. What we quote is what you pay.' },
+      { question: 'Do you provide a detailed written estimate?', answer: 'Yes, every estimate includes a full breakdown of materials, labour, timelines, and total cost. No vague numbers or hidden fees. What we quote is what you pay.' },
       { question: 'Are you licensed and insured?', answer: 'Fully licensed by the Ontario College of Trades, WSIB covered, and carrying $5M in comprehensive liability insurance. We\'ll provide proof before any work begins.' },
       { question: 'What happens if the project goes over budget?', answer: 'We work on fixed-price contracts. If we discover unexpected issues (like hidden water damage), we\'ll show you exactly what we found, explain the options, and get your approval before any additional work.' },
-      { question: 'Will you review a quote I got from another contractor?', answer: 'Absolutely — bring us any competing quote and we\'ll review it for free. We\'ll help you understand if the scope, materials, and pricing are fair, even if you don\'t choose us.' },
+      { question: 'Will you review a quote I got from another contractor?', answer: 'Absolutely, bring us any competing quote and we\'ll review it for free. We\'ll help you understand if the scope, materials, and pricing are fair, even if you don\'t choose us.' },
     ],
 
     closingHeadline: 'Your Dream Project Starts with One Call',
-    closingSubheadline: 'Get your free estimate today. Spring booking slots are filling up — don\'t wait to start your renovation.',
+    closingSubheadline: 'Get your free estimate today. Spring booking slots are filling up, don\'t wait to start your renovation.',
   },
 
   // ═══════════════════════════════════════════
@@ -725,7 +725,7 @@ export const landingData: Record<string, LandingPageData> = {
     heroImage: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&h=600&fit=crop',
     trustStat: 'Over $150M in properties sold',
 
-    primaryOffer: 'Free Home Market Analysis — Instant Online Report',
+    primaryOffer: 'Free Home Market Analysis. Instant Online Report',
     offerValue: 'Free Report',
     offerDetails: [
       'Current estimated value based on recent comparable sales',
@@ -737,7 +737,7 @@ export const landingData: Record<string, LandingPageData> = {
     ctaMicroCopy: 'Takes 60 seconds. No obligation. 100% free.',
 
     urgencyType: 'expiring',
-    urgencyText: 'Market conditions are shifting — get your updated valuation now',
+    urgencyText: 'Market conditions are shifting, get your updated valuation now',
 
     testimonials: [
       { quote: 'The market analysis showed our home was worth $85,000 more than we expected. Horizon Realty sold it above asking in 6 days.', name: 'Janet & Tom R.', role: 'Home Sellers, North York', initials: 'JR' },
@@ -773,7 +773,7 @@ export const landingData: Record<string, LandingPageData> = {
     ],
 
     closingHeadline: 'Your Home\'s Value May Surprise You',
-    closingSubheadline: 'Get your free market analysis now. The market is moving — find out where you stand.',
+    closingSubheadline: 'Get your free market analysis now. The market is moving, find out where you stand.',
   },
 
   // ═══════════════════════════════════════════
@@ -789,7 +789,7 @@ export const landingData: Record<string, LandingPageData> = {
     offerValue: '10% Off',
     offerDetails: [
       '10% off your entire bill on your first visit',
-      'Priority seating — skip the wait',
+      'Priority seating, skip the wait',
       'Complimentary amuse-bouche from our chef',
       'Access to our seasonal tasting menu events',
     ],
@@ -828,7 +828,7 @@ export const landingData: Record<string, LandingPageData> = {
     faqs: [
       { question: 'Do I need a reservation?', answer: 'Reservations are recommended, especially for weekend evenings. Walk-ins are welcome but may have a wait during peak hours. Reserving online guarantees your table and unlocks the 10% first-visit discount.' },
       { question: 'Can you accommodate dietary restrictions?', answer: 'Absolutely. We accommodate vegetarian, vegan, gluten-free, dairy-free, and all allergy requirements. Just note your needs when booking and our chef will prepare something special for you.' },
-      { question: 'Do you host private events?', answer: 'Yes! We have a private dining room for up to 30 guests and can arrange custom menus for any occasion — birthdays, anniversaries, corporate dinners, and more. Contact us for event pricing.' },
+      { question: 'Do you host private events?', answer: 'Yes! We have a private dining room for up to 30 guests and can arrange custom menus for any occasion , birthdays, anniversaries, corporate dinners, and more. Contact us for event pricing.' },
       { question: 'What\'s the dress code?', answer: 'Smart casual. We want you to feel comfortable while enjoying an elevated dining experience. No formal attire required.' },
     ],
 

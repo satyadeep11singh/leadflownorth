@@ -1,0 +1,60 @@
+---
+/**
+ * Illustration component for displaying optimized SVG illustrations
+ * Supports lazy loading, animations, and responsive sizing
+ */
+
+interface Props {
+  src: string; // Path to illustration (e.g., "/illustrations/hero-success.svg")
+  alt: string; // Alt text for accessibility
+  class?: string; // Additional CSS classes
+  width?: number; // Optional width
+  height?: number; // Optional height
+  loading?: "lazy" | "eager"; // Loading strategy
+  animated?: boolean; // Enable subtle animation
+}
+
+const {
+  src,
+  alt,
+  class: className = "",
+  width,
+  height,
+  loading = "lazy",
+  animated = false
+} = Astro.props;
+
+const animationClass = animated ? "animate-float" : "";
+---
+
+<img
+  src={src}
+  alt={alt}
+  class={`${className} ${animationClass}`}
+  width={width}
+  height={height}
+  loading={loading}
+  decoding="async"
+  style="max-width: 100%; height: auto;"
+/>
+
+<style>
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-float {
+      animation: none;
+    }
+  }
+</style>

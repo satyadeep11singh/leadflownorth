@@ -20,7 +20,7 @@ const { industry } = Astro.props;
 const schema = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": `${industry.name} Website Demo Builder — Lead Flow North`,
+  "name": `${industry.name} Website Demo Builder. Lead Flow North`,
   "description": `See what your ${industry.name.toLowerCase()} website could look like. Enter your business details and watch a custom website preview come to life.`,
   "provider": {
     "@type": "LocalBusiness",
@@ -36,7 +36,7 @@ const schema = {
 ---
 
 <Layout
-  title={`${industry.name} Website Demo — See Your Custom Website | Lead Flow North`}
+  title={`${industry.name} Website Demo. See Your Custom Website | Lead Flow North`}
   description={`Enter your business details and see a live preview of your custom ${industry.name.toLowerCase()} website. Free interactive demo builder by Lead Flow North.`}
   structuredData={schema}
 >

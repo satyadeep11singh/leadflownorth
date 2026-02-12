@@ -17,9 +17,9 @@ export const sampleData: Record<string, SamplePageData> = {
       "Spending more time chasing quotes than doing actual work?",
     ],
     processSteps: [
-      { title: "Tell Us About Your Problem", description: "Call or book online — describe the issue and we'll give you an honest assessment." },
+      { title: "Tell Us About Your Problem", description: "Call or book online, describe the issue and we'll give you an honest assessment." },
       { title: "We Diagnose & Fix It", description: "Our certified technicians arrive on time, diagnose the issue, and get it fixed right the first time." },
-      { title: "Enjoy Peace of Mind", description: "Every repair comes with our satisfaction guarantee and transparent pricing — no surprises." },
+      { title: "Enjoy Peace of Mind", description: "Every repair comes with our satisfaction guarantee and transparent pricing, no surprises." },
     ],
     credentials: ["Licensed & Insured", "Google Guaranteed", "BBB A+ Rated", "5-Star Google Reviews"],
     ctaText: "Get a Free Quote",
@@ -33,7 +33,7 @@ export const sampleData: Record<string, SamplePageData> = {
       "Concerned about legal costs spiraling out of control?",
     ],
     processSteps: [
-      { title: "Free Consultation", description: "Tell us about your case in a confidential, no-obligation meeting — in person or by phone." },
+      { title: "Free Consultation", description: "Tell us about your case in a confidential, no-obligation meeting: in person or by phone." },
       { title: "We Build Your Strategy", description: "Our legal team develops a tailored approach specific to your situation and goals." },
       { title: "We Fight for You", description: "Aggressive representation, clear communication, and the best possible outcome for your case." },
     ],
@@ -49,7 +49,7 @@ export const sampleData: Record<string, SamplePageData> = {
       "Tired of long wait times and impersonal care?",
     ],
     processSteps: [
-      { title: "Book Your Visit", description: "Schedule online in seconds — choose your service, provider, and preferred time." },
+      { title: "Book Your Visit", description: "Schedule online in seconds, choose your service, provider, and preferred time." },
       { title: "Relax & Receive Care", description: "Our gentle team ensures a comfortable experience with state-of-the-art technology." },
       { title: "Smile with Confidence", description: "Leave with a healthier smile and a personalized care plan for the future." },
     ],
@@ -67,11 +67,11 @@ export const sampleData: Record<string, SamplePageData> = {
     processSteps: [
       { title: "Try a Free Class", description: "No commitment needed. Show up, sweat, and see why our members love it here." },
       { title: "Find Your Program", description: "Work with our trainers to build a plan that fits your goals and schedule." },
-      { title: "Transform Your Life", description: "Join a supportive community that pushes you to be your best — every single day." },
+      { title: "Transform Your Life", description: "Join a supportive community that pushes you to be your best, every single day." },
     ],
     credentials: ["NASM Certified Trainers", "CrossFit Affiliated", "4.9-Star Google Rating", "500+ Active Members"],
     ctaText: "Start Your Free Trial",
-    aboutText: "More than a gym — we're a community. Since 2015, we've helped hundreds of Calgarians get stronger, healthier, and more confident. Our certified trainers are passionate about helping you reach your goals.",
+    aboutText: "More than a gym, and we're a community. Since 2015, we've helped hundreds of Calgarians get stronger, healthier, and more confident. Our certified trainers are passionate about helping you reach your goals.",
   },
 
   "auto-services": {
@@ -81,8 +81,8 @@ export const sampleData: Record<string, SamplePageData> = {
       "Tired of waiting days to get your car back?",
     ],
     processSteps: [
-      { title: "Book Online or Call", description: "Schedule your service appointment in seconds — pick a time that works for you." },
-      { title: "Transparent Diagnosis", description: "We inspect your vehicle and explain exactly what's needed — no upsells, no surprises." },
+      { title: "Book Online or Call", description: "Schedule your service appointment in seconds, pick a time that works for you." },
+      { title: "Transparent Diagnosis", description: "We inspect your vehicle and explain exactly what's needed, no upsells, no surprises." },
       { title: "Drive Away Happy", description: "Quality repairs backed by our warranty, done on time and at a fair price." },
     ],
     credentials: ["ASE Certified Technicians", "NAPA AutoCare Center", "BBB Accredited", "Warranty on All Work"],
@@ -141,11 +141,11 @@ export const sampleData: Record<string, SamplePageData> = {
   "nonprofits": {
     painPoints: [
       "Donations declining despite growing community need?",
-      "Struggling to reach younger donors where they are — online?",
+      "Struggling to reach younger donors where they are, online?",
       "Volunteer recruitment not keeping up with program demand?",
     ],
     processSteps: [
-      { title: "Choose Your Impact", description: "Select a cause area that matters to you — every dollar makes a tangible difference." },
+      { title: "Choose Your Impact", description: "Select a cause area that matters to you, every dollar makes a tangible difference." },
       { title: "Give Securely", description: "Donate online in seconds with complete security. Monthly giving multiplies your impact." },
       { title: "See the Results", description: "Receive regular updates showing exactly how your generosity is changing lives." },
     ],
@@ -177,13 +177,13 @@ export const sampleData: Record<string, SamplePageData> = {
       "Homeowners questioning your credibility without an online presence?",
     ],
     processSteps: [
-      { title: "Request a Free Estimate", description: "Tell us about your project — we'll provide a detailed, no-obligation quote within 48 hours." },
+      { title: "Request a Free Estimate", description: "Tell us about your project, we'll provide a detailed, no-obligation quote within 48 hours." },
       { title: "We Get to Work", description: "Our licensed team executes with precision, keeping you informed at every milestone." },
       { title: "Love the Results", description: "Enjoy quality craftsmanship backed by our warranty and satisfaction guarantee." },
     ],
     credentials: ["Licensed & Bonded", "WSIB Compliant", "Fully Insured", "10-Year Warranty"],
     ctaText: "Get a Free Estimate",
-    aboutText: "Quality craftsmanship is our foundation. With over 15 years in the Hamilton area, we've completed hundreds of projects — from kitchen remodels to full home renovations — earning the trust of homeowners across the GTA.",
+    aboutText: "Quality craftsmanship is our foundation. With over 15 years in the Hamilton area, we've completed hundreds of projects: from kitchen remodels to full home renovations, earning the trust of homeowners across the GTA.",
   },
 
   "real-estate": {
@@ -193,7 +193,7 @@ export const sampleData: Record<string, SamplePageData> = {
       "Struggling to find an agent who puts your interests first?",
     ],
     processSteps: [
-      { title: "Tell Us Your Goals", description: "Buying, selling, or investing — share your vision and we'll create a personalized strategy." },
+      { title: "Tell Us Your Goals", description: "Buying, selling, or investing, share your vision and we'll create a personalized strategy." },
       { title: "Expert Guidance", description: "From market analysis to negotiations, we're with you at every critical step." },
       { title: "Close with Confidence", description: "Celebrate your successful transaction knowing you got the best possible deal." },
     ],
@@ -210,7 +210,7 @@ export const sampleData: Record<string, SamplePageData> = {
     ],
     processSteps: [
       { title: "Browse Our Menu", description: "Explore our seasonal dishes, crafted with locally sourced ingredients and love." },
-      { title: "Reserve or Order Direct", description: "Book a table or place a pickup order — fast, easy, and commission-free." },
+      { title: "Reserve or Order Direct", description: "Book a table or place a pickup order, fast, easy, and commission-free." },
       { title: "Enjoy Every Bite", description: "Savor handcrafted dishes in our cozy dining room or the comfort of your home." },
     ],
     credentials: ["Top Rated on Google", "Toronto Life Feature", "OpenTable Diners' Choice", "Locally Sourced"],
