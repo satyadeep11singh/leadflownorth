@@ -49,11 +49,6 @@ const contactSchema = {
                 15-minute video call to discuss your goals
               </p>
             </div>
-            <div class="check-icon">
-              <svg class="w-6 h-6 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-              </svg>
-            </div>
           </div>
         </button>
 
@@ -75,11 +70,6 @@ const contactSchema = {
               <p class="text-sm text-slate-600 dark:text-slate-400">
                 Fill out a form and we'll respond within 24 hours
               </p>
-            </div>
-            <div class="check-icon hidden">
-              <svg class="w-6 h-6 text-accent-600" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-              </svg>
             </div>
           </div>
         </button>
@@ -401,20 +391,16 @@ const contactSchema = {
       transition: all 0.3s ease;
     }
     .option-card.active {
-      border-color: rgb(var(--color-primary-500) / 1);
+      border-color: rgb(249 115 22);
     }
-    .option-card.active .check-icon {
-      opacity: 1;
-      transform: scale(1);
+    .dark .option-card.active {
+      border-color: rgb(251 146 60);
     }
     .option-card:not(.active) {
-      border-color: rgb(var(--color-slate-200) / 1);
+      border-color: rgb(226 232 240);
     }
     .dark .option-card:not(.active) {
-      border-color: rgb(var(--color-slate-700) / 1);
-    }
-    #option-message.active {
-      border-color: rgb(var(--color-accent-500) / 1);
+      border-color: rgb(51 65 85);
     }
     .section-content {
       animation: fadeIn 0.4s ease-out;
@@ -442,8 +428,6 @@ const contactSchema = {
       function showCall() {
         callBtn.classList.add('active');
         messageBtn.classList.remove('active');
-        callBtn.querySelector('.check-icon').classList.remove('hidden');
-        messageBtn.querySelector('.check-icon').classList.add('hidden');
         callSection.classList.remove('hidden');
         messageSection.classList.add('hidden');
       }
@@ -451,8 +435,6 @@ const contactSchema = {
       function showMessage() {
         messageBtn.classList.add('active');
         callBtn.classList.remove('active');
-        messageBtn.querySelector('.check-icon').classList.remove('hidden');
-        callBtn.querySelector('.check-icon').classList.add('hidden');
         messageSection.classList.remove('hidden');
         callSection.classList.add('hidden');
       }
@@ -575,7 +557,7 @@ const contactSchema = {
         };
 
         // Submit to HubSpot Forms API
-        fetch('https://api.hsforms.com/submissions/v3/integration/submit/342962653/YOUR_CONTACT_FORM_ID', {
+        fetch('https://api.hsforms.com/submissions/v3/integration/submit/342962653/d6f4baca-e5a8-433c-9690-a0cc3c302a0a', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
