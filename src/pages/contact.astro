@@ -17,203 +17,258 @@ const contactSchema = {
 >
   <!-- Hero -->
   <section class="py-16 lg:py-24 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
       <!-- Header -->
       <div class="text-center mb-12">
         <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white mb-4">
           Let's Talk About Growing Your Business
         </h1>
         <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-          Book a free 15-minute discovery call or send us a message. No sales pressure—just honest advice about your online presence.
+          Choose how you'd like to connect with us. No sales pressure—just honest advice about your online presence.
         </p>
       </div>
 
-      <!-- Two Column Layout: Cal.com + Contact Form -->
-      <div class="grid lg:grid-cols-2 gap-8">
-        <!-- Left Column: Book a Call (Cal.com) -->
-        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col">
-          <div class="p-6 lg:p-8 border-b border-slate-200 dark:border-slate-700">
-            <div class="flex items-center gap-3 mb-3">
-              <div class="w-10 h-10 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
-                <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
+      <!-- Option Cards -->
+      <div class="grid sm:grid-cols-2 gap-4 mb-8">
+        <!-- Book a Call Option -->
+        <button
+          id="option-call"
+          class="option-card active group p-6 bg-white dark:bg-slate-800 rounded-2xl border-2 border-primary-500 dark:border-primary-600 shadow-lg hover:shadow-xl transition-all duration-300 text-left"
+        >
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-1 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
                 Book a Free Call
-              </h2>
+              </h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400">
+                15-minute video call to discuss your goals
+              </p>
             </div>
-            <p class="text-slate-600 dark:text-slate-400 text-sm">
-              Pick a time that works for you. We'll review your online presence, discuss your goals, and give you honest advice—whether you hire us or not.
-            </p>
+            <div class="check-icon">
+              <svg class="w-6 h-6 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+            </div>
           </div>
-          <!-- Cal.com Embed -->
-          <div class="flex-1 min-h-[600px] relative" id="cal-embed">
-            <div id="cal-loading" class="absolute inset-0 flex flex-col items-center justify-center gap-4 p-8">
-              <div class="w-10 h-10 border-4 border-primary-200 border-t-primary-600 rounded-full animate-spin"></div>
-              <p class="text-sm text-slate-500 dark:text-slate-400">Loading calendar...</p>
+        </button>
+
+        <!-- Send Message Option -->
+        <button
+          id="option-message"
+          class="option-card group p-6 bg-white dark:bg-slate-800 rounded-2xl border-2 border-slate-200 dark:border-slate-700 shadow-md hover:shadow-lg transition-all duration-300 text-left"
+        >
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 bg-accent-100 dark:bg-accent-900/30 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+              <svg class="w-6 h-6 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
             </div>
+            <div class="flex-1">
+              <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-1 group-hover:text-accent-600 dark:group-hover:text-accent-400 transition-colors">
+                Send Us a Message
+              </h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400">
+                Fill out a form and we'll respond within 24 hours
+              </p>
+            </div>
+            <div class="check-icon hidden">
+              <svg class="w-6 h-6 text-accent-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+              </svg>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- Expandable Sections -->
+      <!-- Book a Call Section -->
+      <div id="section-call" class="section-content bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden mb-8">
+        <div class="p-6 lg:p-8 border-b border-slate-200 dark:border-slate-700">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 bg-primary-100 dark:bg-primary-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
+              Book a Free Call
+            </h2>
+          </div>
+          <p class="text-slate-600 dark:text-slate-400 text-sm">
+            Pick a time that works for you. We'll review your online presence, discuss your goals, and give you honest advice—whether you hire us or not.
+          </p>
+        </div>
+        <!-- Cal.com Embed -->
+        <div class="min-h-[600px] relative" id="cal-embed">
+          <div id="cal-loading" class="absolute inset-0 flex flex-col items-center justify-center gap-4 p-8">
+            <div class="w-10 h-10 border-4 border-primary-200 border-t-primary-600 rounded-full animate-spin"></div>
+            <p class="text-sm text-slate-500 dark:text-slate-400">Loading calendar...</p>
           </div>
         </div>
+      </div>
 
-        <!-- Right Column: Send a Message (Custom form → HubSpot API) -->
-        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col">
-          <div class="p-6 lg:p-8 border-b border-slate-200 dark:border-slate-700">
-            <div class="flex items-center gap-3 mb-3">
-              <div class="w-10 h-10 bg-accent-100 dark:bg-accent-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
-                <svg class="w-5 h-5 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
-                Send Us a Message
-              </h2>
+      <!-- Send Message Section -->
+      <div id="section-message" class="section-content hidden bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 overflow-hidden mb-8">
+        <div class="p-6 lg:p-8 border-b border-slate-200 dark:border-slate-700">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-10 h-10 bg-accent-100 dark:bg-accent-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-accent-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
             </div>
-            <p class="text-slate-600 dark:text-slate-400 text-sm">
-              Prefer email? Fill out the form below and we'll get back to you within 24 hours—usually much faster.
-            </p>
+            <h2 class="text-2xl font-bold text-slate-900 dark:text-white">
+              Send Us a Message
+            </h2>
           </div>
-          <!-- Custom Form -->
-          <div class="p-6 lg:p-8 flex-1">
-            <form id="contact-form" class="space-y-5">
-              <div class="grid sm:grid-cols-2 gap-5">
-                <div>
-                  <label for="firstname" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
-                    First Name <span class="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="firstname"
-                    name="firstname"
-                    required
-                    autocomplete="given-name"
-                    class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
-                    placeholder="John"
-                  />
-                </div>
-                <div>
-                  <label for="lastname" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
-                    Last Name <span class="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="lastname"
-                    name="lastname"
-                    required
-                    autocomplete="family-name"
-                    class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
-                    placeholder="Smith"
-                  />
-                </div>
-              </div>
-
+          <p class="text-slate-600 dark:text-slate-400 text-sm">
+            Prefer email? Fill out the form below and we'll get back to you within 24 hours—usually much faster.
+          </p>
+        </div>
+        <!-- Custom Form -->
+        <div class="p-6 lg:p-8">
+          <form id="contact-form" class="space-y-5">
+            <div class="grid sm:grid-cols-2 gap-5">
               <div>
-                <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
-                  Email <span class="text-red-500">*</span>
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                  autocomplete="email"
-                  class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
-                  placeholder="john@company.com"
-                />
-              </div>
-
-              <div>
-                <label for="phone" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
-                  Phone
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  autocomplete="tel"
-                  class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
-                  placeholder="(416) 555-0123"
-                />
-              </div>
-
-              <div>
-                <label for="company" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
-                  Company / Business Name
+                <label for="firstname" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+                  First Name <span class="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
-                  id="company"
-                  name="company"
-                  autocomplete="organization"
+                  id="firstname"
+                  name="firstname"
+                  required
+                  autocomplete="given-name"
                   class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
-                  placeholder="Your Company Inc."
+                  placeholder="John"
                 />
               </div>
-
               <div>
-                <label for="interested_in" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
-                  What are you interested in? <span class="text-red-500">*</span>
+                <label for="lastname" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+                  Last Name <span class="text-red-500">*</span>
                 </label>
-                <select
-                  id="interested_in"
-                  name="interested_in"
+                <input
+                  type="text"
+                  id="lastname"
+                  name="lastname"
                   required
+                  autocomplete="family-name"
                   class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
-                >
-                  <option value="" disabled selected>Select a service...</option>
-                  <option value="New Website">New Website</option>
-                  <option value="Website Redesign">Website Redesign</option>
-                  <option value="Lead generation">Lead Generation</option>
-                  <option value="Marketing Automation">Marketing Automation</option>
-                  <option value="Other / Not Sure">Other / Not Sure</option>
-                </select>
+                  placeholder="Smith"
+                />
               </div>
+            </div>
 
-              <div>
-                <label for="message" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
-                  Message <span class="text-red-500">*</span>
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows="4"
-                  required
-                  class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200 resize-none"
-                  placeholder="Tell us about your project or ask us anything..."
-                ></textarea>
-              </div>
+            <div>
+              <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+                Email <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                autocomplete="email"
+                class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
+                placeholder="john@company.com"
+              />
+            </div>
 
-              <!-- Status messages -->
-              <div id="form-success" class="hidden p-4 bg-accent-50 dark:bg-accent-900/20 border border-accent-200 dark:border-accent-800 rounded-xl">
-                <div class="flex items-center gap-3">
-                  <svg class="w-5 h-5 text-accent-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                  </svg>
-                  <p class="text-sm font-medium text-accent-700 dark:text-accent-300">Message sent! We'll get back to you within 24 hours.</p>
-                </div>
-              </div>
-              <div id="form-error" class="hidden p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl">
-                <div class="flex items-center gap-3">
-                  <svg class="w-5 h-5 text-red-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-                  </svg>
-                  <p class="text-sm font-medium text-red-700 dark:text-red-300">Something went wrong. Please try again or email us directly.</p>
-                </div>
-              </div>
+            <div>
+              <label for="phone" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+                Phone
+              </label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                autocomplete="tel"
+                class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
+                placeholder="(416) 555-0123"
+              />
+            </div>
 
-              <button
-                type="submit"
-                id="submit-btn"
-                class="w-full py-4 px-6 bg-accent-500 hover:bg-accent-600 text-white font-bold text-lg rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-accent-500/25 btn-pulse disabled:opacity-50 disabled:cursor-not-allowed"
+            <div>
+              <label for="company" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+                Company / Business Name
+              </label>
+              <input
+                type="text"
+                id="company"
+                name="company"
+                autocomplete="organization"
+                class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
+                placeholder="Your Company Inc."
+              />
+            </div>
+
+            <div>
+              <label for="interested_in" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+                What are you interested in? <span class="text-red-500">*</span>
+              </label>
+              <select
+                id="interested_in"
+                name="interested_in"
+                required
+                class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
               >
-                Send Message
-              </button>
+                <option value="" disabled selected>Select a service...</option>
+                <option value="New Website">New Website</option>
+                <option value="Website Redesign">Website Redesign</option>
+                <option value="Lead generation">Lead Generation</option>
+                <option value="Marketing Automation">Marketing Automation</option>
+                <option value="Other / Not Sure">Other / Not Sure</option>
+              </select>
+            </div>
 
-              <p class="text-xs text-slate-500 dark:text-slate-400 text-center">
-                By submitting this form, you agree to our <a href="/privacy" class="underline hover:text-primary-600">Privacy Policy</a>.
-              </p>
-            </form>
-          </div>
+            <div>
+              <label for="message" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+                Message <span class="text-red-500">*</span>
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                rows="4"
+                required
+                class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200 resize-none"
+                placeholder="Tell us about your project or ask us anything..."
+              ></textarea>
+            </div>
+
+            <!-- Status messages -->
+            <div id="form-success" class="hidden p-4 bg-accent-50 dark:bg-accent-900/20 border border-accent-200 dark:border-accent-800 rounded-xl">
+              <div class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-accent-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                <p class="text-sm font-medium text-accent-700 dark:text-accent-300">Message sent! We'll get back to you within 24 hours.</p>
+              </div>
+            </div>
+            <div id="form-error" class="hidden p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl">
+              <div class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-red-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                </svg>
+                <p class="text-sm font-medium text-red-700 dark:text-red-300">Something went wrong. Please try again or email us directly.</p>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              id="submit-btn"
+              class="w-full py-4 px-6 bg-accent-500 hover:bg-accent-600 text-white font-bold text-lg rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-accent-500/25 btn-pulse disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Send Message
+            </button>
+
+            <p class="text-xs text-slate-500 dark:text-slate-400 text-center">
+              By submitting this form, you agree to our <a href="/privacy" class="underline hover:text-primary-600">Privacy Policy</a>.
+            </p>
+          </form>
         </div>
       </div>
     </div>
@@ -336,6 +391,77 @@ const contactSchema = {
     </div>
   </section>
 
+  <style>
+    .option-card {
+      cursor: pointer;
+    }
+    .option-card .check-icon {
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 0.3s ease;
+    }
+    .option-card.active {
+      border-color: rgb(var(--color-primary-500) / 1);
+    }
+    .option-card.active .check-icon {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .option-card:not(.active) {
+      border-color: rgb(var(--color-slate-200) / 1);
+    }
+    .dark .option-card:not(.active) {
+      border-color: rgb(var(--color-slate-700) / 1);
+    }
+    #option-message.active {
+      border-color: rgb(var(--color-accent-500) / 1);
+    }
+    .section-content {
+      animation: fadeIn 0.4s ease-out;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+
+  <!-- Option Toggle Script -->
+  <script is:inline>
+    (function() {
+      var callBtn = document.getElementById('option-call');
+      var messageBtn = document.getElementById('option-message');
+      var callSection = document.getElementById('section-call');
+      var messageSection = document.getElementById('section-message');
+
+      function showCall() {
+        callBtn.classList.add('active');
+        messageBtn.classList.remove('active');
+        callBtn.querySelector('.check-icon').classList.remove('hidden');
+        messageBtn.querySelector('.check-icon').classList.add('hidden');
+        callSection.classList.remove('hidden');
+        messageSection.classList.add('hidden');
+      }
+
+      function showMessage() {
+        messageBtn.classList.add('active');
+        callBtn.classList.remove('active');
+        messageBtn.querySelector('.check-icon').classList.remove('hidden');
+        callBtn.querySelector('.check-icon').classList.add('hidden');
+        messageSection.classList.remove('hidden');
+        callSection.classList.add('hidden');
+      }
+
+      callBtn.addEventListener('click', showCall);
+      messageBtn.addEventListener('click', showMessage);
+    })();
+  </script>
+
   <!-- Cal.com Embed Script -->
   <script is:inline>
     (function (C, A, L) {
@@ -449,7 +575,7 @@ const contactSchema = {
         };
 
         // Submit to HubSpot Forms API
-        fetch('https://api.hsforms.com/submissions/v3/integration/submit/342962653/d6f4baca-e5a8-433c-9690-a0cc3c302a0a', {
+        fetch('https://api.hsforms.com/submissions/v3/integration/submit/342962653/YOUR_CONTACT_FORM_ID', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
@@ -460,7 +586,6 @@ const contactSchema = {
             form.reset();
             return;
           }
-          // Log the actual HubSpot error for debugging
           return response.json().then(function(data) {
             console.error('HubSpot form error:', response.status, data);
             errorMsg.classList.remove('hidden');
