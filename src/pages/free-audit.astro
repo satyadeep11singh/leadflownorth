@@ -409,17 +409,21 @@ const faqs = [
           var message = form.querySelector('[name="message"]').value.trim();
 
           // Build fields array for HubSpot
+          // Note: Combining firstname + lastname into "name" field for HubSpot form compatibility
+          var fullName = (firstname + ' ' + lastname).trim();
+
           var fields = [
-            { name: 'business_name', value: businessName },
-            { name: 'website', value: websiteUrl },
+            { name: 'email', value: email },
+            { name: '0-2/name', value: fullName },  // Required field in HubSpot form
+            { name: '0-2/phone', value: phone || '' },  // Required field (send empty string if not provided)
             { name: 'firstname', value: firstname },
             { name: 'lastname', value: lastname },
-            { name: 'email', value: email },
+            { name: 'company', value: businessName },
+            { name: 'website', value: websiteUrl },
             { name: 'industry', value: industry }
           ];
 
-          // Add optional fields
-          if (phone) fields.push({ name: 'phone', value: phone });
+          // Add optional message field
           if (message) fields.push({ name: 'message', value: message });
 
           // Build context with optional HubSpot tracking cookie
@@ -450,7 +454,10 @@ const faqs = [
             }
             // Log the actual HubSpot error for debugging
             return response.json().then(function(data) {
-              console.error('HubSpot form error:', response.status, data);
+              console.error('HubSpot form submission failed!');
+              console.error('Status:', response.status);
+              console.error('Error details:', data);
+              console.error('Submitted payload:', payload);
               errorMsg.classList.remove('hidden');
             });
           })
