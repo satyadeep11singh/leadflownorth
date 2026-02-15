@@ -36,25 +36,23 @@ const industry = {
     { title: "SMS Reminders", desc: "Automated text reminders that cut no-shows by 40%" },
     { title: "Loyalty Program", desc: "Reward returning clients and encourage referrals automatically" }
   ],
-  testimonial: {
-    quote: "Bookings increased 150% and no-shows dropped dramatically with the reminder system. Our online portfolio brings in new clients every week who've seen our work on Instagram.",
-    author: "Jasmine Lee",
-    title: "Owner, Glow Beauty Studio",
-    location: "Vancouver, BC",
-    image: "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=100&h=100&fit=crop&crop=face"
-  }
+  expectedOutcomes: [
+    "Consistent inbound lead flow from local search and your website",
+    "Faster response times with automation and better lead qualification",
+    "A clearer conversion funnel you can measure and improve each month"
+  ]
 };
 
 const schema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "serviceType": "Salon and Spa Web Design and Marketing",
+  "serviceType": `${industry.name} Web Design and Lead Generation`,
   "provider": {
     "@type": "LocalBusiness",
     "name": "Lead Flow North"
   },
   "areaServed": ["Ontario", "Alberta"],
-  "description": "Web design and client acquisition services for hair salons, nail salons, spas, and beauty businesses in Canada."
+  "description": `${industry.description} Web design and marketing automation for Canadian businesses.`
 };
 ---
 
@@ -172,27 +170,20 @@ const schema = {
       </div>
     </div>
   </section>
-
-  <!-- Testimonial -->
+  <!-- Expected Outcomes -->
   <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="reveal bg-slate-50 dark:bg-slate-800 rounded-2xl p-8 lg:p-12 text-center">
-        <img 
-          src={industry.testimonial.image} 
-          alt={industry.testimonial.author}
-          class="w-20 h-20 rounded-full mx-auto mb-6 object-cover"
-          loading="lazy"
-          decoding="async"
-          width="80"
-          height="80"
-        />
-        <blockquote class="text-xl lg:text-2xl text-slate-700 dark:text-slate-300 mb-6 italic">
-          "{industry.testimonial.quote}"
-        </blockquote>
-        <div>
-          <p class="font-bold text-slate-900 dark:text-white">{industry.testimonial.author}</p>
-          <p class="text-slate-500 dark:text-slate-400">{industry.testimonial.title}</p>
-          <p class="text-sm text-slate-400">{industry.testimonial.location}</p>
+      <div class="reveal bg-slate-50 dark:bg-slate-800 rounded-2xl p-8 lg:p-12 border border-slate-200 dark:border-slate-700">
+        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4 text-center">What to expect in your first 90 days</h3>
+        <p class="text-slate-600 dark:text-slate-300 text-center mb-8">
+          Since we are newly launched, we do not publish client testimonials yet. We focus on a transparent process and measurable progress.
+        </p>
+        <div class="grid md:grid-cols-3 gap-4">
+          {industry.expectedOutcomes.map((item) => (
+            <div class="bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-200 dark:border-slate-700">
+              <p class="text-slate-700 dark:text-slate-300 text-sm">{item}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -244,4 +235,6 @@ const schema = {
         <span class="text-white/50">|</span>
         <a href="/services" class="text-white hover:text-primary-100 font-medium transition-colors underline">View Pricing</a>
       </div>
+
+
 

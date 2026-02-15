@@ -36,13 +36,11 @@ const industry = {
     { title: "Estimate Follow-Up", desc: "Automated sequences that close more bids" },
     { title: "Review Generation", desc: "Build the reputation that wins new projects" }
   ],
-  testimonial: {
-    quote: "Bid conversion jumped to 65% and our pipeline has doubled. The portfolio on our website builds trust before we even meet clients.",
-    author: "Marcus Johnson",
-    title: "Owner, Johnson Contracting",
-    location: "Calgary, AB",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
-  },
+  expectedOutcomes: [
+    "Consistent inbound lead flow from local search and your website",
+    "Faster response times with automation and better lead qualification",
+    "A clearer conversion funnel you can measure and improve each month"
+  ],
   subIndustries: [
     { name: "General Contractors", href: "/industries/contractors-trades/general-contractors", desc: "Home renovations, additions, builds" },
     { name: "Painters", href: "/industries/contractors-trades/painters", desc: "Interior, exterior, commercial painting" }
@@ -165,27 +163,20 @@ const schema = {
       </div>
     </div>
   </section>
-
-  <!-- Testimonial -->
+  <!-- Expected Outcomes -->
   <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 rounded-3xl p-8 md:p-12">
-        <div class="flex flex-col md:flex-row gap-6 items-start">
-          <img 
-            src={industry.testimonial.image} 
-            alt={industry.testimonial.author}
-            class="w-16 h-16 rounded-full object-cover"
-          />
-          <div>
-            <blockquote class="text-xl md:text-2xl font-medium text-slate-900 dark:text-white mb-4">
-              "{industry.testimonial.quote}"
-            </blockquote>
-            <div>
-              <p class="font-semibold text-slate-900 dark:text-white">{industry.testimonial.author}</p>
-              <p class="text-slate-600 dark:text-slate-400">{industry.testimonial.title}</p>
-              <p class="text-sm text-slate-500 dark:text-slate-500">{industry.testimonial.location}</p>
+      <div class="reveal bg-slate-50 dark:bg-slate-800 rounded-2xl p-8 lg:p-12 border border-slate-200 dark:border-slate-700">
+        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4 text-center">What to expect in your first 90 days</h3>
+        <p class="text-slate-600 dark:text-slate-300 text-center mb-8">
+          Since we are newly launched, we do not publish client testimonials yet. We focus on a transparent process and measurable progress.
+        </p>
+        <div class="grid md:grid-cols-3 gap-4">
+          {industry.expectedOutcomes.map((item) => (
+            <div class="bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-200 dark:border-slate-700">
+              <p class="text-slate-700 dark:text-slate-300 text-sm">{item}</p>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
@@ -237,4 +228,5 @@ const schema = {
         <span class="text-white/50">|</span>
         <a href="/services" class="text-white hover:text-amber-100 font-medium transition-colors underline">View Pricing</a>
       </div>
+
 

@@ -14,7 +14,7 @@ const industry = {
   stats: [
     { value: "125%", label: "Appointment increase" },
     { value: "89%", label: "Recommendation rate" },
-    { value: "52", label: "Video testimonials" }
+    { value: "52", label: "Portfolio proof" }
   ],
   challenges: [
     "Competing with dealership service departments that customers trust by default",
@@ -24,7 +24,7 @@ const industry = {
   ],
   solutions: [
     "Trust-building website with transparent pricing",
-    "Video testimonials and review integration",
+    "Portfolio proof and review integration",
     "Maintenance reminder automation",
     "Online appointment booking",
     "Service history tracking for customers",
@@ -32,29 +32,27 @@ const industry = {
   ],
   features: [
     { title: "Transparent Pricing", desc: "Show customers upfront what services cost—no surprises" },
-    { title: "Video Testimonials", desc: "Let satisfied customers tell their story on video" },
+    { title: "Portfolio Proof", desc: "Show before/after work and service outcomes in a credible way" },
     { title: "Maintenance Reminders", desc: "Automated reminders keep customers coming back for service" },
     { title: "Online Booking", desc: "Let customers book appointments 24/7 from your website" }
   ],
-  testimonial: {
-    quote: "Customers tell us they chose us because our website felt trustworthy. That's huge in this industry. We've collected 52 video testimonials and appointments are up 125%.",
-    author: "Raj Patel",
-    title: "Owner, Prestige Auto Care",
-    location: "Brampton, ON",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face"
-  }
+  expectedOutcomes: [
+    "Consistent inbound lead flow from local search and your website",
+    "Faster response times with automation and better lead qualification",
+    "A clearer conversion funnel you can measure and improve each month"
+  ]
 };
 
 const schema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  "serviceType": "Auto Service Web Design and Marketing",
+  "serviceType": `${industry.name} Web Design and Lead Generation`,
   "provider": {
     "@type": "LocalBusiness",
     "name": "Lead Flow North"
   },
   "areaServed": ["Ontario", "Alberta"],
-  "description": "Web design and customer acquisition services for auto repair shops, mechanics, and automotive service centers in Canada."
+  "description": `${industry.description} Web design and marketing automation for Canadian businesses.`
 };
 ---
 
@@ -172,26 +170,20 @@ const schema = {
       </div>
     </div>
   </section>
-
-  <!-- Testimonial -->
+  <!-- Expected Outcomes -->
   <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="reveal bg-slate-50 dark:bg-slate-800 rounded-2xl p-8 lg:p-12 text-center">
-        <img 
-          src={industry.testimonial.image} 
-          alt={industry.testimonial.author}
-          class="w-20 h-20 rounded-full mx-auto mb-6 object-cover"
-          loading="lazy"
-          width="80"
-          height="80"
-        />
-        <blockquote class="text-xl lg:text-2xl text-slate-700 dark:text-slate-300 mb-6 italic">
-          "{industry.testimonial.quote}"
-        </blockquote>
-        <div>
-          <p class="font-bold text-slate-900 dark:text-white">{industry.testimonial.author}</p>
-          <p class="text-slate-500 dark:text-slate-400">{industry.testimonial.title}</p>
-          <p class="text-sm text-slate-400">{industry.testimonial.location}</p>
+      <div class="reveal bg-slate-50 dark:bg-slate-800 rounded-2xl p-8 lg:p-12 border border-slate-200 dark:border-slate-700">
+        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4 text-center">What to expect in your first 90 days</h3>
+        <p class="text-slate-600 dark:text-slate-300 text-center mb-8">
+          Since we are newly launched, we do not publish client testimonials yet. We focus on a transparent process and measurable progress.
+        </p>
+        <div class="grid md:grid-cols-3 gap-4">
+          {industry.expectedOutcomes.map((item) => (
+            <div class="bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-200 dark:border-slate-700">
+              <p class="text-slate-700 dark:text-slate-300 text-sm">{item}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -243,4 +235,7 @@ const schema = {
         <span class="text-white/50">|</span>
         <a href="/services" class="text-white hover:text-primary-100 font-medium transition-colors underline">View Pricing</a>
       </div>
+
+
+
 

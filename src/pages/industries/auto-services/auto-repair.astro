@@ -33,23 +33,21 @@ const subIndustry = {
     "Review request automation after every service",
     "Maintenance reminder campaigns (oil changes, inspections)",
     "Customer loyalty and referral programs",
-    "Before/after photo galleries and video testimonials"
+    "Before/after photo galleries and before/after proof"
   ],
   features: [
     { title: "Online Booking System", desc: "Let customers book appointments 24/7 with automatic confirmation and reminders to reduce no-shows" },
     { title: "Maintenance Reminders", desc: "Automated email/SMS reminders for oil changes, tire rotations, and seasonal services" },
     { title: "Review Generation", desc: "Request reviews at the perfect moment, right after a successful repair" },
-    { title: "Trust-Building Content", desc: "Showcase certifications, warranties, and real customer testimonials" },
+    { title: "Trust-Building Content", desc: "Showcase certifications, warranties, and real customer feedback" },
     { title: "Service History Portal", desc: "Give customers access to their vehicle's service history online" },
     { title: "Referral Tracking", desc: "Reward customers who send friends and family to your shop" }
   ],
-  testimonial: {
-    quote: "We went from struggling to fill bays to being booked 2 weeks out. The maintenance reminders alone brought back customers we hadn't seen in years.",
-    author: "Tony Marchetti",
-    title: "Owner, Marchetti's Auto Care",
-    location: "Hamilton, ON",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop&crop=face"
-  },
+  expectedOutcomes: [
+    "Consistent inbound lead flow from local search and your website",
+    "Faster response times with automation and better lead qualification",
+    "A clearer conversion funnel you can measure and improve each month"
+  ],
   services: [
     "General repairs and diagnostics",
     "Oil changes and fluid services",
@@ -255,26 +253,20 @@ const schema = {
       </div>
     </div>
   </section>
-
-  <!-- Testimonial -->
+  <!-- Expected Outcomes -->
   <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="reveal bg-gradient-to-br from-red-50 to-orange-50 dark:from-slate-800 dark:to-slate-800 rounded-2xl p-8 lg:p-12 text-center border border-red-200 dark:border-slate-700">
-        <img 
-          src={subIndustry.testimonial.image} 
-          alt={subIndustry.testimonial.author}
-          class="w-20 h-20 rounded-full mx-auto mb-6 object-cover border-4 border-red-200"
-          loading="lazy"
-          width="80"
-          height="80"
-        />
-        <blockquote class="text-xl lg:text-2xl text-slate-700 dark:text-slate-300 mb-6 italic">
-          "{subIndustry.testimonial.quote}"
-        </blockquote>
-        <div>
-          <p class="font-bold text-slate-900 dark:text-white">{subIndustry.testimonial.author}</p>
-          <p class="text-slate-500 dark:text-slate-400">{subIndustry.testimonial.title}</p>
-          <p class="text-sm text-slate-400">{subIndustry.testimonial.location}</p>
+      <div class="reveal bg-slate-50 dark:bg-slate-800 rounded-2xl p-8 lg:p-12 border border-slate-200 dark:border-slate-700">
+        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4 text-center">What to expect in your first 90 days</h3>
+        <p class="text-slate-600 dark:text-slate-300 text-center mb-8">
+          Since we are newly launched, we do not publish client testimonials yet. We focus on a transparent process and measurable progress.
+        </p>
+        <div class="grid md:grid-cols-3 gap-4">
+          {subIndustry.expectedOutcomes.map((item) => (
+            <div class="bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-200 dark:border-slate-700">
+              <p class="text-slate-700 dark:text-slate-300 text-sm">{item}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
@@ -371,4 +363,6 @@ const schema = {
     </div>
   </section>
 </Layout>
+
+
 
