@@ -447,7 +447,7 @@ const hubspotContactFormEndpoint = import.meta.env.PUBLIC_HUBSPOT_CONTACT_FORM_E
   </script>
 
   <!-- Cal.com Embed Script -->
-  <script is:inline>
+  <script is:inline define:vars={{ calEmbedLink }}>
     (function (C, A, L) {
       let p = function (a, ar) { a.q.push(ar); };
       let d = C.document;
