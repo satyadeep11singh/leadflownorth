@@ -40,6 +40,39 @@ const siteName = 'Lead Flow North';
 const fullTitle = title === 'Home' ? `${siteName} | Web Design & Marketing for Canadian Small Businesses` : `${title} | ${siteName}`;
 const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID ?? '';
 
+function slugToName(segment: string) {
+  return segment
+    .split('-')
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
+}
+
+function buildDefaultBreadcrumbs(pathname: string) {
+  const segments = pathname.split('/').filter(Boolean);
+  let cumulativePath = '';
+  return segments.map((segment) => {
+    cumulativePath += `/${segment}`;
+    return { name: slugToName(segment), href: cumulativePath };
+  });
+}
+
+const resolvedBreadcrumbs = breadcrumbs && breadcrumbs.length > 0
+  ? breadcrumbs
+  : buildDefaultBreadcrumbs(currentPath);
+const breadcrumbsWithHome = [{ name: 'Home', href: '/' }, ...resolvedBreadcrumbs];
+const breadcrumbSchema = shouldShowBreadcrumbs
+  ? {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": breadcrumbsWithHome.map((item, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "name": item.name,
+        "item": `${baseUrl}${item.href ?? currentPath}`
+      }))
+    }
+  : null;
+
 // Default Organization structured data
 const organizationSchema = {
   "@context": "https://schema.org",
@@ -119,6 +152,7 @@ const organizationSchema = {
     <meta property="twitter:title" content={fullTitle} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={ogImage} />
+    <meta name="twitter:site" content="@leadflownorth" />
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -145,6 +179,9 @@ const organizationSchema = {
     
     <!-- Structured Data -->
     <script is:inline type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+    {breadcrumbSchema && (
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    )}
     {structuredData && (
       <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
     )}
@@ -153,7 +190,7 @@ const organizationSchema = {
     <script is:inline>
       (function() {
         const theme = localStorage.getItem('theme');
-        if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        if (theme === 'dark') {
           document.documentElement.classList.add('dark');
         }
       })();
@@ -168,9 +205,9 @@ const organizationSchema = {
           script.src = `https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`;
           document.head.appendChild(script);
           window.dataLayer = window.dataLayer || [];
-          function gtag() { window.dataLayer.push(arguments); }
-          gtag('js', new Date());
-          gtag('config', gaMeasurementId);
+          window.gtag = window.gtag || function() { window.dataLayer.push(arguments); };
+          window.gtag('js', new Date());
+          window.gtag('config', gaMeasurementId);
         };
 
         if ('requestIdleCallback' in window) {
@@ -181,7 +218,7 @@ const organizationSchema = {
       </script>
     )}
   </head>
-  <body class="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-['Inter',sans-serif] antialiased transition-colors duration-300">
+  <body class="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-['Inter',sans-serif] antialiased transition-colors duration-300 pb-20 md:pb-0">
     <!-- Skip to main content for accessibility -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
     
@@ -192,6 +229,26 @@ const organizationSchema = {
     <main id="main-content" role="main">
       <slot />
     </main>
+
+    <!-- Mobile sticky CTA bar -->
+    <div id="mobile-sticky-cta" class="fixed inset-x-0 bottom-0 z-50 border-t border-slate-200 dark:border-slate-700 bg-white/95 dark:bg-slate-900/95 backdrop-blur md:hidden">
+      <div class="mx-auto flex max-w-7xl gap-2 px-3 py-3">
+        <a
+          href="/book-call"
+          data-analytics="mobile_sticky_book_call"
+          class="flex-1 inline-flex items-center justify-center rounded-lg bg-accent-600 px-4 py-3 text-sm font-semibold text-white hover:bg-accent-700 transition-colors"
+        >
+          Book Call
+        </a>
+        <a
+          href="tel:+19057835996"
+          data-analytics="mobile_sticky_call_now"
+          class="flex-1 inline-flex items-center justify-center rounded-lg border border-slate-300 dark:border-slate-600 px-4 py-3 text-sm font-semibold text-slate-900 dark:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+        >
+          Call Now
+        </a>
+      </div>
+    </div>
     
     <Footer />
     
@@ -226,6 +283,102 @@ const organizationSchema = {
       } else {
         setTimeout(initRevealAnimations, 100);
       }
+    </script>
+    <script is:inline define:vars={{ gaMeasurementId }}>
+      window.trackLeadFlowEvent = function(eventName, params) {
+        if (!eventName) return;
+        if (typeof window.gtag === 'function' && gaMeasurementId) {
+          window.gtag('event', eventName, params || {});
+          return;
+        }
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: eventName, ...(params || {}) });
+      };
+
+      document.addEventListener('click', function(e) {
+        var target = e.target && e.target.closest ? e.target.closest('[data-analytics]') : null;
+        if (!target) return;
+        var eventName = target.getAttribute('data-analytics');
+        if (!eventName) return;
+        var href = target.getAttribute('href') || '';
+        window.trackLeadFlowEvent(eventName, {
+          link_target: href,
+          page_path: window.location.pathname
+        });
+      });
+
+      var scrollTracked = false;
+      window.addEventListener('scroll', function() {
+        if (scrollTracked) return;
+        var documentHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+        var viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+        var scrolled = window.scrollY + viewportHeight;
+        if (documentHeight > 0 && (scrolled / documentHeight) >= 0.5) {
+          scrollTracked = true;
+          window.trackLeadFlowEvent('scroll_depth_50', { page_path: window.location.pathname });
+        }
+      }, { passive: true });
+    </script>
+    <script is:inline>
+      (function() {
+        var html = document.documentElement;
+        var expKey = 'lfn_exp_home_hero';
+        var params = new URLSearchParams(window.location.search);
+        var forced = params.get('exp');
+        var current = null;
+        if (forced === 'a' || forced === 'b') {
+          current = forced;
+          localStorage.setItem(expKey, current);
+        } else {
+          current = localStorage.getItem(expKey);
+          if (current !== 'a' && current !== 'b') {
+            current = Math.random() < 0.5 ? 'a' : 'b';
+            localStorage.setItem(expKey, current);
+          }
+        }
+
+        html.dataset.experimentHero = current;
+        var expElements = document.querySelectorAll('[data-exp-key="home-hero"]');
+        expElements.forEach(function(el) {
+          var value = current === 'b' ? el.getAttribute('data-exp-b') : el.getAttribute('data-exp-a');
+          if (value) el.textContent = value;
+        });
+        if (window.trackLeadFlowEvent) {
+          window.trackLeadFlowEvent('exp_home_hero_assigned', { variant: current, page_path: window.location.pathname });
+        }
+      })();
+    </script>
+    <script is:inline>
+      (function() {
+        var sticky = document.getElementById('mobile-sticky-cta');
+        if (!sticky) return;
+        var hiddenPaths = ['/thank-you', '/privacy', '/terms'];
+        var path = window.location.pathname.toLowerCase();
+        var shouldHide = hiddenPaths.some(function(p) { return path === p || path.startsWith(p + '/'); });
+        if (shouldHide || document.body.hasAttribute('data-hide-sticky-cta')) {
+          sticky.classList.add('hidden');
+          return;
+        }
+
+        var updateOffset = function() {
+          var cookieBanner = document.querySelector('#cookie-consent, .cookie-banner, [data-cookie-banner]');
+          if (!cookieBanner) {
+            sticky.style.bottom = '0px';
+            return;
+          }
+          var styles = window.getComputedStyle(cookieBanner);
+          var hidden = styles.display === 'none' || styles.visibility === 'hidden' || cookieBanner.getAttribute('aria-hidden') === 'true';
+          if (hidden) {
+            sticky.style.bottom = '0px';
+            return;
+          }
+          sticky.style.bottom = cookieBanner.offsetHeight + 'px';
+        };
+
+        updateOffset();
+        window.addEventListener('resize', updateOffset);
+        setTimeout(updateOffset, 800);
+      })();
     </script>
   </body>
 </html>

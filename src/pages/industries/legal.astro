@@ -1,4 +1,4 @@
----
+﻿---
 import Layout from '../../layouts/Layout.astro';
 import FAQSection from '../../components/FAQSection.astro';
 import { demoIndustryMap } from '../../data/demo-industries';
@@ -8,13 +8,13 @@ const demoData = demoIndustryMap[demoSlug];
 
 const industry = {
   name: "Legal Services",
-  icon: "⚖️",
+  icon: "âš–ï¸",
   headline: "Attract Better Clients for Your Practice",
   description: "Build authority online and streamline client intake with professional legal marketing.",
   stats: [
     { value: "2x", label: "Qualified consultations" },
     { value: "65%", label: "Less admin time" },
-    { value: "4.2★", label: "Avg. rating improvement" }
+    { value: "4.2â˜…", label: "Avg. rating improvement" }
   ],
   challenges: [
     "Building trust and authority online in a traditional industry",
@@ -76,6 +76,7 @@ const schema = {
           <p class="text-lg text-slate-600 dark:text-slate-300 mb-8">
             {industry.description} We help law firms across Ontario and Alberta establish authority and attract qualified clients.
           </p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">Illustrative benchmark figures shown for planning only. Results vary by market, offer, and execution.</p>
           <div class="flex flex-col sm:flex-row gap-4 items-center">
             <a href="/book-call" class="inline-flex items-center justify-center px-6 py-3 bg-accent-500 hover:bg-accent-600 text-white font-semibold rounded-xl transition-colors duration-200">
               Book Your Free Discovery Call
@@ -235,6 +236,7 @@ const schema = {
         <span class="text-white/50">|</span>
         <a href="/services" class="text-white hover:text-primary-100 font-medium transition-colors underline">View Pricing</a>
       </div>
+
 
 
 

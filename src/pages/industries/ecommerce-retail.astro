@@ -1,4 +1,4 @@
----
+﻿---
 import Layout from '../../layouts/Layout.astro';
 import FAQSection from '../../components/FAQSection.astro';
 import { demoIndustryMap } from '../../data/demo-industries';
@@ -8,7 +8,7 @@ const demoData = demoIndustryMap[demoSlug];
 
 const industry = {
   name: "E-commerce & Retail",
-  icon: "🛒",
+  icon: "ðŸ›’",
   headline: "Grow Your Online & Retail Sales",
   description: "Drive more traffic, convert browsers to buyers, and build customer loyalty for lasting growth.",
   stats: [
@@ -86,6 +86,7 @@ const schema = {
           <p class="text-lg text-slate-600 dark:text-slate-300 mb-8">
             {industry.description} We help e-commerce brands and retailers across Canada convert more traffic and build lasting customer relationships.
           </p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">Illustrative benchmark figures shown for planning only. Results vary by market, offer, and execution.</p>
           <div class="flex flex-col sm:flex-row gap-4 items-center">
             <a href="/book-call" class="inline-flex items-center justify-center px-6 py-3 bg-accent-500 hover:bg-accent-600 text-white font-semibold rounded-xl transition-colors duration-200">
               Book Your Free Discovery Call
@@ -124,7 +125,7 @@ const schema = {
             <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-2 group-hover:text-primary-600">{sub.name}</h3>
             <p class="text-sm text-slate-600 dark:text-slate-400">{sub.desc}</p>
             <span class="inline-flex items-center text-sm font-medium text-primary-600 mt-3 group-hover:underline">
-              Learn more →
+              Learn more â†’
             </span>
           </a>
         ))}
@@ -234,5 +235,6 @@ const schema = {
         <span class="text-white/50">|</span>
         <a href="/services" class="text-white hover:text-primary-100 font-medium transition-colors underline">View Pricing</a>
       </div>
+
 
 

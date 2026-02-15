@@ -1,4 +1,4 @@
----
+﻿---
 import Layout from '../../layouts/Layout.astro';
 import FAQSection from '../../components/FAQSection.astro';
 import { demoIndustryMap } from '../../data/demo-industries';
@@ -8,7 +8,7 @@ const demoData = demoIndustryMap[demoSlug];
 
 const industry = {
   name: "Daycare Centers",
-  icon: "👶",
+  icon: "ðŸ‘¶",
   headline: "Fill Your Daycare Spots Faster & Keep Parents Happy",
   description: "Attract more families, manage your waitlist effortlessly, and build lasting relationships with automated enrollment systems.",
   stats: [
@@ -35,12 +35,12 @@ const industry = {
     "Referral program tracking and rewards"
   ],
   features: [
-    { title: "Instant Inquiry Response", desc: "Parents get a warm, personalized response within minutes—even at midnight—so they don't look elsewhere" },
+    { title: "Instant Inquiry Response", desc: "Parents get a warm, personalized response within minutesâ€”even at midnightâ€”so they don't look elsewhere" },
     { title: "Self-Service Tour Booking", desc: "Let parents book tours directly from your website with automatic confirmations and reminders" },
     { title: "Waitlist Automation", desc: "Keep waitlisted families engaged with monthly updates and 'are you still interested?' check-ins" },
     { title: "Post-Tour Follow-Up", desc: "Automated sequences that nurture toured families toward enrollment without being pushy" },
     { title: "Parent Communication Hub", desc: "Send daily updates, photos, and announcements through a single platform parents love" },
-    { title: "Review Generation", desc: "Automatically request reviews at the perfect moment—when parents are happiest" }
+    { title: "Review Generation", desc: "Automatically request reviews at the perfect momentâ€”when parents are happiest" }
   ],
   expectedOutcomes: [
     "Consistent inbound lead flow from local search and your website",
@@ -88,6 +88,7 @@ const schema = {
           <p class="text-lg text-slate-600 dark:text-slate-300 mb-8">
             {industry.description} We help childcare facilities across Canada fill their enrollment and reduce administrative burden.
           </p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">Illustrative benchmark figures shown for planning only. Results vary by market, offer, and execution.</p>
           <div class="flex flex-col sm:flex-row gap-4 items-center">
             <a href="/book-call" class="inline-flex items-center justify-center px-6 py-3 bg-accent-500 hover:bg-accent-600 text-white font-semibold rounded-xl transition-colors duration-200">
               Book Your Free Discovery Call
@@ -142,7 +143,7 @@ const schema = {
             The Reality of Running a Daycare Today
           </h2>
           <p class="text-lg text-slate-600 dark:text-slate-300 mb-8">
-            You got into childcare to work with kids—not to spend your evenings answering emails and your weekends managing waitlists. But that's often the reality.
+            You got into childcare to work with kidsâ€”not to spend your evenings answering emails and your weekends managing waitlists. But that's often the reality.
           </p>
           <ul class="space-y-4">
             {industry.challenges.map((challenge) => (
@@ -208,7 +209,7 @@ const schema = {
           Enrollment Automation That Works While You Sleep
         </h2>
         <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
-          We give independent daycare centers the same tools as big corporate chains—without the corporate budget.
+          We give independent daycare centers the same tools as big corporate chainsâ€”without the corporate budget.
         </p>
       </div>
       
@@ -242,7 +243,7 @@ const schema = {
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16 reveal">
         <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
-          The Parent Journey—Automated
+          The Parent Journeyâ€”Automated
         </h2>
         <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
           From first inquiry to enrolled family, every step is streamlined.
@@ -252,28 +253,28 @@ const schema = {
       <div class="grid md:grid-cols-4 gap-8">
         <div class="reveal text-center">
           <div class="w-16 h-16 bg-amber-100 dark:bg-amber-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span class="text-2xl">📱</span>
+            <span class="text-2xl">ðŸ“±</span>
           </div>
           <h3 class="font-bold text-slate-900 dark:text-white mb-2">1. Instant Response</h3>
           <p class="text-sm text-slate-600 dark:text-slate-400">Parent inquires at 9 PM, gets a warm, personalized response within minutes</p>
         </div>
         <div class="reveal text-center">
           <div class="w-16 h-16 bg-amber-100 dark:bg-amber-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span class="text-2xl">📅</span>
+            <span class="text-2xl">ðŸ“…</span>
           </div>
           <h3 class="font-bold text-slate-900 dark:text-white mb-2">2. Self-Book Tour</h3>
           <p class="text-sm text-slate-600 dark:text-slate-400">They pick a time slot that works, get automated confirmations and reminders</p>
         </div>
         <div class="reveal text-center">
           <div class="w-16 h-16 bg-amber-100 dark:bg-amber-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span class="text-2xl">✉️</span>
+            <span class="text-2xl">âœ‰ï¸</span>
           </div>
           <h3 class="font-bold text-slate-900 dark:text-white mb-2">3. Nurture Sequence</h3>
           <p class="text-sm text-slate-600 dark:text-slate-400">Post-tour follow-ups answer questions and build trust without being pushy</p>
         </div>
         <div class="reveal text-center">
           <div class="w-16 h-16 bg-amber-100 dark:bg-amber-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-            <span class="text-2xl">🎉</span>
+            <span class="text-2xl">ðŸŽ‰</span>
           </div>
           <h3 class="font-bold text-slate-900 dark:text-white mb-2">4. Enrolled!</h3>
           <p class="text-sm text-slate-600 dark:text-slate-400">Onboarding automation welcomes them and sets expectations</p>
@@ -364,7 +365,7 @@ const schema = {
           <p class="text-4xl font-bold text-slate-900 dark:text-white mb-4">$497<span class="text-lg font-normal text-slate-500">/month</span></p>
           <p class="text-slate-600 dark:text-slate-400 mb-6">Includes website, automation setup, and ongoing support</p>
           <a href="/services" class="text-primary-600 dark:text-primary-400 font-semibold hover:underline">
-            See all pricing options →
+            See all pricing options â†’
           </a>
         </div>
       </div>
@@ -420,5 +421,6 @@ const schema = {
     </div>
   </section>
 </Layout>
+
 
 

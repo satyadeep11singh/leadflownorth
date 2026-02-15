@@ -1,4 +1,4 @@
----
+﻿---
 import Layout from '../../layouts/Layout.astro';
 import FAQSection from '../../components/FAQSection.astro';
 import { demoIndustryMap } from '../../data/demo-industries';
@@ -8,7 +8,7 @@ const demoData = demoIndustryMap[demoSlug];
 
 const industry = {
   name: "Home Services",
-  icon: "🔧",
+  icon: "ðŸ”§",
   headline: "Fill Your Schedule with Quality Service Calls",
   description: "Get more plumbing, HVAC, electrical, and renovation jobs from homeowners in your area.",
   stats: [
@@ -76,6 +76,7 @@ const schema = {
           <p class="text-lg text-slate-600 dark:text-slate-300 mb-8">
             {industry.description} We help home service contractors across Ontario and Alberta stand out from the competition and book more jobs.
           </p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">Illustrative benchmark figures shown for planning only. Results vary by market, offer, and execution.</p>
           <div class="flex flex-col sm:flex-row gap-4 items-center">
             <a href="/book-call" class="inline-flex items-center justify-center px-6 py-3 bg-accent-500 hover:bg-accent-600 text-white font-semibold rounded-xl transition-colors duration-200">
               Book Your Free Discovery Call
@@ -106,7 +107,7 @@ const schema = {
             We Understand Your Challenges
           </h2>
           <p class="text-lg text-slate-600 dark:text-slate-300 mb-8">
-            Running a home service business is tough. Between jobs, you barely have time to answer the phone—let alone market your business.
+            Running a home service business is tough. Between jobs, you barely have time to answer the phoneâ€”let alone market your business.
           </p>
           <ul class="space-y-4">
             {industry.challenges.map((challenge) => (
@@ -235,6 +236,7 @@ const schema = {
         <span class="text-white/50">|</span>
         <a href="/services" class="text-white hover:text-primary-100 font-medium transition-colors underline">View Pricing</a>
       </div>
+
 
 
 

@@ -90,7 +90,7 @@ const guarantees = [
   <div class="bg-gradient-to-r from-accent-600 to-primary-600 text-white py-3 px-4 text-center">
     <p class="text-sm sm:text-base font-medium">
       🎁 <strong>Launch Pricing Active:</strong> Save 50% on all website packages while we open our 2026 client roster.
-      <a href="/book-call" target="_blank" rel="noopener" class="underline hover:no-underline ml-1">Book your call →</a>
+      <a href="/book-call" target="_blank" rel="noopener" data-analytics="home_banner_book_call_click" class="underline hover:no-underline ml-1">Book your call →</a>
     </p>
   </div>
 
@@ -121,7 +121,7 @@ const guarantees = [
             <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-accent-500">Best Salesperson</span>
           </h1>
 
-          <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 mb-8 max-w-prose leading-relaxed">
+          <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 mb-8 max-w-prose leading-relaxed" data-exp-key="home-hero" data-exp-a="Stop losing customers to competitors with better websites. We give Canadian small businesses the same technology the big guys use: high-converting sites, automated lead generation, and real results. No agency markup. No BS." data-exp-b="Founder-led web design and automation for Canadian small businesses. Clear scope, fixed pricing, and a fast launch path.">
             Stop losing customers to competitors with better websites. We give Canadian small businesses the same technology the big guys use: high-converting sites, automated lead generation, and real results. <strong>No agency markup. No BS.</strong>
           </p>
 
@@ -131,9 +131,10 @@ const guarantees = [
               href="/book-call"
               target="_blank"
               rel="noopener"
+              data-analytics="home_hero_book_call_click"
               class="inline-flex items-center justify-center px-8 py-4 bg-accent-600 hover:bg-accent-700 text-white font-bold text-lg rounded-xl transition-all duration-200 hover:shadow-xl hover:shadow-accent-600/25 btn-pulse focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-accent-500"
             >
-              Book Your Free 15-Min Discovery Call
+              <span data-exp-key="home-hero" data-exp-a="Book Your Free 15-Min Discovery Call" data-exp-b="Get Your Free 15-Min Growth Plan">Book Your Free 15-Min Discovery Call</span>
               <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
@@ -652,6 +653,7 @@ const guarantees = [
           href="/book-call"
           target="_blank"
           rel="noopener"
+          data-analytics="home_launch_program_book_call_click"
           class="inline-flex items-center justify-center px-8 py-4 bg-accent-600 hover:bg-accent-700 text-white font-bold text-lg rounded-xl transition-all duration-200 hover:shadow-xl hover:shadow-accent-600/25 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-accent-500"
         >
           Book Your Discovery Call

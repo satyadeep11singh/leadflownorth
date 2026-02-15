@@ -35,6 +35,9 @@ const hubspotContactFormEndpoint = import.meta.env.PUBLIC_HUBSPOT_CONTACT_FORM_E
         <!-- Book a Call Option -->
         <button
           id="option-call"
+          data-analytics="contact_option_call_click"
+          aria-controls="section-call"
+          aria-expanded="true"
           class="option-card active group p-6 bg-white dark:bg-slate-800 rounded-2xl border-2 border-primary-500 dark:border-primary-600 shadow-lg hover:shadow-xl transition-all duration-300 text-left"
         >
           <div class="flex items-start gap-4">
@@ -57,6 +60,9 @@ const hubspotContactFormEndpoint = import.meta.env.PUBLIC_HUBSPOT_CONTACT_FORM_E
         <!-- Send Message Option -->
         <button
           id="option-message"
+          data-analytics="contact_option_message_click"
+          aria-controls="section-message"
+          aria-expanded="false"
           class="option-card group p-6 bg-white dark:bg-slate-800 rounded-2xl border-2 border-slate-200 dark:border-slate-700 shadow-md hover:shadow-lg transition-all duration-300 text-left"
         >
           <div class="flex items-start gap-4">
@@ -124,115 +130,138 @@ const hubspotContactFormEndpoint = import.meta.env.PUBLIC_HUBSPOT_CONTACT_FORM_E
         <!-- Custom Form -->
         <div class="p-6 lg:p-8">
           <form id="contact-form" class="space-y-5">
-            <div class="grid sm:grid-cols-2 gap-5">
+            <div class="flex items-center justify-between rounded-lg bg-slate-100 dark:bg-slate-800 px-4 py-2">
+              <p class="text-sm font-medium text-slate-700 dark:text-slate-300">Quick form (2 steps)</p>
+              <p id="form-step-label" aria-live="polite" class="text-sm text-primary-700 dark:text-primary-300">Step 1 of 2</p>
+            </div>
+
+            <div id="form-step-1" class="space-y-5">
+              <div class="grid sm:grid-cols-2 gap-5">
+                <div>
+                  <label for="firstname" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+                    First Name <span class="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="firstname"
+                    name="firstname"
+                    required
+                    autocomplete="given-name"
+                    class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
+                    placeholder="John"
+                  />
+                  <p class="hidden mt-1 text-xs text-red-600 dark:text-red-400" data-error-for="firstname">Please enter your first name.</p>
+                </div>
+                <div>
+                  <label for="lastname" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+                    Last Name <span class="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="lastname"
+                    name="lastname"
+                    required
+                    autocomplete="family-name"
+                    class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
+                    placeholder="Smith"
+                  />
+                  <p class="hidden mt-1 text-xs text-red-600 dark:text-red-400" data-error-for="lastname">Please enter your last name.</p>
+                </div>
+              </div>
+
               <div>
-                <label for="firstname" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
-                  First Name <span class="text-red-500">*</span>
+                <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+                  Email <span class="text-red-500">*</span>
                 </label>
                 <input
-                  type="text"
-                  id="firstname"
-                  name="firstname"
+                  type="email"
+                  id="email"
+                  name="email"
                   required
-                  autocomplete="given-name"
+                  autocomplete="email"
                   class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
-                  placeholder="John"
+                  placeholder="john@company.com"
                 />
+                <p class="hidden mt-1 text-xs text-red-600 dark:text-red-400" data-error-for="email">Please enter a valid email address.</p>
               </div>
-              <div>
-                <label for="lastname" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
-                  Last Name <span class="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="lastname"
-                  name="lastname"
-                  required
-                  autocomplete="family-name"
-                  class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
-                  placeholder="Smith"
-                />
-              </div>
-            </div>
 
-            <div>
-              <label for="email" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
-                Email <span class="text-red-500">*</span>
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                required
-                autocomplete="email"
-                class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
-                placeholder="john@company.com"
-              />
-            </div>
-
-            <div>
-              <label for="phone" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
-                Phone
-              </label>
-              <input
-                type="tel"
-                id="phone"
-                name="phone"
-                autocomplete="tel"
-                class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
-                placeholder="(416) 555-0123"
-              />
-            </div>
-
-            <div>
-              <label for="company" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
-                Company / Business Name
-              </label>
-              <input
-                type="text"
-                id="company"
-                name="company"
-                autocomplete="organization"
-                class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
-                placeholder="Your Company Inc."
-              />
-            </div>
-
-            <div>
-              <label for="interested_in" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
-                What are you interested in? <span class="text-red-500">*</span>
-              </label>
-              <select
-                id="interested_in"
-                name="interested_in"
-                required
-                class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
+              <button
+                type="button"
+                id="next-step-btn"
+                data-analytics="contact_form_step_1_continue_click"
+                class="w-full py-3 px-4 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors"
               >
-                <option value="" disabled selected>Select a service...</option>
-                <option value="New Website">New Website</option>
-                <option value="Website Redesign">Website Redesign</option>
-                <option value="Lead generation">Lead Generation</option>
-                <option value="Marketing Automation">Marketing Automation</option>
-                <option value="Other / Not Sure">Other / Not Sure</option>
-              </select>
+                Continue
+              </button>
             </div>
 
-            <div>
-              <label for="message" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
-                Message <span class="text-red-500">*</span>
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows="4"
-                required
-                class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200 resize-none"
-                placeholder="Tell us about your project or ask us anything..."
-              ></textarea>
+            <div id="form-step-2" class="space-y-5 hidden">
+              <div>
+                <label for="phone" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+                  Phone
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  autocomplete="tel"
+                  class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
+                  placeholder="(416) 555-0123"
+                />
+              </div>
+
+              <div>
+                <label for="company" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+                  Company / Business Name
+                </label>
+                <input
+                  type="text"
+                  id="company"
+                  name="company"
+                  autocomplete="organization"
+                  class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
+                  placeholder="Your Company Inc."
+                />
+              </div>
+
+              <div>
+                <label for="interested_in" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+                  What are you interested in? <span class="text-red-500">*</span>
+                </label>
+                <select
+                  id="interested_in"
+                  name="interested_in"
+                  required
+                  class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200"
+                >
+                  <option value="" disabled selected>Select a service...</option>
+                  <option value="New Website">New Website</option>
+                  <option value="Website Redesign">Website Redesign</option>
+                  <option value="Lead generation">Lead Generation</option>
+                  <option value="Marketing Automation">Marketing Automation</option>
+                  <option value="Other / Not Sure">Other / Not Sure</option>
+                </select>
+                <p class="hidden mt-1 text-xs text-red-600 dark:text-red-400" data-error-for="interested_in">Please select a service.</p>
+              </div>
+
+              <div>
+                <label for="message" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">
+                  Message <span class="text-red-500">*</span>
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="4"
+                  required
+                  class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200 resize-none"
+                  placeholder="Tell us about your project or ask us anything..."
+                ></textarea>
+                <p class="hidden mt-1 text-xs text-red-600 dark:text-red-400" data-error-for="message">Please add a short message about your project.</p>
+              </div>
             </div>
 
             <!-- Status messages -->
-            <div id="form-success" class="hidden p-4 bg-accent-50 dark:bg-accent-900/20 border border-accent-200 dark:border-accent-800 rounded-xl">
+            <div id="form-success" aria-live="polite" class="hidden p-4 bg-accent-50 dark:bg-accent-900/20 border border-accent-200 dark:border-accent-800 rounded-xl">
               <div class="flex items-center gap-3">
                 <svg class="w-5 h-5 text-accent-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
@@ -240,7 +269,7 @@ const hubspotContactFormEndpoint = import.meta.env.PUBLIC_HUBSPOT_CONTACT_FORM_E
                 <p class="text-sm font-medium text-accent-700 dark:text-accent-300">Message sent! We'll get back to you within 24 hours.</p>
               </div>
             </div>
-            <div id="form-error" class="hidden p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl">
+            <div id="form-error" role="alert" aria-live="assertive" class="hidden p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl">
               <div class="flex items-center gap-3">
                 <svg class="w-5 h-5 text-red-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
@@ -249,17 +278,24 @@ const hubspotContactFormEndpoint = import.meta.env.PUBLIC_HUBSPOT_CONTACT_FORM_E
               </div>
             </div>
 
-            <button
-              type="submit"
-              id="submit-btn"
-              class="w-full py-4 px-6 bg-accent-500 hover:bg-accent-600 text-white font-bold text-lg rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-accent-500/25 btn-pulse disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Send Message
-            </button>
+            <div id="form-actions" class="hidden flex-col sm:flex-row gap-3">
+              <button type="button" id="prev-step-btn" class="flex-1 py-3 px-4 rounded-xl border border-slate-300 dark:border-slate-600 font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                Back
+              </button>
+              <button
+                type="submit"
+                id="submit-btn"
+                data-analytics="contact_form_submit_click"
+                class="flex-1 py-3 px-4 bg-accent-500 hover:bg-accent-600 text-white font-bold rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-accent-500/25 btn-pulse disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Send Message
+              </button>
+            </div>
 
             <p class="text-xs text-slate-500 dark:text-slate-400 text-center">
               By submitting this form, you agree to our <a href="/privacy" class="underline hover:text-primary-600">Privacy Policy</a>.
             </p>
+            <p class="text-xs text-slate-500 dark:text-slate-400 text-center">No spam. Your details are used only to respond to your inquiry.</p>
           </form>
         </div>
       </div>
@@ -430,6 +466,8 @@ const hubspotContactFormEndpoint = import.meta.env.PUBLIC_HUBSPOT_CONTACT_FORM_E
       function showCall() {
         callBtn.classList.add('active');
         messageBtn.classList.remove('active');
+        callBtn.setAttribute('aria-expanded', 'true');
+        messageBtn.setAttribute('aria-expanded', 'false');
         callSection.classList.remove('hidden');
         messageSection.classList.add('hidden');
       }
@@ -437,6 +475,8 @@ const hubspotContactFormEndpoint = import.meta.env.PUBLIC_HUBSPOT_CONTACT_FORM_E
       function showMessage() {
         messageBtn.classList.add('active');
         callBtn.classList.remove('active');
+        messageBtn.setAttribute('aria-expanded', 'true');
+        callBtn.setAttribute('aria-expanded', 'false');
         messageSection.classList.remove('hidden');
         callSection.classList.add('hidden');
       }
@@ -478,29 +518,44 @@ const hubspotContactFormEndpoint = import.meta.env.PUBLIC_HUBSPOT_CONTACT_FORM_E
     })(window, "https://app.cal.com/embed/embed.js", "init");
 
     var calInitialized = false;
+    function hideCalLoader() {
+      var loader = document.getElementById('cal-loading');
+      if (loader) loader.style.display = 'none';
+    }
+
+    function watchForCalIframe() {
+      var attempts = 0;
+      var maxAttempts = 40;
+      var check = setInterval(function() {
+        var iframe = document.querySelector('#cal-embed iframe');
+        attempts += 1;
+        if (iframe) {
+          hideCalLoader();
+          clearInterval(check);
+          return;
+        }
+        if (attempts >= maxAttempts) {
+          clearInterval(check);
+        }
+      }, 300);
+    }
+
     function initCal() {
       if (calInitialized) return;
       calInitialized = true;
+      var safeCalLink = (typeof calEmbedLink === 'string' && calEmbedLink.trim()) ? calEmbedLink : 'leadflownorth/15min';
 
       Cal("init", { origin: "https://cal.com" });
       Cal("inline", {
         elementOrSelector: "#cal-embed",
-        calLink: calEmbedLink,
+        calLink: safeCalLink,
         layout: "month_view",
         config: {
           theme: document.documentElement.classList.contains("dark") ? "dark" : "light"
         }
       });
       Cal("ui", { hideEventTypeDetails: false, layout: "month_view" });
-
-      var calCheck = setInterval(function() {
-        var iframe = document.querySelector('#cal-embed iframe');
-        if (iframe) {
-          var loader = document.getElementById('cal-loading');
-          if (loader) loader.style.display = 'none';
-          clearInterval(calCheck);
-        }
-      }, 500);
+      watchForCalIframe();
     }
 
     var calContainer = document.getElementById('cal-embed');
@@ -522,10 +577,70 @@ const hubspotContactFormEndpoint = import.meta.env.PUBLIC_HUBSPOT_CONTACT_FORM_E
     (function() {
       var form = document.getElementById('contact-form');
       var submitBtn = document.getElementById('submit-btn');
+      var nextStepBtn = document.getElementById('next-step-btn');
+      var prevStepBtn = document.getElementById('prev-step-btn');
+      var formStepLabel = document.getElementById('form-step-label');
+      var formStep1 = document.getElementById('form-step-1');
+      var formStep2 = document.getElementById('form-step-2');
+      var formActions = document.getElementById('form-actions');
       var successMsg = document.getElementById('form-success');
       var errorMsg = document.getElementById('form-error');
+      var track = window.trackLeadFlowEvent || function() {};
 
       if (!form) return;
+
+      var stepOneInputs = ['firstname', 'lastname', 'email'].map(function(id) {
+        return document.getElementById(id);
+      }).filter(Boolean);
+
+      function validateField(input) {
+        if (!input) return true;
+        var value = (input.value || '').trim();
+        var valid = true;
+        if (input.id === 'email') {
+          valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+        } else if (input.hasAttribute('required')) {
+          valid = value.length > 0;
+        }
+        var errorEl = form.querySelector('[data-error-for="' + input.id + '"]');
+        if (valid) {
+          input.classList.remove('border-red-500');
+          if (errorEl) errorEl.classList.add('hidden');
+        } else {
+          input.classList.add('border-red-500');
+          if (errorEl) errorEl.classList.remove('hidden');
+        }
+        return valid;
+      }
+
+      function showStep(step) {
+        var onStepTwo = step === 2;
+        if (formStep1) formStep1.classList.toggle('hidden', onStepTwo);
+        if (formStep2) formStep2.classList.toggle('hidden', !onStepTwo);
+        if (formActions) formActions.classList.toggle('hidden', !onStepTwo);
+        if (formStepLabel) formStepLabel.textContent = onStepTwo ? 'Step 2 of 2' : 'Step 1 of 2';
+      }
+
+      if (nextStepBtn) {
+        nextStepBtn.addEventListener('click', function() {
+          var valid = stepOneInputs.every(validateField);
+          if (!valid) return;
+          showStep(2);
+          track('contact_form_step_1_complete', { page_path: window.location.pathname });
+        });
+      }
+
+      if (prevStepBtn) {
+        prevStepBtn.addEventListener('click', function() {
+          showStep(1);
+        });
+      }
+
+      stepOneInputs.forEach(function(input) {
+        input.addEventListener('blur', function() {
+          validateField(input);
+        });
+      });
 
       // Helper to read HubSpot tracking cookie
       function getHubspotCookie() {
@@ -539,6 +654,18 @@ const hubspotContactFormEndpoint = import.meta.env.PUBLIC_HUBSPOT_CONTACT_FORM_E
         // Hide previous messages
         successMsg.classList.add('hidden');
         errorMsg.classList.add('hidden');
+
+        if (formStep2 && formStep2.classList.contains('hidden')) {
+          var stepOneValid = stepOneInputs.every(validateField);
+          if (stepOneValid) showStep(2);
+          return;
+        }
+
+        var requiredFields = ['interested_in', 'message'].map(function(id) { return document.getElementById(id); }).filter(Boolean);
+        var requiredValid = requiredFields.every(validateField);
+        if (!requiredValid) return;
+
+        track('contact_form_submit_attempt', { page_path: window.location.pathname });
 
         // Disable button
         submitBtn.disabled = true;
@@ -571,6 +698,36 @@ const hubspotContactFormEndpoint = import.meta.env.PUBLIC_HUBSPOT_CONTACT_FORM_E
         var hutk = getHubspotCookie();
         if (hutk) context.hutk = hutk;
 
+        var params = new URLSearchParams(window.location.search);
+        var hasUtm = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].some(function(key) {
+          return !!params.get(key);
+        });
+        var hasClickIds = !!params.get('gclid') || !!params.get('fbclid');
+        var attribution = hasUtm || hasClickIds ? {
+          utm_source: params.get('utm_source') || '',
+          utm_medium: params.get('utm_medium') || '',
+          utm_campaign: params.get('utm_campaign') || '',
+          utm_term: params.get('utm_term') || '',
+          utm_content: params.get('utm_content') || '',
+          gclid: params.get('gclid') || '',
+          fbclid: params.get('fbclid') || ''
+        } : null;
+
+        if (attribution) {
+          var trackingDetails = [
+            attribution.utm_source ? ('utm_source=' + attribution.utm_source) : '',
+            attribution.utm_medium ? ('utm_medium=' + attribution.utm_medium) : '',
+            attribution.utm_campaign ? ('utm_campaign=' + attribution.utm_campaign) : '',
+            attribution.utm_term ? ('utm_term=' + attribution.utm_term) : '',
+            attribution.utm_content ? ('utm_content=' + attribution.utm_content) : '',
+            attribution.gclid ? ('gclid=' + attribution.gclid) : '',
+            attribution.fbclid ? ('fbclid=' + attribution.fbclid) : ''
+          ].filter(Boolean).join(' | ');
+          if (trackingDetails) {
+            fields.push({ name: 'hs_analytics_source_data_1', value: trackingDetails });
+          }
+        }
+
         // Build payload
         var payload = {
           fields: fields,
@@ -587,16 +744,26 @@ const hubspotContactFormEndpoint = import.meta.env.PUBLIC_HUBSPOT_CONTACT_FORM_E
           if (response.ok) {
             successMsg.classList.remove('hidden');
             form.reset();
+            showStep(1);
+            track('contact_form_submit_success', { page_path: window.location.pathname });
             return;
           }
           return response.json().then(function(data) {
             console.error('HubSpot form error:', response.status, data);
             errorMsg.classList.remove('hidden');
+            track('contact_form_submit_error', {
+              page_path: window.location.pathname,
+              status_code: String(response.status || 'unknown')
+            });
           });
         })
         .catch(function(err) {
           console.error('HubSpot form network error:', err);
           errorMsg.classList.remove('hidden');
+          track('contact_form_submit_error', {
+            page_path: window.location.pathname,
+            status_code: 'network_error'
+          });
         })
         .finally(function() {
           submitBtn.disabled = false;

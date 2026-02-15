@@ -1,4 +1,4 @@
----
+﻿---
 import Layout from '../../layouts/Layout.astro';
 import FAQSection from '../../components/FAQSection.astro';
 import { demoIndustryMap } from '../../data/demo-industries';
@@ -8,7 +8,7 @@ const demoData = demoIndustryMap[demoSlug];
 
 const industry = {
   name: "Real Estate",
-  icon: "🏠",
+  icon: "ðŸ ",
   headline: "Generate More Qualified Real Estate Leads",
   description: "Stand out in a crowded market with a website that captures buyer and seller leads 24/7.",
   stats: [
@@ -76,6 +76,7 @@ const schema = {
           <p class="text-lg text-slate-600 dark:text-slate-300 mb-8">
             {industry.description} We help real estate professionals across Ontario and Alberta build their brand and generate consistent leads.
           </p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">Illustrative benchmark figures shown for planning only. Results vary by market, offer, and execution.</p>
           <div class="flex flex-col sm:flex-row gap-4 items-center">
             <a href="/book-call" class="inline-flex items-center justify-center px-6 py-3 bg-accent-500 hover:bg-accent-600 text-white font-semibold rounded-xl transition-colors duration-200">
               Book Your Free Discovery Call
@@ -106,7 +107,7 @@ const schema = {
             We Understand Your Challenges
           </h2>
           <p class="text-lg text-slate-600 dark:text-slate-300 mb-8">
-            The real estate market is more competitive than ever. You need more than just a pretty website—you need a lead generation machine.
+            The real estate market is more competitive than ever. You need more than just a pretty websiteâ€”you need a lead generation machine.
           </p>
           <ul class="space-y-4">
             {industry.challenges.map((challenge) => (
@@ -235,6 +236,7 @@ const schema = {
         <span class="text-white/50">|</span>
         <a href="/services" class="text-white hover:text-primary-100 font-medium transition-colors underline">View Pricing</a>
       </div>
+
 
 
 

@@ -45,6 +45,7 @@ const currentPath = Astro.url.pathname;
         <!-- Phone number - visible on larger screens -->
         <a 
           href="tel:+19057835996" 
+          data-analytics="header_phone_click"
           class="hidden md:flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-200"
           aria-label="Call us at 905-783-5996"
         >
@@ -73,7 +74,8 @@ const currentPath = Astro.url.pathname;
         
         <!-- CTA Button -->
         <a
-          href="/contact"
+          href="/free-audit"
+          data-analytics="header_free_audit_click"
           class="hidden sm:inline-flex items-center px-5 py-2.5 bg-accent-500 hover:bg-accent-600 text-white font-semibold rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-accent-500/25 btn-pulse focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-accent-500"
         >
           Get Your Free Audit
@@ -119,6 +121,7 @@ const currentPath = Astro.url.pathname;
         <!-- Phone number for mobile -->
         <a 
           href="tel:+19057835996"
+          data-analytics="mobile_menu_phone_click"
           class="px-4 py-3 rounded-lg text-base font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary-500 flex items-center gap-2"
         >
           <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -127,7 +130,8 @@ const currentPath = Astro.url.pathname;
           (905) 783-5996
         </a>
         <a
-          href="/contact"
+          href="/free-audit"
+          data-analytics="mobile_menu_free_audit_click"
           class="mt-2 px-4 py-3 bg-accent-500 hover:bg-accent-600 text-white font-semibold rounded-lg text-center transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-accent-500"
         >
           Get Your Free Audit
