@@ -218,10 +218,10 @@ const faqSchema = {
     },
     {
       "@type": "Question",
-      "name": "What is the Founding Client discount?",
+      "name": "What is launch pricing?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "As a new agency, we're offering our first 5 clients 50% off any package, plus lifetime pricing lock on monthly services and direct founder access. This helps us build our portfolio while providing exceptional value."
+        "text": "As a newly launched agency, we are offering 50% off website packages for a limited launch period, plus lifetime pricing lock on monthly services and direct founder access."
       }
     }
   ]
@@ -245,12 +245,12 @@ const faqs = [
     answer: "While we specialize in Ontario and Alberta markets (we understand the local business landscape), we work with Canadian businesses in all provinces. Contact us to discuss your needs."
   },
   {
-    question: "What is the Founding Client discount?",
-    answer: "We're a new agency looking to build our portfolio with amazing clients. Our first 5 clients get 50% off any package, lifetime pricing lock on monthly services, and direct access to our founders. In exchange, we ask for honest feedback and a testimonial if you're happy with our work."
+    question: "What is launch pricing?",
+    answer: "We're newly launched, so we're offering 50% off any website package during our launch period, plus lifetime pricing lock on monthly services and direct access to our founders."
   },
   {
     question: "Can I add monthly services later?",
-    answer: "Absolutely! Many clients start with just a website, then add SEO or email marketing once they're ready to grow. Founding clients lock in their discount rate for life on any services they add."
+    answer: "Absolutely. Many businesses start with a website, then add SEO or email marketing once they are ready to scale. Launch clients lock in discounted monthly service rates."
   },
   {
     question: "What if I'm not happy with the results?",
@@ -261,14 +261,14 @@ const faqs = [
 
 <Layout 
   title="Services & Pricing" 
-  description="Simple, transparent pricing for Canadian web design and digital marketing. Starter ($1,997), Professional ($3,497), Lead Generation ($5,997). 50% off for founding clients."
+  description="Simple, transparent pricing for Canadian web design and digital marketing. Starter ($1,997), Professional ($3,497), Lead Generation ($5,997). Launch pricing currently available."
   structuredData={pageSchema}
 >
-  <!-- Founding Client Banner -->
+  <!-- Launch Pricing Banner -->
   <div class="bg-gradient-to-r from-accent-600 to-primary-600 text-white py-3 px-4 text-center">
     <p class="text-sm sm:text-base font-medium">
-      🎁 <strong>Founding Client Special:</strong> 50% off all packages for our first 5 clients. 
-      <a href="/contact?founding=true" class="underline hover:no-underline ml-1">Apply now →</a>
+      🎁 <strong>Launch Pricing Active:</strong> 50% off all website packages for a limited period.
+      <a href="/book-call" class="underline hover:no-underline ml-1">Book now →</a>
     </p>
   </div>
 
@@ -307,7 +307,7 @@ const faqs = [
           Book Your Free Discovery Call
           <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
         </a>
-        <a href="/audit" class="text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors underline">Get Free Audit</a>
+        <a href="/free-audit" class="text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors underline">Get Free Audit</a>
         <span class="text-slate-400">|</span>
         <a href="/roi-calculator" class="text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 font-medium transition-colors underline">Try ROI Calculator</a>
       </div>
@@ -369,7 +369,7 @@ const faqs = [
                   <span class="text-lg text-slate-400 line-through">${pkg.price.toLocaleString()}</span>
                   <span class="text-3xl font-extrabold text-accent-600 dark:text-accent-400">${pkg.foundingPrice.toLocaleString()}</span>
                 </div>
-                <p class="text-sm text-accent-600 dark:text-accent-400 font-medium mt-1">50% Founding Client Discount</p>
+                <p class="text-sm text-accent-600 dark:text-accent-400 font-medium mt-1">50% Launch Pricing</p>
               </div>
               
               <p class="text-xs text-primary-600 dark:text-primary-400 font-medium mb-4 bg-primary-50 dark:bg-primary-900/20 px-3 py-2 rounded-lg">
@@ -459,7 +459,7 @@ const faqs = [
       </div>
       
       <p class="text-center text-sm text-slate-500 dark:text-slate-400 mt-8">
-        Founding clients get <strong>lifetime pricing lock</strong> on all monthly services. Prices shown are founding client rates.
+        Launch clients get <strong>lifetime pricing lock</strong> on all monthly services. Prices shown are launch rates.
       </p>
     </div>
   </section>
@@ -506,7 +506,7 @@ const faqs = [
             Why Work With a New Agency?
           </h2>
           <p class="text-lg text-slate-600 dark:text-slate-300 mb-6">
-            We get it: we're new. But that works in your favor. Here's why founding clients get the best deal:
+            We get it: we're new. But that works in your favor. Here's why launch clients get the best deal:
           </p>
           <ul class="space-y-4">
             {[
@@ -515,7 +515,7 @@ const faqs = [
               "50% off because we're building our portfolio",
               "No bureaucracy: fast decisions, fast execution",
               "Lifetime pricing lock on all services",
-              "Featured case study once your site launches"
+              "Clear, measurable deliverables from day one"
             ].map((item) => (
               <li class="flex items-center gap-3">
                 <svg class="w-5 h-5 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
@@ -528,13 +528,13 @@ const faqs = [
         </div>
         <div class="reveal bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl p-8 text-white">
           <div class="text-center">
-            <p class="text-lg text-primary-100 mb-2">Founding Client Discount</p>
+            <p class="text-lg text-primary-100 mb-2">Launch Pricing</p>
             <p class="text-6xl font-extrabold mb-2">50%</p>
             <p class="text-primary-100 mb-6">Off any website package</p>
             <div class="grid grid-cols-2 gap-4 text-center">
               <div class="bg-white/10 rounded-xl p-4">
-                <p class="text-2xl font-bold">5</p>
-                <p class="text-sm text-primary-200">Spots available</p>
+                <p class="text-2xl font-bold">2026</p>
+                <p class="text-sm text-primary-200">Launch cohort</p>
               </div>
               <div class="bg-white/10 rounded-xl p-4">
                 <p class="text-2xl font-bold">∞</p>
@@ -584,7 +584,7 @@ const faqs = [
         Found Your Package? Let's Get Started
       </h2>
       <p class="text-lg sm:text-xl text-primary-100 mb-8 max-w-2xl mx-auto">
-        Book a free 15-minute discovery call to discuss your project and lock in founding client pricing.
+        Book a free 15-minute discovery call to discuss your project and lock in launch pricing.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
         <a href="/book-call" class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary-700 font-bold text-lg rounded-xl hover:bg-primary-50 transition-colors duration-200 shadow-xl">
@@ -593,11 +593,11 @@ const faqs = [
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
         </a>
-        <a href="/audit" class="text-white hover:text-primary-100 font-medium transition-colors underline">Get Free Audit</a>
+        <a href="/free-audit" class="text-white hover:text-primary-100 font-medium transition-colors underline">Get Free Audit</a>
         <span class="text-white/50">|</span>
         <a href="/roi-calculator" class="text-white hover:text-primary-100 font-medium transition-colors underline">Try ROI Calculator</a>
       </div>
-      <p class="mt-6 text-sm text-primary-200">Only 5 founding client spots available. All prices in CAD. No hidden fees.</p>
+      <p class="mt-6 text-sm text-primary-200">Launch pricing available now. All prices in CAD. No hidden fees.</p>
     </div>
   </section>
   
