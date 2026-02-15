@@ -21,7 +21,7 @@ const defaultDescription = 'Lead Flow North helps Canadian small businesses grow
 const { 
   title, 
   description = defaultDescription, 
-  canonicalURL = Astro.url.href,
+  canonicalURL,
   ogImage = '/og-default.svg',
   noIndex = false,
   structuredData,
@@ -37,7 +37,14 @@ const baseUrl = 'https://leadflownorth.com';
 const currentPath = Astro.url.pathname;
 
 const siteName = 'Lead Flow North';
-const fullTitle = title === 'Home' ? `${siteName} | Web Design & Marketing for Canadian Small Businesses` : `${title} | ${siteName}`;
+const titleHasBrand = /lead flow north/i.test(title);
+const fullTitle = title === 'Home'
+  ? `${siteName} | Web Design & Marketing for Canadian Small Businesses`
+  : (titleHasBrand ? title : `${title} | ${siteName}`);
+const resolvedCanonicalURL = canonicalURL
+  ? new URL(canonicalURL, baseUrl).toString()
+  : `${baseUrl}${currentPath}`;
+const resolvedOgImage = ogImage.startsWith('http') ? ogImage : `${baseUrl}${ogImage}`;
 const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID ?? '';
 
 function slugToName(segment: string) {
@@ -130,7 +137,7 @@ const organizationSchema = {
     {noIndex && <meta name="robots" content="noindex, nofollow" />}
     
     <!-- Canonical URL -->
-    <link rel="canonical" href={canonicalURL} />
+    <link rel="canonical" href={resolvedCanonicalURL} />
     
     <!-- Hreflang Tags for Canadian English -->
     <link rel="alternate" hreflang="en-CA" href={`${baseUrl}${currentPath}`} />
@@ -139,19 +146,19 @@ const organizationSchema = {
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:url" content={resolvedCanonicalURL} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:image" content={resolvedOgImage} />
     <meta property="og:site_name" content={siteName} />
     <meta property="og:locale" content="en_CA" />
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:url" content={resolvedCanonicalURL} />
     <meta property="twitter:title" content={fullTitle} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={ogImage} />
+    <meta property="twitter:image" content={resolvedOgImage} />
     <meta name="twitter:site" content="@leadflownorth" />
     
     <!-- Favicon -->
@@ -174,8 +181,10 @@ const organizationSchema = {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     
     <!-- Font -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" media="print" onload="this.onload=null;this.setAttribute('media','all')" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+    </noscript>
     
     <!-- Structured Data -->
     <script is:inline type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
@@ -321,6 +330,7 @@ const organizationSchema = {
     </script>
     <script is:inline>
       (function() {
+        if (window.location.pathname !== '/') return;
         var html = document.documentElement;
         var expKey = 'lfn_exp_home_hero';
         var params = new URLSearchParams(window.location.search);
@@ -345,6 +355,56 @@ const organizationSchema = {
         });
         if (window.trackLeadFlowEvent) {
           window.trackLeadFlowEvent('exp_home_hero_assigned', { variant: current, page_path: window.location.pathname });
+        }
+      })();
+    </script>
+    <script is:inline>
+      (function() {
+        if (!('PerformanceObserver' in window) || !window.trackLeadFlowEvent) return;
+        var clsScore = 0;
+        var lcpValue = 0;
+        var inpValue = 0;
+        var hidden = false;
+
+        var sendVitals = function() {
+          if (hidden) return;
+          hidden = true;
+          window.trackLeadFlowEvent('web_vitals', {
+            page_path: window.location.pathname,
+            cls: Number(clsScore.toFixed(4)),
+            lcp_ms: Math.round(lcpValue),
+            inp_ms: Math.round(inpValue)
+          });
+        };
+
+        try {
+          var clsObserver = new PerformanceObserver(function(list) {
+            list.getEntries().forEach(function(entry) {
+              if (!entry.hadRecentInput) clsScore += entry.value;
+            });
+          });
+          clsObserver.observe({ type: 'layout-shift', buffered: true });
+
+          var lcpObserver = new PerformanceObserver(function(list) {
+            var entries = list.getEntries();
+            var last = entries[entries.length - 1];
+            if (last) lcpValue = last.startTime;
+          });
+          lcpObserver.observe({ type: 'largest-contentful-paint', buffered: true });
+
+          var inpObserver = new PerformanceObserver(function(list) {
+            list.getEntries().forEach(function(entry) {
+              if (entry.duration > inpValue) inpValue = entry.duration;
+            });
+          });
+          inpObserver.observe({ type: 'event', buffered: true, durationThreshold: 40 });
+
+          document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'hidden') sendVitals();
+          }, { once: true });
+          window.addEventListener('pagehide', sendVitals, { once: true });
+        } catch (_error) {
+          // Ignore unsupported observers.
         }
       })();
     </script>

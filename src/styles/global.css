@@ -200,11 +200,6 @@ html {
   contain-intrinsic-size: auto 500px;
 }
 
-/* Optimize image rendering */
-img {
-  content-visibility: auto;
-}
-
 /* GPU acceleration for animated elements */
 .gpu-accelerated {
   transform: translateZ(0);
