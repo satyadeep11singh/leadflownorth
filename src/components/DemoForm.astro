@@ -10,10 +10,9 @@ interface Props {
     accentColor: string;
   };
   services: string[];
-  industryName: string;
 }
 
-const { defaults, services, industryName } = Astro.props;
+const { defaults, services } = Astro.props;
 ---
 
 <div id="demo-form" class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 lg:sticky lg:top-24">
@@ -176,7 +175,7 @@ const { defaults, services, industryName } = Astro.props;
   </p>
 </div>
 
-<script define:vars={{ defaults, services }}>
+<script is:inline define:vars={{ defaults, services }}>
   // Sync color pickers with text inputs
   const primaryColor = document.getElementById('demo-primary-color');
   const primaryColorText = document.getElementById('demo-primary-color-text');

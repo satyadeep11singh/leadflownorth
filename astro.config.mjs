@@ -8,8 +8,9 @@ export default defineConfig({
   site: 'https://leadflownorth.com',
   integrations: [sitemap()],
   prefetch: {
-    prefetchAll: true,
-    defaultStrategy: 'viewport'
+    // Avoid mass prefetching across 200+ routes.
+    prefetchAll: false,
+    defaultStrategy: 'hover'
   },
   vite: {
     plugins: [tailwindcss()],
@@ -24,8 +25,8 @@ export default defineConfig({
   },
   compressHTML: true,
   build: {
-    // Inline all CSS to eliminate render-blocking requests
-    inlineStylesheets: 'always',
+    // Let CSS be cached between page visits.
+    inlineStylesheets: 'auto',
     // Inline small scripts to reduce request chains
     assets: '_astro'
   }

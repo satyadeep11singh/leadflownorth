@@ -1,0 +1,20 @@
+---
+const calLink = import.meta.env.PUBLIC_CAL_LINK ?? 'leadflownorth/15min';
+const bookingUrl = `https://cal.com/${calLink}`;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting...</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <meta http-equiv="refresh" content={`0;url=${bookingUrl}`} />
+    <link rel="canonical" href={bookingUrl} />
+  </head>
+  <body>
+    <script is:inline define:vars={{ bookingUrl }}>
+      window.location.replace(bookingUrl);
+    </script>
+    <p>Redirecting to booking page...</p>
+  </body>
+</html>

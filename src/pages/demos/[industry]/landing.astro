@@ -16,7 +16,7 @@ interface Props {
 }
 
 const { industry } = Astro.props;
-const { defaults, services, preview } = industry;
+const { defaults } = industry;
 const sample = sampleData[industry.slug];
 const landing = landingData[industry.slug];
 ---
@@ -25,6 +25,7 @@ const landing = landingData[industry.slug];
   title={`${defaults.businessName}, ${landing.primaryOffer} | ${industry.name} Landing Page Demo`}
   description={landing.heroSubheadline}
   themeColor={defaults.primaryColor}
+  noIndex={true}
 >
   <!-- ═══════════════════════════════════════════ -->
   <!-- SECTION 1: Floating LFN Bar               -->

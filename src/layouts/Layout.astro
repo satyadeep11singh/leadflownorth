@@ -38,6 +38,7 @@ const currentPath = Astro.url.pathname;
 
 const siteName = 'Lead Flow North';
 const fullTitle = title === 'Home' ? `${siteName} | Web Design & Marketing for Canadian Small Businesses` : `${title} | ${siteName}`;
+const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID ?? '';
 
 // Default Organization structured data
 const organizationSchema = {
@@ -131,21 +132,16 @@ const organizationSchema = {
     <link rel="alternate" type="application/rss+xml" title="Lead Flow North Blog" href="/rss.xml" />
     
     <!-- DNS Prefetch for external resources -->
-    <link rel="dns-prefetch" href="https://images.unsplash.com" />
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     
-    <!-- Preconnect for performance (fonts and images) -->
+    <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
     
-    <!-- Font - Inter with display swap for better LCP -->
+    <!-- Font -->
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
-    <noscript>
-      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    </noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     
     <!-- Structured Data -->
     <script is:inline type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
@@ -164,13 +160,26 @@ const organizationSchema = {
     </script>
     
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0G1L3D6NFM"></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-0G1L3D6NFM');
-    </script>
+    {gaMeasurementId && (
+      <script is:inline define:vars={{ gaMeasurementId }}>
+        const initAnalytics = () => {
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = `https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`;
+          document.head.appendChild(script);
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { window.dataLayer.push(arguments); }
+          gtag('js', new Date());
+          gtag('config', gaMeasurementId);
+        };
+
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(initAnalytics, { timeout: 1500 });
+        } else {
+          setTimeout(initAnalytics, 600);
+        }
+      </script>
+    )}
   </head>
   <body class="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-['Inter',sans-serif] antialiased transition-colors duration-300">
     <!-- Skip to main content for accessibility -->

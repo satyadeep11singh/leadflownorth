@@ -8,6 +8,8 @@ const contactSchema = {
   "description": "Get in touch with Lead Flow North for web design and lead generation services.",
   "url": "https://leadflownorth.com/contact"
 };
+const calEmbedLink = import.meta.env.PUBLIC_CAL_LINK ?? 'leadflownorth/15min';
+const hubspotContactFormEndpoint = import.meta.env.PUBLIC_HUBSPOT_CONTACT_FORM_ENDPOINT ?? 'https://api.hsforms.com/submissions/v3/integration/submit/342962653/d6f4baca-e5a8-433c-9690-a0cc3c302a0a';
 ---
 
 <Layout
@@ -418,7 +420,7 @@ const contactSchema = {
   </style>
 
   <!-- Option Toggle Script -->
-  <script is:inline>
+  <script is:inline define:vars={{ calEmbedLink }}>
     (function() {
       var callBtn = document.getElementById('option-call');
       var messageBtn = document.getElementById('option-message');
@@ -475,29 +477,48 @@ const contactSchema = {
       };
     })(window, "https://app.cal.com/embed/embed.js", "init");
 
-    Cal("init", { origin: "https://cal.com" });
-    Cal("inline", {
-      elementOrSelector: "#cal-embed",
-      calLink: "leadflownorth/15min",
-      layout: "month_view",
-      config: {
-        theme: document.documentElement.classList.contains("dark") ? "dark" : "light"
-      }
-    });
-    Cal("ui", { hideEventTypeDetails: false, layout: "month_view" });
+    var calInitialized = false;
+    function initCal() {
+      if (calInitialized) return;
+      calInitialized = true;
 
-    var calCheck = setInterval(function() {
-      var iframe = document.querySelector('#cal-embed iframe');
-      if (iframe) {
-        var loader = document.getElementById('cal-loading');
-        if (loader) loader.style.display = 'none';
-        clearInterval(calCheck);
-      }
-    }, 500);
+      Cal("init", { origin: "https://cal.com" });
+      Cal("inline", {
+        elementOrSelector: "#cal-embed",
+        calLink: calEmbedLink,
+        layout: "month_view",
+        config: {
+          theme: document.documentElement.classList.contains("dark") ? "dark" : "light"
+        }
+      });
+      Cal("ui", { hideEventTypeDetails: false, layout: "month_view" });
+
+      var calCheck = setInterval(function() {
+        var iframe = document.querySelector('#cal-embed iframe');
+        if (iframe) {
+          var loader = document.getElementById('cal-loading');
+          if (loader) loader.style.display = 'none';
+          clearInterval(calCheck);
+        }
+      }, 500);
+    }
+
+    var calContainer = document.getElementById('cal-embed');
+    if (calContainer && 'IntersectionObserver' in window) {
+      var calObserver = new IntersectionObserver(function(entries) {
+        if (entries.some(function(entry) { return entry.isIntersecting; })) {
+          initCal();
+          calObserver.disconnect();
+        }
+      }, { rootMargin: '100px' });
+      calObserver.observe(calContainer);
+    } else {
+      initCal();
+    }
   </script>
 
   <!-- Contact Form → HubSpot Forms API -->
-  <script is:inline>
+  <script is:inline define:vars={{ hubspotContactFormEndpoint }}>
     (function() {
       var form = document.getElementById('contact-form');
       var submitBtn = document.getElementById('submit-btn');
@@ -557,7 +578,7 @@ const contactSchema = {
         };
 
         // Submit to HubSpot Forms API
-        fetch('https://api.hsforms.com/submissions/v3/integration/submit/342962653/d6f4baca-e5a8-433c-9690-a0cc3c302a0a', {
+        fetch(hubspotContactFormEndpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)

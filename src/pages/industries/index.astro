@@ -382,7 +382,7 @@ const searchItems = industries.flatMap(industry => [
   </section>
 </Layout>
 
-<script define:vars={{ searchItems }}>
+<script is:inline define:vars={{ searchItems }}>
   // Search functionality
   const searchInput = document.getElementById('industry-search');
   const searchDropdown = document.getElementById('search-dropdown');

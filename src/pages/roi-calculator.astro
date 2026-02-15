@@ -19,13 +19,15 @@ const calculatorSchema = {
     "name": "Lead Flow North"
   }
 };
+const calBookingUrl = '/book-call';
+const hubspotRoiFormEndpoint = import.meta.env.PUBLIC_HUBSPOT_ROI_FORM_ENDPOINT ?? 'https://api.hsforms.com/submissions/v3/integration/submit/342962653/f7ba01b5-cafb-43d7-94c8-0d6dd9fdff90';
 ---
 
 <Layout 
   title="ROI Calculator | Lead Flow North"
   description="Calculate your potential return on investment from web design and lead generation. See how much revenue you could generate with Lead Flow North."
 >
-  <script type="application/ld+json" set:html={JSON.stringify(calculatorSchema)} />
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(calculatorSchema)} />
   
   <main class="pt-20">
     <!-- Hero Section -->
@@ -427,7 +429,7 @@ const calculatorSchema = {
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <a
-            href="https://cal.com/leadflownorth/15min"
+            href={calBookingUrl}
             class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
           >
             Book Your Free Discovery Call
@@ -444,6 +446,10 @@ const calculatorSchema = {
     </section>
   </main>
 </Layout>
+
+<script is:inline define:vars={{ hubspotRoiFormEndpoint }}>
+  window.__HUBSPOT_ROI_FORM_ENDPOINT__ = hubspotRoiFormEndpoint;
+</script>
 
 <script>
   // ─── Industry presets ───
@@ -744,7 +750,8 @@ const calculatorSchema = {
     };
 
     // Submit to HubSpot Forms API
-    fetch('https://api.hsforms.com/submissions/v3/integration/submit/342962653/f7ba01b5-cafb-43d7-94c8-0d6dd9fdff90', {
+    const hubspotEndpoint = (window as any).__HUBSPOT_ROI_FORM_ENDPOINT__ || '';
+    fetch(hubspotEndpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)

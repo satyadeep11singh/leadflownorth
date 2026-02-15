@@ -1,7 +1,7 @@
 ---
 import SampleLayout from '../../layouts/SampleLayout.astro';
 import { demoIndustries, type IndustryDemo } from '../../data/demo-industries';
-import { sampleData, type SamplePageData } from '../../data/sample-page-data';
+import { sampleData } from '../../data/sample-page-data';
 
 export function getStaticPaths() {
   return demoIndustries.map((ind) => ({
@@ -23,6 +23,7 @@ const sample = sampleData[industry.slug];
   title={`${defaults.businessName}, ${defaults.tagline}`}
   description={`${defaults.businessName} in ${defaults.location}. ${industry.description} Sample website by Lead Flow North.`}
   themeColor={defaults.primaryColor}
+  noIndex={true}
 >
   <!-- ═══════════════════════════════════════════════ -->
   <!-- FLOATING LEAD FLOW NORTH BAR                   -->

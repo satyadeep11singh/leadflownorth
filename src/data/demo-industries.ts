@@ -1,4 +1,4 @@
-// Shared data layer for all 13 industry demo configurations
+﻿// Shared data layer for all 13 industry demo configurations
 // Used by: /demos/, /demos/[industry], and enhanced industry pages
 
 export interface IndustryDemo {
@@ -32,7 +32,7 @@ export interface IndustryDemo {
 }
 
 export const demoIndustries: IndustryDemo[] = [
-  // ─── 1. HOME SERVICES ───
+  // â”€â”€â”€ 1. HOME SERVICES â”€â”€â”€
   {
     slug: "home-services",
     name: "Home Services",
@@ -58,7 +58,7 @@ export const demoIndustries: IndustryDemo[] = [
       "Backflow Prevention",
     ],
     preview: {
-      heroImage: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1200&h=600&fit=crop",
+      heroImage: "/illustrations/hero-success.svg",
       heroStyle: "split",
       sections: ["services", "trust-badges", "gallery", "testimonials", "contact"],
       uniqueSection: {
@@ -79,7 +79,7 @@ export const demoIndustries: IndustryDemo[] = [
     roiPreset: "home-services",
   },
 
-  // ─── 2. LEGAL SERVICES ───
+  // â”€â”€â”€ 2. LEGAL SERVICES â”€â”€â”€
   {
     slug: "legal",
     name: "Legal Services",
@@ -105,7 +105,7 @@ export const demoIndustries: IndustryDemo[] = [
       "Employment Law",
     ],
     preview: {
-      heroImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1200&h=600&fit=crop",
+      heroImage: "/illustrations/hero-success.svg",
       heroStyle: "centered",
       sections: ["services", "credentials", "case-results", "testimonials", "contact"],
       uniqueSection: {
@@ -126,7 +126,7 @@ export const demoIndustries: IndustryDemo[] = [
     roiPreset: "legal",
   },
 
-  // ─── 3. MEDICAL & DENTAL ───
+  // â”€â”€â”€ 3. MEDICAL & DENTAL â”€â”€â”€
   {
     slug: "medical-dental",
     name: "Medical & Dental",
@@ -152,7 +152,7 @@ export const demoIndustries: IndustryDemo[] = [
       "Preventive Care",
     ],
     preview: {
-      heroImage: "https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1200&h=600&fit=crop",
+      heroImage: "/illustrations/hero-success.svg",
       heroStyle: "split",
       sections: ["services", "team", "insurance", "testimonials", "contact"],
       uniqueSection: {
@@ -173,7 +173,7 @@ export const demoIndustries: IndustryDemo[] = [
     roiPreset: "medical-dental",
   },
 
-  // ─── 4. FITNESS & GYMS ───
+  // â”€â”€â”€ 4. FITNESS & GYMS â”€â”€â”€
   {
     slug: "fitness",
     name: "Fitness & Gyms",
@@ -199,7 +199,7 @@ export const demoIndustries: IndustryDemo[] = [
       "Recovery & Stretching",
     ],
     preview: {
-      heroImage: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&h=600&fit=crop",
+      heroImage: "/illustrations/hero-success.svg",
       heroStyle: "bold",
       sections: ["services", "schedule", "membership", "testimonials", "contact"],
       uniqueSection: {
@@ -220,7 +220,7 @@ export const demoIndustries: IndustryDemo[] = [
     roiPreset: "fitness",
   },
 
-  // ─── 5. AUTO SERVICES ───
+  // â”€â”€â”€ 5. AUTO SERVICES â”€â”€â”€
   {
     slug: "auto-services",
     name: "Auto Services",
@@ -246,7 +246,7 @@ export const demoIndustries: IndustryDemo[] = [
       "Pre-Purchase Inspections",
     ],
     preview: {
-      heroImage: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=1200&h=600&fit=crop",
+      heroImage: "/illustrations/hero-success.svg",
       heroStyle: "split",
       sections: ["services", "pricing", "certifications", "testimonials", "contact"],
       uniqueSection: {
@@ -267,7 +267,7 @@ export const demoIndustries: IndustryDemo[] = [
     roiPreset: "auto-services",
   },
 
-  // ─── 6. SALONS & SPAS ───
+  // â”€â”€â”€ 6. SALONS & SPAS â”€â”€â”€
   {
     slug: "salons-spas",
     name: "Salons & Spas",
@@ -293,7 +293,7 @@ export const demoIndustries: IndustryDemo[] = [
       "Lash & Brow Services",
     ],
     preview: {
-      heroImage: "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&h=600&fit=crop",
+      heroImage: "/illustrations/hero-success.svg",
       heroStyle: "elegant",
       sections: ["services", "gallery", "team", "testimonials", "contact"],
       uniqueSection: {
@@ -314,7 +314,7 @@ export const demoIndustries: IndustryDemo[] = [
     roiPreset: "salons-spas",
   },
 
-  // ─── 7. E-COMMERCE & RETAIL ───
+  // â”€â”€â”€ 7. E-COMMERCE & RETAIL â”€â”€â”€
   {
     slug: "ecommerce-retail",
     name: "E-commerce & Retail",
@@ -340,7 +340,7 @@ export const demoIndustries: IndustryDemo[] = [
       "Loyalty Rewards Program",
     ],
     preview: {
-      heroImage: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&h=600&fit=crop",
+      heroImage: "/illustrations/hero-success.svg",
       heroStyle: "bold",
       sections: ["products", "categories", "features", "testimonials", "contact"],
       uniqueSection: {
@@ -361,7 +361,7 @@ export const demoIndustries: IndustryDemo[] = [
     roiPreset: "ecommerce",
   },
 
-  // ─── 8. PROFESSIONAL SERVICES ───
+  // â”€â”€â”€ 8. PROFESSIONAL SERVICES â”€â”€â”€
   {
     slug: "professional-services",
     name: "Professional Services",
@@ -387,7 +387,7 @@ export const demoIndustries: IndustryDemo[] = [
       "Wealth Management",
     ],
     preview: {
-      heroImage: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&h=600&fit=crop",
+      heroImage: "/illustrations/hero-success.svg",
       heroStyle: "centered",
       sections: ["services", "credentials", "insights", "testimonials", "contact"],
       uniqueSection: {
@@ -408,7 +408,7 @@ export const demoIndustries: IndustryDemo[] = [
     roiPreset: "professional-services",
   },
 
-  // ─── 9. NONPROFITS ───
+  // â”€â”€â”€ 9. NONPROFITS â”€â”€â”€
   {
     slug: "nonprofits",
     name: "Nonprofits",
@@ -434,7 +434,7 @@ export const demoIndustries: IndustryDemo[] = [
       "Community Blog",
     ],
     preview: {
-      heroImage: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1200&h=600&fit=crop",
+      heroImage: "/illustrations/hero-success.svg",
       heroStyle: "centered",
       sections: ["mission", "impact", "programs", "testimonials", "contact"],
       uniqueSection: {
@@ -455,7 +455,7 @@ export const demoIndustries: IndustryDemo[] = [
     roiPreset: "nonprofits",
   },
 
-  // ─── 10. DAYCARE CENTERS ───
+  // â”€â”€â”€ 10. DAYCARE CENTERS â”€â”€â”€
   {
     slug: "daycare-centers",
     name: "Daycare Centers",
@@ -481,7 +481,7 @@ export const demoIndustries: IndustryDemo[] = [
       "Nutritious Meal Program",
     ],
     preview: {
-      heroImage: "https://images.unsplash.com/photo-1587654780291-39c9404d7dd0?w=1200&h=600&fit=crop",
+      heroImage: "/illustrations/hero-success.svg",
       heroStyle: "split",
       sections: ["programs", "safety", "team", "testimonials", "contact"],
       uniqueSection: {
@@ -502,7 +502,7 @@ export const demoIndustries: IndustryDemo[] = [
     roiPreset: "daycare",
   },
 
-  // ─── 11. CONTRACTORS & TRADES ───
+  // â”€â”€â”€ 11. CONTRACTORS & TRADES â”€â”€â”€
   {
     slug: "contractors-trades",
     name: "Contractors & Trades",
@@ -528,7 +528,7 @@ export const demoIndustries: IndustryDemo[] = [
       "Commercial Build-Outs",
     ],
     preview: {
-      heroImage: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&h=600&fit=crop",
+      heroImage: "/illustrations/hero-success.svg",
       heroStyle: "split",
       sections: ["services", "portfolio", "licensing", "testimonials", "contact"],
       uniqueSection: {
@@ -549,7 +549,7 @@ export const demoIndustries: IndustryDemo[] = [
     roiPreset: "contractors",
   },
 
-  // ─── 12. REAL ESTATE ───
+  // â”€â”€â”€ 12. REAL ESTATE â”€â”€â”€
   {
     slug: "real-estate",
     name: "Real Estate",
@@ -575,7 +575,7 @@ export const demoIndustries: IndustryDemo[] = [
       "Market Analysis",
     ],
     preview: {
-      heroImage: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&h=600&fit=crop",
+      heroImage: "/illustrations/hero-success.svg",
       heroStyle: "bold",
       sections: ["listings", "services", "market-stats", "testimonials", "contact"],
       uniqueSection: {
@@ -596,7 +596,7 @@ export const demoIndustries: IndustryDemo[] = [
     roiPreset: "real-estate",
   },
 
-  // ─── 13. RESTAURANTS ───
+  // â”€â”€â”€ 13. RESTAURANTS â”€â”€â”€
   {
     slug: "restaurants",
     name: "Restaurants",
@@ -622,7 +622,7 @@ export const demoIndustries: IndustryDemo[] = [
       "Delivery Integration",
     ],
     preview: {
-      heroImage: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&h=600&fit=crop",
+      heroImage: "/illustrations/hero-success.svg",
       heroStyle: "bold",
       sections: ["menu", "ordering", "ambiance", "testimonials", "contact"],
       uniqueSection: {
@@ -648,3 +648,4 @@ export const demoIndustries: IndustryDemo[] = [
 export const demoIndustryMap: Record<string, IndustryDemo> = Object.fromEntries(
   demoIndustries.map((ind) => [ind.slug, ind])
 );
+

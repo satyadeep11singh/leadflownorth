@@ -39,6 +39,7 @@ const schema = {
   title={`${industry.name} Website Demo. See Your Custom Website | Lead Flow North`}
   description={`Enter your business details and see a live preview of your custom ${industry.name.toLowerCase()} website. Free interactive demo builder by Lead Flow North.`}
   structuredData={schema}
+  noIndex={true}
 >
   <!-- Hero Banner -->
   <section class="py-8 lg:py-12 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
@@ -92,7 +93,6 @@ const schema = {
           <DemoForm
             defaults={industry.defaults}
             services={industry.services}
-            industryName={industry.name}
           />
         </div>
 
@@ -194,11 +194,6 @@ const schema = {
     document.querySelectorAll(`[data-demo="${attr}"]`).forEach((el) => {
       el.textContent = value;
     });
-  }
-
-  // ─── Helper: lighten color for backgrounds ───
-  function colorWithAlpha(hex: string, alpha: string): string {
-    return hex + alpha;
   }
 
   // ─── TEXT FIELD BINDINGS ───

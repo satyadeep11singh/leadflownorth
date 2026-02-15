@@ -1,4 +1,4 @@
-// Landing page data for each industry
+﻿// Landing page data for each industry
 // Used by: /demos/[industry]/landing
 // Supplements data from demo-industries.ts and sample-page-data.ts
 
@@ -59,13 +59,13 @@ export interface LandingPageData {
 }
 
 export const landingData: Record<string, LandingPageData> = {
-  // ═══════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   // HOME SERVICES
-  // ═══════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   'home-services': {
     heroHeadline: 'Burst Pipe at 2 AM? We\'re Already on the Way.',
     heroSubheadline: '24/7 emergency plumbing with guaranteed 30-minute response times. Toronto\'s most trusted plumber since 2009.',
-    heroImage: 'https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?w=1200&h=600&fit=crop',
+    heroImage: '/illustrations/hero-success.svg',
     trustStat: 'Trusted by 2,500+ Toronto homeowners',
 
     primaryOffer: 'Emergency Service, 30-Min Response + $50 Off',
@@ -92,7 +92,7 @@ export const landingData: Record<string, LandingPageData> = {
     stats: [
       { value: '18 min', label: 'Avg. Response Time' },
       { value: '2,500+', label: 'Homes Serviced' },
-      { value: '4.9★', label: 'Google Rating' },
+      { value: '4.9â˜…', label: 'Google Rating' },
       { value: '100%', label: 'Satisfaction Guarantee' },
     ],
 
@@ -120,13 +120,13 @@ export const landingData: Record<string, LandingPageData> = {
     closingSubheadline: 'Book your free plumbing assessment today and get $50 off your first service. Limited spots available.',
   },
 
-  // ═══════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   // LEGAL
-  // ═══════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   'legal': {
     heroHeadline: 'Injured? You Deserve a Lawyer Who Fights as Hard as You Do.',
     heroSubheadline: 'Get the compensation you deserve. Free case evaluation, no fees unless we win your case.',
-    heroImage: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1200&h=600&fit=crop',
+    heroImage: '/illustrations/hero-success.svg',
     trustStat: 'Over $25M recovered for our clients',
 
     primaryOffer: 'Free Case Evaluation. No Win, No Fee',
@@ -153,7 +153,7 @@ export const landingData: Record<string, LandingPageData> = {
       { value: '$25M+', label: 'Recovered for Clients' },
       { value: '98%', label: 'Case Success Rate' },
       { value: '500+', label: 'Cases Won' },
-      { value: '4.9★', label: 'Client Rating' },
+      { value: '4.9â˜…', label: 'Client Rating' },
     ],
 
     formStep1Fields: [
@@ -179,13 +179,13 @@ export const landingData: Record<string, LandingPageData> = {
     closingSubheadline: 'Don\'t let time run out. Get your free, confidential case evaluation today.',
   },
 
-  // ═══════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   // MEDICAL / DENTAL
-  // ═══════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   'medical-dental': {
     heroHeadline: 'Nervous About the Dentist? We Specialize in Gentle Care.',
     heroSubheadline: 'Modern technology, compassionate staff, and a calm environment designed for anxious patients. New patient special available.',
-    heroImage: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?w=1200&h=600&fit=crop',
+    heroImage: '/illustrations/hero-success.svg',
     trustStat: 'Over 5,000 happy patients across the GTA',
 
     primaryOffer: '$99 New Patient Special. Exam, X-Rays & Cleaning',
@@ -212,7 +212,7 @@ export const landingData: Record<string, LandingPageData> = {
     stats: [
       { value: '5,000+', label: 'Happy Patients' },
       { value: '15+', label: 'Years of Experience' },
-      { value: '4.9★', label: 'Patient Rating' },
+      { value: '4.9â˜…', label: 'Patient Rating' },
       { value: 'Same-Day', label: 'Appointments Available' },
     ],
 
@@ -240,13 +240,13 @@ export const landingData: Record<string, LandingPageData> = {
     closingSubheadline: 'Book your $99 new patient special today. Only 8 spots left this month.',
   },
 
-  // ═══════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   // FITNESS
-  // ═══════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   'fitness': {
     heroHeadline: 'Stop Starting Over. Start Seeing Results.',
     heroSubheadline: 'Join Toronto\'s most supportive fitness community. Your first week is completely free, no contracts, no pressure.',
-    heroImage: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1200&h=600&fit=crop',
+    heroImage: '/illustrations/hero-success.svg',
     trustStat: 'Over 1,200 members transforming their lives',
 
     primaryOffer: 'Free 7-Day All-Access Pass + Personal Training Session',
@@ -273,7 +273,7 @@ export const landingData: Record<string, LandingPageData> = {
       { value: '1,200+', label: 'Active Members' },
       { value: '30+', label: 'Weekly Classes' },
       { value: '95%', label: 'Member Retention' },
-      { value: '4.8★', label: 'Google Rating' },
+      { value: '4.8â˜…', label: 'Google Rating' },
     ],
 
     formStep1Fields: [
@@ -299,13 +299,13 @@ export const landingData: Record<string, LandingPageData> = {
     closingSubheadline: 'Claim your free 7-day pass now. No credit card. No commitment. Just results.',
   },
 
-  // ═══════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   // AUTO SERVICES
-  // ═══════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   'auto-services': {
     heroHeadline: 'Tired of Getting the Runaround at the Dealership?',
     heroSubheadline: 'Honest diagnostics, transparent pricing, and certified technicians who treat your car like their own.',
-    heroImage: 'https://images.unsplash.com/photo-1625047509248-ec889cbff17f?w=1200&h=600&fit=crop',
+    heroImage: '/illustrations/hero-success.svg',
     trustStat: 'Trusted by 3,000+ vehicle owners in the GTA',
 
     primaryOffer: 'Free 42-Point Vehicle Inspection ($89 Value)',
@@ -331,7 +331,7 @@ export const landingData: Record<string, LandingPageData> = {
     stats: [
       { value: '3,000+', label: 'Vehicles Serviced' },
       { value: '40%', label: 'Avg. Savings vs Dealer' },
-      { value: '4.9★', label: 'Google Rating' },
+      { value: '4.9â˜…', label: 'Google Rating' },
       { value: 'Same-Day', label: 'Service Available' },
     ],
 
@@ -359,13 +359,13 @@ export const landingData: Record<string, LandingPageData> = {
     closingSubheadline: 'Book your free 42-point inspection today and see the difference honest auto care makes.',
   },
 
-  // ═══════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   // SALONS & SPAS
-  // ═══════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   'salons-spas': {
     heroHeadline: 'You Deserve More Than a Haircut. You Deserve an Experience.',
     heroSubheadline: 'Award-winning stylists, luxurious treatments, and a space designed to make you feel like your best self.',
-    heroImage: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1200&h=600&fit=crop',
+    heroImage: '/illustrations/hero-success.svg',
     trustStat: 'Rated #1 salon in Toronto on Google',
 
     primaryOffer: 'First Visit 25% Off + Free Deep Conditioning Treatment',
@@ -391,7 +391,7 @@ export const landingData: Record<string, LandingPageData> = {
     stats: [
       { value: '2,000+', label: 'Happy Clients' },
       { value: '#1', label: 'Rated Salon in Toronto' },
-      { value: '4.9★', label: 'Google Rating' },
+      { value: '4.9â˜…', label: 'Google Rating' },
       { value: '12+', label: 'Award-Winning Stylists' },
     ],
 
@@ -417,13 +417,13 @@ export const landingData: Record<string, LandingPageData> = {
     closingSubheadline: 'Book your first visit this week and save 25%. Plus a free deep conditioning treatment on us.',
   },
 
-  // ═══════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   // E-COMMERCE / RETAIL
-  // ═══════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   'ecommerce-retail': {
     heroHeadline: 'Canadian-Made. Delivered to Your Door. No Compromises.',
     heroSubheadline: 'Discover premium, locally crafted products with free shipping across Canada. Join 10,000+ happy customers.',
-    heroImage: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&h=600&fit=crop',
+    heroImage: '/illustrations/hero-success.svg',
     trustStat: '10,000+ orders shipped across Canada',
 
     primaryOffer: '15% Off Your First Order + Free Shipping',
@@ -448,7 +448,7 @@ export const landingData: Record<string, LandingPageData> = {
 
     stats: [
       { value: '10,000+', label: 'Happy Customers' },
-      { value: '4.8★', label: 'Average Rating' },
+      { value: '4.8â˜…', label: 'Average Rating' },
       { value: '2-Day', label: 'Avg. Delivery Time' },
       { value: '30-Day', label: 'Free Returns' },
     ],
@@ -473,13 +473,13 @@ export const landingData: Record<string, LandingPageData> = {
     closingSubheadline: 'Join 10,000+ happy customers. Get your discount code now, offer ends soon.',
   },
 
-  // ═══════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   // PROFESSIONAL SERVICES
-  // ═══════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   'professional-services': {
     heroHeadline: 'Your Business Is Growing. Your Finances Should Keep Up.',
     heroSubheadline: 'Strategic accounting, tax planning, and business advisory for entrepreneurs who want to scale , not just survive.',
-    heroImage: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&h=600&fit=crop',
+    heroImage: '/illustrations/hero-success.svg',
     trustStat: 'Managing $200M+ in client assets',
 
     primaryOffer: 'Free Business Financial Audit. Uncover Hidden Savings',
@@ -534,13 +534,13 @@ export const landingData: Record<string, LandingPageData> = {
     closingSubheadline: 'Request your free business audit before spots fill up. Only 3 remaining this quarter.',
   },
 
-  // ═══════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   // NONPROFITS
-  // ═══════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   'nonprofits': {
     heroHeadline: 'Every Dollar Plants a Seed of Change.',
     heroSubheadline: 'Your donation provides meals, shelter, and hope to families across Northern Ontario. 92 cents of every dollar goes directly to programs.',
-    heroImage: 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1200&h=600&fit=crop',
+    heroImage: '/illustrations/hero-success.svg',
     trustStat: 'Over 12,000 families helped since 2015',
 
     primaryOffer: 'Make a Tax-Deductible Donation Today',
@@ -567,8 +567,8 @@ export const landingData: Record<string, LandingPageData> = {
 
     stats: [
       { value: '12,000+', label: 'Families Helped' },
-      { value: '92¢', label: 'Of Every Dollar to Programs' },
-      { value: '4.8★', label: 'Charity Rating' },
+      { value: '92Â¢', label: 'Of Every Dollar to Programs' },
+      { value: '4.8â˜…', label: 'Charity Rating' },
       { value: '500+', label: 'Active Volunteers' },
     ],
 
@@ -594,13 +594,13 @@ export const landingData: Record<string, LandingPageData> = {
     closingSubheadline: 'Help us reach our $50,000 winter campaign goal. Every dollar brings warmth and hope to a family in need.',
   },
 
-  // ═══════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   // DAYCARE CENTERS
-  // ═══════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   'daycare-centers': {
     heroHeadline: 'Finding Childcare Shouldn\'t Feel Like a Second Full-Time Job.',
     heroSubheadline: 'A safe, nurturing environment where your child learns, grows, and thrives, while you focus on work with peace of mind.',
-    heroImage: 'https://images.unsplash.com/photo-1587654780291-39c9404d7dd0?w=1200&h=600&fit=crop',
+    heroImage: '/illustrations/hero-success.svg',
     trustStat: 'Trusted by 300+ families in the community',
 
     primaryOffer: 'Book a Free Tour + Your Child\'s Free Trial Day',
@@ -628,7 +628,7 @@ export const landingData: Record<string, LandingPageData> = {
       { value: '300+', label: 'Families Trust Us' },
       { value: '4:1', label: 'Child-to-Staff Ratio' },
       { value: '15+', label: 'Years in Operation' },
-      { value: '4.9★', label: 'Parent Rating' },
+      { value: '4.9â˜…', label: 'Parent Rating' },
     ],
 
     formStep1Fields: [
@@ -655,13 +655,13 @@ export const landingData: Record<string, LandingPageData> = {
     closingSubheadline: 'Book your free tour today and see why 300+ families trust Little Explorers with their most precious treasure.',
   },
 
-  // ═══════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   // CONTRACTORS / TRADES
-  // ═══════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   'contractors-trades': {
     heroHeadline: 'Quality Craftsmanship Shouldn\'t Be This Hard to Find.',
     heroSubheadline: 'Licensed, insured, and backed by a satisfaction guarantee. Get a transparent quote for your project, no surprises, no hidden fees.',
-    heroImage: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&h=600&fit=crop',
+    heroImage: '/illustrations/hero-success.svg',
     trustStat: 'Over 800 projects completed across the GTA',
 
     primaryOffer: 'Free Project Estimate + We\'ll Review Your Existing Quote',
@@ -688,7 +688,7 @@ export const landingData: Record<string, LandingPageData> = {
     stats: [
       { value: '800+', label: 'Projects Completed' },
       { value: '25+', label: 'Years of Experience' },
-      { value: '4.9★', label: 'Client Rating' },
+      { value: '4.9â˜…', label: 'Client Rating' },
       { value: '5-Year', label: 'Workmanship Warranty' },
     ],
 
@@ -716,13 +716,13 @@ export const landingData: Record<string, LandingPageData> = {
     closingSubheadline: 'Get your free estimate today. Spring booking slots are filling up, don\'t wait to start your renovation.',
   },
 
-  // ═══════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   // REAL ESTATE
-  // ═══════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   'real-estate': {
     heroHeadline: 'What\'s Your Home Really Worth? Find Out in 60 Seconds.',
     heroSubheadline: 'Get a free, no-obligation market analysis based on recent sales in your neighbourhood. Powered by real MLS data.',
-    heroImage: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1200&h=600&fit=crop',
+    heroImage: '/illustrations/hero-success.svg',
     trustStat: 'Over $150M in properties sold',
 
     primaryOffer: 'Free Home Market Analysis. Instant Online Report',
@@ -749,7 +749,7 @@ export const landingData: Record<string, LandingPageData> = {
       { value: '$150M+', label: 'In Properties Sold' },
       { value: '103%', label: 'Avg. Sale-to-List Ratio' },
       { value: '12 Days', label: 'Avg. Days on Market' },
-      { value: '4.9★', label: 'Client Rating' },
+      { value: '4.9â˜…', label: 'Client Rating' },
     ],
 
     formStep1Fields: [
@@ -776,13 +776,13 @@ export const landingData: Record<string, LandingPageData> = {
     closingSubheadline: 'Get your free market analysis now. The market is moving, find out where you stand.',
   },
 
-  // ═══════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   // RESTAURANTS
-  // ═══════════════════════════════════════════
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   'restaurants': {
     heroHeadline: 'Skip the Delivery Apps. Dine with Us Direct.',
     heroSubheadline: 'Farm-to-table dining in the heart of Toronto. Reserve your table and enjoy 10% off your first dinner with us.',
-    heroImage: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&h=600&fit=crop',
+    heroImage: '/illustrations/hero-success.svg',
     trustStat: 'Toronto\'s #1 rated farm-to-table restaurant on Google',
 
     primaryOffer: 'Reserve Your Table + 10% Off Your First Dinner',
@@ -807,7 +807,7 @@ export const landingData: Record<string, LandingPageData> = {
 
     stats: [
       { value: '#1', label: 'Farm-to-Table in Toronto' },
-      { value: '4.9★', label: 'Google Rating' },
+      { value: '4.9â˜…', label: 'Google Rating' },
       { value: '95%', label: 'Locally Sourced' },
       { value: '15,000+', label: 'Guests Served' },
     ],
@@ -836,3 +836,4 @@ export const landingData: Record<string, LandingPageData> = {
     closingSubheadline: 'Reserve now and enjoy 10% off your first dinner. Don\'t miss our limited-time seasonal menu.',
   },
 };
+

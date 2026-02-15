@@ -34,6 +34,7 @@ const faqs = [
     answer: "Absolutely not. Our audit includes actionable recommendations you can implement yourself or with any provider. If we're a good fit to help, great. If not, you still get valuable insights for free."
   }
 ];
+const hubspotAuditFormEndpoint = import.meta.env.PUBLIC_HUBSPOT_AUDIT_FORM_ENDPOINT ?? 'https://api.hsforms.com/submissions/v3/integration/submit/342962653/39bb6fa5-8de1-4158-9b2a-081a076676f1';
 ---
 
 <Layout
@@ -377,7 +378,7 @@ const faqs = [
   </section>
 
   <!-- Free Audit Form → HubSpot Forms API -->
-  <script is:inline>
+  <script is:inline define:vars={{ hubspotAuditFormEndpoint }}>
     (function() {
       // Helper to read HubSpot tracking cookie
       function getHubspotCookie() {
@@ -441,7 +442,7 @@ const faqs = [
           };
 
           // Submit to HubSpot Forms API
-          fetch('https://api.hsforms.com/submissions/v3/integration/submit/342962653/39bb6fa5-8de1-4158-9b2a-081a076676f1', {
+          fetch(hubspotAuditFormEndpoint, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
