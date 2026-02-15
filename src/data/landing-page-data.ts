@@ -92,7 +92,7 @@ export const landingData: Record<string, LandingPageData> = {
     stats: [
       { value: '18 min', label: 'Avg. Response Time' },
       { value: '2,500+', label: 'Homes Serviced' },
-      { value: '4.9â˜…', label: 'Google Rating' },
+      { value: '4.9★', label: 'Google Rating' },
       { value: '100%', label: 'Satisfaction Guarantee' },
     ],
 
@@ -153,7 +153,7 @@ export const landingData: Record<string, LandingPageData> = {
       { value: '$25M+', label: 'Recovered for Clients' },
       { value: '98%', label: 'Case Success Rate' },
       { value: '500+', label: 'Cases Won' },
-      { value: '4.9â˜…', label: 'Client Rating' },
+      { value: '4.9★', label: 'Client Rating' },
     ],
 
     formStep1Fields: [
@@ -212,7 +212,7 @@ export const landingData: Record<string, LandingPageData> = {
     stats: [
       { value: '5,000+', label: 'Happy Patients' },
       { value: '15+', label: 'Years of Experience' },
-      { value: '4.9â˜…', label: 'Patient Rating' },
+      { value: '4.9★', label: 'Patient Rating' },
       { value: 'Same-Day', label: 'Appointments Available' },
     ],
 
@@ -273,7 +273,7 @@ export const landingData: Record<string, LandingPageData> = {
       { value: '1,200+', label: 'Active Members' },
       { value: '30+', label: 'Weekly Classes' },
       { value: '95%', label: 'Member Retention' },
-      { value: '4.8â˜…', label: 'Google Rating' },
+      { value: '4.8★', label: 'Google Rating' },
     ],
 
     formStep1Fields: [
@@ -331,7 +331,7 @@ export const landingData: Record<string, LandingPageData> = {
     stats: [
       { value: '3,000+', label: 'Vehicles Serviced' },
       { value: '40%', label: 'Avg. Savings vs Dealer' },
-      { value: '4.9â˜…', label: 'Google Rating' },
+      { value: '4.9★', label: 'Google Rating' },
       { value: 'Same-Day', label: 'Service Available' },
     ],
 
@@ -391,7 +391,7 @@ export const landingData: Record<string, LandingPageData> = {
     stats: [
       { value: '2,000+', label: 'Happy Clients' },
       { value: '#1', label: 'Rated Salon in Toronto' },
-      { value: '4.9â˜…', label: 'Google Rating' },
+      { value: '4.9★', label: 'Google Rating' },
       { value: '12+', label: 'Award-Winning Stylists' },
     ],
 
@@ -448,7 +448,7 @@ export const landingData: Record<string, LandingPageData> = {
 
     stats: [
       { value: '10,000+', label: 'Happy Customers' },
-      { value: '4.8â˜…', label: 'Average Rating' },
+      { value: '4.8★', label: 'Average Rating' },
       { value: '2-Day', label: 'Avg. Delivery Time' },
       { value: '30-Day', label: 'Free Returns' },
     ],
@@ -567,8 +567,8 @@ export const landingData: Record<string, LandingPageData> = {
 
     stats: [
       { value: '12,000+', label: 'Families Helped' },
-      { value: '92Â¢', label: 'Of Every Dollar to Programs' },
-      { value: '4.8â˜…', label: 'Charity Rating' },
+      { value: '92¢', label: 'Of Every Dollar to Programs' },
+      { value: '4.8★', label: 'Charity Rating' },
       { value: '500+', label: 'Active Volunteers' },
     ],
 
@@ -628,7 +628,7 @@ export const landingData: Record<string, LandingPageData> = {
       { value: '300+', label: 'Families Trust Us' },
       { value: '4:1', label: 'Child-to-Staff Ratio' },
       { value: '15+', label: 'Years in Operation' },
-      { value: '4.9â˜…', label: 'Parent Rating' },
+      { value: '4.9★', label: 'Parent Rating' },
     ],
 
     formStep1Fields: [
@@ -688,7 +688,7 @@ export const landingData: Record<string, LandingPageData> = {
     stats: [
       { value: '800+', label: 'Projects Completed' },
       { value: '25+', label: 'Years of Experience' },
-      { value: '4.9â˜…', label: 'Client Rating' },
+      { value: '4.9★', label: 'Client Rating' },
       { value: '5-Year', label: 'Workmanship Warranty' },
     ],
 
@@ -749,7 +749,7 @@ export const landingData: Record<string, LandingPageData> = {
       { value: '$150M+', label: 'In Properties Sold' },
       { value: '103%', label: 'Avg. Sale-to-List Ratio' },
       { value: '12 Days', label: 'Avg. Days on Market' },
-      { value: '4.9â˜…', label: 'Client Rating' },
+      { value: '4.9★', label: 'Client Rating' },
     ],
 
     formStep1Fields: [
@@ -807,7 +807,7 @@ export const landingData: Record<string, LandingPageData> = {
 
     stats: [
       { value: '#1', label: 'Farm-to-Table in Toronto' },
-      { value: '4.9â˜…', label: 'Google Rating' },
+      { value: '4.9★', label: 'Google Rating' },
       { value: '95%', label: 'Locally Sourced' },
       { value: '15,000+', label: 'Guests Served' },
     ],
