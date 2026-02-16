@@ -77,7 +77,31 @@ const shouldLoadHubspotChat = !!hubspotPortalId && !noIndex && !isEmbedLikeRoute
     )}
 
     {shouldLoadHubspotChat && (
-      <script is:inline async defer id="hs-script-loader" src={`https://js.hs-scripts.com/${hubspotPortalId}.js`}></script>
+      <script is:inline define:vars={{ hubspotPortalId }}>
+        (function () {
+          var loaded = false;
+          function loadHubSpot() {
+            if (loaded) return;
+            loaded = true;
+            var script = document.createElement('script');
+            script.id = 'hs-script-loader';
+            script.async = true;
+            script.defer = true;
+            script.src = 'https://js.hs-scripts.com/' + hubspotPortalId + '.js';
+            document.head.appendChild(script);
+          }
+
+          if ('requestIdleCallback' in window) {
+            requestIdleCallback(loadHubSpot, { timeout: 5000 });
+          } else {
+            setTimeout(loadHubSpot, 3000);
+          }
+
+          ['scroll', 'click', 'keydown', 'touchstart'].forEach(function(evt) {
+            window.addEventListener(evt, loadHubSpot, { once: true, passive: true });
+          });
+        })();
+      </script>
     )}
   </head>
   <body class="bg-white text-slate-800 font-['Inter',sans-serif] antialiased">
