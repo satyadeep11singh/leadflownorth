@@ -31,7 +31,12 @@ npm run ci
 Create `.env` from `.env.example` and set public IDs/endpoints used in client-side forms and analytics.
 
 - `PUBLIC_GA_MEASUREMENT_ID`
+- `PUBLIC_CHAT_PROVIDER` (`hubspot` or `botpress`)
 - `PUBLIC_CAL_LINK`
+- `PUBLIC_BOTPRESS_INJECT_URL`
+- `PUBLIC_BOTPRESS_CONFIG_URL`
+- `PUBLIC_BOTPRESS_BOT_ID`
+- `PUBLIC_BOTPRESS_CLIENT_ID`
 - `PUBLIC_HUBSPOT_CONTACT_FORM_ENDPOINT`
 - `PUBLIC_HUBSPOT_AUDIT_FORM_ENDPOINT`
 - `PUBLIC_HUBSPOT_ROI_FORM_ENDPOINT`

@@ -47,6 +47,11 @@ const resolvedCanonicalURL = canonicalURL
 const resolvedOgImage = ogImage.startsWith('http') ? ogImage : `${baseUrl}${ogImage}`;
 const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID ?? '';
 const hubspotPortalId = import.meta.env.PUBLIC_HUBSPOT_PORTAL_ID ?? '342962653';
+const chatProvider = (import.meta.env.PUBLIC_CHAT_PROVIDER ?? 'hubspot').toLowerCase();
+const botpressInjectUrl = import.meta.env.PUBLIC_BOTPRESS_INJECT_URL ?? 'https://cdn.botpress.cloud/webchat/v3.3/inject.js';
+const botpressConfigUrl = import.meta.env.PUBLIC_BOTPRESS_CONFIG_URL ?? '';
+const botpressBotId = import.meta.env.PUBLIC_BOTPRESS_BOT_ID ?? '';
+const botpressClientId = import.meta.env.PUBLIC_BOTPRESS_CLIENT_ID ?? '';
 
 function slugToName(segment: string) {
   return segment
@@ -128,7 +133,16 @@ const isEmbedLikeRoute =
   currentPath.startsWith('/samples') ||
   currentPath === '/book-call/' ||
   currentPath === '/thank-you/';
-const shouldLoadHubspotChat = !!hubspotPortalId && !noIndex && !isEmbedLikeRoute;
+const shouldLoadHubspotChat =
+  chatProvider === 'hubspot' &&
+  !!hubspotPortalId &&
+  !noIndex &&
+  !isEmbedLikeRoute;
+const shouldLoadBotpressChat =
+  chatProvider === 'botpress' &&
+  (!!botpressConfigUrl || (!!botpressBotId && !!botpressClientId)) &&
+  !noIndex &&
+  !isEmbedLikeRoute;
 ---
 
 <!doctype html>
@@ -258,6 +272,50 @@ const shouldLoadHubspotChat = !!hubspotPortalId && !noIndex && !isEmbedLikeRoute
 
           ['scroll', 'click', 'keydown', 'touchstart'].forEach(function(evt) {
             window.addEventListener(evt, loadHubSpot, { once: true, passive: true });
+          });
+        })();
+      </script>
+    )}
+
+    {shouldLoadBotpressChat && (
+      <script is:inline define:vars={{ botpressInjectUrl, botpressConfigUrl, botpressBotId, botpressClientId }}>
+        (function () {
+          var loaded = false;
+          function loadBotpress() {
+            if (loaded) return;
+            loaded = true;
+
+            var injectScript = document.createElement('script');
+            injectScript.src = botpressInjectUrl;
+            injectScript.async = true;
+            injectScript.defer = true;
+            injectScript.onload = function () {
+              if (botpressConfigUrl) {
+                var configScript = document.createElement('script');
+                configScript.src = botpressConfigUrl;
+                configScript.defer = true;
+                document.head.appendChild(configScript);
+                return;
+              }
+
+              if (window.botpress && botpressBotId && botpressClientId) {
+                window.botpress.init({
+                  botId: botpressBotId,
+                  clientId: botpressClientId
+                });
+              }
+            };
+            document.head.appendChild(injectScript);
+          }
+
+          if ('requestIdleCallback' in window) {
+            requestIdleCallback(loadBotpress, { timeout: 5000 });
+          } else {
+            setTimeout(loadBotpress, 3000);
+          }
+
+          ['scroll', 'click', 'keydown', 'touchstart'].forEach(function(evt) {
+            window.addEventListener(evt, loadBotpress, { once: true, passive: true });
           });
         })();
       </script>
