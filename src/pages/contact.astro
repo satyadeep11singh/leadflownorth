@@ -111,12 +111,21 @@ const hubspotContactFormEndpoint = import.meta.env.PUBLIC_HUBSPOT_CONTACT_FORM_E
           </p>
         </div>
         <div class="p-4 lg:p-6">
+          <div id="meeting-embed-placeholder" class="mb-4 rounded-xl border border-dashed border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900/40 p-4 text-sm text-slate-600 dark:text-slate-300">
+            Loading scheduler when you interact with the page. If it does not load, <a class="underline text-primary-600 dark:text-primary-400" href={bookingUrl} target="_blank" rel="noopener">open booking in a new tab</a>.
+          </div>
           <iframe
-            src={meetingEmbedUrl}
+            id="meeting-embed"
+            src="about:blank"
+            data-src={meetingEmbedUrl}
             title="Book a meeting with Lead Flow North"
             class="w-full min-h-[700px] rounded-xl border border-slate-200 dark:border-slate-700"
             loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
           ></iframe>
+          <noscript>
+            <p class="mt-3 text-sm text-slate-600 dark:text-slate-300">JavaScript is required for the embedded scheduler. <a class="underline text-primary-600 dark:text-primary-400" href={bookingUrl} target="_blank" rel="noopener">Open booking page</a>.</p>
+          </noscript>
         </div>
       </div>
 
@@ -472,6 +481,27 @@ const hubspotContactFormEndpoint = import.meta.env.PUBLIC_HUBSPOT_CONTACT_FORM_E
       var messageBtn = document.getElementById('option-message');
       var callSection = document.getElementById('section-call');
       var messageSection = document.getElementById('section-message');
+      var meetingEmbed = document.getElementById('meeting-embed');
+      var meetingEmbedPlaceholder = document.getElementById('meeting-embed-placeholder');
+      var meetingLoaded = false;
+
+      function loadMeetingEmbed() {
+        if (meetingLoaded || !meetingEmbed) return;
+        var embedSrc = meetingEmbed.getAttribute('data-src');
+        if (!embedSrc) return;
+        meetingLoaded = true;
+        meetingEmbed.setAttribute('src', embedSrc);
+        meetingEmbed.removeAttribute('data-src');
+        if (meetingEmbedPlaceholder) meetingEmbedPlaceholder.classList.add('hidden');
+      }
+
+      var interactionEvents = ['click', 'keydown', 'touchstart'];
+      function bindInteractionLoad() {
+        interactionEvents.forEach(function(evt) {
+          window.addEventListener(evt, loadMeetingEmbed, { once: true, passive: true, capture: true });
+        });
+      }
+      bindInteractionLoad();
 
       function showCall() {
         callBtn.classList.add('active');
@@ -480,6 +510,7 @@ const hubspotContactFormEndpoint = import.meta.env.PUBLIC_HUBSPOT_CONTACT_FORM_E
         messageBtn.setAttribute('aria-expanded', 'false');
         callSection.classList.remove('hidden');
         messageSection.classList.add('hidden');
+        loadMeetingEmbed();
       }
 
       function showMessage() {
