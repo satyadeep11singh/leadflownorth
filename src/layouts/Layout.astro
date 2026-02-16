@@ -46,6 +46,7 @@ const resolvedCanonicalURL = canonicalURL
   : `${baseUrl}${currentPath}`;
 const resolvedOgImage = ogImage.startsWith('http') ? ogImage : `${baseUrl}${ogImage}`;
 const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID ?? '';
+const hubspotPortalId = import.meta.env.PUBLIC_HUBSPOT_PORTAL_ID ?? '342962653';
 
 function slugToName(segment: string) {
   return segment
@@ -121,6 +122,13 @@ const organizationSchema = {
     "https://www.facebook.com/leadflownorth"
   ]
 };
+
+const isEmbedLikeRoute =
+  currentPath.startsWith('/demos') ||
+  currentPath.startsWith('/samples') ||
+  currentPath === '/book-call/' ||
+  currentPath === '/thank-you/';
+const shouldLoadHubspotChat = !!hubspotPortalId && !noIndex && !isEmbedLikeRoute;
 ---
 
 <!doctype html>
@@ -226,6 +234,10 @@ const organizationSchema = {
         }
       </script>
     )}
+
+    {shouldLoadHubspotChat && (
+      <script is:inline async defer id="hs-script-loader" src={`https://js.hs-scripts.com/${hubspotPortalId}.js`}></script>
+    )}
   </head>
   <body class="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-['Inter',sans-serif] antialiased transition-colors duration-300 pb-20 md:pb-0">
     <!-- Skip to main content for accessibility -->
@@ -245,7 +257,7 @@ const organizationSchema = {
         <a
           href="/book-call"
           data-analytics="mobile_sticky_book_call"
-          class="flex-1 inline-flex items-center justify-center rounded-lg bg-accent-600 px-4 py-3 text-sm font-semibold text-white hover:bg-accent-700 transition-colors"
+          class="flex-1 inline-flex items-center justify-center rounded-lg bg-accent-700 px-4 py-3 text-sm font-semibold text-white hover:bg-accent-800 transition-colors"
         >
           Book Call
         </a>

@@ -8,7 +8,16 @@ const contactSchema = {
   "description": "Get in touch with Lead Flow North for web design and lead generation services.",
   "url": "https://leadflownorth.com/contact"
 };
-const calEmbedLink = import.meta.env.PUBLIC_CAL_LINK ?? 'leadflownorth/15min';
+const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL ?? 'https://meetings-na3.hubspot.com/lead-flow';
+const meetingEmbedUrl = (() => {
+  try {
+    const url = new URL(bookingUrl);
+    url.searchParams.set('embed', 'true');
+    return url.toString();
+  } catch {
+    return bookingUrl;
+  }
+})();
 const hubspotContactFormEndpoint = import.meta.env.PUBLIC_HUBSPOT_CONTACT_FORM_ENDPOINT ?? 'https://api.hsforms.com/submissions/v3/integration/submit/342962653/d6f4baca-e5a8-433c-9690-a0cc3c302a0a';
 ---
 
@@ -101,12 +110,13 @@ const hubspotContactFormEndpoint = import.meta.env.PUBLIC_HUBSPOT_CONTACT_FORM_E
             Pick a time that works for you. We'll review your online presence, discuss your goals, and give you honest advice, whether you hire us or not.
           </p>
         </div>
-        <!-- Cal.com Embed -->
-        <div class="min-h-[600px] relative" id="cal-embed">
-          <div id="cal-loading" class="absolute inset-0 flex flex-col items-center justify-center gap-4 p-8">
-            <div class="w-10 h-10 border-4 border-primary-200 border-t-primary-600 rounded-full animate-spin"></div>
-            <p class="text-sm text-slate-500 dark:text-slate-400">Loading calendar...</p>
-          </div>
+        <div class="p-4 lg:p-6">
+          <iframe
+            src={meetingEmbedUrl}
+            title="Book a meeting with Lead Flow North"
+            class="w-full min-h-[700px] rounded-xl border border-slate-200 dark:border-slate-700"
+            loading="lazy"
+          ></iframe>
         </div>
       </div>
 
@@ -456,7 +466,7 @@ const hubspotContactFormEndpoint = import.meta.env.PUBLIC_HUBSPOT_CONTACT_FORM_E
   </style>
 
   <!-- Option Toggle Script -->
-  <script is:inline define:vars={{ calEmbedLink }}>
+  <script is:inline>
     (function() {
       var callBtn = document.getElementById('option-call');
       var messageBtn = document.getElementById('option-message');
@@ -484,92 +494,6 @@ const hubspotContactFormEndpoint = import.meta.env.PUBLIC_HUBSPOT_CONTACT_FORM_E
       callBtn.addEventListener('click', showCall);
       messageBtn.addEventListener('click', showMessage);
     })();
-  </script>
-
-  <!-- Cal.com Embed Script -->
-  <script is:inline define:vars={{ calEmbedLink }}>
-    (function (C, A, L) {
-      let p = function (a, ar) { a.q.push(ar); };
-      let d = C.document;
-      C.Cal = C.Cal || function () {
-        let cal = C.Cal;
-        let ar = arguments;
-        if (!cal.loaded) {
-          cal.ns = {};
-          cal.q = cal.q || [];
-          d.head.appendChild(d.createElement("script")).src = A;
-          cal.loaded = true;
-        }
-        if (ar[0] === L) {
-          const api = function () { p(api, arguments); };
-          const namespace = ar[1];
-          api.q = api.q || [];
-          if (typeof namespace === "string") {
-            cal.ns[namespace] = cal.ns[namespace] || api;
-            p(cal.ns[namespace], ar);
-            p(cal, ["initNamespace", namespace]);
-          } else {
-            p(cal, ar);
-          }
-          return;
-        }
-        p(cal, ar);
-      };
-    })(window, "https://app.cal.com/embed/embed.js", "init");
-
-    var calInitialized = false;
-    function hideCalLoader() {
-      var loader = document.getElementById('cal-loading');
-      if (loader) loader.style.display = 'none';
-    }
-
-    function watchForCalIframe() {
-      var attempts = 0;
-      var maxAttempts = 40;
-      var check = setInterval(function() {
-        var iframe = document.querySelector('#cal-embed iframe');
-        attempts += 1;
-        if (iframe) {
-          hideCalLoader();
-          clearInterval(check);
-          return;
-        }
-        if (attempts >= maxAttempts) {
-          clearInterval(check);
-        }
-      }, 300);
-    }
-
-    function initCal() {
-      if (calInitialized) return;
-      calInitialized = true;
-      var safeCalLink = (typeof calEmbedLink === 'string' && calEmbedLink.trim()) ? calEmbedLink : 'leadflownorth/15min';
-
-      Cal("init", { origin: "https://cal.com" });
-      Cal("inline", {
-        elementOrSelector: "#cal-embed",
-        calLink: safeCalLink,
-        layout: "month_view",
-        config: {
-          theme: document.documentElement.classList.contains("dark") ? "dark" : "light"
-        }
-      });
-      Cal("ui", { hideEventTypeDetails: false, layout: "month_view" });
-      watchForCalIframe();
-    }
-
-    var calContainer = document.getElementById('cal-embed');
-    if (calContainer && 'IntersectionObserver' in window) {
-      var calObserver = new IntersectionObserver(function(entries) {
-        if (entries.some(function(entry) { return entry.isIntersecting; })) {
-          initCal();
-          calObserver.disconnect();
-        }
-      }, { rootMargin: '100px' });
-      calObserver.observe(calContainer);
-    } else {
-      initCal();
-    }
   </script>
 
   <!-- Contact Form → HubSpot Forms API -->

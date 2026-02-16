@@ -18,6 +18,13 @@ const {
 const baseUrl = 'https://leadflownorth.com';
 const currentPath = Astro.url.pathname;
 const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID ?? '';
+const hubspotPortalId = import.meta.env.PUBLIC_HUBSPOT_PORTAL_ID ?? '342962653';
+const isEmbedLikeRoute =
+  currentPath.startsWith('/demos') ||
+  currentPath.startsWith('/samples') ||
+  currentPath === '/book-call/' ||
+  currentPath === '/thank-you/';
+const shouldLoadHubspotChat = !!hubspotPortalId && !noIndex && !isEmbedLikeRoute;
 ---
 
 <!doctype html>
@@ -67,6 +74,10 @@ const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID ?? '';
           setTimeout(initAnalytics, 600);
         }
       </script>
+    )}
+
+    {shouldLoadHubspotChat && (
+      <script is:inline async defer id="hs-script-loader" src={`https://js.hs-scripts.com/${hubspotPortalId}.js`}></script>
     )}
   </head>
   <body class="bg-white text-slate-800 font-['Inter',sans-serif] antialiased">
