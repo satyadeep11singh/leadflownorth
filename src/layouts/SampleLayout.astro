@@ -20,17 +20,10 @@ const currentPath = Astro.url.pathname;
 const gaMeasurementId = import.meta.env.PUBLIC_GA_MEASUREMENT_ID ?? '';
 const botpressInjectUrl = import.meta.env.PUBLIC_BOTPRESS_INJECT_URL ?? 'https://cdn.botpress.cloud/webchat/v3.3/inject.js';
 const botpressConfigUrl = import.meta.env.PUBLIC_BOTPRESS_CONFIG_URL ?? '';
-const botpressBotId = import.meta.env.PUBLIC_BOTPRESS_BOT_ID ?? '';
-const botpressClientId = import.meta.env.PUBLIC_BOTPRESS_CLIENT_ID ?? '';
-const isEmbedLikeRoute =
-  currentPath.startsWith('/demos') ||
-  currentPath.startsWith('/samples') ||
-  currentPath === '/book-call/' ||
-  currentPath === '/thank-you/';
+const botpressBotId = import.meta.env.PUBLIC_BOTPRESS_BOT_ID ?? '7e372dd7-b45a-402b-be86-be2c17425e95';
+const botpressClientId = import.meta.env.PUBLIC_BOTPRESS_CLIENT_ID ?? '05c0d922-5da1-4c4a-93d5-9319c2a2cd48';
 const shouldLoadBotpressChat =
-  (!!botpressConfigUrl || (!!botpressBotId && !!botpressClientId)) &&
-  !noIndex &&
-  !isEmbedLikeRoute;
+  !!botpressConfigUrl || (!!botpressBotId && !!botpressClientId);
 ---
 
 <!doctype html>
@@ -86,22 +79,17 @@ const shouldLoadBotpressChat =
       <script is:inline define:vars={{ botpressInjectUrl, botpressConfigUrl, botpressBotId, botpressClientId }}>
         (function () {
           var loaded = false;
-          var listenersBound = false;
-          var fallbackTimer = null;
+          function pinLauncherBottomRight() {
+            if (document.getElementById('lfn-botpress-position')) return;
+            var style = document.createElement('style');
+            style.id = 'lfn-botpress-position';
+            style.textContent = '.bpFab{display:flex!important;position:fixed!important;right:20px!important;bottom:20px!important;z-index:9999!important}';
+            document.head.appendChild(style);
+          }
+
           function loadBotpress() {
             if (loaded) return;
             loaded = true;
-            if (fallbackTimer) {
-              clearTimeout(fallbackTimer);
-              fallbackTimer = null;
-            }
-            if (listenersBound) {
-              listenersBound = false;
-              ['click', 'keydown', 'touchstart'].forEach(function(evt) {
-                window.removeEventListener(evt, loadBotpress, true);
-              });
-            }
-
             var injectScript = document.createElement('script');
             injectScript.src = botpressInjectUrl;
             injectScript.async = true;
@@ -111,6 +99,7 @@ const shouldLoadBotpressChat =
                 var configScript = document.createElement('script');
                 configScript.src = botpressConfigUrl;
                 configScript.defer = true;
+                configScript.onload = pinLauncherBottomRight;
                 document.head.appendChild(configScript);
                 return;
               }
@@ -120,16 +109,13 @@ const shouldLoadBotpressChat =
                   botId: botpressBotId,
                   clientId: botpressClientId
                 });
+                pinLauncherBottomRight();
               }
             };
             document.head.appendChild(injectScript);
           }
 
-          listenersBound = true;
-          ['click', 'keydown', 'touchstart'].forEach(function(evt) {
-            window.addEventListener(evt, loadBotpress, { once: true, passive: true, capture: true });
-          });
-          fallbackTimer = window.setTimeout(loadBotpress, 5000);
+          loadBotpress();
         })();
       </script>
     )}
