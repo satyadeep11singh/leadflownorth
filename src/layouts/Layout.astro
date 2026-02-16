@@ -246,9 +246,14 @@ const shouldLoadBotpressChat =
         (function () {
           var loaded = false;
           var listenersBound = false;
+          var fallbackTimer = null;
           function loadBotpress() {
             if (loaded) return;
             loaded = true;
+            if (fallbackTimer) {
+              clearTimeout(fallbackTimer);
+              fallbackTimer = null;
+            }
             if (listenersBound) {
               listenersBound = false;
               ['click', 'keydown', 'touchstart'].forEach(function(evt) {
@@ -283,6 +288,7 @@ const shouldLoadBotpressChat =
           ['click', 'keydown', 'touchstart'].forEach(function(evt) {
             window.addEventListener(evt, loadBotpress, { once: true, passive: true, capture: true });
           });
+          fallbackTimer = window.setTimeout(loadBotpress, 5000);
         })();
       </script>
     )}
