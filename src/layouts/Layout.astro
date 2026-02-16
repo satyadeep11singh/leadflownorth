@@ -238,75 +238,15 @@ const shouldLoadBotpressChat =
       <script is:inline define:vars={{ botpressInjectUrl, botpressConfigUrl, botpressBotId, botpressClientId }}>
         (function () {
           var loaded = false;
-          var quickActionsMounted = false;
 
           function pinLauncherBottomRight() {
             if (document.getElementById('lfn-botpress-position')) return;
             var style = document.createElement('style');
             style.id = 'lfn-botpress-position';
             style.textContent = [
-              '.bpFab{display:flex!important;position:fixed!important;right:20px!important;bottom:20px!important;z-index:9999!important}',
-              '#lfn-bp-quick-actions{position:fixed;right:20px;bottom:92px;z-index:9998;display:flex;flex-direction:column;gap:8px;align-items:flex-end;max-width:min(92vw,340px)}',
-              '#lfn-bp-quick-actions.hidden{display:none!important}',
-              '#lfn-bp-quick-actions .lfn-quick-btn{background:#fff;border:1px solid rgba(15,23,42,.16);color:#0f172a;border-radius:9999px;padding:9px 12px;font-size:12px;font-weight:600;line-height:1.2;box-shadow:0 6px 16px rgba(2,6,23,.15);cursor:pointer;max-width:100%;text-align:left}',
-              '#lfn-bp-quick-actions .lfn-quick-btn:hover{background:#f8fafc}',
-              '@media (max-width: 640px){#lfn-bp-quick-actions{right:12px;bottom:106px;max-width:calc(100vw - 24px)}#lfn-bp-quick-actions .lfn-quick-btn{font-size:11px;padding:8px 10px}}'
+              '.bpFab{display:flex!important;position:fixed!important;right:20px!important;bottom:20px!important;z-index:9999!important}'
             ].join('');
             document.head.appendChild(style);
-          }
-
-          function mountQuickActions() {
-            if (quickActionsMounted || document.getElementById('lfn-bp-quick-actions')) return;
-            if (!window.botpress || typeof window.botpress.sendMessage !== 'function') return;
-            if (!document.body) return;
-
-            var prompts = [
-              { label: 'Industries you serve', message: 'Which industries do you serve? Please share clickable links.' },
-              { label: 'Free website audit', message: 'I want a free website and SEO audit. I already have a website.' },
-              { label: 'ROI calculator', message: 'Show me the ROI calculator and how to use it for my business.' },
-              { label: 'Book discovery call', message: 'I am interested. Why is a discovery call the best next step?' }
-            ];
-
-            var container = document.createElement('div');
-            container.id = 'lfn-bp-quick-actions';
-
-            prompts.forEach(function(item) {
-              var btn = document.createElement('button');
-              btn.type = 'button';
-              btn.className = 'lfn-quick-btn';
-              btn.textContent = item.label;
-              btn.addEventListener('click', function() {
-                if (window.botpress && typeof window.botpress.open === 'function') {
-                  window.botpress.open();
-                }
-                if (window.botpress && typeof window.botpress.sendMessage === 'function') {
-                  window.botpress.sendMessage(item.message);
-                }
-              });
-              container.appendChild(btn);
-            });
-
-            document.body.appendChild(container);
-            quickActionsMounted = true;
-          }
-
-          function waitForBotpressApi(retries) {
-            if (window.botpress && typeof window.botpress.sendMessage === 'function') {
-              mountQuickActions();
-              return;
-            }
-            if (retries <= 0) return;
-            setTimeout(function() { waitForBotpressApi(retries - 1); }, 250);
-          }
-
-          function initQuickActions() {
-            if (document.readyState === 'loading') {
-              document.addEventListener('DOMContentLoaded', function() {
-                waitForBotpressApi(50);
-              }, { once: true });
-              return;
-            }
-            waitForBotpressApi(50);
           }
 
           function loadBotpress() {
@@ -323,7 +263,6 @@ const shouldLoadBotpressChat =
                 configScript.defer = true;
                 configScript.onload = function () {
                   pinLauncherBottomRight();
-                  initQuickActions();
                 };
                 document.head.appendChild(configScript);
                 return;
@@ -335,7 +274,6 @@ const shouldLoadBotpressChat =
                   clientId: botpressClientId
                 });
                 pinLauncherBottomRight();
-                initQuickActions();
               }
             };
             document.head.appendChild(injectScript);
