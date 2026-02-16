@@ -65,6 +65,21 @@
     });
   }
 
+  function callBotpressMethod(methodName, payload) {
+    if (!window.botpress || typeof window.botpress[methodName] !== 'function') {
+      return;
+    }
+
+    try {
+      var result = window.botpress[methodName](payload);
+      if (result && typeof result.catch === 'function') {
+        result.catch(function () {});
+      }
+    } catch (_error) {
+      // Ignore runtime method failures to avoid noisy page errors.
+    }
+  }
+
   function getPageContext() {
     var path = (window.location.pathname || '/').toLowerCase();
     var context = {
@@ -108,36 +123,26 @@
     writeSessionFlag(EXIT_HOOK_STORAGE_KEY);
 
     var exitCue = 'Visitor showed exit intent. Start with the exit-intent sales hook.';
-    if (typeof window.botpress.updateUser === 'function') {
-      window.botpress
-        .updateUser({
-          data: {
-            page_path: pageContext.path,
-            page_type: pageContext.pageType,
-            page_cue: exitCue,
-            exit_intent: true,
-            exit_intent_hook: EXIT_HOOK_MESSAGE,
-          },
-        })
-        .catch(function () {});
-    }
+    callBotpressMethod('updateUser', {
+      data: {
+        page_path: pageContext.path,
+        page_type: pageContext.pageType,
+        page_cue: exitCue,
+        exit_intent: true,
+        exit_intent_hook: EXIT_HOOK_MESSAGE,
+      },
+    });
 
-    if (typeof window.botpress.sendEvent === 'function') {
-      window.botpress
-        .sendEvent({
-          type: 'lfn.exit_intent',
-          payload: {
-            path: pageContext.path,
-            pageType: pageContext.pageType,
-            hookMessage: EXIT_HOOK_MESSAGE,
-          },
-        })
-        .catch(function () {});
-    }
+    callBotpressMethod('sendEvent', {
+      type: 'lfn.exit_intent',
+      payload: {
+        path: pageContext.path,
+        pageType: pageContext.pageType,
+        hookMessage: EXIT_HOOK_MESSAGE,
+      },
+    });
 
-    if (typeof window.botpress.open === 'function') {
-      window.botpress.open();
-    }
+    callBotpressMethod('open');
   }
 
   function setupExitIntentWatcher(pageContext) {
@@ -225,30 +230,24 @@
       return;
     }
 
-    if (typeof window.botpress.updateUser === 'function') {
-      window.botpress
-        .updateUser({
-          data: {
-            page_path: pageContext.path,
-            page_type: pageContext.pageType,
-            page_cue: pageContext.pageCue,
-          },
-        })
-        .catch(function () {});
-    }
+    callBotpressMethod('updateUser', {
+      data: {
+        page_path: pageContext.path,
+        page_type: pageContext.pageType,
+        page_cue: pageContext.pageCue,
+      },
+    });
 
     if (!contextSent && typeof window.botpress.sendEvent === 'function') {
       contextSent = true;
-      window.botpress
-        .sendEvent({
-          type: 'lfn.page_context',
-          payload: {
-            path: pageContext.path,
-            pageType: pageContext.pageType,
-            pageCue: pageContext.pageCue,
-          },
-        })
-        .catch(function () {});
+      callBotpressMethod('sendEvent', {
+        type: 'lfn.page_context',
+        payload: {
+          path: pageContext.path,
+          pageType: pageContext.pageType,
+          pageCue: pageContext.pageCue,
+        },
+      });
     }
   }
 
@@ -258,18 +257,32 @@
     setupExitIntentWatcher(pageContext);
   }
 
+  function runRuntimeAfterInit(initResult, pageContext) {
+    if (initResult && typeof initResult.then === 'function') {
+      initResult
+        .then(function () {
+          applyRuntime(pageContext);
+        })
+        .catch(function () {
+          // Keep page stable if init fails; do not call runtime hooks.
+        });
+      return;
+    }
+
+    applyRuntime(pageContext);
+  }
+
   function initWithCredentials(pageContext) {
     if (!window.botpress || !botpressBotId || !botpressClientId) {
       return false;
     }
 
-    window.botpress.init({
+    var initResult = window.botpress.init({
       botId: botpressBotId,
       clientId: botpressClientId,
       configuration: buildNoraConfiguration(),
     });
-
-    applyRuntime(pageContext);
+    runRuntimeAfterInit(initResult, pageContext);
     return true;
   }
 
