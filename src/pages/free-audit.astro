@@ -134,16 +134,16 @@ const hubspotAuditFormEndpoint = import.meta.env.PUBLIC_HUBSPOT_AUDIT_FORM_ENDPO
             </div>
 
             <div>
-              <label for="phone" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Phone Number</label>
-              <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200" placeholder="(555) 123-4567" />
+              <label for="phone" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Phone Number <span class="text-red-500">*</span></label>
+              <input type="tel" id="phone" name="phone" required class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200" placeholder="(555) 123-4567" />
             </div>
 
             <div>
               <label for="industry" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Industry <span class="text-red-500">*</span></label>
               <select id="industry" name="industry" required class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-200">
                 <option value="">Select your industry</option>
-                <option value="Home Services">Home Services</option>
-                <option value="Legal Services">Legal Services</option>
+                <option value="zVs-53XGxYTLyoRVSb42t">Home Services</option>
+                <option value="8JsTtiFI0kniv6cpKUITA">Legal Services</option>
                 <option value="Medical & Dental">Medical & Dental</option>
                 <option value="Fitness & Gyms">Fitness & Gyms</option>
                 <option value="Auto Services">Auto Services</option>
@@ -233,16 +233,16 @@ const hubspotAuditFormEndpoint = import.meta.env.PUBLIC_HUBSPOT_AUDIT_FORM_ENDPO
         </div>
 
         <div>
-          <label for="mobile-phone" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Phone Number</label>
-          <input type="tel" id="mobile-phone" name="phone" class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="(555) 123-4567" />
+          <label for="mobile-phone" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Phone Number <span class="text-red-500">*</span></label>
+          <input type="tel" id="mobile-phone" name="phone" required class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent" placeholder="(555) 123-4567" />
         </div>
 
         <div>
           <label for="mobile-industry" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Industry <span class="text-red-500">*</span></label>
           <select id="mobile-industry" name="industry" required class="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent">
             <option value="">Select your industry</option>
-            <option value="Home Services">Home Services</option>
-            <option value="Legal Services">Legal Services</option>
+            <option value="zVs-53XGxYTLyoRVSb42t">Home Services</option>
+            <option value="8JsTtiFI0kniv6cpKUITA">Legal Services</option>
             <option value="Medical & Dental">Medical & Dental</option>
             <option value="Fitness & Gyms">Fitness & Gyms</option>
             <option value="Auto Services">Auto Services</option>
@@ -386,6 +386,21 @@ const hubspotAuditFormEndpoint = import.meta.env.PUBLIC_HUBSPOT_AUDIT_FORM_ENDPO
         return match ? decodeURIComponent(match[1]) : null;
       }
 
+      function normalizeDomain(value) {
+        var raw = (value || '').trim();
+        if (!raw) return '';
+        try {
+          var withProtocol = raw.indexOf('://') >= 0 ? raw : ('https://' + raw);
+          var parsed = new URL(withProtocol);
+          return parsed.hostname.replace(/^www\./i, '');
+        } catch (err) {
+          return raw
+            .replace(/^https?:\/\//i, '')
+            .replace(/^www\./i, '')
+            .split('/')[0];
+        }
+      }
+
       // Helper to handle form submission
       function handleAuditFormSubmit(form, submitBtn, successMsg, errorMsg) {
         form.addEventListener('submit', function(e) {
@@ -408,24 +423,21 @@ const hubspotAuditFormEndpoint = import.meta.env.PUBLIC_HUBSPOT_AUDIT_FORM_ENDPO
           var phone = form.querySelector('[name="phone"]').value.trim();
           var industry = form.querySelector('[name="industry"]').value;
           var message = form.querySelector('[name="message"]').value.trim();
+          var websiteDomain = normalizeDomain(websiteUrl);
+          var auditMessage = message || 'No additional notes provided.';
 
           // Build fields array for HubSpot
-          // Note: Combining firstname + lastname into "name" field for HubSpot form compatibility
-          var fullName = (firstname + ' ' + lastname).trim();
-
           var fields = [
             { name: 'email', value: email },
-            { name: '0-2/name', value: fullName },  // Required field in HubSpot form
-            { name: '0-2/phone', value: phone || '' },  // Required field (send empty string if not provided)
             { name: 'firstname', value: firstname },
             { name: 'lastname', value: lastname },
             { name: 'company', value: businessName },
-            { name: 'domain', value: websiteUrl },  // Company Domain Name property
-            { name: 'industry', value: industry }
+            { name: '0-2/name', value: businessName },
+            { name: 'domain', value: websiteDomain },
+            { name: '0-2/phone', value: phone },
+            { name: 'industry_lfn', value: industry },
+            { name: 'message', value: auditMessage }
           ];
-
-          // Add optional message field
-          if (message) fields.push({ name: 'message', value: message });
 
           // Build context with optional HubSpot tracking cookie
           var context = {
