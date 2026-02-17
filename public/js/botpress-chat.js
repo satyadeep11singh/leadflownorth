@@ -24,30 +24,118 @@
   var fabPositioningBound = false;
   var EXIT_HOOK_STORAGE_KEY = 'lfn_bp_exit_intent_hook_shown';
   var EXIT_HOOK_PROMPT_SENT_STORAGE_KEY = 'lfn_bp_exit_intent_prompt_sent';
-  var CONVERSATION_STORAGE_KEY = 'lfn_bp_conversation_started';
+  var CONVERSATION_SESSION_STORAGE_KEY = 'lfn_bp_conversation_started';
+  var CONVERSATION_LOCAL_STORAGE_KEY = 'lfn_bp_conversation_started_persisted';
   var EXIT_HOOK_MESSAGE = "Before you head out, want a quick win first? I can help you run a Free Website & SEO Audit (if you already have a site) or a fast ROI Calculator check to see if we're worth it before you commit.";
   var EXIT_HOOK_FALLBACK_PROMPT =
     "I'm about to leave. What's the fastest next step for me right now? If I have a website, should I start with the free audit, or should I run the ROI calculator first?";
-  var conversationStarted = readSessionFlag(CONVERSATION_STORAGE_KEY);
+  var conversationStarted =
+    readSessionFlag(CONVERSATION_SESSION_STORAGE_KEY) ||
+    readLocalFlag(CONVERSATION_LOCAL_STORAGE_KEY) ||
+    hasPersistedBotpressConversation();
   var exitHookShown = readSessionFlag(EXIT_HOOK_STORAGE_KEY);
   var exitHookPromptSent = readSessionFlag(EXIT_HOOK_PROMPT_SENT_STORAGE_KEY);
   var webchatReady = false;
   var pendingExitIntentPrompt = null;
 
-  function readSessionFlag(key) {
+  function getStorage(storageType) {
     try {
-      return window.sessionStorage.getItem(key) === '1';
+      if (storageType === 'local') {
+        return window.localStorage;
+      }
+      return window.sessionStorage;
+    } catch (_error) {
+      return null;
+    }
+  }
+
+  function readStorageFlag(storageType, key) {
+    var storage = getStorage(storageType);
+    if (!storage) {
+      return false;
+    }
+
+    try {
+      return storage.getItem(key) === '1';
     } catch (_error) {
       return false;
     }
   }
 
-  function writeSessionFlag(key) {
+  function writeStorageFlag(storageType, key) {
+    var storage = getStorage(storageType);
+    if (!storage) {
+      return;
+    }
+
     try {
-      window.sessionStorage.setItem(key, '1');
+      storage.setItem(key, '1');
     } catch (_error) {
       // Ignore storage errors (private mode / disabled storage).
     }
+  }
+
+  function readSessionFlag(key) {
+    return readStorageFlag('session', key);
+  }
+
+  function readLocalFlag(key) {
+    return readStorageFlag('local', key);
+  }
+
+  function writeSessionFlag(key) {
+    writeStorageFlag('session', key);
+  }
+
+  function writeLocalFlag(key) {
+    writeStorageFlag('local', key);
+  }
+
+  function hasPersistedBotpressConversation() {
+    var localStorageRef = getStorage('local');
+    if (!localStorageRef) {
+      return false;
+    }
+
+    var keysToCheck = [];
+    if (botpressClientId) {
+      keysToCheck.push('bp-webchat-' + botpressClientId);
+    }
+
+    for (var index = 0; index < localStorageRef.length; index += 1) {
+      var storageKey = localStorageRef.key(index);
+      if (storageKey && storageKey.indexOf('bp-webchat-') === 0 && keysToCheck.indexOf(storageKey) === -1) {
+        keysToCheck.push(storageKey);
+      }
+    }
+
+    for (var i = 0; i < keysToCheck.length; i += 1) {
+      var rawState = null;
+      try {
+        rawState = localStorageRef.getItem(keysToCheck[i]);
+      } catch (_error) {
+        rawState = null;
+      }
+      if (!rawState) {
+        continue;
+      }
+
+      if (rawState.indexOf('"conversationId"') !== -1 || rawState.indexOf('"user"') !== -1) {
+        return true;
+      }
+
+      try {
+        var parsed = JSON.parse(rawState);
+        var state = parsed && parsed.state ? parsed.state : parsed;
+        if (state && (state.conversationId || state.user)) {
+          return true;
+        }
+      } catch (_error) {
+        // Ignore malformed storage payloads.
+      }
+    }
+
+    return false;
   }
 
   function markConversationStarted() {
@@ -55,7 +143,8 @@
       return;
     }
     conversationStarted = true;
-    writeSessionFlag(CONVERSATION_STORAGE_KEY);
+    writeSessionFlag(CONVERSATION_SESSION_STORAGE_KEY);
+    writeLocalFlag(CONVERSATION_LOCAL_STORAGE_KEY);
   }
 
   function bindRuntimeListeners() {
@@ -72,6 +161,7 @@
       flushPendingExitIntentPrompt();
     });
     window.botpress.on('webchat:opened', function () {
+      markConversationStarted();
       flushPendingExitIntentPrompt();
     });
   }
@@ -285,6 +375,7 @@
       themeMode: 'light',
       radius: 2,
       fontFamily: 'inter',
+      storageLocation: 'localStorage',
       botAvatar: origin + '/icon-192.png',
       fabImage: origin + '/icon-192.png',
       website: {
