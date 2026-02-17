@@ -264,7 +264,7 @@ const shouldLoadBotpressChat =
       </script>
     )}
   </head>
-  <body class="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-['Inter',sans-serif] antialiased transition-colors duration-300 pb-20 md:pb-0">
+  <body class="bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 font-['Inter',sans-serif] antialiased transition-colors duration-300 pb-20 md:pb-0" style="--lfn-mobile-sticky-cta-height:96px;">
     <!-- Skip to main content for accessibility -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
     
@@ -454,22 +454,29 @@ const shouldLoadBotpressChat =
         var shouldHide = hiddenPaths.some(function(p) { return path === p || path.startsWith(p + '/'); });
         if (shouldHide || document.body.hasAttribute('data-hide-sticky-cta')) {
           sticky.classList.add('hidden');
+          document.documentElement.style.setProperty('--lfn-mobile-sticky-cta-height', '0px');
           return;
         }
 
         var updateOffset = function() {
+          var stickyBottom = 0;
           var cookieBanner = document.querySelector('#cookie-consent, .cookie-banner, [data-cookie-banner]');
           if (!cookieBanner) {
             sticky.style.bottom = '0px';
-            return;
+          } else {
+            var styles = window.getComputedStyle(cookieBanner);
+            var hidden = styles.display === 'none' || styles.visibility === 'hidden' || cookieBanner.getAttribute('aria-hidden') === 'true';
+            if (hidden) {
+              sticky.style.bottom = '0px';
+            } else {
+              stickyBottom = cookieBanner.offsetHeight;
+              sticky.style.bottom = stickyBottom + 'px';
+            }
           }
-          var styles = window.getComputedStyle(cookieBanner);
-          var hidden = styles.display === 'none' || styles.visibility === 'hidden' || cookieBanner.getAttribute('aria-hidden') === 'true';
-          if (hidden) {
-            sticky.style.bottom = '0px';
-            return;
-          }
-          sticky.style.bottom = cookieBanner.offsetHeight + 'px';
+
+          var stickyHeight = sticky.offsetHeight || 0;
+          var totalFabOffset = stickyHeight + stickyBottom;
+          document.documentElement.style.setProperty('--lfn-mobile-sticky-cta-height', totalFabOffset + 'px');
         };
 
         updateOffset();

@@ -21,13 +21,16 @@
   var contextSent = false;
   var listenersBound = false;
   var exitIntentWatcherBound = false;
+  var fabPositioningBound = false;
   var EXIT_HOOK_STORAGE_KEY = 'lfn_bp_exit_intent_hook_shown';
+  var EXIT_HOOK_PROMPT_SENT_STORAGE_KEY = 'lfn_bp_exit_intent_prompt_sent';
   var CONVERSATION_STORAGE_KEY = 'lfn_bp_conversation_started';
   var EXIT_HOOK_MESSAGE = "Before you head out, want a quick win first? I can help you run a Free Website & SEO Audit (if you already have a site) or a fast ROI Calculator check to see if we're worth it before you commit.";
   var EXIT_HOOK_FALLBACK_PROMPT =
     "I'm about to leave. What's the fastest next step for me right now? If I have a website, should I start with the free audit, or should I run the ROI calculator first?";
   var conversationStarted = readSessionFlag(CONVERSATION_STORAGE_KEY);
   var exitHookShown = readSessionFlag(EXIT_HOOK_STORAGE_KEY);
+  var exitHookPromptSent = readSessionFlag(EXIT_HOOK_PROMPT_SENT_STORAGE_KEY);
   var webchatReady = false;
   var pendingExitIntentPrompt = null;
 
@@ -88,6 +91,59 @@
     }
   }
 
+  function parseCssPx(value) {
+    var parsed = parseFloat(value);
+    return Number.isFinite(parsed) ? parsed : 0;
+  }
+
+  function positionFab() {
+    var wrapper = document.querySelector('.bpFabWrapper');
+    if (!wrapper) {
+      return;
+    }
+
+    var isMobile = window.matchMedia && window.matchMedia('(max-width: 767px)').matches;
+    var rootStyles = window.getComputedStyle(document.documentElement);
+    var stickyHeight = parseCssPx(rootStyles.getPropertyValue('--lfn-mobile-sticky-cta-height'));
+    var baseOffset = isMobile ? Math.max(stickyHeight - 6, 12) : 20;
+    var launcherSize = isMobile ? 56 : 64;
+
+    wrapper.style.setProperty('position', 'fixed', 'important');
+    wrapper.style.setProperty('z-index', '9999', 'important');
+    wrapper.style.setProperty('right', isMobile ? '8px' : '20px', 'important');
+    wrapper.style.setProperty('bottom', baseOffset + 'px', 'important');
+    wrapper.style.setProperty('width', launcherSize + 'px', 'important');
+    wrapper.style.setProperty('height', launcherSize + 'px', 'important');
+
+    var frame = wrapper.querySelector('.bpFab');
+    if (frame) {
+      frame.style.setProperty('width', launcherSize + 'px', 'important');
+      frame.style.setProperty('height', launcherSize + 'px', 'important');
+    }
+  }
+
+  function setupFabPositioning() {
+    if (fabPositioningBound || typeof window === 'undefined') {
+      return;
+    }
+
+    fabPositioningBound = true;
+    var applyPosition = function () {
+      positionFab();
+    };
+
+    applyPosition();
+    window.setTimeout(applyPosition, 250);
+    window.setTimeout(applyPosition, 900);
+    window.setTimeout(applyPosition, 2200);
+    window.addEventListener('resize', applyPosition, { passive: true });
+
+    if (typeof MutationObserver === 'function' && document.body) {
+      var observer = new MutationObserver(applyPosition);
+      observer.observe(document.body, { childList: true, subtree: true });
+    }
+  }
+
   function getPageContext() {
     var path = (window.location.pathname || '/').toLowerCase();
     var context = {
@@ -131,12 +187,14 @@
   }
 
   function flushPendingExitIntentPrompt() {
-    if (!pendingExitIntentPrompt || !webchatReady) {
+    if (!pendingExitIntentPrompt || !webchatReady || exitHookPromptSent || readSessionFlag(EXIT_HOOK_PROMPT_SENT_STORAGE_KEY)) {
       return;
     }
 
     var payload = pendingExitIntentPrompt;
     pendingExitIntentPrompt = null;
+    exitHookPromptSent = true;
+    writeSessionFlag(EXIT_HOOK_PROMPT_SENT_STORAGE_KEY);
 
     callBotpressMethod('sendEvent', {
       type: 'lfn.exit_intent',
@@ -147,6 +205,10 @@
   }
 
   function queueExitIntentPrompt(pageContext) {
+    if (exitHookPromptSent || readSessionFlag(EXIT_HOOK_PROMPT_SENT_STORAGE_KEY)) {
+      return;
+    }
+
     pendingExitIntentPrompt = buildExitIntentPayload(pageContext);
     flushPendingExitIntentPrompt();
     window.setTimeout(flushPendingExitIntentPrompt, 1200);
@@ -154,7 +216,7 @@
   }
 
   function triggerExitIntentHook(pageContext) {
-    if (conversationStarted || exitHookShown || !window.botpress) {
+    if (conversationStarted || exitHookShown || readSessionFlag(EXIT_HOOK_STORAGE_KEY) || !window.botpress) {
       return;
     }
 
@@ -246,12 +308,13 @@
         link: 'https://leadflownorth.com/privacy',
       },
       additionalStylesheet: [
-        '.bpFab{display:flex!important;position:fixed!important;right:20px!important;bottom:20px!important;z-index:9999!important;box-shadow:0 14px 36px rgba(15,23,42,.32)!important}',
+        '.bpFabWrapper{position:fixed!important;right:20px!important;bottom:20px!important;z-index:9999!important}',
+        '.bpFab{display:flex!important;box-shadow:0 14px 36px rgba(15,23,42,.32)!important}',
         '.bpHeaderContainer{background:linear-gradient(135deg,#0f172a 0%,#1d4ed8 58%,#16a34a 100%)!important}',
         '.bpComposerSendButton{background:#15803d!important;color:#fff!important}',
         '.bpComposerSendButton:hover{background:#166534!important}',
         '.bpMessageBlocksButton,.bpMessageBlocksButton button{border-radius:9999px!important;font-weight:600!important}',
-        '@media (max-width: 767px){.bpFab{right:16px!important;bottom:88px!important}}',
+        '@media (max-width: 767px){.bpFabWrapper{right:8px!important;bottom:calc(env(safe-area-inset-bottom,0px) + var(--lfn-mobile-sticky-cta-height,0px))!important;width:56px!important;height:56px!important}.bpFab{width:56px!important;height:56px!important}}',
       ].join(''),
     };
   }
@@ -284,6 +347,7 @@
 
   function applyRuntime(pageContext) {
     bindRuntimeListeners();
+    setupFabPositioning();
     applyPageContext(pageContext);
     setupExitIntentWatcher(pageContext);
   }
