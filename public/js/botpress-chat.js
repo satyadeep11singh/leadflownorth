@@ -24,8 +24,12 @@
   var EXIT_HOOK_STORAGE_KEY = 'lfn_bp_exit_intent_hook_shown';
   var CONVERSATION_STORAGE_KEY = 'lfn_bp_conversation_started';
   var EXIT_HOOK_MESSAGE = "Before you head out, want a quick win first? I can help you run a Free Website & SEO Audit (if you already have a site) or a fast ROI Calculator check to see if we're worth it before you commit.";
+  var EXIT_HOOK_FALLBACK_PROMPT =
+    "I'm about to leave. What's the fastest next step for me right now? If I have a website, should I start with the free audit, or should I run the ROI calculator first?";
   var conversationStarted = readSessionFlag(CONVERSATION_STORAGE_KEY);
   var exitHookShown = readSessionFlag(EXIT_HOOK_STORAGE_KEY);
+  var webchatReady = false;
+  var pendingExitIntentPrompt = null;
 
   function readSessionFlag(key) {
     try {
@@ -60,8 +64,12 @@
     window.botpress.on('message', function () {
       markConversationStarted();
     });
-    window.botpress.on('conversation', function () {
-      markConversationStarted();
+    window.botpress.on('webchat:ready', function () {
+      webchatReady = true;
+      flushPendingExitIntentPrompt();
+    });
+    window.botpress.on('webchat:opened', function () {
+      flushPendingExitIntentPrompt();
     });
   }
 
@@ -114,6 +122,37 @@
     return context;
   }
 
+  function buildExitIntentPayload(pageContext) {
+    return {
+      path: pageContext.path,
+      pageType: pageContext.pageType,
+      hookMessage: EXIT_HOOK_MESSAGE,
+    };
+  }
+
+  function flushPendingExitIntentPrompt() {
+    if (!pendingExitIntentPrompt || !webchatReady) {
+      return;
+    }
+
+    var payload = pendingExitIntentPrompt;
+    pendingExitIntentPrompt = null;
+
+    callBotpressMethod('sendEvent', {
+      type: 'lfn.exit_intent',
+      payload: payload,
+    });
+
+    callBotpressMethod('sendMessage', EXIT_HOOK_FALLBACK_PROMPT);
+  }
+
+  function queueExitIntentPrompt(pageContext) {
+    pendingExitIntentPrompt = buildExitIntentPayload(pageContext);
+    flushPendingExitIntentPrompt();
+    window.setTimeout(flushPendingExitIntentPrompt, 1200);
+    window.setTimeout(flushPendingExitIntentPrompt, 3000);
+  }
+
   function triggerExitIntentHook(pageContext) {
     if (conversationStarted || exitHookShown || !window.botpress) {
       return;
@@ -133,16 +172,8 @@
       },
     });
 
-    callBotpressMethod('sendEvent', {
-      type: 'lfn.exit_intent',
-      payload: {
-        path: pageContext.path,
-        pageType: pageContext.pageType,
-        hookMessage: EXIT_HOOK_MESSAGE,
-      },
-    });
-
     callBotpressMethod('open');
+    queueExitIntentPrompt(pageContext);
   }
 
   function setupExitIntentWatcher(pageContext) {
