@@ -16,8 +16,8 @@ const currentPath = Astro.url.pathname;
     <div class="flex items-center justify-between h-16 lg:h-20">
       <!-- Logo -->
       <a href="/" class="flex items-center gap-2 group">
-        <img src="/logos/lfn-light-64.png" alt="" class="h-9 w-9 object-contain group-hover:scale-105 transition-transform duration-200 dark:hidden" width="64" height="64" loading="eager" />
-        <img src="/logos/lfn-dark-64.png" alt="" class="h-9 w-9 object-contain group-hover:scale-105 transition-transform duration-200 hidden dark:block" width="64" height="64" loading="eager" />
+        <img src="/logos/lfn-light-64.png" alt="" class="h-9 w-9 object-contain group-hover:scale-105 transition-transform duration-200 dark:hidden" width="64" height="64" loading="eager" fetchpriority="high" />
+        <img src="/logos/lfn-dark-64.png" alt="" class="h-9 w-9 object-contain group-hover:scale-105 transition-transform duration-200 hidden dark:block" width="64" height="64" loading="eager" fetchpriority="high" />
         <span class="text-xl font-bold text-slate-900 dark:text-white">
           Lead<span class="text-primary-600">Flow</span>North
         </span>
