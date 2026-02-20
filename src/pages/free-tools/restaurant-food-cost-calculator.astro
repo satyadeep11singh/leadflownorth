@@ -1,0 +1,323 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToolHero from '../../components/tools/ToolHero.astro';
+
+const toolSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Lead Flow North Restaurant Food Cost Calculator',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'CAD',
+  },
+};
+---
+
+<Layout
+  title="Restaurant Food Cost Calculator"
+  description="Calculate ingredient-level plate cost, food cost percentage, and recommended menu pricing targets."
+  structuredData={toolSchema}
+>
+  <ToolHero
+    eyebrow="Free Tool: Restaurant Food Cost Calculator"
+    title="Price Menu Items With Food Cost Control"
+    description="Enter ingredient costs per dish and instantly see food-cost percentage, target price, and per-dish margin."
+  guideHref="/blog/how-to-use-restaurant-food-cost-calculator"
+  />
+
+  <section class="py-10 lg:py-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <form id="food-cost-form" class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-5 sm:p-6">
+        <div class="grid sm:grid-cols-2 gap-4 mb-5">
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Menu Item Name</span>
+            <input id="dish-name" type="text" value="Signature Pasta" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+          </label>
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Current Menu Price (CAD)</span>
+            <input id="menu-price" type="number" min="0" step="0.01" value="24" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+          </label>
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Target Food Cost (%)</span>
+            <input id="target-food-cost" type="number" min="1" max="95" step="0.1" value="30" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+          </label>
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Monthly Units Sold</span>
+            <input id="units-monthly" type="number" min="0" step="1" value="320" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+          </label>
+        </div>
+
+        <div class="overflow-x-auto mb-4">
+          <table class="w-full min-w-[760px] border-collapse">
+            <thead>
+              <tr class="bg-slate-100 dark:bg-slate-900">
+                <th class="text-left text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 p-3 border border-slate-200 dark:border-slate-700">Ingredient</th>
+                <th class="text-right text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 p-3 border border-slate-200 dark:border-slate-700">Qty Used</th>
+                <th class="text-right text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 p-3 border border-slate-200 dark:border-slate-700">Unit Cost</th>
+                <th class="text-right text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 p-3 border border-slate-200 dark:border-slate-700">Line Cost</th>
+                <th class="text-right text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 p-3 border border-slate-200 dark:border-slate-700">Action</th>
+              </tr>
+            </thead>
+            <tbody id="ingredients-body">
+              <tr data-ingredient-row>
+                <td class="p-2 border border-slate-200 dark:border-slate-700"><input data-role="name" type="text" value="Pasta" class="w-full rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-2 py-1.5 text-sm text-slate-900 dark:text-white" /></td>
+                <td class="p-2 border border-slate-200 dark:border-slate-700"><input data-role="qty" type="number" min="0" step="0.01" value="0.25" class="w-full rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-2 py-1.5 text-sm text-right text-slate-900 dark:text-white" /></td>
+                <td class="p-2 border border-slate-200 dark:border-slate-700"><input data-role="unit-cost" type="number" min="0" step="0.01" value="8" class="w-full rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-2 py-1.5 text-sm text-right text-slate-900 dark:text-white" /></td>
+                <td class="p-2 border border-slate-200 dark:border-slate-700 text-right text-sm font-semibold text-slate-900 dark:text-white"><span data-role="line-cost">0.00</span></td>
+                <td class="p-2 border border-slate-200 dark:border-slate-700 text-right"><button type="button" data-action="remove-row" class="text-xs px-2 py-1 rounded bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200">Remove</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="flex flex-wrap gap-2 mb-5">
+          <button id="add-ingredient" type="button" class="inline-flex w-full sm:w-auto items-center justify-center px-3 py-2 rounded-lg bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold">Add Ingredient</button>
+          <button id="food-cost-reset" type="button" class="inline-flex w-full sm:w-auto items-center justify-center px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700">Reset</button>
+          <button id="food-cost-submit" type="submit" class="inline-flex w-full sm:w-auto items-center justify-center px-3 py-2 rounded-lg bg-accent-700 hover:bg-accent-800 text-white text-sm font-semibold">Calculate</button>
+        </div>
+
+        <p id="food-cost-error" class="text-sm text-red-600 dark:text-red-400 hidden"></p>
+      </form>
+    </div>
+  </section>
+
+  <section id="food-cost-results" class="py-12 lg:py-16 bg-slate-50 dark:bg-slate-800/40 hidden" aria-live="polite">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-7">
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Plate Cost</p>
+          <p id="plate-cost" class="text-2xl font-extrabold text-slate-900 dark:text-white">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Current Food Cost %</p>
+          <p id="food-cost-percent" class="text-2xl font-extrabold text-slate-900 dark:text-white">0%</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Recommended Price</p>
+          <p id="recommended-price" class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Monthly Gross Profit</p>
+          <p id="monthly-gross-profit" class="text-2xl font-extrabold text-blue-600 dark:text-blue-400">$0</p>
+        </article>
+      </div>
+
+      <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+        <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Costing Insight</h2>
+        <div id="costing-insight" class="text-sm text-slate-700 dark:text-slate-300 space-y-2"></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="py-14 lg:py-18 bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Need a Website That Fills Tables?</h2>
+      <p class="text-slate-300 mb-7">
+        We build restaurant websites with online ordering, reservation flows, and local SEO that drives foot traffic.
+      </p>
+      <a href="/free-audit" class="inline-flex w-full sm:w-auto justify-center items-center px-7 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors">
+        Book a Free Workflow Audit
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  (function initFoodCostCalculator() {
+    var form = document.getElementById('food-cost-form');
+    var submit = document.getElementById('food-cost-submit');
+    var resetBtn = document.getElementById('food-cost-reset');
+    var addBtn = document.getElementById('add-ingredient');
+    var errorEl = document.getElementById('food-cost-error');
+    var results = document.getElementById('food-cost-results');
+    var body = document.getElementById('ingredients-body');
+    if (!form || !submit || !resetBtn || !addBtn || !errorEl || !results || !body) return;
+
+    var byId = function(id) { return document.getElementById(id); };
+    var fields = {
+      dishName: byId('dish-name'),
+      menuPrice: byId('menu-price'),
+      targetFoodCost: byId('target-food-cost'),
+      unitsMonthly: byId('units-monthly'),
+      plateCost: byId('plate-cost'),
+      foodCostPercent: byId('food-cost-percent'),
+      recommendedPrice: byId('recommended-price'),
+      monthlyGrossProfit: byId('monthly-gross-profit'),
+      costingInsight: byId('costing-insight')
+    };
+
+    var parseNum = function(value, fallback) {
+      var num = Number(value);
+      return Number.isFinite(num) ? num : (fallback || 0);
+    };
+
+    var formatCurrency = function(value) {
+      return new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD', maximumFractionDigits: 2 }).format(value || 0);
+    };
+
+    var formatPercent = function(value) {
+      return value.toFixed(1) + '%';
+    };
+
+    var setError = function(message) {
+      if (!message) {
+        errorEl.classList.add('hidden');
+        errorEl.textContent = '';
+        return;
+      }
+      errorEl.textContent = message;
+      errorEl.classList.remove('hidden');
+    };
+
+    var setLoading = function(isLoading) {
+      submit.disabled = isLoading;
+      submit.textContent = isLoading ? 'Calculating...' : 'Calculate';
+    };
+
+    var makeRow = function() {
+      var row = document.createElement('tr');
+      row.setAttribute('data-ingredient-row', '');
+      row.innerHTML = [
+        '<td class="p-2 border border-slate-200 dark:border-slate-700"><input data-role="name" type="text" placeholder="Ingredient" class="w-full rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-2 py-1.5 text-sm text-slate-900 dark:text-white" /></td>',
+        '<td class="p-2 border border-slate-200 dark:border-slate-700"><input data-role="qty" type="number" min="0" step="0.01" value="0" class="w-full rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-2 py-1.5 text-sm text-right text-slate-900 dark:text-white" /></td>',
+        '<td class="p-2 border border-slate-200 dark:border-slate-700"><input data-role="unit-cost" type="number" min="0" step="0.01" value="0" class="w-full rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-2 py-1.5 text-sm text-right text-slate-900 dark:text-white" /></td>',
+        '<td class="p-2 border border-slate-200 dark:border-slate-700 text-right text-sm font-semibold text-slate-900 dark:text-white"><span data-role="line-cost">0.00</span></td>',
+        '<td class="p-2 border border-slate-200 dark:border-slate-700 text-right"><button type="button" data-action="remove-row" class="text-xs px-2 py-1 rounded bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200">Remove</button></td>'
+      ].join('');
+      return row;
+    };
+
+    var getRows = function() {
+      return Array.prototype.slice.call(body.querySelectorAll('[data-ingredient-row]'));
+    };
+
+    var bindRow = function(row) {
+      row.querySelectorAll('input').forEach(function(input) {
+        input.addEventListener('input', recalcLinesOnly);
+      });
+      var removeBtn = row.querySelector('[data-action="remove-row"]');
+      if (removeBtn) {
+        removeBtn.addEventListener('click', function() {
+          var count = getRows().length;
+          if (count <= 1) return;
+          row.remove();
+          recalcLinesOnly();
+        });
+      }
+    };
+
+    var recalcLinesOnly = function() {
+      getRows().forEach(function(row) {
+        var qty = parseNum((row.querySelector('[data-role="qty"]') || {}).value, 0);
+        var unitCost = parseNum((row.querySelector('[data-role="unit-cost"]') || {}).value, 0);
+        var lineCost = qty * unitCost;
+        var lineEl = row.querySelector('[data-role="line-cost"]');
+        if (lineEl) lineEl.textContent = lineCost.toFixed(2);
+      });
+    };
+
+    var calculate = function() {
+      var menuPrice = parseNum(fields.menuPrice && fields.menuPrice.value, 0);
+      var targetFoodCost = parseNum(fields.targetFoodCost && fields.targetFoodCost.value, 0);
+      var unitsMonthly = parseNum(fields.unitsMonthly && fields.unitsMonthly.value, 0);
+
+      if (targetFoodCost <= 0 || targetFoodCost >= 100) {
+        throw new Error('Target food cost should be between 1 and 99%.');
+      }
+
+      var plateCost = 0;
+      getRows().forEach(function(row) {
+        var qty = parseNum((row.querySelector('[data-role="qty"]') || {}).value, 0);
+        var unitCost = parseNum((row.querySelector('[data-role="unit-cost"]') || {}).value, 0);
+        plateCost += qty * unitCost;
+      });
+
+      if (plateCost <= 0) throw new Error('Enter at least one ingredient cost greater than zero.');
+
+      var currentFoodCostPct = menuPrice > 0 ? (plateCost / menuPrice) * 100 : null;
+      var recommendedPrice = plateCost / (targetFoodCost / 100);
+      var grossProfitPerDish = menuPrice - plateCost;
+      var monthlyGrossProfit = grossProfitPerDish * unitsMonthly;
+
+      return {
+        plateCost: plateCost,
+        currentFoodCostPct: currentFoodCostPct,
+        recommendedPrice: recommendedPrice,
+        monthlyGrossProfit: monthlyGrossProfit,
+        grossProfitPerDish: grossProfitPerDish,
+        menuPrice: menuPrice,
+        targetFoodCost: targetFoodCost
+      };
+    };
+
+    var renderInsight = function(result) {
+      if (!fields.costingInsight) return;
+      var notes = [];
+      if (result.currentFoodCostPct === null) {
+        notes.push('Current food cost % is not calculated because current menu price is 0.');
+      } else {
+        notes.push('Current food cost is ' + formatPercent(result.currentFoodCostPct) + '.');
+      }
+      notes.push('To target ' + formatPercent(result.targetFoodCost) + ', menu price should be around ' + formatCurrency(result.recommendedPrice) + '.');
+      if (result.grossProfitPerDish < 0) {
+        notes.push('Current menu price is below plate cost. This dish is losing money.');
+      } else {
+        notes.push('Current gross profit per dish is ' + formatCurrency(result.grossProfitPerDish) + '.');
+      }
+      fields.costingInsight.innerHTML = notes.map(function(note) { return '<p>' + note + '</p>'; }).join('');
+    };
+
+    getRows().forEach(bindRow);
+    recalcLinesOnly();
+
+    addBtn.addEventListener('click', function() {
+      var row = makeRow();
+      body.appendChild(row);
+      bindRow(row);
+      recalcLinesOnly();
+    });
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      setError('');
+      setLoading(true);
+
+      try {
+        var result = calculate();
+        if (fields.plateCost) fields.plateCost.textContent = formatCurrency(result.plateCost);
+        if (fields.foodCostPercent) fields.foodCostPercent.textContent = result.currentFoodCostPct === null ? 'N/A' : formatPercent(result.currentFoodCostPct);
+        if (fields.recommendedPrice) fields.recommendedPrice.textContent = formatCurrency(result.recommendedPrice);
+        if (fields.monthlyGrossProfit) fields.monthlyGrossProfit.textContent = formatCurrency(result.monthlyGrossProfit);
+        renderInsight(result);
+        results.classList.remove('hidden');
+        results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (error) {
+        setError(error instanceof Error ? error.message : 'Could not calculate food cost.');
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    resetBtn.addEventListener('click', function() {
+      form.reset();
+      setError('');
+      results.classList.add('hidden');
+      var rows = getRows();
+      rows.forEach(function(row, idx) {
+        if (idx > 0) row.remove();
+      });
+      var first = getRows()[0];
+      if (first) {
+        var qty = first.querySelector('[data-role="qty"]');
+        var unit = first.querySelector('[data-role="unit-cost"]');
+        if (qty) qty.value = '0.25';
+        if (unit) unit.value = '8';
+      }
+      recalcLinesOnly();
+      if (fields.costingInsight) fields.costingInsight.innerHTML = '';
+    });
+  })();
+</script>

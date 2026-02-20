@@ -1,0 +1,398 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToolHero from '../../components/tools/ToolHero.astro';
+
+const toolSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Lead Flow North Lead Response-Time Loss Calculator',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'CAD',
+  },
+};
+---
+
+<Layout
+  title="Lead Response-Time Loss Calculator"
+  description="Estimate monthly and annual revenue lost due to delayed lead follow-up, with improvement scenarios."
+  structuredData={toolSchema}
+>
+  <ToolHero
+    eyebrow="Free Tool: Lead Response-Time Loss Calculator"
+    title="Measure Revenue Lost From Slow Lead Follow-Up"
+    description="Model how response-time delays impact close rates and revenue, then simulate gains from faster SLA targets."
+  guideHref="/blog/how-to-use-lead-response-time-loss-calculator"
+  />
+
+  <section class="py-10 lg:py-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <form id="response-loss-form" class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-5 sm:p-6">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Monthly Leads</span>
+            <input id="monthly-leads" type="number" min="1" step="1" value="120" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Average Deal Value (CAD)</span>
+            <input id="deal-value" type="number" min="1" step="1" value="900" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Close Rate If Responding Within 5 Minutes (%)</span>
+            <input id="fast-close-rate" type="number" min="1" max="100" step="0.1" value="25" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Lead Contact Rate (%)</span>
+            <input id="contact-rate" type="number" min="1" max="100" step="0.1" value="70" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Current First Response Time</span>
+            <select id="current-response" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white">
+              <option value="5m">0-5 minutes</option>
+              <option value="15m">6-15 minutes</option>
+              <option value="30m">16-30 minutes</option>
+              <option value="60m">31-60 minutes</option>
+              <option value="3h">1-3 hours</option>
+              <option value="24h" selected>3-24 hours</option>
+              <option value="24h+">24+ hours</option>
+            </select>
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Target Response SLA</span>
+            <select id="target-response" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white">
+              <option value="5m" selected>0-5 minutes</option>
+              <option value="15m">6-15 minutes</option>
+              <option value="30m">16-30 minutes</option>
+              <option value="60m">31-60 minutes</option>
+              <option value="3h">1-3 hours</option>
+            </select>
+          </label>
+
+          <label class="text-sm sm:col-span-2">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Monthly Team Cost for Faster Follow-Up (CAD, optional)</span>
+            <input id="implementation-cost" type="number" min="0" step="1" value="0" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+          </label>
+        </div>
+
+        <div class="mt-5 flex flex-wrap items-center gap-3">
+          <button id="response-loss-submit" type="submit" class="inline-flex w-full sm:w-auto items-center justify-center px-6 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors disabled:opacity-60">
+            Calculate Loss
+          </button>
+          <button id="response-loss-reset" type="button" class="inline-flex w-full sm:w-auto items-center justify-center px-5 py-3 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-semibold hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+            Reset
+          </button>
+        </div>
+
+        <p id="response-loss-error" class="mt-3 text-sm text-red-600 dark:text-red-400 hidden"></p>
+      </form>
+    </div>
+  </section>
+
+  <section id="response-loss-results" class="py-12 lg:py-16 bg-slate-50 dark:bg-slate-800/40 hidden" aria-live="polite">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-7">
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Monthly Revenue Lost</p>
+          <p id="monthly-lost" class="text-2xl font-extrabold text-red-600 dark:text-red-400">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Annual Revenue Lost</p>
+          <p id="annual-lost" class="text-2xl font-extrabold text-red-600 dark:text-red-400">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Recoverable Monthly Revenue</p>
+          <p id="monthly-recovered" class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Net Gain After Cost</p>
+          <p id="net-monthly-gain" class="text-2xl font-extrabold text-slate-900 dark:text-white">$0</p>
+        </article>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-5 mb-7">
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Scenario Breakdown</h2>
+          <dl class="space-y-2 text-sm">
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Effective Current Close Rate</dt>
+              <dd id="current-close-rate" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Current Won Deals / Month</dt>
+              <dd id="current-won" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Target Won Deals / Month</dt>
+              <dd id="target-won" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Lost Deals vs 5-Minute Benchmark</dt>
+              <dd id="lost-deals" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+          </dl>
+        </article>
+
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Recommended SLA Plan</h2>
+          <div id="sla-plan" class="text-sm text-slate-700 dark:text-slate-300 space-y-2"></div>
+        </article>
+      </div>
+
+      <div class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
+        <div class="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white">Response-Time Benchmarks Used</h3>
+        </div>
+        <div class="p-5 overflow-x-auto">
+          <table class="w-full min-w-[520px] border-collapse text-sm">
+            <thead>
+              <tr class="bg-slate-50 dark:bg-slate-800">
+                <th class="text-left p-3 border border-slate-200 dark:border-slate-700">Response Window</th>
+                <th class="text-left p-3 border border-slate-200 dark:border-slate-700">Relative Conversion Multiplier</th>
+                <th class="text-left p-3 border border-slate-200 dark:border-slate-700">Interpretation</th>
+              </tr>
+            </thead>
+            <tbody id="benchmark-table"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-14 lg:py-18 bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Want Automated Speed-to-Lead?</h2>
+      <p class="text-slate-300 mb-7">
+        We can implement instant lead routing, SMS/email follow-up, and missed-call text-back for your team.
+      </p>
+      <a href="/free-audit" class="inline-flex w-full sm:w-auto justify-center items-center px-7 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors">
+        Get a Free Workflow Audit
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  (function initResponseTimeLossCalculator() {
+    var form = document.getElementById('response-loss-form');
+    var submit = document.getElementById('response-loss-submit');
+    var resetBtn = document.getElementById('response-loss-reset');
+    var errorEl = document.getElementById('response-loss-error');
+    var results = document.getElementById('response-loss-results');
+    if (!form || !submit || !resetBtn || !errorEl || !results) return;
+
+    var BENCHMARKS = {
+      '5m': { label: '0-5 minutes', multiplier: 1.00, note: 'Best-practice response window for maximum conversion.' },
+      '15m': { label: '6-15 minutes', multiplier: 0.88, note: 'Still strong, but conversion starts dropping.' },
+      '30m': { label: '16-30 minutes', multiplier: 0.76, note: 'Noticeable decay in lead intent and answer rate.' },
+      '60m': { label: '31-60 minutes', multiplier: 0.64, note: 'Large drop in qualified conversations.' },
+      '3h': { label: '1-3 hours', multiplier: 0.48, note: 'Many leads move to competitors before response.' },
+      '24h': { label: '3-24 hours', multiplier: 0.33, note: 'Low win probability for high-intent inquiries.' },
+      '24h+': { label: '24+ hours', multiplier: 0.20, note: 'Most opportunities are lost by this point.' }
+    };
+
+    var byId = function(id) { return document.getElementById(id); };
+    var fields = {
+      monthlyLeads: byId('monthly-leads'),
+      dealValue: byId('deal-value'),
+      fastCloseRate: byId('fast-close-rate'),
+      contactRate: byId('contact-rate'),
+      currentResponse: byId('current-response'),
+      targetResponse: byId('target-response'),
+      implementationCost: byId('implementation-cost'),
+      monthlyLost: byId('monthly-lost'),
+      annualLost: byId('annual-lost'),
+      monthlyRecovered: byId('monthly-recovered'),
+      netMonthlyGain: byId('net-monthly-gain'),
+      currentCloseRate: byId('current-close-rate'),
+      currentWon: byId('current-won'),
+      targetWon: byId('target-won'),
+      lostDeals: byId('lost-deals'),
+      slaPlan: byId('sla-plan'),
+      benchmarkTable: byId('benchmark-table')
+    };
+
+    var parseNum = function(value, fallback) {
+      var parsed = Number(value);
+      return Number.isFinite(parsed) ? parsed : (fallback || 0);
+    };
+
+    var formatCurrency = function(value) {
+      return new Intl.NumberFormat('en-CA', {
+        style: 'currency',
+        currency: 'CAD',
+        maximumFractionDigits: 0
+      }).format(value || 0);
+    };
+
+    var formatPercent = function(value) {
+      return value.toFixed(1) + '%';
+    };
+
+    var setLoading = function(isLoading) {
+      submit.disabled = isLoading;
+      submit.textContent = isLoading ? 'Calculating...' : 'Calculate Loss';
+    };
+
+    var setError = function(message) {
+      if (!message) {
+        errorEl.classList.add('hidden');
+        errorEl.textContent = '';
+        return;
+      }
+      errorEl.textContent = message;
+      errorEl.classList.remove('hidden');
+    };
+
+    var getScenario = function() {
+      var monthlyLeads = parseNum(fields.monthlyLeads && fields.monthlyLeads.value, 0);
+      var dealValue = parseNum(fields.dealValue && fields.dealValue.value, 0);
+      var fastCloseRate = parseNum(fields.fastCloseRate && fields.fastCloseRate.value, 0);
+      var contactRate = parseNum(fields.contactRate && fields.contactRate.value, 0);
+      var implementationCost = parseNum(fields.implementationCost && fields.implementationCost.value, 0);
+      var currentKey = fields.currentResponse ? fields.currentResponse.value : '24h';
+      var targetKey = fields.targetResponse ? fields.targetResponse.value : '5m';
+
+      if (monthlyLeads <= 0 || dealValue <= 0 || fastCloseRate <= 0 || contactRate <= 0) {
+        throw new Error('Enter valid positive values for leads, deal value, and rates.');
+      }
+
+      var currentBenchmark = BENCHMARKS[currentKey] || BENCHMARKS['24h'];
+      var targetBenchmark = BENCHMARKS[targetKey] || BENCHMARKS['5m'];
+
+      var baseRate = Math.min(100, Math.max(0, fastCloseRate));
+      var contactFactor = Math.min(1, Math.max(0, contactRate / 100));
+
+      var currentEffectiveCloseRate = baseRate * currentBenchmark.multiplier * contactFactor;
+      var targetEffectiveCloseRate = baseRate * targetBenchmark.multiplier * contactFactor;
+      var benchmarkCloseRate = baseRate * BENCHMARKS['5m'].multiplier * contactFactor;
+
+      var wonCurrent = monthlyLeads * (currentEffectiveCloseRate / 100);
+      var wonTarget = monthlyLeads * (targetEffectiveCloseRate / 100);
+      var wonBenchmark = monthlyLeads * (benchmarkCloseRate / 100);
+
+      var monthlyRevenueCurrent = wonCurrent * dealValue;
+      var monthlyRevenueTarget = wonTarget * dealValue;
+      var monthlyRevenueBenchmark = wonBenchmark * dealValue;
+
+      var monthlyLost = Math.max(0, monthlyRevenueBenchmark - monthlyRevenueCurrent);
+      var annualLost = monthlyLost * 12;
+      var monthlyRecovered = Math.max(0, monthlyRevenueTarget - monthlyRevenueCurrent);
+      var netMonthlyGain = monthlyRecovered - implementationCost;
+      var lostDeals = Math.max(0, wonBenchmark - wonCurrent);
+
+      return {
+        monthlyLeads: monthlyLeads,
+        dealValue: dealValue,
+        implementationCost: implementationCost,
+        currentKey: currentKey,
+        targetKey: targetKey,
+        currentBenchmark: currentBenchmark,
+        targetBenchmark: targetBenchmark,
+        currentEffectiveCloseRate: currentEffectiveCloseRate,
+        targetEffectiveCloseRate: targetEffectiveCloseRate,
+        wonCurrent: wonCurrent,
+        wonTarget: wonTarget,
+        wonBenchmark: wonBenchmark,
+        monthlyLost: monthlyLost,
+        annualLost: annualLost,
+        monthlyRecovered: monthlyRecovered,
+        netMonthlyGain: netMonthlyGain,
+        lostDeals: lostDeals
+      };
+    };
+
+    var renderBenchmarkTable = function(currentKey, targetKey) {
+      if (!fields.benchmarkTable) return;
+      fields.benchmarkTable.innerHTML = '';
+
+      Object.keys(BENCHMARKS).forEach(function(key) {
+        var row = document.createElement('tr');
+        var bench = BENCHMARKS[key];
+        var highlight = key === currentKey || key === targetKey;
+        row.className = highlight ? 'bg-blue-50 dark:bg-blue-900/20' : '';
+
+        row.innerHTML = [
+          '<td class="p-3 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200">' + bench.label + '</td>',
+          '<td class="p-3 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200">' + (bench.multiplier * 100).toFixed(0) + '% of fast-response baseline</td>',
+          '<td class="p-3 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300">' + bench.note + '</td>'
+        ].join('');
+
+        fields.benchmarkTable.appendChild(row);
+      });
+    };
+
+    var renderSlaPlan = function(scenario) {
+      if (!fields.slaPlan) return;
+
+      var bullets = [];
+      bullets.push('Current response window: ' + scenario.currentBenchmark.label + '.');
+      bullets.push('Target response window: ' + scenario.targetBenchmark.label + '.');
+      bullets.push('Required additional won deals per month: ' + Math.max(0, scenario.wonTarget - scenario.wonCurrent).toFixed(1) + '.');
+
+      if (scenario.targetKey === '5m' || scenario.targetKey === '15m') {
+        bullets.push('Recommendation: Use instant call routing + missed-call text-back to hit sub-15 minute response speed.');
+      } else {
+        bullets.push('Recommendation: Reduce callback queues and assign first-response ownership by shift.');
+      }
+
+      if (scenario.netMonthlyGain > 0) {
+        bullets.push('Estimated payback: positive monthly net gain after implementation cost.');
+      } else {
+        bullets.push('Current model suggests weak ROI at this cost. Improve lead quality or reduce implementation overhead.');
+      }
+
+      fields.slaPlan.innerHTML = bullets.map(function(line) {
+        return '<p>' + line + '</p>';
+      }).join('');
+    };
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      setError('');
+      setLoading(true);
+
+      try {
+        var scenario = getScenario();
+
+        if (fields.monthlyLost) fields.monthlyLost.textContent = formatCurrency(scenario.monthlyLost);
+        if (fields.annualLost) fields.annualLost.textContent = formatCurrency(scenario.annualLost);
+        if (fields.monthlyRecovered) fields.monthlyRecovered.textContent = formatCurrency(scenario.monthlyRecovered);
+        if (fields.netMonthlyGain) {
+          fields.netMonthlyGain.textContent = formatCurrency(scenario.netMonthlyGain);
+          fields.netMonthlyGain.className = 'text-2xl font-extrabold ' + (scenario.netMonthlyGain >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400');
+        }
+
+        if (fields.currentCloseRate) fields.currentCloseRate.textContent = formatPercent(scenario.currentEffectiveCloseRate);
+        if (fields.currentWon) fields.currentWon.textContent = scenario.wonCurrent.toFixed(1);
+        if (fields.targetWon) fields.targetWon.textContent = scenario.wonTarget.toFixed(1);
+        if (fields.lostDeals) fields.lostDeals.textContent = scenario.lostDeals.toFixed(1);
+
+        renderSlaPlan(scenario);
+        renderBenchmarkTable(scenario.currentKey, scenario.targetKey);
+
+        results.classList.remove('hidden');
+        results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (error) {
+        setError(error instanceof Error ? error.message : 'Could not calculate response-time loss.');
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    resetBtn.addEventListener('click', function() {
+      form.reset();
+      setError('');
+      results.classList.add('hidden');
+      if (fields.benchmarkTable) fields.benchmarkTable.innerHTML = '';
+      if (fields.slaPlan) fields.slaPlan.innerHTML = '';
+    });
+  })();
+</script>

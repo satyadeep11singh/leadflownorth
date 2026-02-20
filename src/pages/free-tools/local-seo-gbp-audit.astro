@@ -1,0 +1,673 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToolHero from '../../components/tools/ToolHero.astro';
+
+const toolSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Lead Flow North Local SEO + GBP Audit',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'CAD',
+  },
+};
+---
+
+<Layout
+  title="Local SEO + GBP Audit"
+  description="Free local SEO and Google Business Profile self-audit tool with prioritized actions for Canadian local businesses."
+  structuredData={toolSchema}
+>
+  <ToolHero
+    eyebrow="Free Tool: Local SEO + GBP Audit"
+    title="Audit Your Local Visibility in Minutes"
+    description="Run a practical self-audit for Google Business Profile quality, reputation signals, local SEO readiness, and citation strength."
+  guideHref="/blog/how-to-use-local-seo-gbp-audit"
+  />
+
+  <section class="py-10 lg:py-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <form id="local-seo-form" class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-5 sm:p-6">
+        <div class="mb-4 rounded-lg border border-blue-200 dark:border-blue-900/40 bg-blue-50 dark:bg-blue-900/20 px-3 py-2">
+          <p class="text-xs text-blue-800 dark:text-blue-200">
+            This is a self-reported audit. Results are calculated from the values you enter and are not pulled live from Google in this version.
+          </p>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Business Name</span>
+            <input id="business-name" type="text" placeholder="Example Dental Clinic" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+            <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Use the exact public-facing business name you show on GBP and your website.</p>
+          </label>
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Primary City</span>
+            <input id="business-city" type="text" placeholder="Calgary" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+            <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Main city where you want to rank in map/local results.</p>
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">GBP Claimed & Verified</span>
+            <select id="gbp-claimed" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white">
+              <option value="" disabled selected>Select...</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+            <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">GBP means Google Business Profile. Claimed + verified means you control and confirmed the listing.</p>
+          </label>
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Primary Category Set Correctly</span>
+            <select id="primary-category" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white">
+              <option value="" disabled selected>Select...</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+            <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Your main GBP category should match your top service (for example, Dentist, not just Clinic).</p>
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Service Areas / Neighborhoods Targeted</span>
+            <input id="service-areas" type="number" min="0" step="1" value="5" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+            <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">How many nearby towns/neighborhoods you intentionally target in GBP and local pages.</p>
+          </label>
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Photos on GBP</span>
+            <input id="photos-count" type="number" min="0" step="1" value="20" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+            <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Count real team/location/project photos, not stock-only uploads.</p>
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Total Google Reviews</span>
+            <input id="reviews-count" type="number" min="0" step="1" value="25" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+            <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Total visible review count on your Google profile.</p>
+          </label>
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Average Rating</span>
+            <input id="avg-rating" type="number" min="0" max="5" step="0.1" value="4.4" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+            <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">If total reviews is 0, this field is auto-set to 0.</p>
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">New Reviews in Last 30 Days</span>
+            <input id="recent-reviews" type="number" min="0" step="1" value="3" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+            <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Recent review velocity helps Google trust profile freshness.</p>
+          </label>
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">GBP Posts in Last 30 Days</span>
+            <input id="recent-posts" type="number" min="0" step="1" value="1" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+            <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Posts include offers, updates, and events published in your GBP dashboard.</p>
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Q&A Section Managed</span>
+            <select id="has-qna" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white">
+              <option value="" disabled selected>Select...</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+            <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Means you monitor and answer GBP questions so leads are not left hanging.</p>
+          </label>
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">NAP Consistent Across Directories</span>
+            <select id="nap-consistency" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white">
+              <option value="" disabled selected>Select...</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+            <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">NAP = Name, Address, Phone. It should match exactly on your website, GBP, Yelp, Apple Maps, etc.</p>
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Has City-Specific Landing Page</span>
+            <select id="local-landing-page" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white">
+              <option value="" disabled selected>Select...</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+            <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">A page tailored to your city/service combo with local proof, FAQs, and contact details.</p>
+          </label>
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">LocalBusiness Schema Enabled</span>
+            <select id="schema-enabled" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white">
+              <option value="" disabled selected>Select...</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+            <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Schema is structured data code that helps search engines understand your business details.</p>
+          </label>
+
+          <label class="text-sm sm:col-span-2">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Active Citations / Directories</span>
+            <input id="citations-count" type="number" min="0" step="1" value="20" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+            <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Citations are third-party listings where your business info appears (industry and local directories).</p>
+          </label>
+        </div>
+
+        <div class="mt-5 flex flex-wrap items-center gap-3">
+          <button id="local-seo-submit" type="submit" class="inline-flex w-full sm:w-auto items-center justify-center px-6 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors disabled:opacity-60">
+            Run Audit
+          </button>
+          <button id="local-seo-reset" type="button" class="inline-flex w-full sm:w-auto items-center justify-center px-5 py-3 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-semibold hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+            Reset
+          </button>
+        </div>
+
+        <p id="local-seo-error" class="mt-3 text-sm text-red-600 dark:text-red-400 hidden"></p>
+      </form>
+    </div>
+  </section>
+
+  <section id="local-seo-results" class="py-12 lg:py-16 bg-slate-50 dark:bg-slate-800/40 hidden" aria-live="polite">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row gap-4 lg:items-end lg:justify-between mb-7">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-1">Local SEO Audit Score</h2>
+          <p id="audit-target" class="text-slate-600 dark:text-slate-300 text-sm"></p>
+        </div>
+        <div class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 text-center w-full sm:w-auto sm:min-w-[170px]">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Overall</p>
+          <div class="flex items-center justify-center gap-2">
+            <span id="audit-overall" class="text-3xl font-extrabold text-slate-900 dark:text-white">0</span>
+            <span id="audit-grade" class="text-sm font-bold px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-100">F</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-7">
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">GBP Foundation</p>
+          <p id="score-gbp" class="text-2xl font-extrabold text-slate-900 dark:text-white">0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Reputation</p>
+          <p id="score-reputation" class="text-2xl font-extrabold text-slate-900 dark:text-white">0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Local SEO</p>
+          <p id="score-local-seo" class="text-2xl font-extrabold text-slate-900 dark:text-white">0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Authority</p>
+          <p id="score-authority" class="text-2xl font-extrabold text-slate-900 dark:text-white">0</p>
+        </article>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-5 mb-7">
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
+          <div class="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Priority Actions</h3>
+            <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Fix these first for faster local ranking and map visibility gains.</p>
+          </div>
+          <div id="priority-list" class="divide-y divide-slate-200 dark:divide-slate-700"></div>
+        </article>
+
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Snapshot</h3>
+          <dl class="space-y-2 text-sm">
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Review Profile</dt>
+              <dd id="snapshot-reviews" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Photo Coverage</dt>
+              <dd id="snapshot-photos" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Citation Strength</dt>
+              <dd id="snapshot-citations" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Indexing Readiness</dt>
+              <dd id="snapshot-index" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+          </dl>
+        </article>
+      </div>
+
+      <div class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
+        <div class="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white">Detailed Checks</h3>
+        </div>
+        <div id="checks-list" class="divide-y divide-slate-200 dark:divide-slate-700"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-14 lg:py-18 bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Need Hands-On Local SEO Execution?</h2>
+      <p class="text-slate-300 mb-7">
+        We can implement GBP optimization, review workflows, and local landing pages for you.
+      </p>
+      <a href="/free-audit" class="inline-flex w-full sm:w-auto justify-center items-center px-7 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors">
+        Request a Free Audit
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  (function initLocalSeoAudit() {
+    var form = document.getElementById('local-seo-form');
+    var submit = document.getElementById('local-seo-submit');
+    var resetBtn = document.getElementById('local-seo-reset');
+    var errorEl = document.getElementById('local-seo-error');
+    var results = document.getElementById('local-seo-results');
+    if (!form || !submit || !resetBtn || !errorEl || !results) return;
+
+    var byId = function(id) { return document.getElementById(id); };
+    var fields = {
+      businessName: byId('business-name'),
+      city: byId('business-city'),
+      gbpClaimed: byId('gbp-claimed'),
+      primaryCategory: byId('primary-category'),
+      serviceAreas: byId('service-areas'),
+      photos: byId('photos-count'),
+      reviews: byId('reviews-count'),
+      rating: byId('avg-rating'),
+      recentReviews: byId('recent-reviews'),
+      recentPosts: byId('recent-posts'),
+      hasQna: byId('has-qna'),
+      napConsistency: byId('nap-consistency'),
+      landingPage: byId('local-landing-page'),
+      schema: byId('schema-enabled'),
+      citations: byId('citations-count'),
+      target: byId('audit-target'),
+      overall: byId('audit-overall'),
+      grade: byId('audit-grade'),
+      scoreGbp: byId('score-gbp'),
+      scoreReputation: byId('score-reputation'),
+      scoreLocalSeo: byId('score-local-seo'),
+      scoreAuthority: byId('score-authority'),
+      priorityList: byId('priority-list'),
+      checksList: byId('checks-list'),
+      snapshotReviews: byId('snapshot-reviews'),
+      snapshotPhotos: byId('snapshot-photos'),
+      snapshotCitations: byId('snapshot-citations'),
+      snapshotIndex: byId('snapshot-index')
+    };
+
+    var parseNum = function(value, fallback) {
+      var parsed = Number(value);
+      return Number.isFinite(parsed) ? parsed : (fallback || 0);
+    };
+
+    var boolField = function(element) {
+      return !!element && element.value === 'yes';
+    };
+
+    var syncRatingWithReviews = function() {
+      if (!fields.reviews || !fields.rating) return;
+      var reviewCount = parseNum(fields.reviews.value, 0);
+      if (reviewCount <= 0) {
+        fields.rating.value = '0';
+        fields.rating.readOnly = true;
+        fields.rating.classList.add('opacity-70');
+      } else {
+        fields.rating.readOnly = false;
+        fields.rating.classList.remove('opacity-70');
+      }
+    };
+
+    var setLoading = function(isLoading) {
+      submit.disabled = isLoading;
+      submit.textContent = isLoading ? 'Auditing...' : 'Run Audit';
+    };
+
+    var setError = function(message) {
+      if (!message) {
+        errorEl.classList.add('hidden');
+        errorEl.textContent = '';
+        return;
+      }
+      errorEl.textContent = message;
+      errorEl.classList.remove('hidden');
+    };
+
+    var scoreToneClass = function(score) {
+      if (score >= 85) return 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300';
+      if (score >= 70) return 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300';
+      if (score >= 55) return 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300';
+      return 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300';
+    };
+
+    var checkToneClass = function(status) {
+      if (status === 'pass') return 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300';
+      if (status === 'warn') return 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300';
+      return 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300';
+    };
+
+    var createCheck = function(category, label, status, detail, recommendation, weight) {
+      return {
+        category: category,
+        label: label,
+        status: status,
+        detail: detail,
+        recommendation: recommendation,
+        weight: weight
+      };
+    };
+
+    var calculateCategoryScore = function(checks, category) {
+      var filtered = checks.filter(function(check) { return check.category === category; });
+      if (!filtered.length) return 0;
+
+      var max = 0;
+      var raw = 0;
+      filtered.forEach(function(check) {
+        max += check.weight;
+        if (check.status === 'pass') raw += check.weight;
+        if (check.status === 'warn') raw += check.weight * 0.5;
+      });
+
+      return max > 0 ? Math.round((raw / max) * 100) : 0;
+    };
+
+    var gradeLabel = function(score) {
+      if (score >= 90) return 'A';
+      if (score >= 80) return 'B';
+      if (score >= 70) return 'C';
+      if (score >= 60) return 'D';
+      return 'F';
+    };
+
+    var getAuditPayload = function() {
+      var businessName = fields.businessName ? fields.businessName.value.trim() : '';
+      var city = fields.city ? fields.city.value.trim() : '';
+      if (!businessName || !city) {
+        throw new Error('Please enter business name and city.');
+      }
+
+      var reviews = parseNum(fields.reviews && fields.reviews.value, 0);
+      var rating = parseNum(fields.rating && fields.rating.value, 0);
+      var recentReviews = parseNum(fields.recentReviews && fields.recentReviews.value, 0);
+      var recentPosts = parseNum(fields.recentPosts && fields.recentPosts.value, 0);
+      var photos = parseNum(fields.photos && fields.photos.value, 0);
+      var citations = parseNum(fields.citations && fields.citations.value, 0);
+      var serviceAreas = parseNum(fields.serviceAreas && fields.serviceAreas.value, 0);
+
+      if (reviews <= 0) {
+        rating = 0;
+        recentReviews = 0;
+      }
+
+      var checks = [];
+      checks.push(createCheck(
+        'gbp',
+        'GBP claimed and verified',
+        boolField(fields.gbpClaimed) ? 'pass' : 'fail',
+        boolField(fields.gbpClaimed) ? 'Verified listing detected' : 'Listing not verified',
+        'Claim and verify your Google Business Profile first to appear consistently in map results.',
+        20
+      ));
+
+      checks.push(createCheck(
+        'gbp',
+        'Primary category accuracy',
+        boolField(fields.primaryCategory) ? 'pass' : 'fail',
+        boolField(fields.primaryCategory) ? 'Primary category configured' : 'Primary category likely missing or weak',
+        'Set the best-fit primary category and only relevant secondary categories.',
+        15
+      ));
+
+      checks.push(createCheck(
+        'gbp',
+        'Service area coverage',
+        serviceAreas >= 5 ? 'pass' : (serviceAreas >= 2 ? 'warn' : 'fail'),
+        serviceAreas + ' service areas listed',
+        'Add core neighborhoods and towns you actually serve.',
+        10
+      ));
+
+      checks.push(createCheck(
+        'gbp',
+        'Photo freshness',
+        photos >= 25 ? 'pass' : (photos >= 10 ? 'warn' : 'fail'),
+        photos + ' photos uploaded',
+        'Publish more recent team, location, and project photos on GBP.',
+        15
+      ));
+
+      checks.push(createCheck(
+        'gbp',
+        'GBP posting activity',
+        recentPosts >= 2 ? 'pass' : (recentPosts >= 1 ? 'warn' : 'fail'),
+        recentPosts + ' posts in last 30 days',
+        'Post weekly updates/offers to keep profile active.',
+        10
+      ));
+
+      checks.push(createCheck(
+        'gbp',
+        'Q&A management',
+        boolField(fields.hasQna) ? 'pass' : 'warn',
+        boolField(fields.hasQna) ? 'Q&A section monitored' : 'No active Q&A workflow',
+        'Seed common Q&A and monitor for new questions.',
+        10
+      ));
+
+      checks.push(createCheck(
+        'reputation',
+        'Review volume strength',
+        reviews >= 50 ? 'pass' : (reviews >= 20 ? 'warn' : 'fail'),
+        reviews + ' total reviews',
+        'Increase review request volume to build trust and improve conversion.',
+        15
+      ));
+
+      checks.push(createCheck(
+        'reputation',
+        'Average rating quality',
+        reviews <= 0 ? 'fail' : (rating >= 4.6 ? 'pass' : (rating >= 4.2 ? 'warn' : 'fail')),
+        reviews <= 0 ? 'No rating available yet' : (rating.toFixed(1) + '/5 average rating'),
+        'Improve service recovery and ask satisfied customers promptly for reviews.',
+        20
+      ));
+
+      checks.push(createCheck(
+        'reputation',
+        'Recent review velocity',
+        recentReviews >= 4 ? 'pass' : (recentReviews >= 2 ? 'warn' : 'fail'),
+        recentReviews + ' reviews in last 30 days',
+        'Create an ongoing review request workflow after each completed job.',
+        20
+      ));
+
+      checks.push(createCheck(
+        'local-seo',
+        'NAP consistency',
+        boolField(fields.napConsistency) ? 'pass' : 'fail',
+        boolField(fields.napConsistency) ? 'Business details appear consistent' : 'Inconsistent business details reported',
+        'Standardize name, address, and phone across all listings and citations.',
+        25
+      ));
+
+      checks.push(createCheck(
+        'local-seo',
+        'City landing page readiness',
+        boolField(fields.landingPage) ? 'pass' : 'warn',
+        boolField(fields.landingPage) ? 'Dedicated city/service page available' : 'No local landing page confirmed',
+        'Publish local service pages with proof, FAQs, and map context.',
+        20
+      ));
+
+      checks.push(createCheck(
+        'local-seo',
+        'LocalBusiness schema setup',
+        boolField(fields.schema) ? 'pass' : 'warn',
+        boolField(fields.schema) ? 'Schema markup enabled' : 'Schema not configured',
+        'Add LocalBusiness schema markup with NAP, hours, and service area.',
+        15
+      ));
+
+      checks.push(createCheck(
+        'authority',
+        'Citation profile depth',
+        citations >= 35 ? 'pass' : (citations >= 15 ? 'warn' : 'fail'),
+        citations + ' active citations',
+        'Expand citations on trusted Canadian and local directories.',
+        20
+      ));
+
+      checks.push(createCheck(
+        'authority',
+        'Brand activity consistency',
+        (recentPosts + recentReviews) >= 6 ? 'pass' : ((recentPosts + recentReviews) >= 3 ? 'warn' : 'fail'),
+        (recentPosts + recentReviews) + ' combined monthly activity signals',
+        'Maintain weekly posting and review acquisition cadence.',
+        15
+      ));
+
+      var scoreGbp = calculateCategoryScore(checks, 'gbp');
+      var scoreReputation = calculateCategoryScore(checks, 'reputation');
+      var scoreLocalSeo = calculateCategoryScore(checks, 'local-seo');
+      var scoreAuthority = calculateCategoryScore(checks, 'authority');
+      var overall = Math.round((scoreGbp + scoreReputation + scoreLocalSeo + scoreAuthority) / 4);
+
+      var priorities = checks
+        .filter(function(check) { return check.status !== 'pass'; })
+        .sort(function(a, b) {
+          var severityA = a.status === 'fail' ? 2 : 1;
+          var severityB = b.status === 'fail' ? 2 : 1;
+          if (severityA !== severityB) return severityB - severityA;
+          return b.weight - a.weight;
+        })
+        .slice(0, 6);
+
+      return {
+        businessName: businessName,
+        city: city,
+        scores: {
+          overall: overall,
+          gbp: scoreGbp,
+          reputation: scoreReputation,
+          localSeo: scoreLocalSeo,
+          authority: scoreAuthority
+        },
+        grade: gradeLabel(overall),
+        checks: checks,
+        priorities: priorities,
+        snapshot: {
+          reviews: reviews,
+          rating: rating,
+          photos: photos,
+          citations: citations,
+          schemaReady: boolField(fields.schema) && boolField(fields.landingPage)
+        }
+      };
+    };
+
+    var setScoreCell = function(element, value) {
+      if (!element) return;
+      element.textContent = String(value);
+      element.className = 'text-2xl font-extrabold px-2 py-0.5 rounded inline-flex items-center justify-center ' + scoreToneClass(value);
+    };
+
+    var renderPriorities = function(priorities) {
+      fields.priorityList.innerHTML = '';
+      if (!priorities.length) {
+        var row = document.createElement('div');
+        row.className = 'px-5 py-4 text-sm text-slate-600 dark:text-slate-300';
+        row.textContent = 'No urgent gaps found. Keep your cadence consistent and monitor monthly.';
+        fields.priorityList.appendChild(row);
+        return;
+      }
+
+      priorities.forEach(function(item, index) {
+        var row = document.createElement('div');
+        row.className = 'px-5 py-4';
+        row.innerHTML = [
+          '<p class="text-sm font-semibold text-slate-900 dark:text-white mb-1">' + (index + 1) + '. ' + item.label + '</p>',
+          '<p class="text-xs text-slate-600 dark:text-slate-300 mb-1">' + item.detail + '</p>',
+          '<p class="text-xs text-slate-500 dark:text-slate-400">Action: ' + item.recommendation + '</p>'
+        ].join('');
+        fields.priorityList.appendChild(row);
+      });
+    };
+
+    var renderChecks = function(checks) {
+      fields.checksList.innerHTML = '';
+      checks.forEach(function(check) {
+        var row = document.createElement('div');
+        row.className = 'px-5 py-4';
+
+        var top = document.createElement('div');
+        top.className = 'flex items-center justify-between gap-3 mb-2';
+
+        var left = document.createElement('div');
+        left.innerHTML = '<p class="font-semibold text-slate-900 dark:text-white">' + check.label + '</p><p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">' + check.category + '</p>';
+
+        var badge = document.createElement('span');
+        badge.className = 'inline-flex px-2.5 py-1 rounded-full text-xs font-semibold ' + checkToneClass(check.status);
+        badge.textContent = check.status.toUpperCase();
+
+        top.appendChild(left);
+        top.appendChild(badge);
+
+        var detail = document.createElement('p');
+        detail.className = 'text-sm text-slate-700 dark:text-slate-300 mb-1';
+        detail.textContent = check.detail;
+
+        var rec = document.createElement('p');
+        rec.className = 'text-xs text-slate-500 dark:text-slate-400';
+        rec.textContent = 'Recommendation: ' + check.recommendation;
+
+        row.appendChild(top);
+        row.appendChild(detail);
+        row.appendChild(rec);
+        fields.checksList.appendChild(row);
+      });
+    };
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      setError('');
+      setLoading(true);
+
+      try {
+        var payload = getAuditPayload();
+
+        fields.target.textContent = payload.businessName + ' - ' + payload.city;
+        fields.overall.textContent = String(payload.scores.overall);
+        fields.grade.textContent = payload.grade;
+        fields.grade.className = 'text-sm font-bold px-2 py-0.5 rounded ' + scoreToneClass(payload.scores.overall);
+
+        setScoreCell(fields.scoreGbp, payload.scores.gbp);
+        setScoreCell(fields.scoreReputation, payload.scores.reputation);
+        setScoreCell(fields.scoreLocalSeo, payload.scores.localSeo);
+        setScoreCell(fields.scoreAuthority, payload.scores.authority);
+
+        fields.snapshotReviews.textContent = payload.snapshot.reviews <= 0
+          ? 'No reviews yet'
+          : (payload.snapshot.reviews + ' reviews @ ' + payload.snapshot.rating.toFixed(1) + '/5');
+        fields.snapshotPhotos.textContent = payload.snapshot.photos + ' photos';
+        fields.snapshotCitations.textContent = payload.snapshot.citations + ' active listings';
+        fields.snapshotIndex.textContent = payload.snapshot.schemaReady ? 'Ready' : 'Needs work';
+
+        renderPriorities(payload.priorities);
+        renderChecks(payload.checks);
+
+        results.classList.remove('hidden');
+        results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (error) {
+        setError(error instanceof Error ? error.message : 'Could not run local audit.');
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    if (fields.reviews) {
+      fields.reviews.addEventListener('input', syncRatingWithReviews);
+    }
+    syncRatingWithReviews();
+
+    resetBtn.addEventListener('click', function() {
+      form.reset();
+      syncRatingWithReviews();
+      setError('');
+      results.classList.add('hidden');
+    });
+  })();
+</script>

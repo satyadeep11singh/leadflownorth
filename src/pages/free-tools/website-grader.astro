@@ -1,0 +1,1145 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToolHero from '../../components/tools/ToolHero.astro';
+
+const toolSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Lead Flow North Website Grader',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'CAD',
+  },
+};
+---
+
+<Layout
+  title="Website Grader"
+  description="Free website grader for small businesses. Check SEO basics, speed indicators, mobile readiness, and trust signals in seconds."
+  structuredData={toolSchema}
+>
+  <ToolHero
+    eyebrow="Free Tool: Website Grader"
+    title="Grade Any Website in Under 30 Seconds"
+    description="Run a free basic audit for speed signals, SEO fundamentals, mobile readiness, and trust indicators. Results are instant and no email is required."
+  guideHref="/blog/how-to-use-website-grader"
+  />
+
+  <section class="py-10 lg:py-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <form id="grader-form" class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-5 sm:p-6">
+        <label for="website-url" class="block text-sm font-semibold text-slate-800 dark:text-slate-100 mb-2">
+          Website URL
+        </label>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <input
+            id="website-url"
+            name="website-url"
+            type="text"
+            inputmode="url"
+            placeholder="example.com or https://example.com"
+            class="flex-1 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+            required
+          />
+          <button
+            id="grader-submit"
+            type="submit"
+            class="inline-flex w-full sm:w-auto items-center justify-center px-6 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+          >
+            Run Grade
+          </button>
+        </div>
+        <p class="mt-3 text-xs text-slate-500 dark:text-slate-400">
+          Basic grader only. It uses a public scan snapshot and heuristic checks, not a deep manual technical audit.
+        </p>
+        <p id="grader-error" class="mt-3 text-sm text-red-600 dark:text-red-400 hidden"></p>
+      </form>
+    </div>
+  </section>
+
+  <section id="grader-results" class="py-12 lg:py-16 bg-slate-50 dark:bg-slate-800/40 hidden" aria-live="polite">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row gap-4 lg:items-end lg:justify-between mb-7">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-1">Your Website Grade</h2>
+          <p id="grader-target" class="text-slate-600 dark:text-slate-300 text-sm"></p>
+        </div>
+        <div class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 text-center w-full sm:w-auto sm:min-w-[160px]">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Overall</p>
+          <div class="flex items-center justify-center gap-2">
+            <span id="overall-score" class="text-3xl font-extrabold text-slate-900 dark:text-white">0</span>
+            <span id="overall-grade" class="text-sm font-bold px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-100">F</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-7">
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Performance</p>
+          <p id="score-performance" class="text-2xl font-extrabold text-slate-900 dark:text-white">0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">SEO Basics</p>
+          <p id="score-seo" class="text-2xl font-extrabold text-slate-900 dark:text-white">0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Mobile Readiness</p>
+          <p id="score-mobile" class="text-2xl font-extrabold text-slate-900 dark:text-white">0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Trust Signals</p>
+          <p id="score-trust" class="text-2xl font-extrabold text-slate-900 dark:text-white">0</p>
+        </article>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-5 mb-7">
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <h3 class="text-sm font-semibold text-slate-900 dark:text-white mb-3">Page Snapshot</h3>
+          <dl class="space-y-2 text-sm">
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">HTTP Status</dt>
+              <dd id="summary-status" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Response Time</dt>
+              <dd id="summary-response-time" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">HTML Size</dt>
+              <dd id="summary-html-size" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">H1 Count</dt>
+              <dd id="summary-h1" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+          </dl>
+        </article>
+
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <h3 class="text-sm font-semibold text-slate-900 dark:text-white mb-3">Metadata</h3>
+          <dl class="space-y-2 text-sm">
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Title Length</dt>
+              <dd id="summary-title-length" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Description Length</dt>
+              <dd id="summary-description-length" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Images</dt>
+              <dd id="summary-images" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Images Missing Alt</dt>
+              <dd id="summary-images-missing-alt" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+          </dl>
+        </article>
+
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <h3 class="text-sm font-semibold text-slate-900 dark:text-white mb-3">Link Structure</h3>
+          <dl class="space-y-2 text-sm">
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Internal Links</dt>
+              <dd id="summary-internal-links" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">External Links</dt>
+              <dd id="summary-external-links" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+          </dl>
+        </article>
+      </div>
+
+      <div class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
+        <div class="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white">Detailed Checks</h3>
+        </div>
+        <div id="checks-list" class="divide-y divide-slate-200 dark:divide-slate-700"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-14 lg:py-18 bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Want a Full Manual Audit?</h2>
+      <p class="text-slate-300 mb-7">
+        This grader is intentionally basic. If you want conversion, messaging, and competitive analysis, request a full free audit.
+      </p>
+      <a href="/free-audit" class="inline-flex w-full sm:w-auto justify-center items-center px-7 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors">
+        Get a Free Manual Audit
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  (function initWebsiteGrader() {
+    var form = document.getElementById('grader-form');
+    var input = document.getElementById('website-url');
+    var submit = document.getElementById('grader-submit');
+    var errorEl = document.getElementById('grader-error');
+    var results = document.getElementById('grader-results');
+    if (!form || !input || !submit || !errorEl || !results) return;
+
+    var byId = function(id) { return document.getElementById(id); };
+    var fields = {
+      target: byId('grader-target'),
+      overallScore: byId('overall-score'),
+      overallGrade: byId('overall-grade'),
+      performance: byId('score-performance'),
+      seo: byId('score-seo'),
+      mobile: byId('score-mobile'),
+      trust: byId('score-trust'),
+      status: byId('summary-status'),
+      responseTime: byId('summary-response-time'),
+      htmlSize: byId('summary-html-size'),
+      h1: byId('summary-h1'),
+      titleLength: byId('summary-title-length'),
+      descriptionLength: byId('summary-description-length'),
+      images: byId('summary-images'),
+      imagesMissingAlt: byId('summary-images-missing-alt'),
+      internalLinks: byId('summary-internal-links'),
+      externalLinks: byId('summary-external-links'),
+      checksList: byId('checks-list'),
+    };
+
+    var setLoading = function(isLoading) {
+      submit.disabled = isLoading;
+      submit.textContent = isLoading ? 'Grading...' : 'Run Grade';
+    };
+
+    var setError = function(message) {
+      if (!message) {
+        errorEl.classList.add('hidden');
+        errorEl.textContent = '';
+        return;
+      }
+      errorEl.textContent = message;
+      errorEl.classList.remove('hidden');
+    };
+
+    var scoreToneClass = function(score) {
+      if (score >= 85) return 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300';
+      if (score >= 70) return 'bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300';
+      if (score >= 55) return 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300';
+      return 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300';
+    };
+
+    var checkStatusTone = function(status) {
+      if (status === 'pass') return 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300';
+      if (status === 'warn') return 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300';
+      return 'bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300';
+    };
+
+    var renderChecks = function(checks) {
+      fields.checksList.innerHTML = '';
+      checks.forEach(function(check) {
+        var row = document.createElement('div');
+        row.className = 'px-5 py-4';
+
+        var top = document.createElement('div');
+        top.className = 'flex flex-wrap items-center justify-between gap-3 mb-2';
+
+        var left = document.createElement('div');
+        left.innerHTML = '<p class="font-semibold text-slate-900 dark:text-white">' + check.label + '</p><p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">' + check.category + '</p>';
+
+        var badge = document.createElement('span');
+        badge.className = 'inline-flex px-2.5 py-1 rounded-full text-xs font-semibold ' + checkStatusTone(check.status);
+        badge.textContent = check.status.toUpperCase();
+
+        top.appendChild(left);
+        top.appendChild(badge);
+
+        var detail = document.createElement('p');
+        detail.className = 'text-sm text-slate-700 dark:text-slate-300 mb-1';
+        detail.textContent = check.detail;
+
+        var rec = document.createElement('p');
+        rec.className = 'text-xs text-slate-500 dark:text-slate-400';
+        rec.textContent = 'Recommendation: ' + check.recommendation;
+
+        row.appendChild(top);
+        row.appendChild(detail);
+        row.appendChild(rec);
+        fields.checksList.appendChild(row);
+      });
+    };
+
+    var updateScoreCell = function(element, value) {
+      if (!element) return;
+      element.textContent = String(value);
+      element.className = 'text-2xl font-extrabold px-2 py-0.5 rounded inline-flex items-center justify-center ' + scoreToneClass(value);
+    };
+
+    var normalizeInputUrl = function(raw) {
+      var value = (raw || '').trim();
+      if (!value) return null;
+      try {
+        return new URL(value).toString();
+      } catch (_error) {
+        try {
+          return new URL('https://' + value).toString();
+        } catch (_secondError) {
+          return null;
+        }
+      }
+    };
+
+    var scoreToStatus = function(score) {
+      if (score >= 85) return 'pass';
+      if (score >= 65) return 'warn';
+      return 'fail';
+    };
+
+    var pickAudit = function(lighthouse, id) {
+      if (!lighthouse || !lighthouse.audits) return null;
+      return lighthouse.audits[id] || null;
+    };
+
+    var toScore100 = function(value) {
+      if (typeof value !== 'number' || !isFinite(value)) return null;
+      return Math.round(value * 100);
+    };
+
+    var valueOrNA = function(value, suffix) {
+      if (value === null || value === undefined || Number.isNaN(value)) return 'N/A';
+      return suffix ? (String(value) + suffix) : String(value);
+    };
+
+    var createCheck = function(id, category, label, status, detail, recommendation, weight) {
+      return {
+        id: id,
+        category: category,
+        label: label,
+        status: status,
+        detail: detail,
+        recommendation: recommendation,
+        weight: weight
+      };
+    };
+
+    var calculateCategoryScore = function(checks, category) {
+      var filtered = checks.filter(function(check) { return check.category === category; });
+      if (!filtered.length) return 0;
+
+      var max = 0;
+      var raw = 0;
+      filtered.forEach(function(check) {
+        max += check.weight;
+        if (check.status === 'pass') raw += check.weight;
+        if (check.status === 'warn') raw += check.weight * 0.5;
+      });
+
+      if (max === 0) return 0;
+      return Math.round((raw / max) * 100);
+    };
+
+    var gradeLabel = function(score) {
+      if (score >= 90) return 'A';
+      if (score >= 80) return 'B';
+      if (score >= 70) return 'C';
+      if (score >= 60) return 'D';
+      return 'F';
+    };
+
+    var thresholdStatus = function(value, passMax, warnMax) {
+      if (value <= passMax) return 'pass';
+      if (value <= warnMax) return 'warn';
+      return 'fail';
+    };
+
+    var reverseThresholdStatus = function(value, passMin, warnMin) {
+      if (value >= passMin) return 'pass';
+      if (value >= warnMin) return 'warn';
+      return 'fail';
+    };
+
+    var fetchWithTimeout = async function(url, options, timeoutMs) {
+      var controller = new AbortController();
+      var timerId = setTimeout(function() {
+        controller.abort();
+      }, timeoutMs || 15000);
+
+      try {
+        var requestOptions = Object.assign({}, options || {}, { signal: controller.signal });
+        return await fetch(url, requestOptions);
+      } finally {
+        clearTimeout(timerId);
+      }
+    };
+
+    var parseJsonOrNull = async function(response) {
+      try {
+        return await response.json();
+      } catch (_error) {
+        return null;
+      }
+    };
+
+    var fetchLocalApiPayload = async function(targetUrl) {
+      var endpoint = '/api/tools/website-grader?url=' + encodeURIComponent(targetUrl);
+      var response = await fetchWithTimeout(endpoint, {
+        method: 'GET',
+        headers: { accept: 'application/json' }
+      }, 18000);
+      var data = await parseJsonOrNull(response);
+
+      if (data && data.error) {
+        throw new Error(data.error);
+      }
+
+      if (!response.ok) {
+        throw new Error((data && data.error) ? data.error : 'Local grader endpoint is not available.');
+      }
+
+      if (!data || !data.scores || !Array.isArray(data.checks)) {
+        throw new Error('Local grader endpoint returned unexpected data.');
+      }
+
+      return {
+        grade: data.grade || gradeLabel(data.scores.overall || 0),
+        scores: {
+          overall: Number(data.scores.overall) || 0,
+          performance: Number(data.scores.performance) || 0,
+          seo: Number(data.scores.seo) || 0,
+          mobile: Number(data.scores.mobile) || 0,
+          trust: Number(data.scores.trust) || 0
+        },
+        statusCode: typeof data.statusCode === 'number' ? data.statusCode : 200,
+        responseTimeMs: typeof data.responseTimeMs === 'number' ? data.responseTimeMs : null,
+        htmlSizeBytes: typeof data.htmlSizeBytes === 'number' ? data.htmlSizeBytes : null,
+        finalUrl: data.finalUrl || targetUrl,
+        checks: data.checks,
+        summary: {
+          titleLength: data.summary && typeof data.summary.titleLength === 'number' ? data.summary.titleLength : null,
+          metaDescriptionLength: data.summary && typeof data.summary.metaDescriptionLength === 'number' ? data.summary.metaDescriptionLength : null,
+          h1Count: data.summary && typeof data.summary.h1Count === 'number' ? data.summary.h1Count : null,
+          imageCount: data.summary && typeof data.summary.imageCount === 'number' ? data.summary.imageCount : null,
+          imagesMissingAlt: data.summary && typeof data.summary.imagesMissingAlt === 'number' ? data.summary.imagesMissingAlt : null,
+          internalLinks: data.summary && typeof data.summary.internalLinks === 'number' ? data.summary.internalLinks : null,
+          externalLinks: data.summary && typeof data.summary.externalLinks === 'number' ? data.summary.externalLinks : null
+        }
+      };
+    };
+
+    var fetchMicrolinkScan = async function(targetUrl) {
+      var endpoint = 'https://api.microlink.io/?url=' + encodeURIComponent(targetUrl) + '&insights=true&screenshot=false';
+      var startedAt = performance.now();
+      var response;
+      try {
+        response = await fetchWithTimeout(endpoint, {
+          method: 'GET',
+          headers: { accept: 'application/json' }
+        }, 20000);
+      } catch (error) {
+        if (error && error.name === 'AbortError') {
+          throw new Error('Microlink scan timed out. Please try again.');
+        }
+        throw new Error('Microlink service is unreachable from this network.');
+      }
+
+      var duration = Math.round(performance.now() - startedAt);
+      var data = await parseJsonOrNull(response);
+
+      if (!response.ok || !data || data.status !== 'success' || !data.data) {
+        var message = 'Could not scan this website right now.';
+        if (data && data.error && data.error.message) message = data.error.message;
+        if (response.status === 429) message = 'Scan quota temporarily reached. Please try again in a few minutes.';
+        throw new Error(message);
+      }
+
+      return {
+        durationMs: duration,
+        statusCode: data.statusCode || response.status,
+        headers: data.headers || {},
+        data: data.data
+      };
+    };
+
+    var fetchProxyHtmlScan = async function(targetUrl) {
+      var endpoint = 'https://api.codetabs.com/v1/proxy/?quest=' + encodeURIComponent(targetUrl);
+      var startedAt = performance.now();
+      var response;
+      try {
+        response = await fetchWithTimeout(endpoint, {
+          method: 'GET',
+          headers: { accept: 'text/html,text/plain;q=0.9,application/xhtml+xml;q=0.8' }
+        }, 22000);
+      } catch (error) {
+        if (error && error.name === 'AbortError') {
+          throw new Error('Fallback proxy timed out while fetching this website.');
+        }
+        throw new Error('Fallback proxy is unreachable from this network.');
+      }
+
+      var duration = Math.round(performance.now() - startedAt);
+      var bodyText = await response.text();
+      if (!response.ok) {
+        var parsedError = '';
+        try {
+          var maybeJson = JSON.parse(bodyText);
+          parsedError = (maybeJson && (maybeJson.error || maybeJson.Error)) ? (maybeJson.error || maybeJson.Error) : '';
+        } catch (_error) {
+          parsedError = '';
+        }
+        throw new Error(parsedError || 'Fallback proxy could not fetch this URL.');
+      }
+
+      if (!bodyText || bodyText.trim().length < 20) {
+        throw new Error('Fallback proxy returned an empty response.');
+      }
+
+      return {
+        durationMs: duration,
+        statusCode: 200,
+        finalUrl: targetUrl,
+        html: bodyText
+      };
+    };
+
+    var buildPayloadFromMicrolink = function(scan, inputUrl) {
+      var headers = scan.headers || {};
+      var lighthouse = scan.data && scan.data.insights ? scan.data.insights.lighthouse : null;
+      if (!lighthouse || !lighthouse.categories) {
+        throw new Error('Scan did not return enough data to grade this website.');
+      }
+
+      var perfScore = toScore100(lighthouse.categories.performance && lighthouse.categories.performance.score);
+      var seoScore = toScore100(lighthouse.categories.seo && lighthouse.categories.seo.score);
+      var bestPracticesScore = toScore100(lighthouse.categories['best-practices'] && lighthouse.categories['best-practices'].score);
+      var accessibilityScore = toScore100(lighthouse.categories.accessibility && lighthouse.categories.accessibility.score);
+
+      var httpsUrl = (scan.data.url || inputUrl || '').toLowerCase();
+      var hasHttps = httpsUrl.startsWith('https://');
+      var title = scan.data.title || '';
+      var description = scan.data.description || '';
+      var lang = scan.data.lang || '';
+      var contentEncoding = (headers['content-encoding'] || '').toLowerCase();
+      var contentType = (headers['content-type'] || '').toLowerCase();
+      var hasCompression = contentEncoding.includes('gzip') || contentEncoding.includes('br') || contentEncoding.includes('deflate');
+      var hasHsts = !!headers['strict-transport-security'];
+      var hasCsp = !!headers['content-security-policy'];
+      var hasXFrame = !!headers['x-frame-options'];
+
+      var checks = [];
+      checks.push(createCheck(
+        'status-code',
+        'trust',
+        'Server responded successfully',
+        scan.statusCode < 400 ? 'pass' : 'fail',
+        'HTTP status ' + scan.statusCode,
+        'Resolve server errors and broken redirects.',
+        15
+      ));
+
+      checks.push(createCheck(
+        'https',
+        'trust',
+        'Secure HTTPS URL',
+        hasHttps ? 'pass' : 'fail',
+        hasHttps ? 'HTTPS enabled' : 'Not using HTTPS',
+        'Serve the site over HTTPS and redirect HTTP to HTTPS.',
+        20
+      ));
+
+      checks.push(createCheck(
+        'title-present',
+        'seo',
+        'Title tag present',
+        title ? 'pass' : 'fail',
+        title ? ('Found (' + title.length + ' chars)') : 'Missing title tag',
+        'Add a clear unique title tag for every page.',
+        20
+      ));
+
+      checks.push(createCheck(
+        'title-length',
+        'seo',
+        'Title length quality',
+        title ? (title.length >= 30 && title.length <= 60 ? 'pass' : 'warn') : 'fail',
+        String(title.length) + ' characters',
+        'Target 30-60 characters for stronger search snippets.',
+        10
+      ));
+
+      checks.push(createCheck(
+        'meta-description',
+        'seo',
+        'Meta description present',
+        description ? 'pass' : 'fail',
+        description ? ('Found (' + description.length + ' chars)') : 'Missing meta description',
+        'Add a compelling meta description for better click-through rate.',
+        20
+      ));
+
+      checks.push(createCheck(
+        'meta-description-length',
+        'seo',
+        'Meta description length',
+        description ? (description.length >= 120 && description.length <= 160 ? 'pass' : 'warn') : 'fail',
+        String(description.length) + ' characters',
+        'Target 120-160 characters for stronger snippet visibility.',
+        10
+      ));
+
+      checks.push(createCheck(
+        'compression',
+        'performance',
+        'Compression enabled',
+        hasCompression ? 'pass' : 'warn',
+        hasCompression ? ('Enabled (' + contentEncoding + ')') : 'No compression header detected',
+        'Enable Brotli or GZIP to reduce transfer size.',
+        15
+      ));
+
+      checks.push(createCheck(
+        'content-type',
+        'performance',
+        'HTML content served',
+        contentType.includes('text/html') ? 'pass' : 'warn',
+        contentType || 'No content-type header detected',
+        'Serve HTML pages with a text/html content type.',
+        10
+      ));
+
+      var perfAudit = pickAudit(lighthouse, 'interactive');
+      checks.push(createCheck(
+        'lighthouse-performance',
+        'performance',
+        'Lighthouse performance benchmark',
+        scoreToStatus(perfScore || 0),
+        (perfScore === null ? 'N/A' : (perfScore + '/100')) + (perfAudit && perfAudit.displayValue ? (' (' + perfAudit.displayValue + ')') : ''),
+        'Improve render performance, image compression, and script loading strategy.',
+        35
+      ));
+
+      checks.push(createCheck(
+        'lighthouse-seo',
+        'seo',
+        'Lighthouse SEO benchmark',
+        scoreToStatus(seoScore || 0),
+        seoScore === null ? 'N/A' : (seoScore + '/100'),
+        'Address Lighthouse SEO findings for crawlability and metadata.',
+        25
+      ));
+
+      checks.push(createCheck(
+        'mobile-accessibility',
+        'mobile',
+        'Mobile accessibility signal',
+        scoreToStatus(accessibilityScore || 0),
+        accessibilityScore === null ? 'N/A' : (accessibilityScore + '/100'),
+        'Improve text legibility, contrast, and touch target usability.',
+        25
+      ));
+
+      checks.push(createCheck(
+        'mobile-performance',
+        'mobile',
+        'Mobile performance signal',
+        scoreToStatus(perfScore || 0),
+        perfScore === null ? 'N/A' : (perfScore + '/100'),
+        'Reduce blocking resources and optimize loading on slower mobile networks.',
+        25
+      ));
+
+      checks.push(createCheck(
+        'language-declared',
+        'mobile',
+        'Language metadata available',
+        lang ? 'pass' : 'warn',
+        lang ? ('Language: ' + lang) : 'Language metadata not detected',
+        'Declare document language for accessibility and localization.',
+        10
+      ));
+
+      checks.push(createCheck(
+        'best-practices',
+        'trust',
+        'Lighthouse best practices benchmark',
+        scoreToStatus(bestPracticesScore || 0),
+        bestPracticesScore === null ? 'N/A' : (bestPracticesScore + '/100'),
+        'Address best-practice and security warnings from Lighthouse.',
+        20
+      ));
+
+      checks.push(createCheck(
+        'hsts',
+        'trust',
+        'HSTS security header',
+        hasHsts ? 'pass' : 'warn',
+        hasHsts ? 'HSTS header present' : 'HSTS header not detected',
+        'Add Strict-Transport-Security to enforce HTTPS in browsers.',
+        10
+      ));
+
+      checks.push(createCheck(
+        'csp-xframe',
+        'trust',
+        'Frame/script protection headers',
+        (hasCsp || hasXFrame) ? 'pass' : 'warn',
+        (hasCsp || hasXFrame) ? 'At least one protection header found' : 'No CSP or X-Frame-Options header detected',
+        'Set Content-Security-Policy and/or X-Frame-Options.',
+        10
+      ));
+
+      var calculatedPerformance = calculateCategoryScore(checks, 'performance');
+      var calculatedSeo = calculateCategoryScore(checks, 'seo');
+      var calculatedMobile = calculateCategoryScore(checks, 'mobile');
+      var calculatedTrust = calculateCategoryScore(checks, 'trust');
+      var overall = Math.round((calculatedPerformance + calculatedSeo + calculatedMobile + calculatedTrust) / 4);
+
+      var contentLength = Number(headers['content-length']);
+      var htmlSizeBytes = Number.isFinite(contentLength) ? contentLength : null;
+
+      return {
+        grade: gradeLabel(overall),
+        scores: {
+          overall: overall,
+          performance: calculatedPerformance,
+          seo: calculatedSeo,
+          mobile: calculatedMobile,
+          trust: calculatedTrust
+        },
+        statusCode: scan.statusCode,
+        responseTimeMs: scan.durationMs,
+        htmlSizeBytes: htmlSizeBytes,
+        finalUrl: scan.data.url || inputUrl,
+        checks: checks,
+        summary: {
+          titleLength: title.length,
+          metaDescriptionLength: description.length,
+          h1Count: null,
+          imageCount: null,
+          imagesMissingAlt: null,
+          internalLinks: null,
+          externalLinks: null
+        }
+      };
+    };
+
+    var getHostFromUrl = function(urlValue) {
+      try {
+        return new URL(urlValue).hostname.toLowerCase();
+      } catch (_error) {
+        return '';
+      }
+    };
+
+    var isInternalHref = function(href, host) {
+      var value = (href || '').trim();
+      if (!value || value.startsWith('#') || value.startsWith('javascript:')) return false;
+      if (value.startsWith('/') || value.startsWith('./') || value.startsWith('../')) return true;
+      if (value.startsWith('mailto:') || value.startsWith('tel:')) return false;
+      if (/^https?:\/\//i.test(value)) {
+        try {
+          var targetHost = new URL(value).hostname.toLowerCase();
+          return targetHost === host || targetHost.endsWith('.' + host);
+        } catch (_error) {
+          return false;
+        }
+      }
+      return true;
+    };
+
+    var isExternalHref = function(href, host) {
+      var value = (href || '').trim();
+      if (!/^https?:\/\//i.test(value)) return false;
+      try {
+        var targetHost = new URL(value).hostname.toLowerCase();
+        return !(targetHost === host || targetHost.endsWith('.' + host));
+      } catch (_error) {
+        return false;
+      }
+    };
+
+    var buildPayloadFromHtmlProxy = function(scan, inputUrl) {
+      var parser = new DOMParser();
+      var doc = parser.parseFromString(scan.html, 'text/html');
+      if (!doc || !doc.documentElement) {
+        throw new Error('Could not parse HTML in fallback scan.');
+      }
+
+      var titleNode = doc.querySelector('title');
+      var title = titleNode && titleNode.textContent ? titleNode.textContent.trim() : '';
+      var descriptionNode = doc.querySelector('meta[name="description"]');
+      var description = descriptionNode && descriptionNode.getAttribute('content') ? descriptionNode.getAttribute('content').trim() : '';
+      var robotsNode = doc.querySelector('meta[name="robots"]');
+      var robots = robotsNode && robotsNode.getAttribute('content') ? robotsNode.getAttribute('content').toLowerCase() : '';
+      var canonicalNode = doc.querySelector('link[rel~="canonical"]');
+      var canonical = canonicalNode && canonicalNode.getAttribute('href') ? canonicalNode.getAttribute('href').trim() : '';
+
+      var h1Count = doc.querySelectorAll('h1').length;
+      var images = Array.prototype.slice.call(doc.querySelectorAll('img'));
+      var imageCount = images.length;
+      var imagesMissingAlt = images.filter(function(img) {
+        var alt = img.getAttribute('alt');
+        return !alt || !alt.trim();
+      }).length;
+      var altCoverage = imageCount > 0 ? ((imageCount - imagesMissingAlt) / imageCount) * 100 : 100;
+
+      var links = Array.prototype.slice.call(doc.querySelectorAll('a[href]')).map(function(link) {
+        return link.getAttribute('href') || '';
+      });
+      var host = getHostFromUrl(inputUrl);
+      var internalLinks = links.filter(function(href) { return isInternalHref(href, host); }).length;
+      var externalLinks = links.filter(function(href) { return isExternalHref(href, host); }).length;
+      var hasPrivacyLink = links.some(function(href) { return /(privacy|terms|legal)/i.test(href || ''); });
+      var hasDirectContactLink = links.some(function(href) { return /^mailto:|^tel:/i.test(href || ''); });
+
+      var viewportMeta = doc.querySelector('meta[name="viewport"]');
+      var viewportContent = viewportMeta && viewportMeta.getAttribute('content') ? viewportMeta.getAttribute('content').toLowerCase() : '';
+      var hasViewportMeta = !!viewportMeta;
+      var hasViewportWidth = viewportContent.indexOf('width=device-width') !== -1;
+      var htmlLang = doc.documentElement.getAttribute('lang');
+      var hasLang = !!(htmlLang && htmlLang.trim());
+      var responsiveImageHints = doc.querySelectorAll('img[srcset], source[srcset], picture').length;
+
+      var scripts = Array.prototype.slice.call(doc.querySelectorAll('script'));
+      var scriptCount = scripts.length;
+      var inlineScriptChars = scripts.reduce(function(sum, scriptTag) {
+        var hasSrc = scriptTag.getAttribute('src');
+        if (hasSrc) return sum;
+        return sum + (scriptTag.textContent ? scriptTag.textContent.length : 0);
+      }, 0);
+
+      var htmlSizeBytes = new TextEncoder().encode(scan.html).length;
+      var hasHttps = inputUrl.toLowerCase().startsWith('https://');
+
+      var checks = [];
+      checks.push(createCheck(
+        'status-code-fallback',
+        'trust',
+        'Server responded successfully',
+        scan.statusCode < 400 ? 'pass' : 'fail',
+        'HTTP status ' + scan.statusCode,
+        'Resolve server errors and broken redirects.',
+        15
+      ));
+
+      checks.push(createCheck(
+        'https-fallback',
+        'trust',
+        'Secure HTTPS URL',
+        hasHttps ? 'pass' : 'fail',
+        hasHttps ? 'HTTPS enabled' : 'Not using HTTPS',
+        'Serve the site over HTTPS and redirect HTTP to HTTPS.',
+        20
+      ));
+
+      checks.push(createCheck(
+        'html-size-fallback',
+        'performance',
+        'HTML payload size',
+        thresholdStatus(htmlSizeBytes, 300000, 600000),
+        Math.round(htmlSizeBytes / 1024) + ' KB',
+        'Reduce large inline markup and remove unused sections.',
+        25
+      ));
+
+      checks.push(createCheck(
+        'script-volume-fallback',
+        'performance',
+        'Script tag volume',
+        thresholdStatus(scriptCount, 12, 24),
+        scriptCount + ' script tags found',
+        'Trim unnecessary scripts and defer non-critical JavaScript.',
+        20
+      ));
+
+      checks.push(createCheck(
+        'inline-script-fallback',
+        'performance',
+        'Inline script payload',
+        thresholdStatus(inlineScriptChars, 20000, 60000),
+        Math.round(inlineScriptChars / 1024) + ' KB inline JavaScript',
+        'Move heavy inline JavaScript into cached external assets.',
+        15
+      ));
+
+      checks.push(createCheck(
+        'proxy-compression-limit',
+        'performance',
+        'Compression header visibility',
+        'warn',
+        'Compression headers are not available in fallback scan mode',
+        'Run a deeper server audit to confirm Brotli/GZIP setup.',
+        10
+      ));
+
+      checks.push(createCheck(
+        'title-present-fallback',
+        'seo',
+        'Title tag present',
+        title ? 'pass' : 'fail',
+        title ? ('Found (' + title.length + ' chars)') : 'Missing title tag',
+        'Add a clear unique title tag for every page.',
+        20
+      ));
+
+      checks.push(createCheck(
+        'title-length-fallback',
+        'seo',
+        'Title length quality',
+        title ? (title.length >= 30 && title.length <= 60 ? 'pass' : 'warn') : 'fail',
+        title.length + ' characters',
+        'Target 30-60 characters for stronger search snippets.',
+        10
+      ));
+
+      checks.push(createCheck(
+        'meta-description-fallback',
+        'seo',
+        'Meta description present',
+        description ? 'pass' : 'fail',
+        description ? ('Found (' + description.length + ' chars)') : 'Missing meta description',
+        'Add a compelling meta description for better click-through rate.',
+        20
+      ));
+
+      checks.push(createCheck(
+        'meta-description-length-fallback',
+        'seo',
+        'Meta description length',
+        description ? (description.length >= 120 && description.length <= 160 ? 'pass' : 'warn') : 'fail',
+        description.length + ' characters',
+        'Target 120-160 characters for stronger snippet visibility.',
+        10
+      ));
+
+      var h1Status = 'fail';
+      if (h1Count === 1) h1Status = 'pass';
+      if (h1Count > 1) h1Status = 'warn';
+      checks.push(createCheck(
+        'h1-structure-fallback',
+        'seo',
+        'H1 heading structure',
+        h1Status,
+        h1Count + ' H1 tag' + (h1Count === 1 ? '' : 's'),
+        'Use exactly one clear H1 heading describing the page topic.',
+        15
+      ));
+
+      checks.push(createCheck(
+        'canonical-fallback',
+        'seo',
+        'Canonical tag present',
+        canonical ? 'pass' : 'warn',
+        canonical ? ('Found (' + canonical + ')') : 'Canonical tag not found',
+        'Add a canonical URL to prevent duplicate-indexing issues.',
+        10
+      ));
+
+      checks.push(createCheck(
+        'robots-fallback',
+        'seo',
+        'Indexing not blocked',
+        robots.indexOf('noindex') !== -1 ? 'fail' : 'pass',
+        robots ? ('robots="' + robots + '"') : 'No restrictive robots meta found',
+        'Remove noindex for pages that should rank in search.',
+        15
+      ));
+
+      checks.push(createCheck(
+        'image-alt-fallback',
+        'seo',
+        'Image alt text coverage',
+        reverseThresholdStatus(altCoverage, 90, 70),
+        Math.round(altCoverage) + '% (' + imagesMissingAlt + '/' + imageCount + ' missing alt)',
+        'Add descriptive alt text to improve accessibility and image SEO.',
+        10
+      ));
+
+      checks.push(createCheck(
+        'viewport-meta-fallback',
+        'mobile',
+        'Viewport meta tag',
+        hasViewportMeta ? 'pass' : 'fail',
+        hasViewportMeta ? 'Viewport meta found' : 'Viewport meta missing',
+        'Include a viewport meta tag for proper mobile rendering.',
+        35
+      ));
+
+      checks.push(createCheck(
+        'viewport-width-fallback',
+        'mobile',
+        'Responsive viewport settings',
+        hasViewportWidth ? 'pass' : (hasViewportMeta ? 'warn' : 'fail'),
+        hasViewportWidth ? 'width=device-width detected' : 'Missing width=device-width',
+        'Use width=device-width in viewport settings.',
+        20
+      ));
+
+      checks.push(createCheck(
+        'lang-fallback',
+        'mobile',
+        'HTML language declared',
+        hasLang ? 'pass' : 'warn',
+        hasLang ? ('Language: ' + htmlLang) : 'lang attribute missing',
+        'Set lang on the html element for accessibility and browser behavior.',
+        20
+      ));
+
+      checks.push(createCheck(
+        'responsive-images-fallback',
+        'mobile',
+        'Responsive image hints',
+        responsiveImageHints > 0 ? 'pass' : (imageCount > 0 ? 'warn' : 'pass'),
+        responsiveImageHints > 0 ? (responsiveImageHints + ' responsive image hint(s) found') : 'No srcset/picture hints found',
+        'Use srcset or picture for better mobile image performance.',
+        25
+      ));
+
+      checks.push(createCheck(
+        'privacy-link-fallback',
+        'trust',
+        'Privacy/legal link found',
+        hasPrivacyLink ? 'pass' : 'warn',
+        hasPrivacyLink ? 'Privacy or terms link detected' : 'No privacy/legal link detected',
+        'Add visible privacy and terms links in footer or navigation.',
+        15
+      ));
+
+      checks.push(createCheck(
+        'direct-contact-link-fallback',
+        'trust',
+        'Direct contact link available',
+        hasDirectContactLink ? 'pass' : 'warn',
+        hasDirectContactLink ? 'mailto/tel link detected' : 'No mailto/tel link detected',
+        'Add direct contact actions (call/email) for faster lead conversion.',
+        10
+      ));
+
+      checks.push(createCheck(
+        'security-headers-fallback',
+        'trust',
+        'Security headers visibility',
+        'warn',
+        'HSTS/CSP headers are not visible in fallback scan mode',
+        'Run a deeper server header audit for strict transport and CSP settings.',
+        10
+      ));
+
+      var calculatedPerformance = calculateCategoryScore(checks, 'performance');
+      var calculatedSeo = calculateCategoryScore(checks, 'seo');
+      var calculatedMobile = calculateCategoryScore(checks, 'mobile');
+      var calculatedTrust = calculateCategoryScore(checks, 'trust');
+      var overall = Math.round((calculatedPerformance + calculatedSeo + calculatedMobile + calculatedTrust) / 4);
+
+      return {
+        grade: gradeLabel(overall),
+        scores: {
+          overall: overall,
+          performance: calculatedPerformance,
+          seo: calculatedSeo,
+          mobile: calculatedMobile,
+          trust: calculatedTrust
+        },
+        statusCode: scan.statusCode,
+        responseTimeMs: scan.durationMs,
+        htmlSizeBytes: htmlSizeBytes,
+        finalUrl: scan.finalUrl || inputUrl,
+        checks: checks,
+        summary: {
+          titleLength: title.length,
+          metaDescriptionLength: description.length,
+          h1Count: h1Count,
+          imageCount: imageCount,
+          imagesMissingAlt: imagesMissingAlt,
+          internalLinks: internalLinks,
+          externalLinks: externalLinks
+        }
+      };
+    };
+
+    var applyPayloadToUi = function(payload) {
+      fields.target.textContent = payload.finalUrl;
+      fields.overallScore.textContent = String(payload.scores.overall);
+      fields.overallGrade.textContent = payload.grade;
+      fields.overallGrade.className = 'text-sm font-bold px-2 py-0.5 rounded ' + scoreToneClass(payload.scores.overall);
+
+      updateScoreCell(fields.performance, payload.scores.performance);
+      updateScoreCell(fields.seo, payload.scores.seo);
+      updateScoreCell(fields.mobile, payload.scores.mobile);
+      updateScoreCell(fields.trust, payload.scores.trust);
+
+      fields.status.textContent = String(payload.statusCode);
+      fields.responseTime.textContent = valueOrNA(payload.responseTimeMs, ' ms');
+      fields.htmlSize.textContent = payload.htmlSizeBytes ? (Math.round(payload.htmlSizeBytes / 1024) + ' KB') : 'N/A';
+      fields.h1.textContent = valueOrNA(payload.summary.h1Count);
+      fields.titleLength.textContent = valueOrNA(payload.summary.titleLength, ' chars');
+      fields.descriptionLength.textContent = valueOrNA(payload.summary.metaDescriptionLength, ' chars');
+      fields.images.textContent = valueOrNA(payload.summary.imageCount);
+      fields.imagesMissingAlt.textContent = valueOrNA(payload.summary.imagesMissingAlt);
+      fields.internalLinks.textContent = valueOrNA(payload.summary.internalLinks);
+      fields.externalLinks.textContent = valueOrNA(payload.summary.externalLinks);
+
+      renderChecks(payload.checks || []);
+      results.classList.remove('hidden');
+      results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+
+    var runGradeWithFallback = async function(normalizedUrl) {
+      var providerErrors = [];
+
+      try {
+        return await fetchLocalApiPayload(normalizedUrl);
+      } catch (error) {
+        providerErrors.push('Local API: ' + (error instanceof Error ? error.message : 'unavailable'));
+      }
+
+      try {
+        var microlinkScan = await fetchMicrolinkScan(normalizedUrl);
+        return buildPayloadFromMicrolink(microlinkScan, normalizedUrl);
+      } catch (error) {
+        providerErrors.push('Microlink: ' + (error instanceof Error ? error.message : 'unavailable'));
+      }
+
+      try {
+        var fallbackScan = await fetchProxyHtmlScan(normalizedUrl);
+        return buildPayloadFromHtmlProxy(fallbackScan, normalizedUrl);
+      } catch (error) {
+        providerErrors.push('Fallback proxy: ' + (error instanceof Error ? error.message : 'unavailable'));
+      }
+
+      var message = 'Could not run the website grade right now. Network or provider access is blocked.';
+      if (providerErrors.length) {
+        message += ' ' + providerErrors.join(' | ');
+      }
+      throw new Error(message);
+    };
+
+    form.addEventListener('submit', async function(event) {
+      event.preventDefault();
+      setError('');
+      setLoading(true);
+      results.classList.add('hidden');
+
+      var rawUrl = input.value.trim();
+      if (!rawUrl) {
+        setError('Please enter a website URL.');
+        setLoading(false);
+        return;
+      }
+
+      try {
+        var normalizedUrl = normalizeInputUrl(rawUrl);
+        if (!normalizedUrl) {
+          throw new Error('Invalid URL. Enter a valid website domain or URL.');
+        }
+
+        var payload = await runGradeWithFallback(normalizedUrl);
+        applyPayloadToUi(payload);
+      } catch (error) {
+        setError(error instanceof Error ? error.message : 'Could not run website grade.');
+      } finally {
+        setLoading(false);
+      }
+    });
+  })();
+</script>

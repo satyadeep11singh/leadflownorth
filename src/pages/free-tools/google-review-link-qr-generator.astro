@@ -1,0 +1,424 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToolHero from '../../components/tools/ToolHero.astro';
+
+const toolSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Lead Flow North Google Review Link + QR Generator',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'CAD',
+  },
+};
+---
+
+<Layout
+  title="Google Review Link + QR Generator"
+  description="Generate direct Google review links and QR codes for cards, receipts, and front desk signage."
+  structuredData={toolSchema}
+>
+  <ToolHero
+    eyebrow="Free Tool: Review Link + QR"
+    title="Create Google Review QR Assets in Minutes"
+    description="Build a direct review link, optionally add UTM tags, and generate a printable QR code your team can use immediately."
+  guideHref="/blog/how-to-use-google-review-link-qr-generator"
+  />
+
+  <section class="py-10 lg:py-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <form id="review-qr-form" class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-5 sm:p-6">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <label class="text-sm sm:col-span-2">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Business Name</span>
+            <input id="business-name" type="text" placeholder="Example Physio Clinic" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm sm:col-span-2">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Direct Review URL (optional)</span>
+            <input id="direct-url" type="text" placeholder="https://search.google.com/local/writereview?placeid=..." class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+          </label>
+
+          <label class="text-sm sm:col-span-2">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Google Place ID (optional if direct URL given)</span>
+            <input id="place-id" type="text" placeholder="ChIJN1t_tDeuEmsRUsoyG83frY4" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+            <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Use Google Place ID Finder if you do not have a direct review link.</p>
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">QR Size (px)</span>
+            <select id="qr-size" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white">
+              <option value="200">200</option>
+              <option value="300" selected>300</option>
+              <option value="400">400</option>
+              <option value="600">600</option>
+            </select>
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Enable UTM Tracking</span>
+            <select id="enable-utm" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white">
+              <option value="yes" selected>Yes</option>
+              <option value="no">No</option>
+            </select>
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">UTM Source</span>
+            <input id="utm-source" type="text" value="qr-card" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">UTM Medium</span>
+            <input id="utm-medium" type="text" value="offline" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+          </label>
+
+          <label class="text-sm sm:col-span-2">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">UTM Campaign</span>
+            <input id="utm-campaign" type="text" value="review-request" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+          </label>
+        </div>
+
+        <div class="mt-5 flex flex-wrap items-center gap-3">
+          <button id="review-qr-submit" type="submit" class="inline-flex w-full sm:w-auto items-center justify-center px-6 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors disabled:opacity-60">
+            Generate Link + QR
+          </button>
+          <button id="review-qr-reset" type="button" class="inline-flex w-full sm:w-auto items-center justify-center px-5 py-3 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-semibold hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+            Reset
+          </button>
+        </div>
+
+        <p id="review-qr-error" class="mt-3 text-sm text-red-600 dark:text-red-400 hidden"></p>
+      </form>
+    </div>
+  </section>
+
+  <section id="review-qr-results" class="py-12 lg:py-16 bg-slate-50 dark:bg-slate-800/40 hidden" aria-live="polite">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-6">
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Review Link</h2>
+          <p class="text-sm text-slate-600 dark:text-slate-300 mb-3">Use this URL in SMS, email, and handoff flows.</p>
+          <textarea id="result-link" readonly class="w-full min-h-[110px] rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 px-3 py-2 text-sm text-slate-800 dark:text-slate-100"></textarea>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <button id="copy-link-btn" type="button" class="inline-flex items-center px-3 py-2 rounded-lg bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold">Copy Link</button>
+            <a id="open-link-btn" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700">Open Link</a>
+            <button id="copy-fallback-btn" type="button" class="inline-flex items-center px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700">Copy Google Search Link</button>
+          </div>
+        </article>
+
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-3">QR Code</h2>
+          <p class="text-sm text-slate-600 dark:text-slate-300 mb-4">Print this QR on table cards, checkout receipts, or service folders.</p>
+          <div class="rounded-xl border border-dashed border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 min-h-[260px] flex items-center justify-center p-4">
+            <img id="qr-image" src="" alt="Generated review QR code" class="max-w-full h-auto hidden" />
+            <p id="qr-placeholder" class="text-sm text-slate-500 dark:text-slate-400">Generate to preview QR code</p>
+          </div>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <a id="download-qr-btn" href="#" class="inline-flex items-center px-3 py-2 rounded-lg bg-accent-700 hover:bg-accent-800 text-white text-sm font-semibold">Download QR</a>
+            <button id="print-card-btn" type="button" class="inline-flex items-center px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700">Print Card</button>
+          </div>
+        </article>
+      </div>
+
+      <article id="print-card" class="mt-6 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-6">
+        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1">Print-Ready Review Card</h3>
+        <p id="print-business-name" class="text-sm text-slate-600 dark:text-slate-300 mb-4"></p>
+        <div class="grid sm:grid-cols-[1fr_auto] gap-4 items-center">
+          <div>
+            <p class="text-slate-900 dark:text-white font-semibold text-base mb-2">How was your experience?</p>
+            <p class="text-sm text-slate-600 dark:text-slate-300">Scan this code and leave us a quick Google review. Thank you for supporting local business.</p>
+          </div>
+          <img id="print-qr-image" src="" alt="Printable review QR" class="w-[170px] h-[170px] mx-auto sm:mx-0 rounded-lg border border-slate-200 dark:border-slate-700 hidden" />
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="py-14 lg:py-18 bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Need Automated Review Requests?</h2>
+      <p class="text-slate-300 mb-7">
+        We can wire automated review request campaigns across SMS, email, and missed-call text-back.
+      </p>
+      <a href="/free-audit" class="inline-flex w-full sm:w-auto justify-center items-center px-7 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors">
+        Book a Free Workflow Audit
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  (function initReviewQrGenerator() {
+    var form = document.getElementById('review-qr-form');
+    var submit = document.getElementById('review-qr-submit');
+    var resetBtn = document.getElementById('review-qr-reset');
+    var errorEl = document.getElementById('review-qr-error');
+    var results = document.getElementById('review-qr-results');
+    if (!form || !submit || !resetBtn || !errorEl || !results) return;
+
+    var byId = function(id) { return document.getElementById(id); };
+    var fields = {
+      businessName: byId('business-name'),
+      directUrl: byId('direct-url'),
+      placeId: byId('place-id'),
+      qrSize: byId('qr-size'),
+      enableUtm: byId('enable-utm'),
+      utmSource: byId('utm-source'),
+      utmMedium: byId('utm-medium'),
+      utmCampaign: byId('utm-campaign'),
+      resultLink: byId('result-link'),
+      copyLinkBtn: byId('copy-link-btn'),
+      copyFallbackBtn: byId('copy-fallback-btn'),
+      openLinkBtn: byId('open-link-btn'),
+      qrImage: byId('qr-image'),
+      qrPlaceholder: byId('qr-placeholder'),
+      downloadQrBtn: byId('download-qr-btn'),
+      printCardBtn: byId('print-card-btn'),
+      printBusinessName: byId('print-business-name'),
+      printQrImage: byId('print-qr-image')
+    };
+
+    var current = {
+      reviewLink: '',
+      fallbackLink: '',
+      qrLink: ''
+    };
+
+    var setLoading = function(isLoading) {
+      submit.disabled = isLoading;
+      submit.textContent = isLoading ? 'Generating...' : 'Generate Link + QR';
+    };
+
+    var setError = function(message) {
+      if (!message) {
+        errorEl.classList.add('hidden');
+        errorEl.textContent = '';
+        return;
+      }
+      errorEl.textContent = message;
+      errorEl.classList.remove('hidden');
+    };
+
+    var normalizeUrl = function(raw) {
+      var value = (raw || '').trim();
+      if (!value) return null;
+      try {
+        return new URL(value);
+      } catch (_error) {
+        return null;
+      }
+    };
+
+    var buildReviewLink = function() {
+      var directUrl = fields.directUrl ? fields.directUrl.value.trim() : '';
+      var placeId = fields.placeId ? fields.placeId.value.trim() : '';
+      var base;
+
+      if (directUrl) {
+        base = normalizeUrl(directUrl);
+        if (!base) throw new Error('Direct review URL is invalid.');
+      } else if (placeId) {
+        base = new URL('https://search.google.com/local/writereview');
+        base.searchParams.set('placeid', placeId);
+      } else {
+        throw new Error('Enter either a direct review URL or a Google Place ID.');
+      }
+
+      if (fields.enableUtm && fields.enableUtm.value === 'yes') {
+        var source = (fields.utmSource && fields.utmSource.value.trim()) || 'qr-card';
+        var medium = (fields.utmMedium && fields.utmMedium.value.trim()) || 'offline';
+        var campaign = (fields.utmCampaign && fields.utmCampaign.value.trim()) || 'review-request';
+
+        base.searchParams.set('utm_source', source);
+        base.searchParams.set('utm_medium', medium);
+        base.searchParams.set('utm_campaign', campaign);
+      }
+
+      return base.toString();
+    };
+
+    var buildFallbackSearchLink = function(name) {
+      var query = (name || '').trim();
+      var search = query ? (query + ' google reviews') : 'google business reviews';
+      return 'https://www.google.com/search?q=' + encodeURIComponent(search);
+    };
+
+    var buildQrImageUrl = function(targetUrl, size) {
+      var safeSize = Number(size);
+      var px = Number.isFinite(safeSize) && safeSize > 0 ? safeSize : 300;
+      return 'https://api.qrserver.com/v1/create-qr-code/?size=' + px + 'x' + px + '&margin=10&data=' + encodeURIComponent(targetUrl);
+    };
+
+    var copyText = async function(value) {
+      if (!value) return;
+      if (!navigator.clipboard || !navigator.clipboard.writeText) {
+        throw new Error('Clipboard API unavailable');
+      }
+      await navigator.clipboard.writeText(value);
+    };
+
+    var setButtonFlash = function(button, originalText, flashText) {
+      if (!button) return;
+      button.textContent = flashText;
+      setTimeout(function() {
+        button.textContent = originalText;
+      }, 1200);
+    };
+
+    var escapeHtml = function(value) {
+      return (value || '')
+        .toString()
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/\"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    };
+
+    var printCard = function() {
+      var businessName = fields.printBusinessName ? fields.printBusinessName.textContent : '';
+      var safeBusinessName = escapeHtml(businessName);
+      var qr = current.qrLink;
+      var html = [
+        '<!doctype html><html><head><meta charset="utf-8" /><title>Review QR Card</title>',
+        '<style>',
+        'body{font-family:Arial,sans-serif;padding:30px;color:#0f172a;} .card{border:1px solid #cbd5e1;border-radius:12px;padding:20px;max-width:420px;} h1{font-size:22px;margin:0 0 6px;} p{margin:0 0 12px;font-size:14px;line-height:1.5;} img{width:220px;height:220px;} .muted{color:#475569;font-size:13px;}',
+        '</style></head><body>',
+        '<div class="card">',
+        '<h1>How was your experience?</h1>',
+        '<p>' + (safeBusinessName || '') + '</p>',
+        '<p class="muted">Scan this code and leave us a quick Google review. Thank you.</p>',
+        '<img src="' + qr + '" alt="Review QR" />',
+        '</div>',
+        '</body></html>'
+      ].join('');
+      var blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+      var printUrl = URL.createObjectURL(blob);
+      var printWindow = window.open(printUrl, '_blank', 'width=600,height=700');
+      if (!printWindow) {
+        URL.revokeObjectURL(printUrl);
+        return;
+      }
+      var cleanup = function() {
+        URL.revokeObjectURL(printUrl);
+      };
+      printWindow.addEventListener('load', function() {
+        printWindow.focus();
+        setTimeout(function() {
+          printWindow.print();
+        }, 200);
+      }, { once: true });
+      printWindow.addEventListener('afterprint', cleanup, { once: true });
+      setTimeout(cleanup, 15000);
+    };
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      setError('');
+      setLoading(true);
+
+      try {
+        var businessName = fields.businessName ? fields.businessName.value.trim() : '';
+        if (!businessName) {
+          throw new Error('Business name is required.');
+        }
+
+        var reviewLink = buildReviewLink();
+        var qrLink = buildQrImageUrl(reviewLink, fields.qrSize && fields.qrSize.value);
+        var fallbackLink = buildFallbackSearchLink(businessName);
+
+        current.reviewLink = reviewLink;
+        current.qrLink = qrLink;
+        current.fallbackLink = fallbackLink;
+
+        if (fields.resultLink) fields.resultLink.value = reviewLink;
+        if (fields.openLinkBtn) fields.openLinkBtn.href = reviewLink;
+        if (fields.downloadQrBtn) {
+          fields.downloadQrBtn.href = qrLink;
+          fields.downloadQrBtn.setAttribute('download', 'google-review-qr.png');
+        }
+
+        if (fields.qrImage) {
+          fields.qrImage.src = qrLink;
+          fields.qrImage.classList.remove('hidden');
+        }
+        if (fields.qrPlaceholder) fields.qrPlaceholder.classList.add('hidden');
+
+        if (fields.printBusinessName) fields.printBusinessName.textContent = businessName;
+        if (fields.printQrImage) {
+          fields.printQrImage.src = qrLink;
+          fields.printQrImage.classList.remove('hidden');
+        }
+
+        results.classList.remove('hidden');
+        results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (error) {
+        setError(error instanceof Error ? error.message : 'Could not generate review link and QR.');
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    if (fields.copyLinkBtn) {
+      fields.copyLinkBtn.addEventListener('click', async function() {
+        if (!current.reviewLink) return;
+        try {
+          await copyText(current.reviewLink);
+          setButtonFlash(fields.copyLinkBtn, 'Copy Link', 'Copied');
+        } catch (_error) {
+          setError('Could not copy link from this browser.');
+        }
+      });
+    }
+
+    if (fields.copyFallbackBtn) {
+      fields.copyFallbackBtn.addEventListener('click', async function() {
+        if (!current.fallbackLink) return;
+        try {
+          await copyText(current.fallbackLink);
+          setButtonFlash(fields.copyFallbackBtn, 'Copy Google Search Link', 'Copied');
+        } catch (_error) {
+          setError('Could not copy fallback link from this browser.');
+        }
+      });
+    }
+
+    if (fields.printCardBtn) {
+      fields.printCardBtn.addEventListener('click', function() {
+        if (!current.qrLink) {
+          setError('Generate a QR code before printing.');
+          return;
+        }
+        printCard();
+      });
+    }
+
+    resetBtn.addEventListener('click', function() {
+      form.reset();
+      setError('');
+      results.classList.add('hidden');
+
+      current.reviewLink = '';
+      current.qrLink = '';
+      current.fallbackLink = '';
+
+      if (fields.resultLink) fields.resultLink.value = '';
+      if (fields.qrImage) {
+        fields.qrImage.src = '';
+        fields.qrImage.classList.add('hidden');
+      }
+      if (fields.qrPlaceholder) fields.qrPlaceholder.classList.remove('hidden');
+      if (fields.printQrImage) {
+        fields.printQrImage.src = '';
+        fields.printQrImage.classList.add('hidden');
+      }
+      if (fields.printBusinessName) fields.printBusinessName.textContent = '';
+      if (fields.openLinkBtn) fields.openLinkBtn.href = '#';
+      if (fields.downloadQrBtn) fields.downloadQrBtn.href = '#';
+    });
+  })();
+</script>

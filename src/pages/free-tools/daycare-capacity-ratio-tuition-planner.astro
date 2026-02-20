@@ -1,0 +1,296 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToolHero from '../../components/tools/ToolHero.astro';
+
+const toolSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Lead Flow North Daycare Capacity, Ratio & Tuition Planner',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'CAD',
+  },
+};
+---
+
+<Layout
+  title="Daycare Capacity, Ratio & Tuition Planner"
+  description="Plan daycare enrollment capacity, staffing ratios, and tuition scenarios with Canadian defaults."
+  structuredData={toolSchema}
+>
+  <ToolHero
+    eyebrow="Free Tool: Daycare Capacity, Ratio & Tuition Planner"
+    title="Plan Enrollment, Staffing, and Tuition Revenue"
+    description="Model capacity by age group, required staff based on ratio, and monthly/annual revenue potential."
+  guideHref="/blog/how-to-use-daycare-capacity-ratio-tuition-planner"
+  />
+
+  <section class="py-10 lg:py-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <form id="daycare-form" class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-5 sm:p-6">
+        <div class="overflow-x-auto mb-4">
+          <table class="w-full min-w-[880px] border-collapse text-sm">
+            <thead>
+              <tr class="bg-slate-100 dark:bg-slate-900">
+                <th class="text-left p-3 border border-slate-200 dark:border-slate-700">Program</th>
+                <th class="text-right p-3 border border-slate-200 dark:border-slate-700">Licensed Spots</th>
+                <th class="text-right p-3 border border-slate-200 dark:border-slate-700">Occupancy (%)</th>
+                <th class="text-right p-3 border border-slate-200 dark:border-slate-700">Monthly Tuition (CAD)</th>
+                <th class="text-right p-3 border border-slate-200 dark:border-slate-700">Ratio (Children per 1 Staff)</th>
+                <th class="text-right p-3 border border-slate-200 dark:border-slate-700">Enrolled</th>
+                <th class="text-right p-3 border border-slate-200 dark:border-slate-700">Required Staff</th>
+                <th class="text-right p-3 border border-slate-200 dark:border-slate-700">Revenue</th>
+              </tr>
+            </thead>
+            <tbody id="daycare-rows">
+              <tr data-row="infant">
+                <td class="p-2 border border-slate-200 dark:border-slate-700">Infant</td>
+                <td class="p-2 border border-slate-200 dark:border-slate-700"><input data-role="spots" type="number" min="0" step="1" value="16" class="w-full rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-2 py-1 text-right text-slate-900 dark:text-white" /></td>
+                <td class="p-2 border border-slate-200 dark:border-slate-700"><input data-role="occupancy" type="number" min="0" max="100" step="0.1" value="90" class="w-full rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-2 py-1 text-right text-slate-900 dark:text-white" /></td>
+                <td class="p-2 border border-slate-200 dark:border-slate-700"><input data-role="tuition" type="number" min="0" step="1" value="1450" class="w-full rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-2 py-1 text-right text-slate-900 dark:text-white" /></td>
+                <td class="p-2 border border-slate-200 dark:border-slate-700"><input data-role="ratio" type="number" min="1" step="1" value="3" class="w-full rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-2 py-1 text-right text-slate-900 dark:text-white" /></td>
+                <td class="p-2 border border-slate-200 dark:border-slate-700 text-right"><span data-role="enrolled">0</span></td>
+                <td class="p-2 border border-slate-200 dark:border-slate-700 text-right"><span data-role="staff">0</span></td>
+                <td class="p-2 border border-slate-200 dark:border-slate-700 text-right"><span data-role="revenue">$0</span></td>
+              </tr>
+              <tr data-row="toddler">
+                <td class="p-2 border border-slate-200 dark:border-slate-700">Toddler</td>
+                <td class="p-2 border border-slate-200 dark:border-slate-700"><input data-role="spots" type="number" min="0" step="1" value="20" class="w-full rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-2 py-1 text-right text-slate-900 dark:text-white" /></td>
+                <td class="p-2 border border-slate-200 dark:border-slate-700"><input data-role="occupancy" type="number" min="0" max="100" step="0.1" value="88" class="w-full rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-2 py-1 text-right text-slate-900 dark:text-white" /></td>
+                <td class="p-2 border border-slate-200 dark:border-slate-700"><input data-role="tuition" type="number" min="0" step="1" value="1280" class="w-full rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-2 py-1 text-right text-slate-900 dark:text-white" /></td>
+                <td class="p-2 border border-slate-200 dark:border-slate-700"><input data-role="ratio" type="number" min="1" step="1" value="5" class="w-full rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-2 py-1 text-right text-slate-900 dark:text-white" /></td>
+                <td class="p-2 border border-slate-200 dark:border-slate-700 text-right"><span data-role="enrolled">0</span></td>
+                <td class="p-2 border border-slate-200 dark:border-slate-700 text-right"><span data-role="staff">0</span></td>
+                <td class="p-2 border border-slate-200 dark:border-slate-700 text-right"><span data-role="revenue">$0</span></td>
+              </tr>
+              <tr data-row="preschool">
+                <td class="p-2 border border-slate-200 dark:border-slate-700">Preschool</td>
+                <td class="p-2 border border-slate-200 dark:border-slate-700"><input data-role="spots" type="number" min="0" step="1" value="26" class="w-full rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-2 py-1 text-right text-slate-900 dark:text-white" /></td>
+                <td class="p-2 border border-slate-200 dark:border-slate-700"><input data-role="occupancy" type="number" min="0" max="100" step="0.1" value="92" class="w-full rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-2 py-1 text-right text-slate-900 dark:text-white" /></td>
+                <td class="p-2 border border-slate-200 dark:border-slate-700"><input data-role="tuition" type="number" min="0" step="1" value="1080" class="w-full rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-2 py-1 text-right text-slate-900 dark:text-white" /></td>
+                <td class="p-2 border border-slate-200 dark:border-slate-700"><input data-role="ratio" type="number" min="1" step="1" value="8" class="w-full rounded-md border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-2 py-1 text-right text-slate-900 dark:text-white" /></td>
+                <td class="p-2 border border-slate-200 dark:border-slate-700 text-right"><span data-role="enrolled">0</span></td>
+                <td class="p-2 border border-slate-200 dark:border-slate-700 text-right"><span data-role="staff">0</span></td>
+                <td class="p-2 border border-slate-200 dark:border-slate-700 text-right"><span data-role="revenue">$0</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-4 mb-4">
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Average Staff Cost / Month (CAD)</span>
+            <input id="staff-cost" type="number" min="0" step="1" value="4300" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+          </label>
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Other Monthly Operating Costs (CAD)</span>
+            <input id="other-costs" type="number" min="0" step="1" value="10500" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+          </label>
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+          <button id="daycare-submit" type="submit" class="inline-flex w-full sm:w-auto items-center justify-center px-4 py-2.5 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold">Calculate</button>
+          <button id="daycare-reset" type="button" class="inline-flex w-full sm:w-auto items-center justify-center px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-semibold hover:bg-slate-100 dark:hover:bg-slate-700">Reset</button>
+        </div>
+
+        <p id="daycare-error" class="mt-3 text-sm text-red-600 dark:text-red-400 hidden"></p>
+      </form>
+    </div>
+  </section>
+
+  <section id="daycare-results" class="py-12 lg:py-16 bg-slate-50 dark:bg-slate-800/40 hidden" aria-live="polite">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-7">
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Total Enrolled</p>
+          <p id="total-enrolled" class="text-2xl font-extrabold text-slate-900 dark:text-white">0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Required Staff</p>
+          <p id="total-staff" class="text-2xl font-extrabold text-slate-900 dark:text-white">0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Monthly Tuition Revenue</p>
+          <p id="monthly-revenue" class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Monthly Surplus (Before Tax)</p>
+          <p id="monthly-surplus" class="text-2xl font-extrabold text-blue-600 dark:text-blue-400">$0</p>
+        </article>
+      </div>
+
+      <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+        <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Planner Notes</h2>
+        <div id="daycare-notes" class="text-sm text-slate-700 dark:text-slate-300 space-y-2"></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="py-14 lg:py-18 bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Need a Website That Enrolls Families?</h2>
+      <p class="text-slate-300 mb-7">
+        We build daycare websites with waitlist management, tour booking, and parent-friendly designs that build trust fast.
+      </p>
+      <a href="/free-audit" class="inline-flex w-full sm:w-auto justify-center items-center px-7 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors">
+        Book a Free Workflow Audit
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  (function initDaycarePlanner() {
+    var form = document.getElementById('daycare-form');
+    var submit = document.getElementById('daycare-submit');
+    var resetBtn = document.getElementById('daycare-reset');
+    var errorEl = document.getElementById('daycare-error');
+    var results = document.getElementById('daycare-results');
+    var rowsRoot = document.getElementById('daycare-rows');
+    if (!form || !submit || !resetBtn || !errorEl || !results || !rowsRoot) return;
+
+    var byId = function(id) { return document.getElementById(id); };
+    var fields = {
+      staffCost: byId('staff-cost'),
+      otherCosts: byId('other-costs'),
+      totalEnrolled: byId('total-enrolled'),
+      totalStaff: byId('total-staff'),
+      monthlyRevenue: byId('monthly-revenue'),
+      monthlySurplus: byId('monthly-surplus'),
+      daycareNotes: byId('daycare-notes')
+    };
+
+    var parseNum = function(value, fallback) {
+      var n = Number(value);
+      return Number.isFinite(n) ? n : (fallback || 0);
+    };
+
+    var formatCurrency = function(value) {
+      return new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD', maximumFractionDigits: 0 }).format(value || 0);
+    };
+
+    var setError = function(message) {
+      if (!message) {
+        errorEl.classList.add('hidden');
+        errorEl.textContent = '';
+        return;
+      }
+      errorEl.textContent = message;
+      errorEl.classList.remove('hidden');
+    };
+
+    var setLoading = function(isLoading) {
+      submit.disabled = isLoading;
+      submit.textContent = isLoading ? 'Calculating...' : 'Calculate';
+    };
+
+    var getRows = function() {
+      return Array.prototype.slice.call(rowsRoot.querySelectorAll('tr[data-row]'));
+    };
+
+    var calculate = function() {
+      var staffCost = parseNum(fields.staffCost && fields.staffCost.value, 0);
+      var otherCosts = parseNum(fields.otherCosts && fields.otherCosts.value, 0);
+
+      var totalEnrolled = 0;
+      var totalStaff = 0;
+      var totalRevenue = 0;
+
+      getRows().forEach(function(row) {
+        var spots = parseNum((row.querySelector('[data-role="spots"]') || {}).value, 0);
+        var occupancy = parseNum((row.querySelector('[data-role="occupancy"]') || {}).value, 0);
+        var tuition = parseNum((row.querySelector('[data-role="tuition"]') || {}).value, 0);
+        var ratio = parseNum((row.querySelector('[data-role="ratio"]') || {}).value, 1);
+
+        if (occupancy < 0 || occupancy > 100) throw new Error('Occupancy must be between 0 and 100%.');
+        if (ratio <= 0) throw new Error('Ratio must be greater than 0.');
+
+        var enrolled = Math.round(spots * (occupancy / 100));
+        var requiredStaff = enrolled > 0 ? Math.ceil(enrolled / ratio) : 0;
+        var revenue = enrolled * tuition;
+
+        totalEnrolled += enrolled;
+        totalStaff += requiredStaff;
+        totalRevenue += revenue;
+
+        var enrolledEl = row.querySelector('[data-role="enrolled"]');
+        var staffEl = row.querySelector('[data-role="staff"]');
+        var revEl = row.querySelector('[data-role="revenue"]');
+        if (enrolledEl) enrolledEl.textContent = String(enrolled);
+        if (staffEl) staffEl.textContent = String(requiredStaff);
+        if (revEl) revEl.textContent = formatCurrency(revenue);
+      });
+
+      var staffPayroll = totalStaff * staffCost;
+      var monthlySurplus = totalRevenue - staffPayroll - otherCosts;
+      var annualRevenue = totalRevenue * 12;
+
+      return {
+        totalEnrolled: totalEnrolled,
+        totalStaff: totalStaff,
+        totalRevenue: totalRevenue,
+        annualRevenue: annualRevenue,
+        staffPayroll: staffPayroll,
+        monthlySurplus: monthlySurplus,
+        otherCosts: otherCosts
+      };
+    };
+
+    var renderNotes = function(r) {
+      if (!fields.daycareNotes) return;
+      var notes = [];
+      notes.push('Projected annual tuition revenue: ' + formatCurrency(r.annualRevenue) + '.');
+      notes.push('Estimated monthly staffing payroll: ' + formatCurrency(r.staffPayroll) + '.');
+      notes.push('Other monthly operating costs entered: ' + formatCurrency(r.otherCosts) + '.');
+      if (r.monthlySurplus < 0) {
+        notes.push('Current scenario is operating at a monthly deficit. Review tuition, occupancy, or staffing structure.');
+      } else {
+        notes.push('Current scenario shows positive monthly surplus before tax and debt servicing.');
+      }
+      fields.daycareNotes.innerHTML = notes.map(function(note) { return '<p>' + note + '</p>'; }).join('');
+    };
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      setError('');
+      setLoading(true);
+
+      try {
+        var r = calculate();
+        if (fields.totalEnrolled) fields.totalEnrolled.textContent = String(r.totalEnrolled);
+        if (fields.totalStaff) fields.totalStaff.textContent = String(r.totalStaff);
+        if (fields.monthlyRevenue) fields.monthlyRevenue.textContent = formatCurrency(r.totalRevenue);
+        if (fields.monthlySurplus) {
+          fields.monthlySurplus.textContent = formatCurrency(r.monthlySurplus);
+          fields.monthlySurplus.className = 'text-2xl font-extrabold ' + (r.monthlySurplus >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400');
+        }
+
+        renderNotes(r);
+        results.classList.remove('hidden');
+        results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (error) {
+        setError(error instanceof Error ? error.message : 'Could not calculate daycare scenario.');
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    resetBtn.addEventListener('click', function() {
+      form.reset();
+      setError('');
+      results.classList.add('hidden');
+      getRows().forEach(function(row) {
+        var enrolledEl = row.querySelector('[data-role="enrolled"]');
+        var staffEl = row.querySelector('[data-role="staff"]');
+        var revEl = row.querySelector('[data-role="revenue"]');
+        if (enrolledEl) enrolledEl.textContent = '0';
+        if (staffEl) staffEl.textContent = '0';
+        if (revEl) revEl.textContent = '$0';
+      });
+      if (fields.daycareNotes) fields.daycareNotes.innerHTML = '';
+    });
+  })();
+</script>

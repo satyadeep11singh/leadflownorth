@@ -1,0 +1,274 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToolHero from '../../components/tools/ToolHero.astro';
+
+const toolSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Lead Flow North Donor Retention + Fundraising Calculator',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'CAD',
+  },
+};
+---
+
+<Layout
+  title="Donor Retention + Fundraising Calculator"
+  description="Model donor retention impact, contribution growth, and campaign ROI for nonprofits."
+  structuredData={toolSchema}
+>
+  <ToolHero
+    eyebrow="Free Tool: Donor Retention + Fundraising Calculator"
+    title="Quantify the Value of Better Donor Retention"
+    description="Compare current donor retention with target outcomes and estimate revenue lift from improved follow-up."
+  guideHref="/blog/how-to-use-donor-retention-fundraising-calculator"
+  />
+
+  <section class="py-10 lg:py-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <form id="donor-form" class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-5 sm:p-6">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Donors Last Year</span>
+            <input id="donors-last-year" type="number" min="1" step="1" value="850" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Retained Donors This Year</span>
+            <input id="retained-donors" type="number" min="0" step="1" value="425" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Average Annual Gift (CAD)</span>
+            <input id="avg-gift" type="number" min="1" step="1" value="180" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">New Donors This Year</span>
+            <input id="new-donors" type="number" min="0" step="1" value="220" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Target Retention Rate (%)</span>
+            <input id="target-retention" type="number" min="0" max="100" step="0.1" value="62" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Retention Campaign Cost (CAD)</span>
+            <input id="campaign-cost" type="number" min="0" step="1" value="4800" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+          </label>
+        </div>
+
+        <div class="mt-5 flex flex-wrap items-center gap-3">
+          <button id="donor-submit" type="submit" class="inline-flex w-full sm:w-auto items-center justify-center px-6 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors disabled:opacity-60">
+            Calculate
+          </button>
+          <button id="donor-reset" type="button" class="inline-flex w-full sm:w-auto items-center justify-center px-5 py-3 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-semibold hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+            Reset
+          </button>
+        </div>
+
+        <p id="donor-error" class="mt-3 text-sm text-red-600 dark:text-red-400 hidden"></p>
+      </form>
+    </div>
+  </section>
+
+  <section id="donor-results" class="py-12 lg:py-16 bg-slate-50 dark:bg-slate-800/40 hidden" aria-live="polite">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-7">
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Current Retention Rate</p>
+          <p id="current-retention-rate" class="text-2xl font-extrabold text-slate-900 dark:text-white">0%</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Current Annual Revenue</p>
+          <p id="current-revenue" class="text-2xl font-extrabold text-slate-900 dark:text-white">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Revenue at Target Retention</p>
+          <p id="target-revenue" class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Net Revenue Lift</p>
+          <p id="net-lift" class="text-2xl font-extrabold text-blue-600 dark:text-blue-400">$0</p>
+        </article>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-5">
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Donor Movement</h2>
+          <dl class="space-y-2 text-sm">
+            <div class="flex justify-between gap-2"><dt class="text-slate-500 dark:text-slate-400">Retained Donors Needed at Target</dt><dd id="target-retained-count" class="font-semibold text-slate-900 dark:text-white">-</dd></div>
+            <div class="flex justify-between gap-2"><dt class="text-slate-500 dark:text-slate-400">Additional Retained Donors</dt><dd id="extra-retained" class="font-semibold text-slate-900 dark:text-white">-</dd></div>
+            <div class="flex justify-between gap-2"><dt class="text-slate-500 dark:text-slate-400">Estimated Revenue per Added Retained Donor</dt><dd id="revenue-per-retained" class="font-semibold text-slate-900 dark:text-white">-</dd></div>
+          </dl>
+        </article>
+
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Recommended Focus</h2>
+          <div id="donor-guidance" class="text-sm text-slate-700 dark:text-slate-300 space-y-2"></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-14 lg:py-18 bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Need a Donation Page That Converts?</h2>
+      <p class="text-slate-300 mb-7">
+        We build nonprofit websites with optimized donation flows, donor engagement, and campaign landing pages.
+      </p>
+      <a href="/free-audit" class="inline-flex w-full sm:w-auto justify-center items-center px-7 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors">
+        Book a Free Workflow Audit
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  (function initDonorRetentionCalculator() {
+    var form = document.getElementById('donor-form');
+    var submit = document.getElementById('donor-submit');
+    var resetBtn = document.getElementById('donor-reset');
+    var errorEl = document.getElementById('donor-error');
+    var results = document.getElementById('donor-results');
+    if (!form || !submit || !resetBtn || !errorEl || !results) return;
+
+    var byId = function(id) { return document.getElementById(id); };
+    var fields = {
+      donorsLastYear: byId('donors-last-year'),
+      retainedDonors: byId('retained-donors'),
+      avgGift: byId('avg-gift'),
+      newDonors: byId('new-donors'),
+      targetRetention: byId('target-retention'),
+      campaignCost: byId('campaign-cost'),
+      currentRetentionRate: byId('current-retention-rate'),
+      currentRevenue: byId('current-revenue'),
+      targetRevenue: byId('target-revenue'),
+      netLift: byId('net-lift'),
+      targetRetainedCount: byId('target-retained-count'),
+      extraRetained: byId('extra-retained'),
+      revenuePerRetained: byId('revenue-per-retained'),
+      donorGuidance: byId('donor-guidance')
+    };
+
+    var parseNum = function(value, fallback) {
+      var n = Number(value);
+      return Number.isFinite(n) ? n : (fallback || 0);
+    };
+
+    var formatCurrency = function(value) {
+      return new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD', maximumFractionDigits: 0 }).format(value || 0);
+    };
+
+    var formatPercent = function(value) {
+      return value.toFixed(1) + '%';
+    };
+
+    var setLoading = function(isLoading) {
+      submit.disabled = isLoading;
+      submit.textContent = isLoading ? 'Calculating...' : 'Calculate';
+    };
+
+    var setError = function(message) {
+      if (!message) {
+        errorEl.classList.add('hidden');
+        errorEl.textContent = '';
+        return;
+      }
+      errorEl.textContent = message;
+      errorEl.classList.remove('hidden');
+    };
+
+    var calculate = function() {
+      var donorsLastYear = parseNum(fields.donorsLastYear && fields.donorsLastYear.value, 0);
+      var retainedDonors = parseNum(fields.retainedDonors && fields.retainedDonors.value, 0);
+      var avgGift = parseNum(fields.avgGift && fields.avgGift.value, 0);
+      var newDonors = parseNum(fields.newDonors && fields.newDonors.value, 0);
+      var targetRetention = parseNum(fields.targetRetention && fields.targetRetention.value, 0);
+      var campaignCost = parseNum(fields.campaignCost && fields.campaignCost.value, 0);
+
+      if (donorsLastYear <= 0 || avgGift <= 0) throw new Error('Donors last year and average gift must be greater than 0.');
+      if (retainedDonors < 0 || retainedDonors > donorsLastYear) throw new Error('Retained donors should be between 0 and donors last year.');
+      if (targetRetention < 0 || targetRetention > 100) throw new Error('Target retention should be between 0 and 100.');
+
+      var currentRetentionRate = (retainedDonors / donorsLastYear) * 100;
+      var targetRetainedCount = Math.round(donorsLastYear * (targetRetention / 100));
+      var extraRetained = Math.max(0, targetRetainedCount - retainedDonors);
+
+      var currentRevenue = (retainedDonors + newDonors) * avgGift;
+      var targetRevenue = (targetRetainedCount + newDonors) * avgGift;
+      var grossLift = targetRevenue - currentRevenue;
+      var netLift = grossLift - campaignCost;
+
+      return {
+        currentRetentionRate: currentRetentionRate,
+        targetRetainedCount: targetRetainedCount,
+        extraRetained: extraRetained,
+        currentRevenue: currentRevenue,
+        targetRevenue: targetRevenue,
+        netLift: netLift,
+        avgGift: avgGift,
+        grossLift: grossLift
+      };
+    };
+
+    var renderGuidance = function(r) {
+      if (!fields.donorGuidance) return;
+      var notes = [];
+      notes.push('Each additional retained donor is worth about ' + formatCurrency(r.avgGift) + ' annually based on current gift averages.');
+      if (r.extraRetained > 0) {
+        notes.push('To hit your target, retain approximately ' + r.extraRetained + ' additional donors.');
+      } else {
+        notes.push('Your current retained donor count already meets the target retention level.');
+      }
+      if (r.netLift > 0) {
+        notes.push('Modeled retention initiative remains net-positive after campaign cost.');
+      } else {
+        notes.push('Modeled net lift is not positive after campaign cost. Rework cost, targeting, or donor experience plan.');
+      }
+      notes.push('Prioritize first-90-day thank-you and second-gift conversion workflows for new donors.');
+      fields.donorGuidance.innerHTML = notes.map(function(note) { return '<p>' + note + '</p>'; }).join('');
+    };
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      setError('');
+      setLoading(true);
+
+      try {
+        var r = calculate();
+        if (fields.currentRetentionRate) fields.currentRetentionRate.textContent = formatPercent(r.currentRetentionRate);
+        if (fields.currentRevenue) fields.currentRevenue.textContent = formatCurrency(r.currentRevenue);
+        if (fields.targetRevenue) fields.targetRevenue.textContent = formatCurrency(r.targetRevenue);
+        if (fields.netLift) {
+          fields.netLift.textContent = formatCurrency(r.netLift);
+          fields.netLift.className = 'text-2xl font-extrabold ' + (r.netLift >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400');
+        }
+
+        if (fields.targetRetainedCount) fields.targetRetainedCount.textContent = String(r.targetRetainedCount);
+        if (fields.extraRetained) fields.extraRetained.textContent = String(r.extraRetained);
+        if (fields.revenuePerRetained) fields.revenuePerRetained.textContent = formatCurrency(r.avgGift);
+
+        renderGuidance(r);
+        results.classList.remove('hidden');
+        results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (error) {
+        setError(error instanceof Error ? error.message : 'Could not calculate donor retention impact.');
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    resetBtn.addEventListener('click', function() {
+      form.reset();
+      setError('');
+      results.classList.add('hidden');
+      if (fields.donorGuidance) fields.donorGuidance.innerHTML = '';
+    });
+  })();
+</script>

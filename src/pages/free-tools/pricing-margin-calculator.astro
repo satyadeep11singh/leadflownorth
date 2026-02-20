@@ -1,0 +1,294 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToolHero from '../../components/tools/ToolHero.astro';
+
+const toolSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Lead Flow North Pricing & Margin Calculator',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'CAD',
+  },
+};
+---
+
+<Layout
+  title="Pricing & Margin Calculator"
+  description="Model costs, markups, and margin targets to set profitable prices with Canadian currency defaults."
+  structuredData={toolSchema}
+>
+  <ToolHero
+    eyebrow="Free Tool: Pricing & Margin Calculator"
+    title="Price for Profit, Not Guesswork"
+    description="Calculate break-even pricing, current margin, and recommended selling prices based on your margin or markup targets."
+  guideHref="/blog/how-to-use-pricing-margin-calculator"
+  />
+
+  <section class="py-10 lg:py-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <form id="pricing-form" class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-5 sm:p-6">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Direct Cost Per Unit (CAD)</span>
+            <input id="direct-cost" type="number" min="0" step="0.01" value="42" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Monthly Fixed Overhead (CAD)</span>
+            <input id="monthly-overhead" type="number" min="0" step="1" value="3500" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Units Sold Per Month</span>
+            <input id="units-monthly" type="number" min="1" step="1" value="220" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Current Selling Price (CAD)</span>
+            <input id="current-price" type="number" min="0" step="0.01" value="78" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Target Gross Margin (%)</span>
+            <input id="target-margin" type="number" min="0" max="95" step="0.1" value="45" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Target Markup (%)</span>
+            <input id="target-markup" type="number" min="0" step="0.1" value="65" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+        </div>
+
+        <div class="mt-5 flex flex-wrap items-center gap-3">
+          <button id="pricing-submit" type="submit" class="inline-flex w-full sm:w-auto items-center justify-center px-6 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors disabled:opacity-60">
+            Calculate
+          </button>
+          <button id="pricing-reset" type="button" class="inline-flex w-full sm:w-auto items-center justify-center px-5 py-3 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-semibold hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+            Reset
+          </button>
+        </div>
+
+        <p id="pricing-error" class="mt-3 text-sm text-red-600 dark:text-red-400 hidden"></p>
+      </form>
+    </div>
+  </section>
+
+  <section id="pricing-results" class="py-12 lg:py-16 bg-slate-50 dark:bg-slate-800/40 hidden" aria-live="polite">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-7">
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Break-Even Price</p>
+          <p id="break-even-price" class="text-2xl font-extrabold text-slate-900 dark:text-white">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Current Gross Margin</p>
+          <p id="current-margin" class="text-2xl font-extrabold text-slate-900 dark:text-white">0%</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Price for Target Margin</p>
+          <p id="price-for-margin" class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Price for Target Markup</p>
+          <p id="price-for-markup" class="text-2xl font-extrabold text-blue-600 dark:text-blue-400">$0</p>
+        </article>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-5">
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Monthly Profit Snapshot</h2>
+          <dl class="space-y-2 text-sm">
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Current Monthly Gross Profit</dt>
+              <dd id="current-monthly-profit" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Monthly Profit at Target Margin Price</dt>
+              <dd id="margin-monthly-profit" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Monthly Profit Lift</dt>
+              <dd id="profit-lift" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+          </dl>
+        </article>
+
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Pricing Guidance</h2>
+          <div id="pricing-guidance" class="text-sm text-slate-700 dark:text-slate-300 space-y-2"></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-14 lg:py-18 bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Want Help Turning Margins Into Growth?</h2>
+      <p class="text-slate-300 mb-7">
+        We help small businesses build websites and lead systems that maximize the revenue you keep. Book a free strategy call.
+      </p>
+      <a href="/free-audit" class="inline-flex w-full sm:w-auto justify-center items-center px-7 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors">
+        Book a Free Workflow Audit
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  (function initPricingCalculator() {
+    var form = document.getElementById('pricing-form');
+    var submit = document.getElementById('pricing-submit');
+    var resetBtn = document.getElementById('pricing-reset');
+    var errorEl = document.getElementById('pricing-error');
+    var results = document.getElementById('pricing-results');
+    if (!form || !submit || !resetBtn || !errorEl || !results) return;
+
+    var byId = function(id) { return document.getElementById(id); };
+    var fields = {
+      directCost: byId('direct-cost'),
+      monthlyOverhead: byId('monthly-overhead'),
+      unitsMonthly: byId('units-monthly'),
+      currentPrice: byId('current-price'),
+      targetMargin: byId('target-margin'),
+      targetMarkup: byId('target-markup'),
+      breakEvenPrice: byId('break-even-price'),
+      currentMargin: byId('current-margin'),
+      priceForMargin: byId('price-for-margin'),
+      priceForMarkup: byId('price-for-markup'),
+      currentMonthlyProfit: byId('current-monthly-profit'),
+      marginMonthlyProfit: byId('margin-monthly-profit'),
+      profitLift: byId('profit-lift'),
+      pricingGuidance: byId('pricing-guidance')
+    };
+
+    var parseNum = function(value, fallback) {
+      var n = Number(value);
+      return Number.isFinite(n) ? n : (fallback || 0);
+    };
+
+    var formatCurrency = function(value) {
+      return new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD', maximumFractionDigits: 0 }).format(value || 0);
+    };
+
+    var formatPercent = function(value) {
+      return value.toFixed(1) + '%';
+    };
+
+    var setLoading = function(isLoading) {
+      submit.disabled = isLoading;
+      submit.textContent = isLoading ? 'Calculating...' : 'Calculate';
+    };
+
+    var setError = function(message) {
+      if (!message) {
+        errorEl.classList.add('hidden');
+        errorEl.textContent = '';
+        return;
+      }
+      errorEl.textContent = message;
+      errorEl.classList.remove('hidden');
+    };
+
+    var getScenario = function() {
+      var directCost = parseNum(fields.directCost && fields.directCost.value, 0);
+      var monthlyOverhead = parseNum(fields.monthlyOverhead && fields.monthlyOverhead.value, 0);
+      var unitsMonthly = parseNum(fields.unitsMonthly && fields.unitsMonthly.value, 0);
+      var currentPrice = parseNum(fields.currentPrice && fields.currentPrice.value, 0);
+      var targetMarginPct = parseNum(fields.targetMargin && fields.targetMargin.value, 0);
+      var targetMarkupPct = parseNum(fields.targetMarkup && fields.targetMarkup.value, 0);
+
+      if (unitsMonthly <= 0) throw new Error('Units sold per month must be greater than 0.');
+      if (targetMarginPct >= 100) throw new Error('Target margin must be below 100%.');
+      if (directCost < 0 || monthlyOverhead < 0 || currentPrice < 0) throw new Error('Costs and price must be 0 or higher.');
+
+      var overheadPerUnit = monthlyOverhead / unitsMonthly;
+      var fullCostPerUnit = directCost + overheadPerUnit;
+      var breakEvenPrice = fullCostPerUnit;
+
+      var currentMarginPct = currentPrice > 0 ? ((currentPrice - fullCostPerUnit) / currentPrice) * 100 : 0;
+
+      var targetMargin = targetMarginPct / 100;
+      var targetMarkup = targetMarkupPct / 100;
+
+      var priceForMargin = targetMargin < 1 ? (fullCostPerUnit / (1 - targetMargin)) : 0;
+      var priceForMarkup = fullCostPerUnit * (1 + targetMarkup);
+
+      var currentMonthlyProfit = (currentPrice - fullCostPerUnit) * unitsMonthly;
+      var marginMonthlyProfit = (priceForMargin - fullCostPerUnit) * unitsMonthly;
+      var profitLift = marginMonthlyProfit - currentMonthlyProfit;
+
+      return {
+        fullCostPerUnit: fullCostPerUnit,
+        breakEvenPrice: breakEvenPrice,
+        currentMarginPct: currentMarginPct,
+        priceForMargin: priceForMargin,
+        priceForMarkup: priceForMarkup,
+        currentMonthlyProfit: currentMonthlyProfit,
+        marginMonthlyProfit: marginMonthlyProfit,
+        profitLift: profitLift,
+        currentPrice: currentPrice,
+        targetMarginPct: targetMarginPct
+      };
+    };
+
+    var renderGuidance = function(s) {
+      if (!fields.pricingGuidance) return;
+      var notes = [];
+      if (s.currentPrice < s.breakEvenPrice) {
+        notes.push('Current price is below break-even. You are likely losing money per unit.');
+      } else {
+        notes.push('Current price is above break-even.');
+      }
+      notes.push('Target-margin price is a stronger profitability benchmark than markup alone.');
+      if (s.currentMarginPct < s.targetMarginPct) {
+        notes.push('Current margin is below your target. Consider repricing or reducing cost per unit.');
+      } else {
+        notes.push('Current margin meets or exceeds your target.');
+      }
+      if (s.profitLift > 0) {
+        notes.push('At target margin price, modeled monthly profit increases by ' + formatCurrency(s.profitLift) + '.');
+      }
+
+      fields.pricingGuidance.innerHTML = notes.map(function(item) { return '<p>' + item + '</p>'; }).join('');
+    };
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      setError('');
+      setLoading(true);
+
+      try {
+        var s = getScenario();
+        if (fields.breakEvenPrice) fields.breakEvenPrice.textContent = formatCurrency(s.breakEvenPrice);
+        if (fields.currentMargin) fields.currentMargin.textContent = formatPercent(s.currentMarginPct);
+        if (fields.priceForMargin) fields.priceForMargin.textContent = formatCurrency(s.priceForMargin);
+        if (fields.priceForMarkup) fields.priceForMarkup.textContent = formatCurrency(s.priceForMarkup);
+        if (fields.currentMonthlyProfit) fields.currentMonthlyProfit.textContent = formatCurrency(s.currentMonthlyProfit);
+        if (fields.marginMonthlyProfit) fields.marginMonthlyProfit.textContent = formatCurrency(s.marginMonthlyProfit);
+        if (fields.profitLift) {
+          fields.profitLift.textContent = formatCurrency(s.profitLift);
+          fields.profitLift.className = 'font-semibold ' + (s.profitLift >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400');
+        }
+
+        renderGuidance(s);
+        results.classList.remove('hidden');
+        results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (error) {
+        setError(error instanceof Error ? error.message : 'Could not calculate pricing and margin.');
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    resetBtn.addEventListener('click', function() {
+      form.reset();
+      setError('');
+      results.classList.add('hidden');
+      if (fields.pricingGuidance) fields.pricingGuidance.innerHTML = '';
+    });
+  })();
+</script>

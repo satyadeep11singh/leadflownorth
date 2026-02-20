@@ -1,0 +1,60 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToolHero from '../../components/tools/ToolHero.astro';
+import { freeTools } from '../../data/free-tools';
+
+export function getStaticPaths() {
+  return freeTools
+    .filter((tool) => tool.status === 'coming-soon')
+    .map((tool) => ({
+      params: { slug: tool.slug },
+      props: { tool }
+    }));
+}
+
+const { tool } = Astro.props;
+---
+
+<Layout
+  title={`${tool.name} (Coming Soon)`}
+  description={`${tool.name} is in development. Join the waitlist to get notified when it launches.`}
+>
+  <ToolHero
+    eyebrow="Free Tool In Development"
+    title={`${tool.name} is Coming Soon`}
+    description={tool.shortDescription}
+  />
+
+  <section class="py-12 lg:py-16 bg-white dark:bg-slate-900">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-7 sm:p-9">
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-3">What to expect</h2>
+        <p class="text-slate-600 dark:text-slate-300 mb-6">
+          This tool is in the next release queue. It will use Canadian defaults (CAD + common local assumptions) and be designed for fast execution on both desktop and mobile.
+        </p>
+        <ul class="space-y-3 text-slate-700 dark:text-slate-300 text-sm">
+          <li class="flex items-start gap-2">
+            <span class="mt-1 w-2 h-2 rounded-full bg-primary-500"></span>
+            <span>Instant results without an email gate.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-1 w-2 h-2 rounded-full bg-primary-500"></span>
+            <span>Reusable blocks shared with other tools for consistency and speed.</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-1 w-2 h-2 rounded-full bg-primary-500"></span>
+            <span>Optional lead capture only after results are displayed.</span>
+          </li>
+        </ul>
+      </div>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="/contact" class="inline-flex items-center px-5 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors">
+          Request Early Access
+        </a>
+        <a href="/free-tools" class="inline-flex items-center px-5 py-3 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-800 dark:text-slate-100 font-semibold hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+          Back to Free Tools
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

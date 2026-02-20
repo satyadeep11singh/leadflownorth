@@ -1,0 +1,398 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToolHero from '../../components/tools/ToolHero.astro';
+
+const toolSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Lead Flow North Break-Even Revenue Calculator',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'CAD',
+  },
+};
+---
+
+<Layout
+  title="Break-Even Revenue Calculator"
+  description="Calculate break-even revenue, units needed, and target-profit sales goals based on fixed and variable costs."
+  structuredData={toolSchema}
+>
+  <ToolHero
+    eyebrow="Free Tool: Break-Even Revenue Calculator"
+    title="Know Your Monthly Break-Even Revenue in Minutes"
+    description="Enter your fixed costs and unit economics to calculate break-even units, required revenue, and target-profit sales goals."
+  guideHref="/blog/how-to-use-break-even-revenue-calculator"
+  />
+
+  <section class="py-10 lg:py-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <form id="be-form" class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-5 sm:p-6">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Monthly Fixed Costs (CAD)</span>
+            <input id="fixed-costs" type="number" min="1" step="1" value="15000" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Average Price Per Sale (CAD)</span>
+            <input id="price-per-sale" type="number" min="1" step="1" value="500" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Variable Cost Per Sale (CAD)</span>
+            <input id="variable-cost-per-sale" type="number" min="0" step="1" value="180" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Monthly Target Profit (CAD)</span>
+            <input id="target-profit" type="number" min="0" step="1" value="5000" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+          </label>
+
+          <label class="text-sm sm:col-span-2">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Current Monthly Sales Volume (units/jobs/orders)</span>
+            <input id="current-units" type="number" min="0" step="0.1" value="35" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+          </label>
+        </div>
+
+        <div class="mt-5 flex flex-wrap items-center gap-3">
+          <button id="be-submit" type="submit" class="inline-flex w-full sm:w-auto items-center justify-center px-6 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors disabled:opacity-60">
+            Calculate Break-Even
+          </button>
+          <button id="be-reset" type="button" class="inline-flex w-full sm:w-auto items-center justify-center px-5 py-3 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-semibold hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+            Reset
+          </button>
+        </div>
+
+        <p id="be-error" class="mt-3 text-sm text-red-600 dark:text-red-400 hidden"></p>
+      </form>
+    </div>
+  </section>
+
+  <section id="be-results" class="py-12 lg:py-16 bg-slate-50 dark:bg-slate-800/40 hidden" aria-live="polite">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-7">
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Break-Even Revenue</p>
+          <p id="break-even-revenue" class="text-2xl font-extrabold text-slate-900 dark:text-white">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Break-Even Units</p>
+          <p id="break-even-units" class="text-2xl font-extrabold text-slate-900 dark:text-white">0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Current Monthly Profit</p>
+          <p id="current-profit" class="text-2xl font-extrabold text-slate-900 dark:text-white">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Revenue for Target Profit</p>
+          <p id="target-revenue" class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400">$0</p>
+        </article>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-5 mb-7">
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Unit Economics</h2>
+          <dl class="space-y-2 text-sm">
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Contribution Margin / Sale</dt>
+              <dd id="contribution-margin" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Contribution Margin Ratio</dt>
+              <dd id="margin-ratio" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Units Needed for Target Profit</dt>
+              <dd id="target-units" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Units Gap to Break-Even</dt>
+              <dd id="units-gap" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Margin of Safety</dt>
+              <dd id="margin-of-safety" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+          </dl>
+        </article>
+
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Planner Notes</h2>
+          <ul id="be-notes" class="space-y-2 text-sm text-slate-700 dark:text-slate-300"></ul>
+        </article>
+      </div>
+
+      <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
+        <div class="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white">Sensitivity Scenarios</h3>
+        </div>
+        <div class="p-5 overflow-x-auto">
+          <table class="w-full min-w-[620px] border-collapse text-sm">
+            <thead>
+              <tr class="bg-slate-50 dark:bg-slate-800">
+                <th class="text-left p-3 border border-slate-200 dark:border-slate-700">Scenario</th>
+                <th class="text-left p-3 border border-slate-200 dark:border-slate-700">Price / Sale</th>
+                <th class="text-left p-3 border border-slate-200 dark:border-slate-700">Variable Cost / Sale</th>
+                <th class="text-left p-3 border border-slate-200 dark:border-slate-700">Monthly Fixed Costs</th>
+                <th class="text-left p-3 border border-slate-200 dark:border-slate-700">Break-Even Revenue</th>
+              </tr>
+            </thead>
+            <tbody id="scenario-table"></tbody>
+          </table>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="py-14 lg:py-18 bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Need Help Improving Real Break-Even Performance?</h2>
+      <p class="text-slate-300 mb-7">
+        We can optimize your pricing, conversion flow, and follow-up automation so fixed costs are covered faster.
+      </p>
+      <a href="/free-audit" class="inline-flex w-full sm:w-auto justify-center items-center px-7 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors">
+        Request a Free Audit
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  (function initBreakEvenRevenueCalculator() {
+    var form = document.getElementById('be-form');
+    var submit = document.getElementById('be-submit');
+    var resetBtn = document.getElementById('be-reset');
+    var errorEl = document.getElementById('be-error');
+    var results = document.getElementById('be-results');
+    if (!form || !submit || !resetBtn || !errorEl || !results) return;
+
+    var byId = function(id) { return document.getElementById(id); };
+    var fields = {
+      fixedCosts: byId('fixed-costs'),
+      pricePerSale: byId('price-per-sale'),
+      variableCostPerSale: byId('variable-cost-per-sale'),
+      targetProfit: byId('target-profit'),
+      currentUnits: byId('current-units'),
+      breakEvenRevenue: byId('break-even-revenue'),
+      breakEvenUnits: byId('break-even-units'),
+      currentProfit: byId('current-profit'),
+      targetRevenue: byId('target-revenue'),
+      contributionMargin: byId('contribution-margin'),
+      marginRatio: byId('margin-ratio'),
+      targetUnits: byId('target-units'),
+      unitsGap: byId('units-gap'),
+      marginOfSafety: byId('margin-of-safety'),
+      notes: byId('be-notes'),
+      scenarioTable: byId('scenario-table')
+    };
+
+    var parseNum = function(value, fallback) {
+      var num = Number(value);
+      return Number.isFinite(num) ? num : (fallback || 0);
+    };
+
+    var formatCurrency = function(value) {
+      return new Intl.NumberFormat('en-CA', {
+        style: 'currency',
+        currency: 'CAD',
+        maximumFractionDigits: 0
+      }).format(value || 0);
+    };
+
+    var formatUnits = function(value) {
+      return (value || 0).toFixed(1);
+    };
+
+    var setLoading = function(isLoading) {
+      submit.disabled = isLoading;
+      submit.textContent = isLoading ? 'Calculating...' : 'Calculate Break-Even';
+    };
+
+    var setError = function(message) {
+      if (!message) {
+        errorEl.classList.add('hidden');
+        errorEl.textContent = '';
+        return;
+      }
+      errorEl.textContent = message;
+      errorEl.classList.remove('hidden');
+    };
+
+    var calculateBreakEvenRevenue = function(price, variableCost, fixedCosts) {
+      var contribution = price - variableCost;
+      if (contribution <= 0) return 0;
+      var units = fixedCosts / contribution;
+      return units * price;
+    };
+
+    var getScenario = function() {
+      var fixedCosts = parseNum(fields.fixedCosts && fields.fixedCosts.value, 0);
+      var pricePerSale = parseNum(fields.pricePerSale && fields.pricePerSale.value, 0);
+      var variableCostPerSale = parseNum(fields.variableCostPerSale && fields.variableCostPerSale.value, 0);
+      var targetProfit = parseNum(fields.targetProfit && fields.targetProfit.value, 0);
+      var currentUnits = parseNum(fields.currentUnits && fields.currentUnits.value, 0);
+
+      if (fixedCosts <= 0 || pricePerSale <= 0) {
+        throw new Error('Fixed costs and average price per sale must be greater than 0.');
+      }
+      if (variableCostPerSale < 0) {
+        throw new Error('Variable cost per sale cannot be negative.');
+      }
+      if (variableCostPerSale >= pricePerSale) {
+        throw new Error('Variable cost per sale must be lower than average price per sale.');
+      }
+      if (targetProfit < 0 || currentUnits < 0) {
+        throw new Error('Target profit and current sales volume cannot be negative.');
+      }
+
+      var contributionMargin = pricePerSale - variableCostPerSale;
+      var marginRatio = contributionMargin / pricePerSale;
+      var breakEvenUnits = fixedCosts / contributionMargin;
+      var breakEvenRevenue = breakEvenUnits * pricePerSale;
+      var targetUnits = (fixedCosts + targetProfit) / contributionMargin;
+      var targetRevenue = targetUnits * pricePerSale;
+      var currentRevenue = currentUnits * pricePerSale;
+      var currentProfit = (currentUnits * contributionMargin) - fixedCosts;
+      var unitsGap = breakEvenUnits - currentUnits;
+      var marginOfSafety = currentRevenue > 0 ? ((currentRevenue - breakEvenRevenue) / currentRevenue) : 0;
+
+      var scenarios = [
+        {
+          name: 'Base Case',
+          price: pricePerSale,
+          variableCost: variableCostPerSale,
+          fixedCosts: fixedCosts
+        },
+        {
+          name: '+5% Price',
+          price: pricePerSale * 1.05,
+          variableCost: variableCostPerSale,
+          fixedCosts: fixedCosts
+        },
+        {
+          name: '-5% Variable Cost',
+          price: pricePerSale,
+          variableCost: variableCostPerSale * 0.95,
+          fixedCosts: fixedCosts
+        },
+        {
+          name: '+10% Fixed Costs',
+          price: pricePerSale,
+          variableCost: variableCostPerSale,
+          fixedCosts: fixedCosts * 1.1
+        }
+      ].map(function(s) {
+        return {
+          name: s.name,
+          price: s.price,
+          variableCost: s.variableCost,
+          fixedCosts: s.fixedCosts,
+          breakEvenRevenue: calculateBreakEvenRevenue(s.price, s.variableCost, s.fixedCosts)
+        };
+      });
+
+      return {
+        breakEvenRevenue: breakEvenRevenue,
+        breakEvenUnits: breakEvenUnits,
+        currentProfit: currentProfit,
+        targetRevenue: targetRevenue,
+        contributionMargin: contributionMargin,
+        marginRatio: marginRatio,
+        targetUnits: targetUnits,
+        unitsGap: unitsGap,
+        marginOfSafety: marginOfSafety,
+        scenarios: scenarios
+      };
+    };
+
+    var renderNotes = function(s) {
+      if (!fields.notes) return;
+      var notes = [];
+
+      if (s.marginRatio < 0.3) {
+        notes.push('Contribution margin ratio is under 30%. Review pricing or delivery costs to improve break-even speed.');
+      } else if (s.marginRatio < 0.5) {
+        notes.push('Contribution margin ratio is moderate. Small price or cost improvements can materially lower break-even revenue.');
+      } else {
+        notes.push('Contribution margin ratio is strong. Focus on consistent lead flow to maintain volume above break-even.');
+      }
+
+      if (s.currentProfit >= 0) {
+        notes.push('Current modeled volume is profitable after fixed costs.');
+      } else {
+        notes.push('Current modeled volume is below break-even. Increase volume, improve price, or reduce variable costs.');
+      }
+
+      if (s.unitsGap > 0) {
+        notes.push('You need about ' + s.unitsGap.toFixed(1) + ' additional sales per month to break even.');
+      } else {
+        notes.push('You are above break-even by about ' + Math.abs(s.unitsGap).toFixed(1) + ' sales per month.');
+      }
+
+      if (s.targetRevenue > s.breakEvenRevenue) {
+        notes.push('Target-profit revenue is ' + formatCurrency(s.targetRevenue - s.breakEvenRevenue) + ' above break-even.');
+      }
+
+      fields.notes.innerHTML = notes.map(function(note) { return '<li>' + note + '</li>'; }).join('');
+    };
+
+    var renderScenarios = function(rows) {
+      if (!fields.scenarioTable) return;
+      fields.scenarioTable.innerHTML = rows.map(function(row) {
+        return [
+          '<tr>',
+          '<td class="p-3 border border-slate-200 dark:border-slate-700 font-medium text-slate-900 dark:text-white">', row.name, '</td>',
+          '<td class="p-3 border border-slate-200 dark:border-slate-700">', formatCurrency(row.price), '</td>',
+          '<td class="p-3 border border-slate-200 dark:border-slate-700">', formatCurrency(row.variableCost), '</td>',
+          '<td class="p-3 border border-slate-200 dark:border-slate-700">', formatCurrency(row.fixedCosts), '</td>',
+          '<td class="p-3 border border-slate-200 dark:border-slate-700">', formatCurrency(row.breakEvenRevenue), '</td>',
+          '</tr>'
+        ].join('');
+      }).join('');
+    };
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      setError('');
+      setLoading(true);
+
+      try {
+        var s = getScenario();
+
+        if (fields.breakEvenRevenue) fields.breakEvenRevenue.textContent = formatCurrency(s.breakEvenRevenue);
+        if (fields.breakEvenUnits) fields.breakEvenUnits.textContent = formatUnits(s.breakEvenUnits);
+        if (fields.currentProfit) {
+          fields.currentProfit.textContent = formatCurrency(s.currentProfit);
+          fields.currentProfit.className = 'text-2xl font-extrabold ' + (s.currentProfit >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400');
+        }
+        if (fields.targetRevenue) fields.targetRevenue.textContent = formatCurrency(s.targetRevenue);
+        if (fields.contributionMargin) fields.contributionMargin.textContent = formatCurrency(s.contributionMargin);
+        if (fields.marginRatio) fields.marginRatio.textContent = (s.marginRatio * 100).toFixed(1) + '%';
+        if (fields.targetUnits) fields.targetUnits.textContent = formatUnits(s.targetUnits);
+        if (fields.unitsGap) fields.unitsGap.textContent = s.unitsGap > 0 ? ('+' + formatUnits(s.unitsGap)) : formatUnits(s.unitsGap);
+        if (fields.marginOfSafety) fields.marginOfSafety.textContent = (s.marginOfSafety * 100).toFixed(1) + '%';
+
+        renderNotes(s);
+        renderScenarios(s.scenarios);
+        results.classList.remove('hidden');
+        results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (error) {
+        setError(error instanceof Error ? error.message : 'Could not calculate break-even values.');
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    resetBtn.addEventListener('click', function() {
+      form.reset();
+      setError('');
+      results.classList.add('hidden');
+      if (fields.notes) fields.notes.innerHTML = '';
+      if (fields.scenarioTable) fields.scenarioTable.innerHTML = '';
+    });
+  })();
+</script>

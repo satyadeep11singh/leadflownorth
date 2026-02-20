@@ -1,0 +1,353 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToolHero from '../../components/tools/ToolHero.astro';
+
+const toolSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Lead Flow North Customer Lifetime Value (LTV) Calculator',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'CAD',
+  },
+};
+---
+
+<Layout
+  title="Customer Lifetime Value (LTV) Calculator"
+  description="Estimate revenue LTV, gross-profit LTV, LTV:CAC ratio, and retention-driven upside."
+  structuredData={toolSchema}
+>
+  <ToolHero
+    eyebrow="Free Tool: Customer LTV Calculator"
+    title="Estimate Customer Lifetime Value and CAC Efficiency"
+    description="Model revenue and gross-profit LTV, check your LTV:CAC ratio, and see how retention improvements change customer value."
+  guideHref="/blog/how-to-use-customer-lifetime-value-calculator"
+  />
+
+  <section class="py-10 lg:py-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <form id="ltv-form" class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-5 sm:p-6">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Average Order / Transaction Value (CAD)</span>
+            <input id="avg-order" type="number" min="1" step="1" value="120" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Purchases per Customer per Year</span>
+            <input id="purchases-year" type="number" min="0.1" step="0.1" value="4" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Average Customer Lifespan (Years)</span>
+            <input id="lifespan-years" type="number" min="0.1" step="0.1" value="3" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Gross Margin (%)</span>
+            <input id="gross-margin" type="number" min="1" max="100" step="0.1" value="55" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Customer Acquisition Cost - CAC (CAD)</span>
+            <input id="cac" type="number" min="0" step="1" value="150" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Target LTV:CAC Ratio</span>
+            <select id="target-ratio" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white">
+              <option value="3" selected>3:1</option>
+              <option value="4">4:1</option>
+              <option value="5">5:1</option>
+            </select>
+          </label>
+
+          <label class="text-sm sm:col-span-2">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Retention Improvement Scenario (%)</span>
+            <input id="retention-lift" type="number" min="0" step="0.1" value="20" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+            <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">This increases average customer lifespan proportionally in the scenario model.</p>
+          </label>
+        </div>
+
+        <div class="mt-5 flex flex-wrap items-center gap-3">
+          <button id="ltv-submit" type="submit" class="inline-flex w-full sm:w-auto items-center justify-center px-6 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors disabled:opacity-60">
+            Calculate LTV
+          </button>
+          <button id="ltv-reset" type="button" class="inline-flex w-full sm:w-auto items-center justify-center px-5 py-3 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-semibold hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+            Reset
+          </button>
+        </div>
+
+        <p id="ltv-error" class="mt-3 text-sm text-red-600 dark:text-red-400 hidden"></p>
+      </form>
+    </div>
+  </section>
+
+  <section id="ltv-results" class="py-12 lg:py-16 bg-slate-50 dark:bg-slate-800/40 hidden" aria-live="polite">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-7">
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Revenue LTV</p>
+          <p id="revenue-ltv" class="text-2xl font-extrabold text-slate-900 dark:text-white">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Gross-Profit LTV</p>
+          <p id="gross-ltv" class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">LTV:CAC Ratio</p>
+          <p id="ltv-cac-ratio" class="text-2xl font-extrabold text-slate-900 dark:text-white">0.0x</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Max CAC at Target Ratio</p>
+          <p id="max-cac" class="text-2xl font-extrabold text-slate-900 dark:text-white">$0</p>
+        </article>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-5 mb-7">
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Retention Scenario</h2>
+          <dl class="space-y-2 text-sm">
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Baseline Lifespan</dt>
+              <dd id="baseline-lifespan" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Improved Lifespan</dt>
+              <dd id="improved-lifespan" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Improved Gross-Profit LTV</dt>
+              <dd id="improved-gross-ltv" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Incremental Value per Customer</dt>
+              <dd id="incremental-value" class="font-semibold text-emerald-600 dark:text-emerald-400">-</dd>
+            </div>
+          </dl>
+        </article>
+
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Payback Metrics</h2>
+          <dl class="space-y-2 text-sm">
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Gross Profit per Purchase</dt>
+              <dd id="gross-profit-purchase" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Purchases to Recover CAC</dt>
+              <dd id="payback-purchases" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Estimated CAC Payback (Months)</dt>
+              <dd id="payback-months" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+          </dl>
+        </article>
+      </div>
+
+      <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Action Notes</h3>
+        <ul id="ltv-notes" class="space-y-2 text-sm text-slate-700 dark:text-slate-300"></ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="py-14 lg:py-18 bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Need Better CAC and Retention Performance?</h2>
+      <p class="text-slate-300 mb-7">
+        We can build automated follow-up and reactivation workflows that raise LTV and improve campaign profitability.
+      </p>
+      <a href="/free-audit" class="inline-flex w-full sm:w-auto justify-center items-center px-7 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors">
+        Get a Free Growth Audit
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  (function initLtvCalculator() {
+    var form = document.getElementById('ltv-form');
+    var submit = document.getElementById('ltv-submit');
+    var resetBtn = document.getElementById('ltv-reset');
+    var errorEl = document.getElementById('ltv-error');
+    var results = document.getElementById('ltv-results');
+    if (!form || !submit || !resetBtn || !errorEl || !results) return;
+
+    var byId = function(id) { return document.getElementById(id); };
+    var fields = {
+      avgOrder: byId('avg-order'),
+      purchasesYear: byId('purchases-year'),
+      lifespanYears: byId('lifespan-years'),
+      grossMargin: byId('gross-margin'),
+      cac: byId('cac'),
+      targetRatio: byId('target-ratio'),
+      retentionLift: byId('retention-lift'),
+      revenueLtv: byId('revenue-ltv'),
+      grossLtv: byId('gross-ltv'),
+      ltvCacRatio: byId('ltv-cac-ratio'),
+      maxCac: byId('max-cac'),
+      baselineLifespan: byId('baseline-lifespan'),
+      improvedLifespan: byId('improved-lifespan'),
+      improvedGrossLtv: byId('improved-gross-ltv'),
+      incrementalValue: byId('incremental-value'),
+      grossProfitPurchase: byId('gross-profit-purchase'),
+      paybackPurchases: byId('payback-purchases'),
+      paybackMonths: byId('payback-months'),
+      notes: byId('ltv-notes')
+    };
+
+    var parseNum = function(value, fallback) {
+      var num = Number(value);
+      return Number.isFinite(num) ? num : (fallback || 0);
+    };
+
+    var formatCurrency = function(value) {
+      return new Intl.NumberFormat('en-CA', {
+        style: 'currency',
+        currency: 'CAD',
+        maximumFractionDigits: 0
+      }).format(value || 0);
+    };
+
+    var setLoading = function(isLoading) {
+      submit.disabled = isLoading;
+      submit.textContent = isLoading ? 'Calculating...' : 'Calculate LTV';
+    };
+
+    var setError = function(message) {
+      if (!message) {
+        errorEl.classList.add('hidden');
+        errorEl.textContent = '';
+        return;
+      }
+      errorEl.textContent = message;
+      errorEl.classList.remove('hidden');
+    };
+
+    var getScenario = function() {
+      var avgOrder = parseNum(fields.avgOrder && fields.avgOrder.value, 0);
+      var purchasesYear = parseNum(fields.purchasesYear && fields.purchasesYear.value, 0);
+      var lifespanYears = parseNum(fields.lifespanYears && fields.lifespanYears.value, 0);
+      var grossMargin = parseNum(fields.grossMargin && fields.grossMargin.value, 0);
+      var cac = parseNum(fields.cac && fields.cac.value, 0);
+      var targetRatio = parseNum(fields.targetRatio && fields.targetRatio.value, 3);
+      var retentionLift = parseNum(fields.retentionLift && fields.retentionLift.value, 0);
+
+      if (avgOrder <= 0 || purchasesYear <= 0 || lifespanYears <= 0) {
+        throw new Error('Average order, purchases/year, and lifespan must be greater than 0.');
+      }
+      if (grossMargin <= 0 || grossMargin > 100) {
+        throw new Error('Gross margin must be between 1 and 100.');
+      }
+      if (cac < 0) {
+        throw new Error('CAC cannot be negative.');
+      }
+      if (retentionLift < 0) {
+        throw new Error('Retention improvement cannot be negative.');
+      }
+
+      var annualRevenue = avgOrder * purchasesYear;
+      var revenueLtv = annualRevenue * lifespanYears;
+      var grossLtv = revenueLtv * (grossMargin / 100);
+      var ltvCacRatio = cac > 0 ? (grossLtv / cac) : null;
+      var maxCac = targetRatio > 0 ? (grossLtv / targetRatio) : 0;
+
+      var improvedLifespan = lifespanYears * (1 + retentionLift / 100);
+      var improvedGrossLtv = annualRevenue * improvedLifespan * (grossMargin / 100);
+      var incrementalValue = improvedGrossLtv - grossLtv;
+
+      var grossProfitPurchase = avgOrder * (grossMargin / 100);
+      var paybackPurchases = (cac > 0 && grossProfitPurchase > 0) ? (cac / grossProfitPurchase) : 0;
+      var paybackMonths = (cac > 0 && purchasesYear > 0) ? (paybackPurchases / purchasesYear) * 12 : 0;
+
+      return {
+        revenueLtv: revenueLtv,
+        grossLtv: grossLtv,
+        ltvCacRatio: ltvCacRatio,
+        maxCac: maxCac,
+        lifespanYears: lifespanYears,
+        improvedLifespan: improvedLifespan,
+        improvedGrossLtv: improvedGrossLtv,
+        incrementalValue: incrementalValue,
+        grossProfitPurchase: grossProfitPurchase,
+        paybackPurchases: paybackPurchases,
+        paybackMonths: paybackMonths,
+        targetRatio: targetRatio
+      };
+    };
+
+    var renderNotes = function(s) {
+      if (!fields.notes) return;
+
+      var notes = [];
+      if (s.ltvCacRatio === null) {
+        notes.push('CAC is 0, so LTV:CAC ratio is not calculated. Enter CAC to benchmark acquisition efficiency.');
+      } else if (s.ltvCacRatio >= s.targetRatio) {
+        notes.push('Current LTV:CAC is above your target ratio. You can often scale spend while staying efficient.');
+      } else {
+        notes.push('Current LTV:CAC is below your target ratio. Improve CAC, margin, or retention before aggressive scaling.');
+      }
+
+      if (s.incrementalValue > 0) {
+        notes.push('Retention improvements add ' + formatCurrency(s.incrementalValue) + ' in gross-profit value per customer.');
+      }
+      if (s.paybackMonths > 0 && s.paybackMonths > 12) {
+        notes.push('CAC payback is over 12 months. Consider reducing CAC or improving first-year monetization.');
+      } else if (s.paybackMonths > 0) {
+        notes.push('Estimated CAC payback is within 12 months based on current purchase frequency and margin.');
+      }
+
+      fields.notes.innerHTML = notes.map(function(note) {
+        return '<li>' + note + '</li>';
+      }).join('');
+    };
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      setError('');
+      setLoading(true);
+
+      try {
+        var s = getScenario();
+
+        if (fields.revenueLtv) fields.revenueLtv.textContent = formatCurrency(s.revenueLtv);
+        if (fields.grossLtv) fields.grossLtv.textContent = formatCurrency(s.grossLtv);
+        if (fields.ltvCacRatio) {
+          fields.ltvCacRatio.textContent = s.ltvCacRatio === null ? 'N/A' : (s.ltvCacRatio.toFixed(2) + 'x');
+          fields.ltvCacRatio.className = 'text-2xl font-extrabold ' + (s.ltvCacRatio !== null && s.ltvCacRatio >= s.targetRatio ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-900 dark:text-white');
+        }
+        if (fields.maxCac) fields.maxCac.textContent = formatCurrency(s.maxCac);
+
+        if (fields.baselineLifespan) fields.baselineLifespan.textContent = s.lifespanYears.toFixed(2) + ' years';
+        if (fields.improvedLifespan) fields.improvedLifespan.textContent = s.improvedLifespan.toFixed(2) + ' years';
+        if (fields.improvedGrossLtv) fields.improvedGrossLtv.textContent = formatCurrency(s.improvedGrossLtv);
+        if (fields.incrementalValue) fields.incrementalValue.textContent = formatCurrency(s.incrementalValue);
+
+        if (fields.grossProfitPurchase) fields.grossProfitPurchase.textContent = formatCurrency(s.grossProfitPurchase);
+        if (fields.paybackPurchases) fields.paybackPurchases.textContent = s.paybackPurchases > 0 ? s.paybackPurchases.toFixed(2) : 'N/A';
+        if (fields.paybackMonths) fields.paybackMonths.textContent = s.paybackMonths > 0 ? s.paybackMonths.toFixed(1) + ' months' : 'N/A';
+
+        renderNotes(s);
+        results.classList.remove('hidden');
+        results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (error) {
+        setError(error instanceof Error ? error.message : 'Could not calculate LTV.');
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    resetBtn.addEventListener('click', function() {
+      form.reset();
+      setError('');
+      results.classList.add('hidden');
+      if (fields.notes) fields.notes.innerHTML = '';
+    });
+  })();
+</script>

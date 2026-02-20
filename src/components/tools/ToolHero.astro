@@ -1,0 +1,41 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  description: string;
+  guideHref?: string;
+  guideLabel?: string;
+}
+
+const {
+  eyebrow = 'Free Tools',
+  title,
+  description,
+  guideHref,
+  guideLabel = 'How to use this tool'
+} = Astro.props;
+---
+
+<section class="bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 py-14 lg:py-20">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <p class="inline-flex items-center px-3 py-1 rounded-full bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 text-xs font-semibold tracking-wide uppercase mb-5">
+      {eyebrow}
+    </p>
+    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white mb-4">
+      {title}
+    </h1>
+    <p class="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
+      {description}
+    </p>
+    {guideHref && (
+      <div class="mt-6">
+        <a
+          href={guideHref}
+          class="inline-flex w-full sm:w-auto items-center justify-center px-5 py-2.5 rounded-lg border border-slate-300 dark:border-slate-600 bg-white/70 dark:bg-slate-800 text-slate-800 dark:text-slate-100 font-semibold hover:bg-white dark:hover:bg-slate-700 transition-colors"
+        >
+          {guideLabel}
+        </a>
+      </div>
+    )}
+  </div>
+</section>

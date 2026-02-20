@@ -1,0 +1,291 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToolHero from '../../components/tools/ToolHero.astro';
+
+const toolSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Lead Flow North No-Show Cost Calculator',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'CAD',
+  },
+};
+---
+
+<Layout
+  title="No-Show Cost Calculator"
+  description="Estimate monthly and annual revenue lost from no-shows and model recovery from reminders and confirmations."
+  structuredData={toolSchema}
+>
+  <ToolHero
+    eyebrow="Free Tool: No-Show Cost Calculator"
+    title="Calculate Revenue Lost to No-Shows"
+    description="Model your current no-show cost and compare it against a lower target rate with reminder workflows."
+  guideHref="/blog/how-to-use-no-show-cost-calculator"
+  />
+
+  <section class="py-10 lg:py-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <form id="noshow-form" class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-5 sm:p-6">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Booked Appointments / Month</span>
+            <input id="appointments" type="number" min="1" step="1" value="220" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Average Appointment Value (CAD)</span>
+            <input id="appointment-value" type="number" min="1" step="1" value="110" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Current No-Show Rate (%)</span>
+            <input id="noshow-rate" type="number" min="0" max="100" step="0.1" value="12" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Target No-Show Rate (%)</span>
+            <input id="target-rate" type="number" min="0" max="100" step="0.1" value="5" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Average Variable Cost Saved Per No-Show (CAD)</span>
+            <input id="cost-saved" type="number" min="0" step="1" value="15" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+          </label>
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Monthly Reminder System Cost (CAD)</span>
+            <input id="system-cost" type="number" min="0" step="1" value="120" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+          </label>
+        </div>
+
+        <div class="mt-5 flex flex-wrap items-center gap-3">
+          <button id="noshow-submit" type="submit" class="inline-flex w-full sm:w-auto items-center justify-center px-6 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors disabled:opacity-60">
+            Calculate
+          </button>
+          <button id="noshow-reset" type="button" class="inline-flex w-full sm:w-auto items-center justify-center px-5 py-3 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-semibold hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+            Reset
+          </button>
+        </div>
+
+        <p id="noshow-error" class="mt-3 text-sm text-red-600 dark:text-red-400 hidden"></p>
+      </form>
+    </div>
+  </section>
+
+  <section id="noshow-results" class="py-12 lg:py-16 bg-slate-50 dark:bg-slate-800/40 hidden" aria-live="polite">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-7">
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Monthly Gross Revenue Lost</p>
+          <p id="lost-monthly" class="text-2xl font-extrabold text-red-600 dark:text-red-400">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Annual Gross Revenue Lost</p>
+          <p id="lost-annual" class="text-2xl font-extrabold text-red-600 dark:text-red-400">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Recoverable Monthly Revenue</p>
+          <p id="recoverable-monthly" class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Net Monthly Gain</p>
+          <p id="net-monthly" class="text-2xl font-extrabold text-slate-900 dark:text-white">$0</p>
+        </article>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-5">
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">No-Show Volume</h2>
+          <dl class="space-y-2 text-sm">
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Current No-Shows / Month</dt>
+              <dd id="current-noshow-count" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Target No-Shows / Month</dt>
+              <dd id="target-noshow-count" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Appointments Saved / Month</dt>
+              <dd id="saved-appointments" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+          </dl>
+        </article>
+
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Suggested Actions</h2>
+          <div id="suggestions" class="text-sm text-slate-700 dark:text-slate-300 space-y-2"></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-14 lg:py-18 bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Want Help Reducing No-Shows?</h2>
+      <p class="text-slate-300 mb-7">
+        We help Canadian small businesses set up automated reminders via SMS, email, and missed-call text-back to cut no-shows in half.
+      </p>
+      <a href="/free-audit" class="inline-flex w-full sm:w-auto justify-center items-center px-7 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors">
+        Book a Free Workflow Audit
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  (function initNoShowCalculator() {
+    var form = document.getElementById('noshow-form');
+    var submit = document.getElementById('noshow-submit');
+    var resetBtn = document.getElementById('noshow-reset');
+    var errorEl = document.getElementById('noshow-error');
+    var results = document.getElementById('noshow-results');
+    if (!form || !submit || !resetBtn || !errorEl || !results) return;
+
+    var byId = function(id) { return document.getElementById(id); };
+    var fields = {
+      appointments: byId('appointments'),
+      appointmentValue: byId('appointment-value'),
+      noShowRate: byId('noshow-rate'),
+      targetRate: byId('target-rate'),
+      costSaved: byId('cost-saved'),
+      systemCost: byId('system-cost'),
+      lostMonthly: byId('lost-monthly'),
+      lostAnnual: byId('lost-annual'),
+      recoverableMonthly: byId('recoverable-monthly'),
+      netMonthly: byId('net-monthly'),
+      currentNoShowCount: byId('current-noshow-count'),
+      targetNoShowCount: byId('target-noshow-count'),
+      savedAppointments: byId('saved-appointments'),
+      suggestions: byId('suggestions')
+    };
+
+    var parseNum = function(value, fallback) {
+      var num = Number(value);
+      return Number.isFinite(num) ? num : (fallback || 0);
+    };
+
+    var formatCurrency = function(value) {
+      return new Intl.NumberFormat('en-CA', {
+        style: 'currency',
+        currency: 'CAD',
+        maximumFractionDigits: 0
+      }).format(value || 0);
+    };
+
+    var setLoading = function(isLoading) {
+      submit.disabled = isLoading;
+      submit.textContent = isLoading ? 'Calculating...' : 'Calculate';
+    };
+
+    var setError = function(message) {
+      if (!message) {
+        errorEl.classList.add('hidden');
+        errorEl.textContent = '';
+        return;
+      }
+      errorEl.textContent = message;
+      errorEl.classList.remove('hidden');
+    };
+
+    var getScenario = function() {
+      var appointments = parseNum(fields.appointments && fields.appointments.value, 0);
+      var appointmentValue = parseNum(fields.appointmentValue && fields.appointmentValue.value, 0);
+      var noShowRate = parseNum(fields.noShowRate && fields.noShowRate.value, 0);
+      var targetRate = parseNum(fields.targetRate && fields.targetRate.value, 0);
+      var costSaved = parseNum(fields.costSaved && fields.costSaved.value, 0);
+      var systemCost = parseNum(fields.systemCost && fields.systemCost.value, 0);
+
+      if (appointments <= 0 || appointmentValue <= 0) {
+        throw new Error('Appointments and appointment value must be greater than 0.');
+      }
+      if (noShowRate < 0 || noShowRate > 100 || targetRate < 0 || targetRate > 100) {
+        throw new Error('No-show rates must be between 0 and 100.');
+      }
+      if (targetRate >= noShowRate) {
+        throw new Error('Target no-show rate should be lower than your current rate (' + noShowRate + '%).');
+      }
+
+      var currentNoShows = appointments * (noShowRate / 100);
+      var targetNoShows = appointments * (targetRate / 100);
+      var savedAppointments = Math.max(0, currentNoShows - targetNoShows);
+
+      var grossLostMonthly = currentNoShows * appointmentValue;
+      var grossLostAnnual = grossLostMonthly * 12;
+
+      var netLostPerNoShow = Math.max(0, appointmentValue - costSaved);
+      var recoverableMonthly = savedAppointments * netLostPerNoShow;
+      var netMonthlyGain = recoverableMonthly - systemCost;
+
+      return {
+        appointments: appointments,
+        noShowRate: noShowRate,
+        targetRate: targetRate,
+        currentNoShows: currentNoShows,
+        targetNoShows: targetNoShows,
+        savedAppointments: savedAppointments,
+        grossLostMonthly: grossLostMonthly,
+        grossLostAnnual: grossLostAnnual,
+        recoverableMonthly: recoverableMonthly,
+        netMonthlyGain: netMonthlyGain,
+        systemCost: systemCost
+      };
+    };
+
+    var renderSuggestions = function(s) {
+      if (!fields.suggestions) return;
+      var tips = [];
+      tips.push('Use 24-hour and 2-hour reminders by SMS + email.');
+      tips.push('Require confirmation links for high-value appointments.');
+      if (s.noShowRate >= 10) {
+        tips.push('Current no-show rate is high. Add same-day waitlist backfill workflow.');
+      }
+      if (s.netMonthlyGain <= 0) {
+        tips.push('Current assumptions show weak ROI. Lower reminder cost or improve target no-show rate.');
+      } else {
+        tips.push('Modeled workflow shows positive monthly ROI at your target rate.');
+      }
+
+      fields.suggestions.innerHTML = tips.map(function(t) { return '<p>' + t + '</p>'; }).join('');
+    };
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      setError('');
+      setLoading(true);
+
+      try {
+        var s = getScenario();
+
+        if (fields.lostMonthly) fields.lostMonthly.textContent = formatCurrency(s.grossLostMonthly);
+        if (fields.lostAnnual) fields.lostAnnual.textContent = formatCurrency(s.grossLostAnnual);
+        if (fields.recoverableMonthly) fields.recoverableMonthly.textContent = formatCurrency(s.recoverableMonthly);
+        if (fields.netMonthly) {
+          fields.netMonthly.textContent = formatCurrency(s.netMonthlyGain);
+          fields.netMonthly.className = 'text-2xl font-extrabold ' + (s.netMonthlyGain >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400');
+        }
+
+        if (fields.currentNoShowCount) fields.currentNoShowCount.textContent = s.currentNoShows.toFixed(1);
+        if (fields.targetNoShowCount) fields.targetNoShowCount.textContent = s.targetNoShows.toFixed(1);
+        if (fields.savedAppointments) fields.savedAppointments.textContent = s.savedAppointments.toFixed(1);
+
+        renderSuggestions(s);
+        results.classList.remove('hidden');
+        results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (error) {
+        setError(error instanceof Error ? error.message : 'Could not calculate no-show cost.');
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    resetBtn.addEventListener('click', function() {
+      form.reset();
+      setError('');
+      results.classList.add('hidden');
+      if (fields.suggestions) fields.suggestions.innerHTML = '';
+    });
+  })();
+</script>

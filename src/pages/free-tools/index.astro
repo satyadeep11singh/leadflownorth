@@ -1,0 +1,221 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToolHero from '../../components/tools/ToolHero.astro';
+import ToolCard from '../../components/tools/ToolCard.astro';
+import { freeTools, freeToolGroups } from '../../data/free-tools';
+
+const liveCount = freeTools.filter((tool) => tool.status === 'live').length;
+
+const searchItems = freeTools.map((tool) => ({
+  name: tool.name,
+  slug: tool.slug,
+  description: tool.shortDescription,
+  category: tool.category,
+  group: tool.group,
+  icon: tool.icon,
+}));
+---
+
+<Layout
+  title="Free Tools"
+  description="Free marketing, SEO, conversion, and revenue planning tools for Canadian small businesses."
+>
+  <ToolHero
+    eyebrow="Lead Flow North Free Tools"
+    title="Free Tools for Growth, Ops, and Revenue Planning"
+    description="Use practical tools to audit your website, estimate ROI, improve follow-up, and make better operational decisions. New tools are added continuously."
+  />
+
+  <!-- Search + Filter Bar -->
+  <section class="py-8 lg:py-10 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Search Box -->
+      <div class="relative max-w-xl mx-auto mb-6">
+        <div class="relative">
+          <svg class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <input
+            type="text"
+            id="tool-search"
+            placeholder="Search tools (e.g., ROI, website grader, food cost...)"
+            autocomplete="off"
+            class="w-full pl-12 pr-4 py-3.5 text-base rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:border-primary-500 focus:ring-4 focus:ring-primary-500/20 transition-all"
+          />
+        </div>
+        <!-- Dropdown Results -->
+        <div id="search-dropdown" class="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden z-50 hidden">
+          <div id="search-results" class="max-h-80 overflow-y-auto"></div>
+        </div>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="flex flex-wrap justify-center gap-2">
+        <button
+          class="filter-pill active px-4 py-2 rounded-full text-sm font-semibold transition-all border-2 border-primary-600 bg-primary-600 text-white"
+          data-group="all"
+        >
+          All Tools <span class="ml-1 opacity-80">{liveCount}</span>
+        </button>
+        {freeToolGroups.map((group) => {
+          const count = freeTools.filter((t) => t.group === group).length;
+          return (
+            <button
+              class="filter-pill px-4 py-2 rounded-full text-sm font-semibold transition-all border-2 border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-primary-400 hover:text-primary-600 dark:hover:text-primary-300"
+              data-group={group}
+            >
+              {group} <span class="ml-1 opacity-60">{count}</span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- Tools Grid -->
+  <section class="py-12 lg:py-16 bg-slate-50 dark:bg-slate-800/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <!-- No results message -->
+      <p id="no-results" class="text-center text-slate-500 dark:text-slate-400 text-lg py-8 hidden">
+        No tools match your search. Try a different keyword or clear the filter.
+      </p>
+
+      {freeToolGroups.map((group) => (
+        <div class="tool-group" data-group={group}>
+          <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-5">{group}</h2>
+          <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
+            {freeTools
+              .filter((tool) => tool.group === group)
+              .map((tool) => (
+                <div class="tool-card-wrapper" data-name={tool.name.toLowerCase()} data-description={tool.shortDescription.toLowerCase()} data-category={tool.category.toLowerCase()} data-group={tool.group}>
+                  <ToolCard tool={tool} />
+                </div>
+              ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="py-14 lg:py-18 bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">
+        Need Another Free Tool?
+      </h2>
+      <p class="text-slate-300 mb-7">
+        Tell us the workflow you need most. We prioritize the next tool builds from real business requests.
+      </p>
+      <a href="/contact" class="inline-flex w-full sm:w-auto justify-center items-center px-7 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors">
+        Request a Tool
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline define:vars={{ searchItems }}>
+  (function initToolSearch() {
+    var searchInput = document.getElementById('tool-search');
+    var searchDropdown = document.getElementById('search-dropdown');
+    var searchResultsEl = document.getElementById('search-results');
+    var noResults = document.getElementById('no-results');
+    var filterPills = document.querySelectorAll('.filter-pill');
+    var toolGroups = document.querySelectorAll('.tool-group');
+    var toolCards = document.querySelectorAll('.tool-card-wrapper');
+
+    var activeGroup = 'all';
+
+    // --- Filter Pills ---
+    filterPills.forEach(function(pill) {
+      pill.addEventListener('click', function() {
+        activeGroup = pill.dataset.group;
+
+        filterPills.forEach(function(p) {
+          if (p.dataset.group === activeGroup) {
+            p.className = 'filter-pill active px-4 py-2 rounded-full text-sm font-semibold transition-all border-2 border-primary-600 bg-primary-600 text-white';
+          } else {
+            p.className = 'filter-pill px-4 py-2 rounded-full text-sm font-semibold transition-all border-2 border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:border-primary-400 hover:text-primary-600 dark:hover:text-primary-300';
+          }
+        });
+
+        applyFilters();
+      });
+    });
+
+    function applyFilters() {
+      var query = (searchInput.value || '').toLowerCase().trim();
+      var visibleCount = 0;
+
+      toolCards.forEach(function(card) {
+        var matchesGroup = activeGroup === 'all' || card.dataset.group === activeGroup;
+        var matchesQuery = !query ||
+          card.dataset.name.indexOf(query) !== -1 ||
+          card.dataset.description.indexOf(query) !== -1 ||
+          card.dataset.category.indexOf(query) !== -1;
+
+        var visible = matchesGroup && matchesQuery;
+        card.classList.toggle('hidden', !visible);
+        if (visible) visibleCount++;
+      });
+
+      // Show/hide group headings
+      toolGroups.forEach(function(group) {
+        var groupName = group.dataset.group;
+        var matchesGroupFilter = activeGroup === 'all' || groupName === activeGroup;
+        var hasVisibleCards = group.querySelectorAll('.tool-card-wrapper:not(.hidden)').length > 0;
+        group.classList.toggle('hidden', !matchesGroupFilter || !hasVisibleCards);
+      });
+
+      noResults.classList.toggle('hidden', visibleCount > 0);
+    }
+
+    // --- Suggestive Search Dropdown ---
+    searchInput.addEventListener('input', function() {
+      var query = searchInput.value.toLowerCase().trim();
+
+      applyFilters();
+
+      if (query.length === 0) {
+        searchDropdown.classList.add('hidden');
+        return;
+      }
+
+      var matches = searchItems.filter(function(item) {
+        return item.name.toLowerCase().indexOf(query) !== -1 ||
+          item.description.toLowerCase().indexOf(query) !== -1 ||
+          item.category.toLowerCase().indexOf(query) !== -1;
+      }).slice(0, 6);
+
+      if (matches.length > 0) {
+        searchResultsEl.innerHTML = matches.map(function(item) {
+          return '<a href="/free-tools/' + item.slug + '" class="flex items-center gap-3 px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors border-b border-slate-100 dark:border-slate-700 last:border-0">' +
+            '<div class="w-9 h-9 rounded-lg bg-primary-100 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 font-bold text-xs flex items-center justify-center tracking-wide flex-shrink-0">' + item.icon + '</div>' +
+            '<div class="flex-1 min-w-0">' +
+              '<p class="font-medium text-slate-900 dark:text-white text-sm truncate">' + item.name + '</p>' +
+              '<p class="text-xs text-slate-500 dark:text-slate-400 truncate">' + item.category + '</p>' +
+            '</div>' +
+            '<span class="text-xs px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-600 text-slate-600 dark:text-slate-300 flex-shrink-0">' + item.group + '</span>' +
+          '</a>';
+        }).join('');
+        searchDropdown.classList.remove('hidden');
+      } else {
+        searchResultsEl.innerHTML = '<div class="px-4 py-6 text-center text-sm text-slate-500 dark:text-slate-400">No tools found for "' + query.replace(/</g, '&lt;') + '"</div>';
+        searchDropdown.classList.remove('hidden');
+      }
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!searchInput.contains(e.target) && !searchDropdown.contains(e.target)) {
+        searchDropdown.classList.add('hidden');
+      }
+    });
+
+    // Close dropdown on escape
+    searchInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        searchDropdown.classList.add('hidden');
+        searchInput.blur();
+      }
+    });
+  })();
+</script>

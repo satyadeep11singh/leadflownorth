@@ -1,0 +1,275 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToolHero from '../../components/tools/ToolHero.astro';
+
+const toolSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Lead Flow North Real Estate Seller Net Proceeds Calculator',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'CAD',
+  },
+};
+---
+
+<Layout
+  title="Real Estate Seller Net Proceeds Calculator"
+  description="Estimate seller net proceeds after commission, mortgage payoff, legal fees, and closing costs."
+  structuredData={toolSchema}
+>
+  <ToolHero
+    eyebrow="Free Tool: Real Estate Seller Net Proceeds Calculator"
+    title="Estimate Seller Net Proceeds Before Listing"
+    description="Model closing costs and mortgage payout to estimate how much cash a seller may net from a sale."
+  guideHref="/blog/how-to-use-real-estate-seller-net-proceeds-calculator"
+  />
+
+  <section class="py-10 lg:py-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <form id="net-proceeds-form" class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-5 sm:p-6">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Estimated Sale Price (CAD)</span>
+            <input id="sale-price" type="number" min="1" step="1" value="785000" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Mortgage Payoff Balance (CAD)</span>
+            <input id="mortgage-payoff" type="number" min="0" step="1" value="412000" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Total Agent Commission (%)</span>
+            <input id="commission-rate" type="number" min="0" max="10" step="0.01" value="5" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Closing Cost Rate (%)</span>
+            <input id="closing-rate" type="number" min="0" max="10" step="0.01" value="1.2" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Legal Fees (CAD)</span>
+            <input id="legal-fees" type="number" min="0" step="1" value="2200" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+          </label>
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Staging / Repairs (CAD)</span>
+            <input id="staging-repairs" type="number" min="0" step="1" value="6500" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Mortgage Discharge / Penalty (CAD)</span>
+            <input id="mortgage-penalty" type="number" min="0" step="1" value="3000" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+          </label>
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Other Costs (CAD)</span>
+            <input id="other-costs" type="number" min="0" step="1" value="900" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+          </label>
+        </div>
+
+        <div class="mt-5 flex flex-wrap gap-3">
+          <button id="net-submit" type="submit" class="inline-flex w-full sm:w-auto items-center justify-center px-6 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors disabled:opacity-60">Calculate Net Proceeds</button>
+          <button id="net-reset" type="button" class="inline-flex w-full sm:w-auto items-center justify-center px-5 py-3 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-semibold hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">Reset</button>
+        </div>
+
+        <p id="net-error" class="mt-3 text-sm text-red-600 dark:text-red-400 hidden"></p>
+      </form>
+    </div>
+  </section>
+
+  <section id="net-results" class="py-12 lg:py-16 bg-slate-50 dark:bg-slate-800/40 hidden" aria-live="polite">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-7">
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Estimated Net Proceeds</p>
+          <p id="net-proceeds" class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Total Selling Costs</p>
+          <p id="total-selling-costs" class="text-2xl font-extrabold text-slate-900 dark:text-white">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Commission Amount</p>
+          <p id="commission-amount" class="text-2xl font-extrabold text-slate-900 dark:text-white">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Break-Even Sale Price</p>
+          <p id="break-even-sale" class="text-2xl font-extrabold text-blue-600 dark:text-blue-400">$0</p>
+        </article>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-5">
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Cost Breakdown</h2>
+          <dl class="space-y-2 text-sm">
+            <div class="flex justify-between gap-2"><dt class="text-slate-500 dark:text-slate-400">Mortgage Payoff</dt><dd id="line-mortgage" class="font-semibold text-slate-900 dark:text-white">-</dd></div>
+            <div class="flex justify-between gap-2"><dt class="text-slate-500 dark:text-slate-400">Closing Costs</dt><dd id="line-closing" class="font-semibold text-slate-900 dark:text-white">-</dd></div>
+            <div class="flex justify-between gap-2"><dt class="text-slate-500 dark:text-slate-400">Legal + Repairs + Other</dt><dd id="line-other" class="font-semibold text-slate-900 dark:text-white">-</dd></div>
+          </dl>
+        </article>
+
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Seller Notes</h2>
+          <div id="seller-notes" class="text-sm text-slate-700 dark:text-slate-300 space-y-2"></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-14 lg:py-18 bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Need a Website That Generates Seller Leads?</h2>
+      <p class="text-slate-300 mb-7">
+        We build real estate agent websites with listing integrations, seller landing pages, and automated follow-up systems.
+      </p>
+      <a href="/free-audit" class="inline-flex w-full sm:w-auto justify-center items-center px-7 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors">
+        Book a Free Workflow Audit
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  (function initNetProceedsCalculator() {
+    var form = document.getElementById('net-proceeds-form');
+    var submit = document.getElementById('net-submit');
+    var resetBtn = document.getElementById('net-reset');
+    var errorEl = document.getElementById('net-error');
+    var results = document.getElementById('net-results');
+    if (!form || !submit || !resetBtn || !errorEl || !results) return;
+
+    var byId = function(id) { return document.getElementById(id); };
+    var fields = {
+      salePrice: byId('sale-price'),
+      mortgagePayoff: byId('mortgage-payoff'),
+      commissionRate: byId('commission-rate'),
+      closingRate: byId('closing-rate'),
+      legalFees: byId('legal-fees'),
+      stagingRepairs: byId('staging-repairs'),
+      mortgagePenalty: byId('mortgage-penalty'),
+      otherCosts: byId('other-costs'),
+      netProceeds: byId('net-proceeds'),
+      totalSellingCosts: byId('total-selling-costs'),
+      commissionAmount: byId('commission-amount'),
+      breakEvenSale: byId('break-even-sale'),
+      lineMortgage: byId('line-mortgage'),
+      lineClosing: byId('line-closing'),
+      lineOther: byId('line-other'),
+      sellerNotes: byId('seller-notes')
+    };
+
+    var parseNum = function(value, fallback) {
+      var n = Number(value);
+      return Number.isFinite(n) ? n : (fallback || 0);
+    };
+
+    var formatCurrency = function(value) {
+      return new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD', maximumFractionDigits: 0 }).format(value || 0);
+    };
+
+    var setError = function(message) {
+      if (!message) {
+        errorEl.classList.add('hidden');
+        errorEl.textContent = '';
+        return;
+      }
+      errorEl.textContent = message;
+      errorEl.classList.remove('hidden');
+    };
+
+    var setLoading = function(isLoading) {
+      submit.disabled = isLoading;
+      submit.textContent = isLoading ? 'Calculating...' : 'Calculate Net Proceeds';
+    };
+
+    var calculate = function() {
+      var salePrice = parseNum(fields.salePrice && fields.salePrice.value, 0);
+      var mortgagePayoff = parseNum(fields.mortgagePayoff && fields.mortgagePayoff.value, 0);
+      var commissionRate = parseNum(fields.commissionRate && fields.commissionRate.value, 0);
+      var closingRate = parseNum(fields.closingRate && fields.closingRate.value, 0);
+      var legalFees = parseNum(fields.legalFees && fields.legalFees.value, 0);
+      var stagingRepairs = parseNum(fields.stagingRepairs && fields.stagingRepairs.value, 0);
+      var mortgagePenalty = parseNum(fields.mortgagePenalty && fields.mortgagePenalty.value, 0);
+      var otherCosts = parseNum(fields.otherCosts && fields.otherCosts.value, 0);
+
+      if (salePrice <= 0) throw new Error('Sale price must be greater than 0.');
+      if (commissionRate < 0 || closingRate < 0) throw new Error('Rates cannot be negative.');
+      if (commissionRate + closingRate >= 100) throw new Error('Commission + closing rate cannot equal or exceed 100%.');
+
+      var commissionAmount = salePrice * (commissionRate / 100);
+      var closingAmount = salePrice * (closingRate / 100);
+      var extras = legalFees + stagingRepairs + mortgagePenalty + otherCosts;
+
+      var totalSellingCosts = commissionAmount + closingAmount + extras;
+      var totalDeductions = mortgagePayoff + totalSellingCosts;
+      var netProceeds = salePrice - totalDeductions;
+
+      var variableRate = (commissionRate + closingRate) / 100;
+      var fixedCosts = mortgagePayoff + extras;
+      var breakEvenSale = (1 - variableRate) > 0 ? (fixedCosts / (1 - variableRate)) : 0;
+
+      return {
+        salePrice: salePrice,
+        mortgagePayoff: mortgagePayoff,
+        commissionAmount: commissionAmount,
+        closingAmount: closingAmount,
+        extras: extras,
+        totalSellingCosts: totalSellingCosts,
+        netProceeds: netProceeds,
+        breakEvenSale: breakEvenSale
+      };
+    };
+
+    var renderNotes = function(r) {
+      if (!fields.sellerNotes) return;
+      var notes = [];
+      notes.push('Estimated proceeds are before any capital gains or tax-specific treatment.');
+      notes.push('Review lender payout statements for exact discharge and penalty amounts.');
+      if (r.netProceeds < 0) {
+        notes.push('Current scenario shows negative net proceeds. Seller may need cash to close.');
+      } else {
+        notes.push('Current scenario shows positive estimated net proceeds.');
+      }
+      notes.push('Break-even sale price estimate: ' + formatCurrency(r.breakEvenSale) + '.');
+      fields.sellerNotes.innerHTML = notes.map(function(note) { return '<p>' + note + '</p>'; }).join('');
+    };
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      setError('');
+      setLoading(true);
+
+      try {
+        var r = calculate();
+        if (fields.netProceeds) {
+          fields.netProceeds.textContent = formatCurrency(r.netProceeds);
+          fields.netProceeds.className = 'text-2xl font-extrabold ' + (r.netProceeds >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400');
+        }
+        if (fields.totalSellingCosts) fields.totalSellingCosts.textContent = formatCurrency(r.totalSellingCosts);
+        if (fields.commissionAmount) fields.commissionAmount.textContent = formatCurrency(r.commissionAmount);
+        if (fields.breakEvenSale) fields.breakEvenSale.textContent = formatCurrency(r.breakEvenSale);
+
+        if (fields.lineMortgage) fields.lineMortgage.textContent = formatCurrency(r.mortgagePayoff);
+        if (fields.lineClosing) fields.lineClosing.textContent = formatCurrency(r.closingAmount);
+        if (fields.lineOther) fields.lineOther.textContent = formatCurrency(r.extras);
+
+        renderNotes(r);
+        results.classList.remove('hidden');
+        results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (error) {
+        setError(error instanceof Error ? error.message : 'Could not calculate net proceeds.');
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    resetBtn.addEventListener('click', function() {
+      form.reset();
+      setError('');
+      results.classList.add('hidden');
+      if (fields.sellerNotes) fields.sellerNotes.innerHTML = '';
+    });
+  })();
+</script>

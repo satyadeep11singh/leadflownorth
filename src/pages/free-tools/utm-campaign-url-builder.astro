@@ -1,0 +1,421 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToolHero from '../../components/tools/ToolHero.astro';
+
+const toolSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Lead Flow North UTM Campaign URL Builder',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'CAD',
+  },
+};
+---
+
+<Layout
+  title="UTM Campaign URL Builder"
+  description="Generate clean UTM-tagged campaign links for ads, email, SMS, and social tracking."
+  structuredData={toolSchema}
+>
+  <ToolHero
+    eyebrow="Free Tool: UTM Campaign URL Builder"
+    title="Build Trackable Campaign Links in Seconds"
+    description="Create clean UTM URLs for Google Ads, Meta, email, and SMS campaigns. Copy and launch with consistent naming."
+  guideHref="/blog/how-to-use-utm-campaign-url-builder"
+  />
+
+  <section class="py-10 lg:py-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <form id="utm-form" class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-5 sm:p-6">
+        <div class="mb-4 rounded-lg border border-blue-200 dark:border-blue-900/40 bg-blue-50 dark:bg-blue-900/20 px-3 py-2">
+          <p class="text-xs text-blue-800 dark:text-blue-200">
+            Links are generated locally in your browser. UTM values are normalized to lowercase, URL-safe format.
+          </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          <label class="text-sm sm:col-span-2">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Landing Page URL</span>
+            <input id="landing-url" type="text" placeholder="example.com/pricing" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Preserve Existing Query Parameters</span>
+            <select id="preserve-params" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white">
+              <option value="yes" selected>Yes</option>
+              <option value="no">No</option>
+            </select>
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Source</span>
+            <input id="utm-source" type="text" value="google" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Medium</span>
+            <input id="utm-medium" type="text" value="cpc" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Campaign</span>
+            <input id="utm-campaign" type="text" value="spring-promo-2026" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Term (optional)</span>
+            <input id="utm-term" type="text" placeholder="dentist-near-me" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Content (optional)</span>
+            <input id="utm-content" type="text" placeholder="video-a" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+          </label>
+
+          <label class="text-sm sm:col-span-2">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Additional Parameters (optional)</span>
+            <input id="extra-params" type="text" placeholder="ref=sidebar&audience=retargeting" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+            <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Format: <code>key=value&key2=value2</code>. Existing keys will be overwritten.</p>
+          </label>
+        </div>
+
+        <div class="mt-5 flex flex-wrap items-center gap-3">
+          <button id="utm-submit" type="submit" class="inline-flex w-full sm:w-auto items-center justify-center px-6 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors disabled:opacity-60">
+            Generate URL
+          </button>
+          <button id="utm-reset" type="button" class="inline-flex w-full sm:w-auto items-center justify-center px-5 py-3 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-semibold hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+            Reset
+          </button>
+        </div>
+
+        <p id="utm-error" class="mt-3 text-sm text-red-600 dark:text-red-400 hidden"></p>
+      </form>
+    </div>
+  </section>
+
+  <section id="utm-results" class="py-12 lg:py-16 bg-slate-50 dark:bg-slate-800/40 hidden" aria-live="polite">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-5 mb-6">
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Generated URL</h2>
+          <textarea id="final-url" readonly class="w-full min-h-[140px] rounded-lg border border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800 px-3 py-2 text-sm text-slate-800 dark:text-slate-100"></textarea>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <button id="copy-final-url" type="button" class="inline-flex items-center px-3 py-2 rounded-lg bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold">Copy URL</button>
+            <a id="open-final-url" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-3 py-2 rounded-lg border border-slate-300 dark:border-slate-600 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700">Open URL</a>
+          </div>
+        </article>
+
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Quick Check</h2>
+          <ul id="quality-notes" class="space-y-2 text-sm text-slate-700 dark:text-slate-300"></ul>
+        </article>
+      </div>
+
+      <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
+        <div class="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white">Parameter Breakdown</h3>
+        </div>
+        <div class="p-5 overflow-x-auto">
+          <table class="w-full min-w-[520px] border-collapse text-sm">
+            <thead>
+              <tr class="bg-slate-50 dark:bg-slate-800">
+                <th class="text-left p-3 border border-slate-200 dark:border-slate-700">Parameter</th>
+                <th class="text-left p-3 border border-slate-200 dark:border-slate-700">Value</th>
+              </tr>
+            </thead>
+            <tbody id="param-table"></tbody>
+          </table>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="py-14 lg:py-18 bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Need End-to-End Attribution Setup?</h2>
+      <p class="text-slate-300 mb-7">
+        We can set up campaign tracking standards, conversion events, and reporting dashboards for your team.
+      </p>
+      <a href="/free-audit" class="inline-flex w-full sm:w-auto justify-center items-center px-7 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors">
+        Book a Free Tracking Audit
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  (function initUtmBuilder() {
+    var form = document.getElementById('utm-form');
+    var submit = document.getElementById('utm-submit');
+    var resetBtn = document.getElementById('utm-reset');
+    var errorEl = document.getElementById('utm-error');
+    var results = document.getElementById('utm-results');
+    if (!form || !submit || !resetBtn || !errorEl || !results) return;
+
+    var byId = function(id) { return document.getElementById(id); };
+    var fields = {
+      landingUrl: byId('landing-url'),
+      preserveParams: byId('preserve-params'),
+      source: byId('utm-source'),
+      medium: byId('utm-medium'),
+      campaign: byId('utm-campaign'),
+      term: byId('utm-term'),
+      content: byId('utm-content'),
+      extraParams: byId('extra-params'),
+      finalUrl: byId('final-url'),
+      openFinalUrl: byId('open-final-url'),
+      copyFinalUrl: byId('copy-final-url'),
+      paramTable: byId('param-table'),
+      qualityNotes: byId('quality-notes')
+    };
+
+    var PARAM_ORDER = {
+      utm_source: 1,
+      utm_medium: 2,
+      utm_campaign: 3,
+      utm_term: 4,
+      utm_content: 5
+    };
+
+    var currentUrl = '';
+
+    var setLoading = function(isLoading) {
+      submit.disabled = isLoading;
+      submit.textContent = isLoading ? 'Generating...' : 'Generate URL';
+    };
+
+    var setError = function(message) {
+      if (!message) {
+        errorEl.classList.add('hidden');
+        errorEl.textContent = '';
+        return;
+      }
+      errorEl.textContent = message;
+      errorEl.classList.remove('hidden');
+    };
+
+    var normalizeToken = function(value) {
+      return (value || '')
+        .toString()
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9\-_ ]+/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '');
+    };
+
+    var parseInputUrl = function(raw) {
+      var value = (raw || '').trim();
+      if (!value) {
+        throw new Error('Landing page URL is required.');
+      }
+      if (!/^https?:\/\//i.test(value)) {
+        value = 'https://' + value;
+      }
+      var parsed;
+      try {
+        parsed = new URL(value);
+      } catch (_error) {
+        throw new Error('Landing page URL is invalid.');
+      }
+      if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
+        throw new Error('URL must start with http or https.');
+      }
+      return parsed;
+    };
+
+    var parseExtraParams = function(raw) {
+      var value = (raw || '').trim();
+      if (!value) return [];
+
+      return value.split('&').map(function(pair) {
+        var cleanPair = pair.trim();
+        if (!cleanPair) return null;
+
+        var idx = cleanPair.indexOf('=');
+        var key = idx === -1 ? cleanPair : cleanPair.slice(0, idx);
+        var val = idx === -1 ? '' : cleanPair.slice(idx + 1);
+        key = normalizeToken(key);
+        if (!key) return null;
+
+        return { key: key, value: val.trim() };
+      }).filter(Boolean);
+    };
+
+    var collectParams = function(urlObj) {
+      var rows = [];
+      urlObj.searchParams.forEach(function(value, key) {
+        rows.push({ key: key, value: value });
+      });
+
+      rows.sort(function(a, b) {
+        var aOrder = PARAM_ORDER[a.key] || 100;
+        var bOrder = PARAM_ORDER[b.key] || 100;
+        if (aOrder !== bOrder) return aOrder - bOrder;
+        return a.key.localeCompare(b.key);
+      });
+
+      return rows;
+    };
+
+    var escapeHtml = function(value) {
+      return (value || '')
+        .toString()
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/\"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    };
+
+    var renderRows = function(rows) {
+      if (!fields.paramTable) return;
+      if (!rows.length) {
+        fields.paramTable.innerHTML = '<tr><td colspan="2" class="p-3 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400">No query parameters in final URL.</td></tr>';
+        return;
+      }
+
+      fields.paramTable.innerHTML = rows.map(function(row) {
+        var safeKey = escapeHtml(row.key);
+        var safeValue = row.value ? escapeHtml(row.value) : '';
+        return [
+          '<tr>',
+          '<td class="p-3 border border-slate-200 dark:border-slate-700 font-mono text-xs sm:text-sm text-slate-700 dark:text-slate-300">',
+          safeKey,
+          '</td>',
+          '<td class="p-3 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-100 break-all">',
+          safeValue || '<span class="text-slate-400">empty</span>',
+          '</td>',
+          '</tr>'
+        ].join('');
+      }).join('');
+    };
+
+    var renderNotes = function(payload) {
+      if (!fields.qualityNotes) return;
+      var notes = [];
+      notes.push('Use consistent naming conventions across channels and months.');
+      if (!payload.term) notes.push('`utm_term` is optional. Use it mainly for keyword-level tracking.');
+      if (!payload.content) notes.push('`utm_content` is optional. Use it for A/B ad or creative variants.');
+      if (payload.campaign.length > 40) notes.push('Campaign name is long. Shorter names are easier to read in reports.');
+      if (payload.hasExtraParams) notes.push('Additional custom parameters are included in this link.');
+
+      fields.qualityNotes.innerHTML = notes.map(function(note) {
+        return '<li>' + note + '</li>';
+      }).join('');
+    };
+
+    var copyText = async function(value) {
+      if (!value) return;
+      if (!navigator.clipboard || !navigator.clipboard.writeText) {
+        throw new Error('Clipboard API unavailable');
+      }
+      await navigator.clipboard.writeText(value);
+    };
+
+    var buildUrl = function() {
+      var urlObj = parseInputUrl(fields.landingUrl && fields.landingUrl.value);
+      var preserve = !fields.preserveParams || fields.preserveParams.value === 'yes';
+
+      var source = normalizeToken(fields.source && fields.source.value);
+      var medium = normalizeToken(fields.medium && fields.medium.value);
+      var campaign = normalizeToken(fields.campaign && fields.campaign.value);
+      var term = normalizeToken(fields.term && fields.term.value);
+      var content = normalizeToken(fields.content && fields.content.value);
+      var extras = parseExtraParams(fields.extraParams && fields.extraParams.value);
+
+      if (!source || !medium || !campaign) {
+        throw new Error('Source, medium, and campaign are required.');
+      }
+
+      if (!preserve) {
+        urlObj.search = '';
+      }
+
+      urlObj.searchParams.set('utm_source', source);
+      urlObj.searchParams.set('utm_medium', medium);
+      urlObj.searchParams.set('utm_campaign', campaign);
+
+      if (term) {
+        urlObj.searchParams.set('utm_term', term);
+      } else {
+        urlObj.searchParams.delete('utm_term');
+      }
+
+      if (content) {
+        urlObj.searchParams.set('utm_content', content);
+      } else {
+        urlObj.searchParams.delete('utm_content');
+      }
+
+      extras.forEach(function(extra) {
+        urlObj.searchParams.set(extra.key, extra.value);
+      });
+
+      return {
+        finalUrl: urlObj.toString(),
+        params: collectParams(urlObj),
+        source: source,
+        medium: medium,
+        campaign: campaign,
+        term: term,
+        content: content,
+        hasExtraParams: extras.length > 0
+      };
+    };
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      setError('');
+      setLoading(true);
+
+      try {
+        var payload = buildUrl();
+        currentUrl = payload.finalUrl;
+
+        if (fields.finalUrl) fields.finalUrl.value = payload.finalUrl;
+        if (fields.openFinalUrl) fields.openFinalUrl.href = payload.finalUrl;
+
+        renderRows(payload.params);
+        renderNotes(payload);
+        results.classList.remove('hidden');
+        results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (error) {
+        setError(error instanceof Error ? error.message : 'Could not generate URL.');
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    if (fields.copyFinalUrl) {
+      fields.copyFinalUrl.addEventListener('click', async function() {
+        if (!currentUrl) return;
+        try {
+          await copyText(currentUrl);
+          var original = fields.copyFinalUrl.textContent;
+          fields.copyFinalUrl.textContent = 'Copied';
+          setTimeout(function() { fields.copyFinalUrl.textContent = original; }, 1200);
+        } catch (_error) {
+          setError('Could not copy URL from this browser.');
+        }
+      });
+    }
+
+    resetBtn.addEventListener('click', function() {
+      form.reset();
+      setError('');
+      results.classList.add('hidden');
+      currentUrl = '';
+
+      if (fields.finalUrl) fields.finalUrl.value = '';
+      if (fields.openFinalUrl) fields.openFinalUrl.href = '#';
+      if (fields.paramTable) fields.paramTable.innerHTML = '';
+      if (fields.qualityNotes) fields.qualityNotes.innerHTML = '';
+    });
+  })();
+</script>

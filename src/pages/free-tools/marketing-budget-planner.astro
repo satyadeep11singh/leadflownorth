@@ -1,0 +1,439 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToolHero from '../../components/tools/ToolHero.astro';
+
+const toolSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Lead Flow North Marketing Budget Planner',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'CAD',
+  },
+};
+---
+
+<Layout
+  title="Marketing Budget Planner"
+  description="Plan monthly budget allocation by channel and estimate projected leads, customers, revenue, and net outcome."
+  structuredData={toolSchema}
+>
+  <ToolHero
+    eyebrow="Free Tool: Marketing Budget Planner"
+    title="Plan Channel Allocation and Forecast Revenue Impact"
+    description="Allocate your monthly marketing budget across channels, apply realistic CPL assumptions, and model total leads, sales, and projected ROI."
+  guideHref="/blog/how-to-use-marketing-budget-planner"
+  />
+
+  <section class="py-10 lg:py-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <form id="budget-form" class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-5 sm:p-6">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Total Monthly Marketing Budget (CAD)</span>
+            <input id="total-budget" type="number" min="1" step="1" value="5000" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Monthly Fixed Marketing Cost (CAD)</span>
+            <input id="fixed-cost" type="number" min="0" step="1" value="500" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Lead-to-Customer Close Rate (%)</span>
+            <input id="close-rate" type="number" min="0" max="100" step="0.1" value="18" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Average Deal Value (CAD)</span>
+            <input id="avg-deal" type="number" min="1" step="1" value="1200" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+        </div>
+
+        <div class="mt-6 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <h2 class="text-base font-bold text-slate-900 dark:text-white mb-1">Channel Assumptions</h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">
+            Enter allocation percentages and expected cost-per-lead. If allocations do not total 100%, the planner auto-normalizes.
+          </p>
+
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <article class="rounded-lg border border-slate-200 dark:border-slate-700 p-3">
+              <h3 class="text-sm font-semibold text-slate-900 dark:text-white mb-2">Google Ads</h3>
+              <label class="text-xs block mb-2">
+                <span class="block mb-1 text-slate-600 dark:text-slate-400">Allocation %</span>
+                <input id="alloc-google" type="number" min="0" step="0.1" value="40" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-2.5 py-2 text-slate-900 dark:text-white" />
+              </label>
+              <label class="text-xs block">
+                <span class="block mb-1 text-slate-600 dark:text-slate-400">CPL (CAD)</span>
+                <input id="cpl-google" type="number" min="0.1" step="0.1" value="80" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-2.5 py-2 text-slate-900 dark:text-white" />
+              </label>
+            </article>
+
+            <article class="rounded-lg border border-slate-200 dark:border-slate-700 p-3">
+              <h3 class="text-sm font-semibold text-slate-900 dark:text-white mb-2">Meta Ads</h3>
+              <label class="text-xs block mb-2">
+                <span class="block mb-1 text-slate-600 dark:text-slate-400">Allocation %</span>
+                <input id="alloc-meta" type="number" min="0" step="0.1" value="25" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-2.5 py-2 text-slate-900 dark:text-white" />
+              </label>
+              <label class="text-xs block">
+                <span class="block mb-1 text-slate-600 dark:text-slate-400">CPL (CAD)</span>
+                <input id="cpl-meta" type="number" min="0.1" step="0.1" value="55" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-2.5 py-2 text-slate-900 dark:text-white" />
+              </label>
+            </article>
+
+            <article class="rounded-lg border border-slate-200 dark:border-slate-700 p-3">
+              <h3 class="text-sm font-semibold text-slate-900 dark:text-white mb-2">Local SEO</h3>
+              <label class="text-xs block mb-2">
+                <span class="block mb-1 text-slate-600 dark:text-slate-400">Allocation %</span>
+                <input id="alloc-seo" type="number" min="0" step="0.1" value="20" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-2.5 py-2 text-slate-900 dark:text-white" />
+              </label>
+              <label class="text-xs block">
+                <span class="block mb-1 text-slate-600 dark:text-slate-400">CPL (CAD)</span>
+                <input id="cpl-seo" type="number" min="0.1" step="0.1" value="35" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-2.5 py-2 text-slate-900 dark:text-white" />
+              </label>
+            </article>
+
+            <article class="rounded-lg border border-slate-200 dark:border-slate-700 p-3">
+              <h3 class="text-sm font-semibold text-slate-900 dark:text-white mb-2">Retargeting</h3>
+              <label class="text-xs block mb-2">
+                <span class="block mb-1 text-slate-600 dark:text-slate-400">Allocation %</span>
+                <input id="alloc-retarget" type="number" min="0" step="0.1" value="15" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-2.5 py-2 text-slate-900 dark:text-white" />
+              </label>
+              <label class="text-xs block">
+                <span class="block mb-1 text-slate-600 dark:text-slate-400">CPL (CAD)</span>
+                <input id="cpl-retarget" type="number" min="0.1" step="0.1" value="45" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-2.5 py-2 text-slate-900 dark:text-white" />
+              </label>
+            </article>
+          </div>
+        </div>
+
+        <div class="mt-5 flex flex-wrap items-center gap-3">
+          <button id="budget-submit" type="submit" class="inline-flex w-full sm:w-auto items-center justify-center px-6 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors disabled:opacity-60">
+            Plan Budget
+          </button>
+          <button id="budget-reset" type="button" class="inline-flex w-full sm:w-auto items-center justify-center px-5 py-3 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-semibold hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+            Reset
+          </button>
+        </div>
+
+        <p id="budget-error" class="mt-3 text-sm text-red-600 dark:text-red-400 hidden"></p>
+      </form>
+    </div>
+  </section>
+
+  <section id="budget-results" class="py-12 lg:py-16 bg-slate-50 dark:bg-slate-800/40 hidden" aria-live="polite">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-7">
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Projected Leads</p>
+          <p id="total-leads" class="text-2xl font-extrabold text-slate-900 dark:text-white">0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Projected Customers</p>
+          <p id="total-customers" class="text-2xl font-extrabold text-slate-900 dark:text-white">0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Projected Revenue</p>
+          <p id="total-revenue" class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Projected Net</p>
+          <p id="projected-net" class="text-2xl font-extrabold text-slate-900 dark:text-white">$0</p>
+        </article>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-5 mb-7">
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Efficiency Metrics</h2>
+          <dl class="space-y-2 text-sm">
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Blended CPL</dt>
+              <dd id="blended-cpl" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Cost per Acquired Customer</dt>
+              <dd id="cpac" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">ROAS</dt>
+              <dd id="roas" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Break-Even Customers Needed</dt>
+              <dd id="break-even-customers" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+          </dl>
+        </article>
+
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Planner Notes</h2>
+          <ul id="budget-notes" class="space-y-2 text-sm text-slate-700 dark:text-slate-300"></ul>
+        </article>
+      </div>
+
+      <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
+        <div class="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white">Channel Breakdown</h3>
+        </div>
+        <div class="p-5 overflow-x-auto">
+          <table class="w-full min-w-[620px] border-collapse text-sm">
+            <thead>
+              <tr class="bg-slate-50 dark:bg-slate-800">
+                <th class="text-left p-3 border border-slate-200 dark:border-slate-700">Channel</th>
+                <th class="text-left p-3 border border-slate-200 dark:border-slate-700">Effective Allocation</th>
+                <th class="text-left p-3 border border-slate-200 dark:border-slate-700">Budget</th>
+                <th class="text-left p-3 border border-slate-200 dark:border-slate-700">CPL</th>
+                <th class="text-left p-3 border border-slate-200 dark:border-slate-700">Projected Leads</th>
+              </tr>
+            </thead>
+            <tbody id="channel-table"></tbody>
+          </table>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="py-14 lg:py-18 bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Need Help Optimizing Channel Mix?</h2>
+      <p class="text-slate-300 mb-7">
+        We can build a practical media plan, conversion tracking, and follow-up automation to improve true ROI.
+      </p>
+      <a href="/free-audit" class="inline-flex w-full sm:w-auto justify-center items-center px-7 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors">
+        Request a Free Audit
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  (function initMarketingBudgetPlanner() {
+    var form = document.getElementById('budget-form');
+    var submit = document.getElementById('budget-submit');
+    var resetBtn = document.getElementById('budget-reset');
+    var errorEl = document.getElementById('budget-error');
+    var results = document.getElementById('budget-results');
+    if (!form || !submit || !resetBtn || !errorEl || !results) return;
+
+    var byId = function(id) { return document.getElementById(id); };
+    var fields = {
+      totalBudget: byId('total-budget'),
+      fixedCost: byId('fixed-cost'),
+      closeRate: byId('close-rate'),
+      avgDeal: byId('avg-deal'),
+      allocGoogle: byId('alloc-google'),
+      allocMeta: byId('alloc-meta'),
+      allocSeo: byId('alloc-seo'),
+      allocRetarget: byId('alloc-retarget'),
+      cplGoogle: byId('cpl-google'),
+      cplMeta: byId('cpl-meta'),
+      cplSeo: byId('cpl-seo'),
+      cplRetarget: byId('cpl-retarget'),
+      totalLeads: byId('total-leads'),
+      totalCustomers: byId('total-customers'),
+      totalRevenue: byId('total-revenue'),
+      projectedNet: byId('projected-net'),
+      blendedCpl: byId('blended-cpl'),
+      cpac: byId('cpac'),
+      roas: byId('roas'),
+      breakEvenCustomers: byId('break-even-customers'),
+      channelTable: byId('channel-table'),
+      notes: byId('budget-notes')
+    };
+
+    var CHANNELS = [
+      { key: 'google', name: 'Google Ads', allocField: 'allocGoogle', cplField: 'cplGoogle' },
+      { key: 'meta', name: 'Meta Ads', allocField: 'allocMeta', cplField: 'cplMeta' },
+      { key: 'seo', name: 'Local SEO', allocField: 'allocSeo', cplField: 'cplSeo' },
+      { key: 'retarget', name: 'Retargeting', allocField: 'allocRetarget', cplField: 'cplRetarget' }
+    ];
+
+    var parseNum = function(value, fallback) {
+      var num = Number(value);
+      return Number.isFinite(num) ? num : (fallback || 0);
+    };
+
+    var formatCurrency = function(value) {
+      return new Intl.NumberFormat('en-CA', {
+        style: 'currency',
+        currency: 'CAD',
+        maximumFractionDigits: 0
+      }).format(value || 0);
+    };
+
+    var setLoading = function(isLoading) {
+      submit.disabled = isLoading;
+      submit.textContent = isLoading ? 'Planning...' : 'Plan Budget';
+    };
+
+    var setError = function(message) {
+      if (!message) {
+        errorEl.classList.add('hidden');
+        errorEl.textContent = '';
+        return;
+      }
+      errorEl.textContent = message;
+      errorEl.classList.remove('hidden');
+    };
+
+    var getScenario = function() {
+      var totalBudget = parseNum(fields.totalBudget && fields.totalBudget.value, 0);
+      var fixedCost = parseNum(fields.fixedCost && fields.fixedCost.value, 0);
+      var closeRate = parseNum(fields.closeRate && fields.closeRate.value, 0);
+      var avgDeal = parseNum(fields.avgDeal && fields.avgDeal.value, 0);
+
+      if (totalBudget <= 0 || avgDeal <= 0) {
+        throw new Error('Total budget and average deal value must be greater than 0.');
+      }
+      if (closeRate < 0 || closeRate > 100) {
+        throw new Error('Close rate must be between 0 and 100.');
+      }
+
+      var channels = CHANNELS.map(function(channel) {
+        var alloc = parseNum(fields[channel.allocField] && fields[channel.allocField].value, 0);
+        var cpl = parseNum(fields[channel.cplField] && fields[channel.cplField].value, 0);
+        if (alloc < 0) alloc = 0;
+        if (alloc > 0 && cpl <= 0) {
+          throw new Error(channel.name + ' CPL must be greater than 0 when allocation is above 0%.');
+        }
+        return {
+          key: channel.key,
+          name: channel.name,
+          alloc: alloc,
+          cpl: cpl
+        };
+      });
+
+      var totalAlloc = channels.reduce(function(sum, channel) { return sum + channel.alloc; }, 0);
+      if (totalAlloc <= 0) {
+        throw new Error('At least one channel allocation must be greater than 0.');
+      }
+
+      channels = channels.map(function(channel) {
+        var effectiveShare = channel.alloc / totalAlloc;
+        var budget = totalBudget * effectiveShare;
+        var leads = budget / channel.cpl;
+        return {
+          name: channel.name,
+          effectiveShare: effectiveShare,
+          budget: budget,
+          cpl: channel.cpl,
+          leads: leads
+        };
+      });
+
+      var totalLeads = channels.reduce(function(sum, channel) { return sum + channel.leads; }, 0);
+      var totalCustomers = totalLeads * (closeRate / 100);
+      var totalRevenue = totalCustomers * avgDeal;
+      var totalSpend = totalBudget + fixedCost;
+      var projectedNet = totalRevenue - totalSpend;
+      var blendedCpl = totalLeads > 0 ? (totalBudget / totalLeads) : 0;
+      var cpac = totalCustomers > 0 ? (totalBudget / totalCustomers) : 0;
+      var roas = totalBudget > 0 ? (totalRevenue / totalBudget) : 0;
+      var breakEvenCustomers = avgDeal > 0 ? (totalSpend / avgDeal) : 0;
+
+      return {
+        totalLeads: totalLeads,
+        totalCustomers: totalCustomers,
+        totalRevenue: totalRevenue,
+        projectedNet: projectedNet,
+        blendedCpl: blendedCpl,
+        cpac: cpac,
+        roas: roas,
+        breakEvenCustomers: breakEvenCustomers,
+        channels: channels,
+        totalAllocInput: totalAlloc
+      };
+    };
+
+    var renderChannels = function(channels) {
+      if (!fields.channelTable) return;
+      fields.channelTable.innerHTML = channels.map(function(channel) {
+        return [
+          '<tr>',
+          '<td class="p-3 border border-slate-200 dark:border-slate-700 font-medium text-slate-900 dark:text-white">', channel.name, '</td>',
+          '<td class="p-3 border border-slate-200 dark:border-slate-700">', (channel.effectiveShare * 100).toFixed(1), '%</td>',
+          '<td class="p-3 border border-slate-200 dark:border-slate-700">', formatCurrency(channel.budget), '</td>',
+          '<td class="p-3 border border-slate-200 dark:border-slate-700">', formatCurrency(channel.cpl), '</td>',
+          '<td class="p-3 border border-slate-200 dark:border-slate-700">', channel.leads.toFixed(1), '</td>',
+          '</tr>'
+        ].join('');
+      }).join('');
+    };
+
+    var renderNotes = function(s) {
+      if (!fields.notes) return;
+      var notes = [];
+
+      if (Math.abs(s.totalAllocInput - 100) > 0.5) {
+        notes.push('Allocations entered total ' + s.totalAllocInput.toFixed(1) + '%. Planner normalized shares automatically.');
+      }
+
+      if (s.roas >= 4) {
+        notes.push('Modeled ROAS is strong. Keep validating lead quality and close rates by channel.');
+      } else if (s.roas >= 2) {
+        notes.push('Modeled ROAS is moderate. Improve conversion and close process to raise returns.');
+      } else {
+        notes.push('Modeled ROAS is low. Revisit CPL assumptions or shift spend toward stronger channels.');
+      }
+
+      if (s.projectedNet >= 0) {
+        notes.push('Projected scenario is profitable at current assumptions.');
+      } else {
+        notes.push('Projected net is negative. Lower cost per lead, improve close rate, or increase deal value.');
+      }
+
+      var topChannel = s.channels.slice().sort(function(a, b) { return b.leads - a.leads; })[0];
+      if (topChannel) {
+        notes.push(topChannel.name + ' currently contributes the highest modeled lead volume.');
+      }
+
+      fields.notes.innerHTML = notes.map(function(note) {
+        return '<li>' + note + '</li>';
+      }).join('');
+    };
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      setError('');
+      setLoading(true);
+
+      try {
+        var s = getScenario();
+
+        if (fields.totalLeads) fields.totalLeads.textContent = s.totalLeads.toFixed(1);
+        if (fields.totalCustomers) fields.totalCustomers.textContent = s.totalCustomers.toFixed(1);
+        if (fields.totalRevenue) fields.totalRevenue.textContent = formatCurrency(s.totalRevenue);
+        if (fields.projectedNet) {
+          fields.projectedNet.textContent = formatCurrency(s.projectedNet);
+          fields.projectedNet.className = 'text-2xl font-extrabold ' + (s.projectedNet >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400');
+        }
+
+        if (fields.blendedCpl) fields.blendedCpl.textContent = formatCurrency(s.blendedCpl);
+        if (fields.cpac) fields.cpac.textContent = s.totalCustomers > 0 ? formatCurrency(s.cpac) : 'N/A';
+        if (fields.roas) fields.roas.textContent = s.roas.toFixed(2) + 'x';
+        if (fields.breakEvenCustomers) fields.breakEvenCustomers.textContent = s.breakEvenCustomers.toFixed(1);
+
+        renderChannels(s.channels);
+        renderNotes(s);
+        results.classList.remove('hidden');
+        results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (error) {
+        setError(error instanceof Error ? error.message : 'Could not plan budget.');
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    resetBtn.addEventListener('click', function() {
+      form.reset();
+      setError('');
+      results.classList.add('hidden');
+      if (fields.channelTable) fields.channelTable.innerHTML = '';
+      if (fields.notes) fields.notes.innerHTML = '';
+    });
+  })();
+</script>

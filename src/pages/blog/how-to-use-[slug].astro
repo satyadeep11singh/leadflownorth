@@ -1,0 +1,91 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { freeToolGuides, freeToolGuideSlugs, type ToolGuide } from '../../data/free-tool-guides';
+import { freeToolBySlug } from '../../data/free-tools';
+
+interface Props {
+  guide: ToolGuide;
+}
+
+export function getStaticPaths() {
+  return freeToolGuideSlugs.map((slug) => ({
+    params: { slug },
+    props: { guide: freeToolGuides[slug] }
+  }));
+}
+
+const { guide } = Astro.props as Props;
+const tool = freeToolBySlug[guide.slug];
+---
+
+<Layout title={guide.title} description={guide.description}>
+  <article class="py-12 lg:py-18 bg-white dark:bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <a href="/blog" class="inline-flex items-center text-primary-600 hover:text-primary-700 dark:text-primary-300 font-medium mb-8">
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        Back to Blog
+      </a>
+
+      <header class="mb-10">
+        <div class="flex flex-wrap items-center gap-3 mb-4">
+          <span class="inline-flex px-2.5 py-1 rounded-full text-xs font-semibold bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-300">Guide</span>
+          {tool && (
+            <span class="inline-flex px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300">
+              {tool.name}
+            </span>
+          )}
+          <span class="text-xs text-slate-500 dark:text-slate-400">{guide.readTime}</span>
+        </div>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white mb-4">{guide.title}</h1>
+        <p class="text-lg text-slate-600 dark:text-slate-300">{guide.description}</p>
+      </header>
+
+      <div class="prose prose-slate dark:prose-invert max-w-none">
+        <h2>Before You Start</h2>
+        <ul>
+          {guide.beforeYouStart.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+
+        <h2>Step-by-Step</h2>
+        <ol>
+          {guide.steps.map((step) => (
+            <li>
+              <strong>{step.title}:</strong> {step.details}
+            </li>
+          ))}
+        </ol>
+
+        <h2>How to Read the Output</h2>
+        <ul>
+          {guide.interpret.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+
+        <h2>Common Mistakes to Avoid</h2>
+        <ul>
+          {guide.mistakes.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="mt-12 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-6 sm:p-7">
+        <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Use the Tool Now</h2>
+        <p class="text-slate-600 dark:text-slate-300 mb-5">
+          Run this guide with your real numbers and save your scenario outputs for follow-up planning.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a href={guide.calculatorHref} class="inline-flex w-full sm:w-auto justify-center items-center px-6 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors">
+            Open {tool ? tool.name : 'Tool'}
+          </a>
+          <a href="/free-tools" class="inline-flex w-full sm:w-auto justify-center items-center px-6 py-3 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-semibold hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+            Browse All Free Tools
+          </a>
+        </div>
+      </div>
+    </div>
+  </article>
+</Layout>

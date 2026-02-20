@@ -1,0 +1,344 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToolHero from '../../components/tools/ToolHero.astro';
+
+const toolSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Lead Flow North Intake Form Templates',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'CAD',
+  },
+};
+---
+
+<Layout
+  title="Intake Form Templates"
+  description="Generate practical intake form templates by industry and use case, with copy and download options."
+  structuredData={toolSchema}
+>
+  <ToolHero
+    eyebrow="Free Tool: Intake Form Templates"
+    title="Generate Ready-to-Use Intake Forms"
+    description="Pick your industry and form type to generate a practical intake template your team can copy into any form builder."
+  guideHref="/blog/how-to-use-intake-form-templates"
+  />
+
+  <section class="py-10 lg:py-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <form id="intake-template-form" class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-5 sm:p-6">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Industry</span>
+            <select id="industry" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white">
+              <option value="general">General Service Business</option>
+              <option value="home-services">Home Services</option>
+              <option value="medical">Medical / Dental</option>
+              <option value="legal">Legal Services</option>
+              <option value="real-estate">Real Estate</option>
+              <option value="daycare">Daycare / Childcare</option>
+              <option value="nonprofit">Nonprofit</option>
+              <option value="restaurant">Restaurant</option>
+            </select>
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Form Type</span>
+            <select id="template-type" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white">
+              <option value="lead-intake">New Lead Intake</option>
+              <option value="consultation">Consultation Request</option>
+              <option value="service-request">Service Request / Quote</option>
+              <option value="onboarding">Client Onboarding</option>
+            </select>
+          </label>
+
+          <label class="text-sm sm:col-span-2">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Form Objective</span>
+            <input id="objective" type="text" value="Collect qualified lead details and route to the right team." class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+          </label>
+
+          <label class="text-sm sm:col-span-2">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Notification Email (optional)</span>
+            <input id="notification-email" type="email" placeholder="ops@yourcompany.com" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+          </label>
+        </div>
+
+        <div class="mt-5 flex flex-wrap items-center gap-3">
+          <button id="generate-template" type="submit" class="inline-flex w-full sm:w-auto items-center justify-center px-6 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors disabled:opacity-60">
+            Generate Template
+          </button>
+          <button id="reset-template" type="button" class="inline-flex w-full sm:w-auto items-center justify-center px-5 py-3 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-semibold hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+            Reset
+          </button>
+        </div>
+
+        <p id="template-error" class="mt-3 text-sm text-red-600 dark:text-red-400 hidden"></p>
+      </form>
+    </div>
+  </section>
+
+  <section id="template-results" class="py-12 lg:py-16 bg-slate-50 dark:bg-slate-800/40 hidden" aria-live="polite">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-[1fr_360px] gap-6">
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
+          <div class="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
+            <h2 id="template-title" class="text-xl font-bold text-slate-900 dark:text-white">Generated Template</h2>
+            <p id="template-subtitle" class="mt-1 text-xs text-slate-500 dark:text-slate-400"></p>
+          </div>
+          <div class="p-5">
+            <pre id="template-output" class="whitespace-pre-wrap text-sm text-slate-800 dark:text-slate-100 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 p-4"></pre>
+            <div class="mt-3 flex flex-wrap gap-2">
+              <button id="copy-template" type="button" class="inline-flex items-center px-3 py-2 rounded-lg bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold">Copy Template</button>
+              <button id="download-template" type="button" class="inline-flex items-center px-3 py-2 rounded-lg bg-accent-700 hover:bg-accent-800 text-white text-sm font-semibold">Download TXT</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Implementation Notes</h3>
+          <ul id="implementation-notes" class="space-y-2 text-sm text-slate-700 dark:text-slate-300"></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-14 lg:py-18 bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Need Custom Intake Forms Built Into Your Site?</h2>
+      <p class="text-slate-300 mb-7">
+        We build conversion-optimized intake forms that connect to your CRM, calendar, and follow-up automations.
+      </p>
+      <a href="/free-audit" class="inline-flex w-full sm:w-auto justify-center items-center px-7 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors">
+        Book a Free Workflow Audit
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  (function initIntakeTemplateGenerator() {
+    var form = document.getElementById('intake-template-form');
+    var submit = document.getElementById('generate-template');
+    var resetBtn = document.getElementById('reset-template');
+    var errorEl = document.getElementById('template-error');
+    var results = document.getElementById('template-results');
+    if (!form || !submit || !resetBtn || !errorEl || !results) return;
+
+    var BASE_FIELDS_BY_TYPE = {
+      'lead-intake': [
+        'Full Name',
+        'Email Address',
+        'Phone Number',
+        'Preferred Contact Method',
+        'Service Needed',
+        'Budget Range',
+        'Preferred Start Timeline',
+        'How Did You Hear About Us?'
+      ],
+      'consultation': [
+        'Full Name',
+        'Email Address',
+        'Phone Number',
+        'Consultation Topic',
+        'Current Situation Summary',
+        'Preferred Consultation Date',
+        'Preferred Consultation Time',
+        'Consent to Be Contacted'
+      ],
+      'service-request': [
+        'Full Name',
+        'Email Address',
+        'Phone Number',
+        'Service Address',
+        'Service Requested',
+        'Urgency Level',
+        'Photos / Attachments',
+        'Additional Notes'
+      ],
+      onboarding: [
+        'Primary Contact Name',
+        'Business / Organization Name',
+        'Email Address',
+        'Phone Number',
+        'Billing Address',
+        'Primary Goal',
+        'Success Metric',
+        'Approved Communication Channel'
+      ]
+    };
+
+    var INDUSTRY_FIELDS = {
+      general: ['Main Problem to Solve', 'Current Provider (if any)'],
+      'home-services': ['Property Type', 'Access Instructions', 'Required Permit Status'],
+      medical: ['Date of Birth', 'Insurance Provider', 'Medical History Notes', 'Consent for Communication'],
+      legal: ['Case Type', 'Incident Date', 'Opposing Party Name', 'Conflict Check Consent'],
+      'real-estate': ['Buying / Selling / Renting', 'Property Type', 'Target Price Range', 'Mortgage Pre-Approval Status'],
+      daycare: ['Child Name', 'Child Age Group', 'Desired Start Date', 'Allergies / Medical Alerts'],
+      nonprofit: ['Interest Area', 'Volunteer / Donor Preference', 'Donation Capacity Range'],
+      restaurant: ['Reservation Size', 'Event Type', 'Dietary Restrictions', 'Preferred Date/Time']
+    };
+
+    var IMPLEMENTATION_NOTES = [
+      'Mark only truly required fields as mandatory to reduce drop-off.',
+      'Enable auto-response confirmation email/SMS after submission.',
+      'Route submissions by service type to the correct team inbox.',
+      'Set SLA targets for first response (for example under 15 minutes).',
+      'Add hidden UTM fields for source attribution in CRM reports.'
+    ];
+
+    var byId = function(id) { return document.getElementById(id); };
+    var fields = {
+      industry: byId('industry'),
+      type: byId('template-type'),
+      objective: byId('objective'),
+      notificationEmail: byId('notification-email'),
+      templateTitle: byId('template-title'),
+      templateSubtitle: byId('template-subtitle'),
+      templateOutput: byId('template-output'),
+      copyTemplate: byId('copy-template'),
+      downloadTemplate: byId('download-template'),
+      implementationNotes: byId('implementation-notes')
+    };
+
+    var setLoading = function(isLoading) {
+      submit.disabled = isLoading;
+      submit.textContent = isLoading ? 'Generating...' : 'Generate Template';
+    };
+
+    var setError = function(message) {
+      if (!message) {
+        errorEl.classList.add('hidden');
+        errorEl.textContent = '';
+        return;
+      }
+      errorEl.textContent = message;
+      errorEl.classList.remove('hidden');
+    };
+
+    var titleCase = function(value) {
+      return (value || '')
+        .replace(/-/g, ' ')
+        .replace(/\b\w/g, function(chr) { return chr.toUpperCase(); });
+    };
+
+    var buildTemplateText = function(industry, type, objective, notificationEmail) {
+      var base = BASE_FIELDS_BY_TYPE[type] || BASE_FIELDS_BY_TYPE['lead-intake'];
+      var industryFields = INDUSTRY_FIELDS[industry] || INDUSTRY_FIELDS.general;
+      var fieldsList = base.concat(industryFields);
+
+      var lines = [];
+      lines.push('INTAKE FORM TEMPLATE');
+      lines.push('Industry: ' + titleCase(industry));
+      lines.push('Form Type: ' + titleCase(type));
+      lines.push('Objective: ' + (objective || 'N/A'));
+      lines.push('Notification Email: ' + (notificationEmail || 'Set in your form builder'));
+      lines.push('');
+      lines.push('Fields:');
+      fieldsList.forEach(function(field, index) {
+        lines.push((index + 1) + '. ' + field);
+      });
+      lines.push('');
+      lines.push('Post-Submit Workflow:');
+      lines.push('1. Send instant confirmation message.');
+      lines.push('2. Create CRM contact + deal/opportunity.');
+      lines.push('3. Notify assigned rep/team.');
+      lines.push('4. Trigger follow-up sequence if no reply in 24h.');
+
+      return {
+        text: lines.join('\n'),
+        fieldsCount: fieldsList.length
+      };
+    };
+
+    var copyText = async function(value) {
+      if (!value) return;
+      if (!navigator.clipboard || !navigator.clipboard.writeText) {
+        throw new Error('Clipboard API unavailable');
+      }
+      await navigator.clipboard.writeText(value);
+    };
+
+    var downloadText = function(content, filename) {
+      var blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+      var url = URL.createObjectURL(blob);
+      var link = document.createElement('a');
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+    };
+
+    var renderNotes = function() {
+      if (!fields.implementationNotes) return;
+      fields.implementationNotes.innerHTML = '';
+      IMPLEMENTATION_NOTES.forEach(function(note) {
+        var item = document.createElement('li');
+        item.textContent = note;
+        fields.implementationNotes.appendChild(item);
+      });
+    };
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      setError('');
+      setLoading(true);
+
+      try {
+        var industry = fields.industry ? fields.industry.value : 'general';
+        var type = fields.type ? fields.type.value : 'lead-intake';
+        var objective = fields.objective ? fields.objective.value.trim() : '';
+        var notificationEmail = fields.notificationEmail ? fields.notificationEmail.value.trim() : '';
+
+        var payload = buildTemplateText(industry, type, objective, notificationEmail);
+
+        if (fields.templateTitle) fields.templateTitle.textContent = titleCase(industry) + ' - ' + titleCase(type) + ' Template';
+        if (fields.templateSubtitle) fields.templateSubtitle.textContent = payload.fieldsCount + ' fields generated';
+        if (fields.templateOutput) fields.templateOutput.textContent = payload.text;
+
+        renderNotes();
+        results.classList.remove('hidden');
+        results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (error) {
+        setError(error instanceof Error ? error.message : 'Could not generate template.');
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    if (fields.copyTemplate) {
+      fields.copyTemplate.addEventListener('click', async function() {
+        if (!fields.templateOutput || !fields.templateOutput.textContent) return;
+        try {
+          await copyText(fields.templateOutput.textContent);
+          var original = fields.copyTemplate.textContent;
+          fields.copyTemplate.textContent = 'Copied';
+          setTimeout(function() { fields.copyTemplate.textContent = original; }, 1200);
+        } catch (_error) {
+          setError('Could not copy template from this browser.');
+        }
+      });
+    }
+
+    if (fields.downloadTemplate) {
+      fields.downloadTemplate.addEventListener('click', function() {
+        if (!fields.templateOutput || !fields.templateOutput.textContent) return;
+        var industry = fields.industry ? fields.industry.value : 'template';
+        var type = fields.type ? fields.type.value : 'intake';
+        downloadText(fields.templateOutput.textContent, industry + '-' + type + '-template.txt');
+      });
+    }
+
+    resetBtn.addEventListener('click', function() {
+      form.reset();
+      setError('');
+      results.classList.add('hidden');
+      if (fields.implementationNotes) fields.implementationNotes.innerHTML = '';
+    });
+  })();
+</script>

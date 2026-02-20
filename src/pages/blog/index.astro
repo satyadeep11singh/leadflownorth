@@ -1,5 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { freeToolGuides } from '../../data/free-tool-guides';
+import { freeToolBySlug } from '../../data/free-tools';
 
 // General blog posts
 const generalPosts = [
@@ -155,6 +157,14 @@ const industryContent = [
 
 // Get unique industries for filter
 const industries = [...new Set(industryContent.map(p => p.industry))];
+
+const toolGuidePosts = Object.values(freeToolGuides).map((guide) => ({
+  slug: `how-to-use-${guide.slug}`,
+  title: guide.title,
+  excerpt: guide.description,
+  toolName: freeToolBySlug[guide.slug]?.name || 'Free Tool',
+  readTime: guide.readTime
+}));
 ---
 
 <Layout 
@@ -190,6 +200,30 @@ const industries = [...new Set(industryContent.map(p => p.industry))];
             </a>
             <p class="text-slate-600 dark:text-slate-400 text-sm mb-4">{post.excerpt}</p>
             <span class="text-xs text-slate-500 dark:text-slate-400">{post.date}</span>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Tool Guides -->
+  <section class="py-16 lg:py-20 bg-slate-50 dark:bg-slate-800/50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">How-To Guides for Free Tools</h2>
+      <p class="text-slate-600 dark:text-slate-400 mb-8">
+        Step-by-step instructions for each calculator and planner in our free tools library.
+      </p>
+      <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
+        {toolGuidePosts.map((post) => (
+          <article class="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-5 hover:shadow-md transition-shadow">
+            <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-2">{post.toolName}</p>
+            <a href={`/blog/${post.slug}`}>
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 hover:text-primary-600 transition-colors">
+                {post.title}
+              </h3>
+            </a>
+            <p class="text-sm text-slate-600 dark:text-slate-300 mb-3">{post.excerpt}</p>
+            <p class="text-xs text-slate-500 dark:text-slate-400">{post.readTime}</p>
           </article>
         ))}
       </div>

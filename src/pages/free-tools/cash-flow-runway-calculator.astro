@@ -1,0 +1,432 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToolHero from '../../components/tools/ToolHero.astro';
+
+const toolSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Lead Flow North Cash Flow Runway Calculator',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'CAD',
+  },
+};
+---
+
+<Layout
+  title="Cash Flow Runway Calculator"
+  description="Estimate runway months, break-even revenue, and projected cash balance based on your current business cash flow."
+  structuredData={toolSchema}
+>
+  <ToolHero
+    eyebrow="Free Tool: Cash Flow Runway Calculator"
+    title="Estimate Runway Before Cash Hits Your Safety Buffer"
+    description="Model monthly burn versus contribution margin, then forecast runway and break-even revenue with growth assumptions."
+  guideHref="/blog/how-to-use-cash-flow-runway-calculator"
+  />
+
+  <section class="py-10 lg:py-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <form id="runway-form" class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-5 sm:p-6">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Current Cash Reserve (CAD)</span>
+            <input id="starting-cash" type="number" min="1" step="1" value="75000" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Current Monthly Revenue (CAD)</span>
+            <input id="monthly-revenue" type="number" min="0" step="1" value="30000" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Gross Margin (%)</span>
+            <input id="gross-margin" type="number" min="1" max="100" step="0.1" value="45" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Monthly Fixed Operating Costs (CAD)</span>
+            <input id="fixed-costs" type="number" min="0" step="1" value="22000" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Monthly Debt / Loan Payments (CAD)</span>
+            <input id="debt-payments" type="number" min="0" step="1" value="2000" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Monthly Revenue Growth Assumption (%)</span>
+            <input id="revenue-growth" type="number" min="-90" max="100" step="0.1" value="2" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Safety Cash Buffer (CAD)</span>
+            <input id="safety-buffer" type="number" min="0" step="1" value="15000" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Projection Table Horizon</span>
+            <select id="table-horizon" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white">
+              <option value="6">6 months</option>
+              <option value="12" selected>12 months</option>
+              <option value="18">18 months</option>
+              <option value="24">24 months</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="mt-5 flex flex-wrap items-center gap-3">
+          <button id="runway-submit" type="submit" class="inline-flex w-full sm:w-auto items-center justify-center px-6 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors disabled:opacity-60">
+            Calculate Runway
+          </button>
+          <button id="runway-reset" type="button" class="inline-flex w-full sm:w-auto items-center justify-center px-5 py-3 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-semibold hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+            Reset
+          </button>
+        </div>
+
+        <p id="runway-error" class="mt-3 text-sm text-red-600 dark:text-red-400 hidden"></p>
+      </form>
+    </div>
+  </section>
+
+  <section id="runway-results" class="py-12 lg:py-16 bg-slate-50 dark:bg-slate-800/40 hidden" aria-live="polite">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-7">
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Current Monthly Net Cash Flow</p>
+          <p id="monthly-net" class="text-2xl font-extrabold text-slate-900 dark:text-white">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Runway to Safety Buffer</p>
+          <p id="runway-months" class="text-2xl font-extrabold text-slate-900 dark:text-white">-</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Break-Even Monthly Revenue</p>
+          <p id="break-even-revenue" class="text-2xl font-extrabold text-blue-600 dark:text-blue-400">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p id="cash-horizon-label" class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Projected Cash (End of Horizon)</p>
+          <p id="cash-12" class="text-2xl font-extrabold text-slate-900 dark:text-white">$0</p>
+        </article>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-5 mb-7">
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Runway Details</h2>
+          <dl class="space-y-2 text-sm">
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Month Net Cash Flow Turns Positive</dt>
+              <dd id="positive-month" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Estimated Burn Before Positive Flow</dt>
+              <dd id="burn-before-positive" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Projected Cash at Selected Horizon</dt>
+              <dd id="cash-horizon" class="font-semibold text-slate-900 dark:text-white">-</dd>
+            </div>
+          </dl>
+        </article>
+
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Action Notes</h2>
+          <ul id="runway-notes" class="space-y-2 text-sm text-slate-700 dark:text-slate-300"></ul>
+        </article>
+      </div>
+
+      <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden">
+        <div class="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white">Cash Projection Table</h3>
+        </div>
+        <div class="p-5 overflow-x-auto">
+          <table class="w-full min-w-[620px] border-collapse text-sm">
+            <thead>
+              <tr class="bg-slate-50 dark:bg-slate-800">
+                <th class="text-left p-3 border border-slate-200 dark:border-slate-700">Month</th>
+                <th class="text-left p-3 border border-slate-200 dark:border-slate-700">Projected Revenue</th>
+                <th class="text-left p-3 border border-slate-200 dark:border-slate-700">Net Cash Flow</th>
+                <th class="text-left p-3 border border-slate-200 dark:border-slate-700">Ending Cash</th>
+              </tr>
+            </thead>
+            <tbody id="runway-table"></tbody>
+          </table>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="py-14 lg:py-18 bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Need a Real Cash Flow Recovery Plan?</h2>
+      <p class="text-slate-300 mb-7">
+        We can help design a practical demand and conversion plan to improve monthly contribution and extend runway.
+      </p>
+      <a href="/free-audit" class="inline-flex w-full sm:w-auto justify-center items-center px-7 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors">
+        Request a Free Audit
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  (function initRunwayCalculator() {
+    var form = document.getElementById('runway-form');
+    var submit = document.getElementById('runway-submit');
+    var resetBtn = document.getElementById('runway-reset');
+    var errorEl = document.getElementById('runway-error');
+    var results = document.getElementById('runway-results');
+    if (!form || !submit || !resetBtn || !errorEl || !results) return;
+
+    var byId = function(id) { return document.getElementById(id); };
+    var fields = {
+      startingCash: byId('starting-cash'),
+      monthlyRevenue: byId('monthly-revenue'),
+      grossMargin: byId('gross-margin'),
+      fixedCosts: byId('fixed-costs'),
+      debtPayments: byId('debt-payments'),
+      growth: byId('revenue-growth'),
+      buffer: byId('safety-buffer'),
+      horizon: byId('table-horizon'),
+      monthlyNet: byId('monthly-net'),
+      runwayMonths: byId('runway-months'),
+      breakEvenRevenue: byId('break-even-revenue'),
+      cash12: byId('cash-12'),
+      cashHorizonLabel: byId('cash-horizon-label'),
+      positiveMonth: byId('positive-month'),
+      burnBeforePositive: byId('burn-before-positive'),
+      cashHorizon: byId('cash-horizon'),
+      notes: byId('runway-notes'),
+      table: byId('runway-table')
+    };
+
+    var parseNum = function(value, fallback) {
+      var num = Number(value);
+      return Number.isFinite(num) ? num : (fallback || 0);
+    };
+
+    var formatCurrency = function(value) {
+      return new Intl.NumberFormat('en-CA', {
+        style: 'currency',
+        currency: 'CAD',
+        maximumFractionDigits: 0
+      }).format(value || 0);
+    };
+
+    var setLoading = function(isLoading) {
+      submit.disabled = isLoading;
+      submit.textContent = isLoading ? 'Calculating...' : 'Calculate Runway';
+    };
+
+    var setError = function(message) {
+      if (!message) {
+        errorEl.classList.add('hidden');
+        errorEl.textContent = '';
+        return;
+      }
+      errorEl.textContent = message;
+      errorEl.classList.remove('hidden');
+    };
+
+    var getScenario = function() {
+      var startingCash = parseNum(fields.startingCash && fields.startingCash.value, 0);
+      var monthlyRevenue = parseNum(fields.monthlyRevenue && fields.monthlyRevenue.value, 0);
+      var grossMargin = parseNum(fields.grossMargin && fields.grossMargin.value, 0);
+      var fixedCosts = parseNum(fields.fixedCosts && fields.fixedCosts.value, 0);
+      var debtPayments = parseNum(fields.debtPayments && fields.debtPayments.value, 0);
+      var growth = parseNum(fields.growth && fields.growth.value, 0);
+      var buffer = parseNum(fields.buffer && fields.buffer.value, 0);
+      var horizon = parseNum(fields.horizon && fields.horizon.value, 12);
+
+      if (startingCash <= 0) {
+        throw new Error('Current cash reserve must be greater than 0.');
+      }
+      if (grossMargin <= 0 || grossMargin > 100) {
+        throw new Error('Gross margin must be between 1 and 100.');
+      }
+      if (fixedCosts < 0 || debtPayments < 0 || buffer < 0) {
+        throw new Error('Costs and buffer cannot be negative.');
+      }
+      if (growth <= -100) {
+        throw new Error('Growth assumption cannot be -100% or lower.');
+      }
+      if (horizon < 1 || horizon > 24) {
+        throw new Error('Projection table horizon must be between 1 and 24 months.');
+      }
+
+      var marginRate = grossMargin / 100;
+      var monthlyFixedTotal = fixedCosts + debtPayments;
+      var baseNet = (monthlyRevenue * marginRate) - monthlyFixedTotal;
+      var breakEvenRevenue = monthlyFixedTotal / marginRate;
+      var growthFactor = 1 + (growth / 100);
+
+      var cash = startingCash;
+      var runway = null;
+      var rows = [];
+      var positiveFlowMonth = baseNet >= 0 ? 1 : null;
+      var burnBeforePositive = 0;
+      var cash12 = null;
+      var cashAtHorizon = null;
+
+      if (startingCash <= buffer) {
+        runway = 0;
+      }
+
+      for (var month = 1; month <= 60; month += 1) {
+        var projectedRevenue = monthlyRevenue * Math.pow(growthFactor, month - 1);
+        var netFlow = (projectedRevenue * marginRate) - monthlyFixedTotal;
+        cash += netFlow;
+
+        if (positiveFlowMonth === null && netFlow >= 0) {
+          positiveFlowMonth = month;
+        }
+        if (positiveFlowMonth === null && netFlow < 0) {
+          burnBeforePositive += Math.abs(netFlow);
+        }
+
+        if (month <= horizon) {
+          rows.push({
+            month: month,
+            revenue: projectedRevenue,
+            netFlow: netFlow,
+            endingCash: cash
+          });
+        }
+        if (month === 12) {
+          cash12 = cash;
+        }
+        if (month === horizon) {
+          cashAtHorizon = cash;
+        }
+
+        if (runway === null && cash <= buffer) {
+          runway = month;
+        }
+      }
+
+      if (cash12 === null) {
+        cash12 = cash;
+      }
+      if (cashAtHorizon === null) {
+        cashAtHorizon = cash;
+      }
+
+      return {
+        baseNet: baseNet,
+        runway: runway,
+        breakEvenRevenue: breakEvenRevenue,
+        cash12: cash12,
+        positiveFlowMonth: positiveFlowMonth,
+        burnBeforePositive: burnBeforePositive,
+        cashAtHorizon: cashAtHorizon,
+        horizon: horizon,
+        growth: growth,
+        startingCash: startingCash,
+        buffer: buffer,
+        monthlyRevenue: monthlyRevenue,
+        rows: rows
+      };
+    };
+
+    var renderTable = function(rows) {
+      if (!fields.table) return;
+      fields.table.innerHTML = rows.map(function(row) {
+        var netClass = row.netFlow >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400';
+        var cashClass = row.endingCash >= 0 ? 'text-slate-900 dark:text-white' : 'text-red-600 dark:text-red-400';
+
+        return [
+          '<tr>',
+          '<td class="p-3 border border-slate-200 dark:border-slate-700">Month ', row.month, '</td>',
+          '<td class="p-3 border border-slate-200 dark:border-slate-700">', formatCurrency(row.revenue), '</td>',
+          '<td class="p-3 border border-slate-200 dark:border-slate-700 font-semibold ', netClass, '">', formatCurrency(row.netFlow), '</td>',
+          '<td class="p-3 border border-slate-200 dark:border-slate-700 font-semibold ', cashClass, '">', formatCurrency(row.endingCash), '</td>',
+          '</tr>'
+        ].join('');
+      }).join('');
+    };
+
+    var renderNotes = function(s) {
+      if (!fields.notes) return;
+
+      var notes = [];
+      if (s.baseNet >= 0) {
+        notes.push('Current monthly cash flow is positive before growth assumptions.');
+      } else {
+        notes.push('Current monthly cash flow is negative. Focus first on contribution margin and fixed-cost efficiency.');
+      }
+
+      if (s.runway === null) {
+        notes.push('Cash does not reach the safety buffer within 60 months under this model.');
+      } else if (s.runway <= 3) {
+        notes.push('Runway is under 3 months. Immediate demand and cost actions are required.');
+      } else if (s.runway <= 6) {
+        notes.push('Runway is under 6 months. Prioritize short-cycle revenue initiatives and tighter spend control.');
+      } else {
+        notes.push('Runway exceeds 6 months in this scenario, but assumptions should be reviewed monthly.');
+      }
+
+      if (s.breakEvenRevenue > s.monthlyRevenue) {
+        notes.push('Current revenue is below break-even by ' + formatCurrency(s.breakEvenRevenue - s.monthlyRevenue) + ' per month.');
+      } else {
+        notes.push('Current revenue is above break-even based on entered costs and margin.');
+      }
+
+      if (s.positiveFlowMonth === null) {
+        notes.push('Monthly net flow does not turn positive within 60 months at the current growth assumption.');
+      } else if (s.baseNet < 0) {
+        notes.push('Monthly net flow turns positive around month ' + s.positiveFlowMonth + '.');
+      }
+
+      if (s.growth < 0) {
+        notes.push('Negative growth assumption shortens runway. Plan for churn and pipeline replenishment.');
+      }
+
+      fields.notes.innerHTML = notes.map(function(note) {
+        return '<li>' + note + '</li>';
+      }).join('');
+    };
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      setError('');
+      setLoading(true);
+
+      try {
+        var s = getScenario();
+
+        if (fields.monthlyNet) {
+          fields.monthlyNet.textContent = formatCurrency(s.baseNet);
+          fields.monthlyNet.className = 'text-2xl font-extrabold ' + (s.baseNet >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-red-600 dark:text-red-400');
+        }
+        if (fields.runwayMonths) fields.runwayMonths.textContent = s.runway === null ? '>60 months' : (s.runway.toFixed(0) + ' months');
+        if (fields.breakEvenRevenue) fields.breakEvenRevenue.textContent = formatCurrency(s.breakEvenRevenue);
+        if (fields.cashHorizonLabel) fields.cashHorizonLabel.textContent = 'Projected Cash (' + s.horizon + ' Months)';
+        if (fields.cash12) fields.cash12.textContent = formatCurrency(s.cashAtHorizon);
+        if (fields.positiveMonth) fields.positiveMonth.textContent = s.positiveFlowMonth === null ? '>60 months' : ('Month ' + s.positiveFlowMonth);
+        if (fields.burnBeforePositive) fields.burnBeforePositive.textContent = s.baseNet >= 0 ? formatCurrency(0) : formatCurrency(s.burnBeforePositive);
+        if (fields.cashHorizon) fields.cashHorizon.textContent = formatCurrency(s.cashAtHorizon);
+
+        renderTable(s.rows);
+        renderNotes(s);
+
+        results.classList.remove('hidden');
+        results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (error) {
+        setError(error instanceof Error ? error.message : 'Could not calculate runway.');
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    resetBtn.addEventListener('click', function() {
+      form.reset();
+      setError('');
+      results.classList.add('hidden');
+      if (fields.table) fields.table.innerHTML = '';
+      if (fields.notes) fields.notes.innerHTML = '';
+    });
+  })();
+</script>

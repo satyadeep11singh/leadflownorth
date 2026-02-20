@@ -1,0 +1,351 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToolHero from '../../components/tools/ToolHero.astro';
+import InvoiceGenerator from '../../components/tools/InvoiceGenerator.astro';
+
+const toolSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Lead Flow North Quote / Estimate / Invoice Builder',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web Browser',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'CAD',
+  },
+};
+---
+
+<Layout
+  title="Quote / Estimate / Invoice Builder"
+  description="Create professional quotes, estimates, and invoices with line items, tax, and totals. Choose from 16+ industry presets and export as a clean PDF."
+  structuredData={toolSchema}
+>
+  <ToolHero
+    eyebrow="Free Tool: Quote / Estimate / Invoice Builder"
+    title="Create Quotes, Estimates & Invoices in Minutes"
+    description="Choose your document type, pick an industry preset, customize line items, and download a professional PDF. 16+ templates for trades, services, events, and more."
+    guideHref="/blog/how-to-use-quote-estimate-builder"
+  />
+
+  <section class="py-10 lg:py-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-5 sm:p-6">
+        <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Quick Presets</h2>
+        <p class="text-sm text-slate-600 dark:text-slate-300 mb-4">Load a starter estimate and then edit quantities/rates as needed.</p>
+        <div class="grid sm:grid-cols-[1fr_auto] gap-3 items-end">
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Preset Template</span>
+            <select id="quote-preset" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white">
+              <option value="blank">Blank Estimate</option>
+              <optgroup label="Professional Services">
+                <option value="consulting">Consulting Package</option>
+                <option value="agency">Marketing Retainer</option>
+                <option value="legal">Legal Services</option>
+                <option value="accounting">Bookkeeping / Accounting</option>
+                <option value="web-design">Web Design Project</option>
+                <option value="photography">Photography Session</option>
+              </optgroup>
+              <optgroup label="Home & Trades">
+                <option value="home-services">Home Services Job</option>
+                <option value="landscaping">Landscaping Project</option>
+                <option value="cleaning">Cleaning Service</option>
+                <option value="contractor">General Contractor</option>
+                <option value="auto-repair">Auto Repair</option>
+              </optgroup>
+              <optgroup label="Health & Wellness">
+                <option value="personal-training">Personal Training</option>
+                <option value="salon-spa">Salon / Spa Package</option>
+              </optgroup>
+              <optgroup label="Events & Food">
+                <option value="restaurant">Catering Event</option>
+                <option value="event-planning">Event Planning</option>
+              </optgroup>
+              <optgroup label="Real Estate & Property">
+                <option value="property-management">Property Management</option>
+              </optgroup>
+            </select>
+          </label>
+          <button id="apply-preset" type="button" class="inline-flex w-full sm:w-auto items-center justify-center px-5 py-2.5 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors">
+            Apply Preset
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-12 lg:py-16 bg-slate-50 dark:bg-slate-800/40">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <InvoiceGenerator id="quote-builder-invoice" title="Document Builder" defaultTaxRate={13} currency="CAD" />
+    </div>
+  </section>
+
+  <section class="py-14 lg:py-18 bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Want Automated Quoting on Your Website?</h2>
+      <p class="text-slate-300 mb-7">
+        We build instant quote generators and booking flows directly into your site so leads convert faster.
+      </p>
+      <a href="/free-audit" class="inline-flex w-full sm:w-auto justify-center items-center px-7 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors">
+        Book a Free Workflow Audit
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  (function initQuotePresetLoader() {
+    var presetSelect = document.getElementById('quote-preset');
+    var applyBtn = document.getElementById('apply-preset');
+    var invoice = document.getElementById('quote-builder-invoice');
+    if (!presetSelect || !applyBtn || !invoice) return;
+
+    var PRESETS = {
+      blank: {
+        invoiceNumber: '',
+        businessName: '',
+        clientName: '',
+        items: [
+          { description: '', qty: 1, rate: 0 }
+        ]
+      },
+      'home-services': {
+        invoiceNumber: 'EST-HS-1001',
+        businessName: 'Your Home Services Co.',
+        clientName: 'Client Name',
+        items: [
+          { description: 'On-site assessment and diagnostics', qty: 1, rate: 149 },
+          { description: 'Labor (hourly)', qty: 4, rate: 120 },
+          { description: 'Parts and materials allowance', qty: 1, rate: 280 }
+        ]
+      },
+      agency: {
+        invoiceNumber: 'EST-MKT-1001',
+        businessName: 'Your Agency Name',
+        clientName: 'Client Name',
+        items: [
+          { description: 'Monthly campaign strategy and planning', qty: 1, rate: 900 },
+          { description: 'Ad management and optimization', qty: 1, rate: 1200 },
+          { description: 'Reporting and review call', qty: 1, rate: 350 }
+        ]
+      },
+      consulting: {
+        invoiceNumber: 'EST-CON-1001',
+        businessName: 'Your Consulting Firm',
+        clientName: 'Client Name',
+        items: [
+          { description: 'Discovery workshop', qty: 1, rate: 800 },
+          { description: 'Implementation roadmap', qty: 1, rate: 1200 },
+          { description: 'Advisory sessions', qty: 3, rate: 300 }
+        ]
+      },
+      restaurant: {
+        invoiceNumber: 'EST-CAT-1001',
+        businessName: 'Your Restaurant Name',
+        clientName: 'Event Client',
+        items: [
+          { description: 'Catering package (per guest)', qty: 30, rate: 34 },
+          { description: 'Staffing and setup', qty: 1, rate: 450 },
+          { description: 'Delivery and equipment', qty: 1, rate: 180 }
+        ]
+      },
+      legal: {
+        invoiceNumber: 'EST-LGL-1001',
+        businessName: 'Your Law Firm',
+        clientName: 'Client Name',
+        items: [
+          { description: 'Initial consultation', qty: 1, rate: 350 },
+          { description: 'Document review and preparation', qty: 3, rate: 275 },
+          { description: 'Filing and court fees', qty: 1, rate: 500 }
+        ]
+      },
+      accounting: {
+        invoiceNumber: 'EST-ACC-1001',
+        businessName: 'Your Accounting Firm',
+        clientName: 'Client Name',
+        items: [
+          { description: 'Monthly bookkeeping', qty: 1, rate: 600 },
+          { description: 'HST/GST filing', qty: 1, rate: 200 },
+          { description: 'Year-end tax preparation', qty: 1, rate: 950 }
+        ]
+      },
+      'web-design': {
+        invoiceNumber: 'EST-WEB-1001',
+        businessName: 'Your Web Studio',
+        clientName: 'Client Name',
+        items: [
+          { description: 'Discovery and wireframing', qty: 1, rate: 1200 },
+          { description: 'UI/UX design (pages)', qty: 5, rate: 400 },
+          { description: 'Development and build', qty: 1, rate: 3500 },
+          { description: 'Content migration and QA', qty: 1, rate: 800 }
+        ]
+      },
+      photography: {
+        invoiceNumber: 'EST-PHO-1001',
+        businessName: 'Your Photography Studio',
+        clientName: 'Client Name',
+        items: [
+          { description: 'Photo session (2 hours)', qty: 1, rate: 450 },
+          { description: 'Edited digital photos', qty: 25, rate: 15 },
+          { description: 'Prints and album', qty: 1, rate: 200 }
+        ]
+      },
+      landscaping: {
+        invoiceNumber: 'EST-LND-1001',
+        businessName: 'Your Landscaping Co.',
+        clientName: 'Client Name',
+        items: [
+          { description: 'Site assessment and design plan', qty: 1, rate: 250 },
+          { description: 'Sod and planting materials', qty: 1, rate: 1800 },
+          { description: 'Labor (crew day)', qty: 2, rate: 850 },
+          { description: 'Mulch and finishing', qty: 1, rate: 350 }
+        ]
+      },
+      cleaning: {
+        invoiceNumber: 'EST-CLN-1001',
+        businessName: 'Your Cleaning Service',
+        clientName: 'Client Name',
+        items: [
+          { description: 'Deep clean — kitchen and bathrooms', qty: 1, rate: 180 },
+          { description: 'General clean — living areas and bedrooms', qty: 1, rate: 120 },
+          { description: 'Window cleaning (interior)', qty: 1, rate: 85 }
+        ]
+      },
+      contractor: {
+        invoiceNumber: 'EST-GC-1001',
+        businessName: 'Your Contracting Co.',
+        clientName: 'Client Name',
+        items: [
+          { description: 'Demolition and site prep', qty: 1, rate: 1500 },
+          { description: 'Materials (lumber, drywall, etc.)', qty: 1, rate: 3200 },
+          { description: 'Framing and structural work', qty: 1, rate: 4500 },
+          { description: 'Finishing and trim', qty: 1, rate: 2000 },
+          { description: 'Permits and inspections', qty: 1, rate: 600 }
+        ]
+      },
+      'auto-repair': {
+        invoiceNumber: 'EST-AUT-1001',
+        businessName: 'Your Auto Shop',
+        clientName: 'Client Name',
+        items: [
+          { description: 'Diagnostic scan and inspection', qty: 1, rate: 120 },
+          { description: 'Labor (hourly)', qty: 3, rate: 110 },
+          { description: 'Parts and materials', qty: 1, rate: 450 },
+          { description: 'Shop supplies and disposal', qty: 1, rate: 35 }
+        ]
+      },
+      'personal-training': {
+        invoiceNumber: 'EST-FIT-1001',
+        businessName: 'Your Fitness Studio',
+        clientName: 'Client Name',
+        items: [
+          { description: 'Fitness assessment and goal setting', qty: 1, rate: 100 },
+          { description: '1-on-1 training session (1 hr)', qty: 8, rate: 85 },
+          { description: 'Custom nutrition plan', qty: 1, rate: 150 }
+        ]
+      },
+      'salon-spa': {
+        invoiceNumber: 'EST-SPA-1001',
+        businessName: 'Your Salon & Spa',
+        clientName: 'Client Name',
+        items: [
+          { description: 'Haircut and style', qty: 1, rate: 75 },
+          { description: 'Color treatment', qty: 1, rate: 150 },
+          { description: 'Deep conditioning treatment', qty: 1, rate: 45 },
+          { description: 'Manicure and pedicure', qty: 1, rate: 90 }
+        ]
+      },
+      'event-planning': {
+        invoiceNumber: 'EST-EVT-1001',
+        businessName: 'Your Event Co.',
+        clientName: 'Client Name',
+        items: [
+          { description: 'Event coordination and planning', qty: 1, rate: 1500 },
+          { description: 'Venue rental and setup', qty: 1, rate: 2500 },
+          { description: 'AV and lighting package', qty: 1, rate: 800 },
+          { description: 'Day-of coordination staff', qty: 2, rate: 350 }
+        ]
+      },
+      'property-management': {
+        invoiceNumber: 'EST-PM-1001',
+        businessName: 'Your Property Mgmt Co.',
+        clientName: 'Property Owner',
+        items: [
+          { description: 'Monthly management fee', qty: 1, rate: 250 },
+          { description: 'Tenant screening and placement', qty: 1, rate: 500 },
+          { description: 'Maintenance coordination', qty: 1, rate: 150 },
+          { description: 'Quarterly property inspection', qty: 1, rate: 100 }
+        ]
+      }
+    };
+
+    var query = function(sel) { return invoice.querySelector(sel); };
+    var queryAll = function(sel) { return Array.prototype.slice.call(invoice.querySelectorAll(sel)); };
+
+    var setField = function(name, value) {
+      var field = query('[data-field="' + name + '"]');
+      if (!field) return;
+      field.value = value || '';
+      field.dispatchEvent(new Event('input', { bubbles: true }));
+    };
+
+    var getRows = function() {
+      return queryAll('[data-line-item]');
+    };
+
+    var ensureRowCount = function(count) {
+      var addBtn = query('[data-action="add-line"]');
+      if (!addBtn) return;
+      while (getRows().length < count) {
+        addBtn.click();
+      }
+      while (getRows().length > count) {
+        var rows = getRows();
+        var lastRow = rows[rows.length - 1];
+        var remove = lastRow.querySelector('[data-action="remove-line"]');
+        if (!remove) break;
+        remove.click();
+      }
+    };
+
+    var fillRows = function(items) {
+      ensureRowCount(items.length);
+      var rows = getRows();
+      rows.forEach(function(row, idx) {
+        var item = items[idx] || { description: '', qty: 1, rate: 0 };
+        var desc = row.querySelector('[data-role="description"]');
+        var qty = row.querySelector('[data-role="qty"]');
+        var rate = row.querySelector('[data-role="rate"]');
+        if (desc) {
+          desc.value = item.description;
+          desc.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+        if (qty) {
+          qty.value = String(item.qty);
+          qty.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+        if (rate) {
+          rate.value = String(item.rate);
+          rate.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+      });
+    };
+
+    var applyPreset = function(key) {
+      var preset = PRESETS[key] || PRESETS.blank;
+      // Click the estimate doc type button to reset to estimate mode
+      var estimateBtn = query('[data-doc-type="estimate"]');
+      if (estimateBtn) estimateBtn.click();
+
+      setField('invoiceNumber', preset.invoiceNumber);
+      setField('businessName', preset.businessName);
+      setField('clientName', preset.clientName);
+      fillRows(preset.items || []);
+    };
+
+    applyBtn.addEventListener('click', function() {
+      applyPreset(presetSelect.value);
+    });
+  })();
+</script>
