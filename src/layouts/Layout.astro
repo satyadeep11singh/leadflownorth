@@ -84,6 +84,35 @@ const breadcrumbSchema = shouldShowBreadcrumbs
     }
   : null;
 
+// Auto-generate Article structured data for blog posts
+const isBlogPost = currentPath.startsWith('/blog/') && currentPath !== '/blog/';
+const articleSchema = isBlogPost && !structuredData
+  ? {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": title,
+      "description": description,
+      "url": `${baseUrl}${currentPath}`,
+      "author": {
+        "@type": "Organization",
+        "name": "Lead Flow North",
+        "url": "https://leadflownorth.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Lead Flow North",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://leadflownorth.com/logos/lfn-light-200.png"
+        }
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": `${baseUrl}${currentPath}`
+      }
+    }
+  : null;
+
 // Default Organization structured data
 const organizationSchema = {
   "@context": "https://schema.org",
@@ -190,6 +219,9 @@ const shouldLoadBotpressChat =
     <script is:inline type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
     {breadcrumbSchema && (
       <script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    )}
+    {articleSchema && (
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
     )}
     {structuredData && (
       <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
