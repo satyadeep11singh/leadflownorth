@@ -1,6 +1,63 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
+// Organization structured data for About page
+const aboutSchema = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "Lead Flow North",
+    "url": "https://leadflownorth.com",
+    "logo": "https://leadflownorth.com/images/logo.png",
+    "description": "Woman-owned, proudly Canadian web design and lead generation agency empowering small businesses with modern technology.",
+    "foundingDate": "2026",
+    "foundingLocation": {
+      "@type": "Place",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "100 King Street West, Suite 5700",
+        "addressLocality": "Toronto",
+        "addressRegion": "ON",
+        "addressCountry": "CA"
+      }
+    },
+    "founder": [
+      {
+        "@type": "Person",
+        "name": "Monika Singh",
+        "jobTitle": "CEO & Co-Founder",
+        "url": "https://www.linkedin.com/in/monika2023singh/",
+        "sameAs": ["https://www.linkedin.com/in/monika2023singh/"]
+      },
+      {
+        "@type": "Person",
+        "name": "Satyadeep Singh",
+        "jobTitle": "CTO & Co-Founder",
+        "url": "https://www.linkedin.com/in/satyadeep-singh/",
+        "sameAs": ["https://www.linkedin.com/in/satyadeep-singh/"]
+      },
+      {
+        "@type": "Person",
+        "name": "Naveen Gangishetty",
+        "jobTitle": "COO & Co-Founder",
+        "url": "https://www.linkedin.com/in/naveen-gangishetty/",
+        "sameAs": ["https://www.linkedin.com/in/naveen-gangishetty/"]
+      }
+    ],
+    "areaServed": ["Ontario", "Alberta", "Canada"],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+1-905-783-5996",
+      "email": "hello@leadflownorth.com",
+      "contactType": "sales"
+    },
+    "sameAs": [
+      "https://www.linkedin.com/company/leadflownorth"
+    ]
+  }
+};
+
 const team = [
   {
     name: "Monika Singh",
@@ -52,13 +109,25 @@ const values = [
 ];
 ---
 
-<Layout 
+<Layout
   title="About Us"
   description="Meet the team behind Lead Flow North. We're a woman-owned, proudly Canadian web design and lead generation agency empowering small businesses with modern technology to compete and win."
+  structuredData={aboutSchema}
 >
   <!-- Hero -->
-  <section class="py-16 lg:py-24 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section class="relative overflow-hidden py-16 lg:py-24 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+    <!-- Aurora Background Effect -->
+    <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
+      <div class="aurora-band aurora-band-1"></div>
+      <div class="aurora-band aurora-band-2"></div>
+      <div class="aurora-band aurora-band-3"></div>
+      <div class="aurora-band aurora-band-4"></div>
+      <div class="aurora-mouse-glow" id="auroraMouseGlow"></div>
+      <div class="absolute -top-40 -right-40 w-80 h-80 bg-primary-500/10 rounded-full blur-3xl"></div>
+      <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-accent-500/10 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid lg:grid-cols-2 gap-12 items-center">
         <div>
           <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 dark:text-white mb-6">
@@ -102,28 +171,95 @@ const values = [
 
   <!-- Our Story -->
   <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12 reveal">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
         <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
           Our Story
         </h2>
+        <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+          Three founders. One mission. Make enterprise-level marketing accessible to every Canadian small business.
+        </p>
       </div>
-      <div class="prose prose-lg dark:prose-invert mx-auto reveal">
-        <p>
-          Lead Flow North was born from a shared frustration. Monika Singh watched too many small business owners, especially women and newcomers to Canada, get taken advantage of by agencies charging premium prices for mediocre work. She knew they deserved better, and she set out to build the solution.
-        </p>
-        <p>
-          Alongside her, Satyadeep Singh, a full-stack developer who had built digital solutions for businesses of all sizes, saw the same gap from a technology perspective. Small business owners were paying thousands for websites that looked nice but never generated a single lead.
-        </p>
-        <p>
-          Naveen Gangishetty brought 15+ years of enterprise experience: from technical support at Genpact, to sales at Dell, to consulting roles at the College of Saint Rose, Supervek, Belairdirect, and Service Canada. He learned what makes organizations succeed: <strong>systems that actually work for real people</strong>.
-        </p>
-        <p>
-          In 2026, the three co-founders came together with complementary skills: Monika's vision and leadership as CEO, Satyadeep's technical expertise as CTO, and Naveen's operational excellence as COO. Together, they could bring Fortune 500 marketing systems to Main Street businesses at prices that made sense.
-        </p>
-        <p>
-          <strong>That's Lead Flow North.</strong> A woman-owned, proudly Canadian company in its first year, building with early clients. We're not trying to be the biggest agency. We're focused on being the best partner for Canadian small businesses who want real results, not just a pretty website that collects dust.
-        </p>
+
+      <!-- Timeline -->
+      <div class="relative">
+        <!-- Vertical line (desktop) -->
+        <div class="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary-500/40 via-accent-500/40 to-primary-500/40" aria-hidden="true"></div>
+
+        <!-- Chapter 1: The Problem -->
+        <div class="relative grid lg:grid-cols-2 gap-8 lg:gap-16 mb-12 lg:mb-16 items-center">
+          <div class="reveal lg:text-right">
+            <span class="inline-block px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 rounded-full mb-4">The Problem</span>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Small businesses were being left behind</h3>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+              Monika Singh watched too many small business owners — especially women and newcomers to Canada — get taken advantage of by agencies charging premium prices for mediocre work. Meanwhile, Satyadeep saw the same gap from a technology perspective: business owners paying thousands for websites that looked nice but never generated a single lead.
+            </p>
+          </div>
+          <!-- Timeline dot -->
+          <div class="hidden lg:flex absolute left-1/2 top-8 -translate-x-1/2 w-4 h-4 rounded-full bg-primary-500 border-4 border-white dark:border-slate-900 shadow-sm" aria-hidden="true"></div>
+          <div class="reveal">
+            <div class="bg-slate-50 dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700">
+              <div class="flex items-center gap-4 mb-4">
+                <img src="/images/founders/monika.jpeg" alt="Monika Singh, CEO & Co-Founder" class="w-12 h-12 rounded-full object-cover border-2 border-white dark:border-slate-600 shadow" width="48" height="48" loading="lazy" decoding="async" />
+                <div>
+                  <p class="font-bold text-slate-900 dark:text-white text-sm">Monika Singh</p>
+                  <p class="text-xs text-primary-600 dark:text-primary-400">CEO & Co-Founder</p>
+                </div>
+              </div>
+              <blockquote class="text-slate-600 dark:text-slate-400 text-sm italic border-l-2 border-primary-500/30 pl-4">
+                "Small business owners deserved better. They deserved the same technology the big guys use — without the big price tag."
+              </blockquote>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chapter 2: The Experience -->
+        <div class="relative grid lg:grid-cols-2 gap-8 lg:gap-16 mb-12 lg:mb-16 items-center">
+          <div class="reveal order-2 lg:order-1">
+            <div class="bg-slate-50 dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700">
+              <div class="flex items-center gap-4 mb-4">
+                <img src="/images/founders/naveen.jpg" alt="Naveen Gangishetty, COO & Co-Founder" class="w-12 h-12 rounded-full object-cover border-2 border-white dark:border-slate-600 shadow" width="48" height="48" loading="lazy" decoding="async" />
+                <div>
+                  <p class="font-bold text-slate-900 dark:text-white text-sm">Naveen Gangishetty</p>
+                  <p class="text-xs text-primary-600 dark:text-primary-400">COO & Co-Founder</p>
+                </div>
+              </div>
+              <blockquote class="text-slate-600 dark:text-slate-400 text-sm italic border-l-2 border-accent-500/30 pl-4">
+                "After 15+ years at Dell, Genpact, and consulting across Canada, I learned one thing: the best systems are the ones that actually work for real people."
+              </blockquote>
+            </div>
+          </div>
+          <!-- Timeline dot -->
+          <div class="hidden lg:flex absolute left-1/2 top-8 -translate-x-1/2 w-4 h-4 rounded-full bg-accent-500 border-4 border-white dark:border-slate-900 shadow-sm" aria-hidden="true"></div>
+          <div class="reveal order-1 lg:order-2">
+            <span class="inline-block px-3 py-1 text-xs font-bold uppercase tracking-wider text-accent-600 dark:text-accent-400 bg-accent-50 dark:bg-accent-900/20 rounded-full mb-4">The Experience</span>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Enterprise skills, small business heart</h3>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+              Naveen Gangishetty brought 15+ years of enterprise experience — from technical support at Genpact, to sales at Dell, to consulting at Service Canada and beyond. Satyadeep built digital solutions for businesses of all sizes as a full-stack developer. They had the tools. They just needed the right mission.
+            </p>
+          </div>
+        </div>
+
+        <!-- Chapter 3: The Solution -->
+        <div class="relative grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+          <div class="reveal lg:text-right">
+            <span class="inline-block px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 rounded-full mb-4">The Solution</span>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Lead Flow North was born</h3>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+              In 2026, the three co-founders came together: Monika's vision and leadership, Satyadeep's technical expertise, and Naveen's operational excellence. The goal was simple — bring Fortune 500 marketing systems to Main Street businesses at prices that make sense.
+            </p>
+          </div>
+          <!-- Timeline dot -->
+          <div class="hidden lg:flex absolute left-1/2 top-8 -translate-x-1/2 w-4 h-4 rounded-full bg-primary-500 border-4 border-white dark:border-slate-900 shadow-sm" aria-hidden="true"></div>
+          <div class="reveal">
+            <div class="bg-gradient-to-br from-primary-600 to-accent-600 rounded-2xl p-6 text-white">
+              <p class="text-lg font-bold mb-2">That's Lead Flow North.</p>
+              <p class="text-primary-100 text-sm leading-relaxed">
+                A woman-owned, proudly Canadian company building with early clients. We're not trying to be the biggest agency — we're focused on being the best partner for Canadian small businesses who want real results, not just a pretty website that collects dust.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -152,8 +288,62 @@ const values = [
     </div>
   </section>
 
-  <!-- Team -->
+  <!-- How We Work -->
   <section class="py-16 lg:py-24 bg-white dark:bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 reveal">
+        <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+          How We Work
+        </h2>
+        <p class="text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+          A simple, transparent process from first call to launch and beyond.
+        </p>
+      </div>
+
+      <div class="relative max-w-5xl mx-auto">
+        <!-- Connecting line (desktop) -->
+        <div class="hidden lg:block absolute top-24 left-[calc(16.67%+24px)] right-[calc(16.67%+24px)] h-0.5 bg-gradient-to-r from-primary-500 via-accent-500 to-primary-500 opacity-30" aria-hidden="true"></div>
+
+        <div class="grid lg:grid-cols-3 gap-8 lg:gap-12">
+          <!-- Step 1 -->
+          <div class="reveal text-center">
+            <div class="relative inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary-100 dark:bg-primary-900/30 mb-6">
+              <span class="text-2xl font-bold text-primary-600 dark:text-primary-400">1</span>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Discovery Call</h3>
+            <p class="text-slate-600 dark:text-slate-400">
+              15 minutes, no pressure. We learn about your business, your goals, and whether we're the right fit. You get honest advice either way.
+            </p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="reveal text-center">
+            <div class="relative inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent-100 dark:bg-accent-900/30 mb-6">
+              <span class="text-2xl font-bold text-accent-600 dark:text-accent-400">2</span>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Build & Launch</h3>
+            <p class="text-slate-600 dark:text-slate-400">
+              We build your high-converting website in 14 days. You get a dedicated founder on your project, weekly updates, and no surprises.
+            </p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="reveal text-center">
+            <div class="relative inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary-100 dark:bg-primary-900/30 mb-6">
+              <span class="text-2xl font-bold text-primary-600 dark:text-primary-400">3</span>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Grow Together</h3>
+            <p class="text-slate-600 dark:text-slate-400">
+              60 days of free support after launch. Then optional monthly plans to keep optimizing, generating leads, and scaling your results.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="py-16 lg:py-24 bg-slate-50 dark:bg-slate-800/50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-16 reveal">
         <h2 class="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
@@ -170,7 +360,7 @@ const values = [
           <div class="reveal bg-slate-50 dark:bg-slate-800 rounded-2xl p-8 text-center">
             <img 
               src={member.image} 
-              alt={member.name}
+              alt={`${member.name}, ${member.role} at Lead Flow North`}
               class="w-32 h-32 rounded-full mx-auto mb-6 object-cover border-4 border-white dark:border-slate-700 shadow-lg"
               loading="lazy"
               decoding="async"
@@ -292,4 +482,158 @@ const values = [
     </div>
   </section>
 </Layout>
+
+<style>
+  .aurora-band {
+    position: absolute;
+    width: 150%;
+    height: 50%;
+    left: -25%;
+    filter: blur(80px);
+    opacity: 0;
+    pointer-events: none;
+    will-change: transform, opacity;
+    mix-blend-mode: normal;
+  }
+
+  .aurora-band-1 {
+    top: -10%;
+    background: linear-gradient(90deg, transparent 0%, rgba(34, 197, 94, 0.08) 20%, rgba(59, 130, 246, 0.12) 40%, rgba(34, 197, 94, 0.10) 60%, rgba(59, 130, 246, 0.06) 80%, transparent 100%);
+    animation: auroraDrift1 16s ease-in-out infinite;
+  }
+
+  .aurora-band-2 {
+    top: 10%;
+    background: linear-gradient(90deg, transparent 0%, rgba(59, 130, 246, 0.06) 15%, rgba(34, 197, 94, 0.10) 35%, rgba(96, 165, 250, 0.08) 55%, rgba(34, 197, 94, 0.06) 75%, transparent 100%);
+    animation: auroraDrift2 20s ease-in-out infinite;
+  }
+
+  .aurora-band-3 {
+    top: 30%;
+    background: linear-gradient(90deg, transparent 0%, rgba(20, 184, 166, 0.06) 25%, rgba(59, 130, 246, 0.08) 50%, rgba(20, 184, 166, 0.06) 75%, transparent 100%);
+    animation: auroraDrift3 24s ease-in-out infinite;
+  }
+
+  .aurora-band-4 {
+    top: 50%;
+    background: linear-gradient(90deg, transparent 0%, rgba(34, 197, 94, 0.04) 30%, rgba(59, 130, 246, 0.06) 50%, rgba(34, 197, 94, 0.04) 70%, transparent 100%);
+    animation: auroraDrift4 22s ease-in-out infinite;
+  }
+
+  @keyframes auroraDrift1 {
+    0%   { transform: translateX(-5%) skewX(-2deg) scaleY(1);   opacity: 0.3; }
+    25%  { transform: translateX(3%) skewX(1deg) scaleY(1.1);   opacity: 0.7; }
+    50%  { transform: translateX(8%) skewX(-1deg) scaleY(0.9);  opacity: 0.5; }
+    75%  { transform: translateX(2%) skewX(2deg) scaleY(1.05);  opacity: 0.8; }
+    100% { transform: translateX(-5%) skewX(-2deg) scaleY(1);   opacity: 0.3; }
+  }
+
+  @keyframes auroraDrift2 {
+    0%   { transform: translateX(10%) skewX(1deg) scaleY(0.8);  opacity: 0.2; }
+    30%  { transform: translateX(-3%) skewX(-2deg) scaleY(1.2); opacity: 0.6; }
+    60%  { transform: translateX(5%) skewX(1deg) scaleY(1);     opacity: 0.4; }
+    100% { transform: translateX(10%) skewX(1deg) scaleY(0.8);  opacity: 0.2; }
+  }
+
+  @keyframes auroraDrift3 {
+    0%   { transform: translateX(0%) skewX(0deg) scaleY(1);     opacity: 0.15; }
+    35%  { transform: translateX(6%) skewX(-1deg) scaleY(1.15); opacity: 0.5; }
+    65%  { transform: translateX(-4%) skewX(1deg) scaleY(0.9);  opacity: 0.3; }
+    100% { transform: translateX(0%) skewX(0deg) scaleY(1);     opacity: 0.15; }
+  }
+
+  @keyframes auroraDrift4 {
+    0%   { transform: translateX(5%) skewX(1deg) scaleY(0.9);   opacity: 0.1; }
+    40%  { transform: translateX(-5%) skewX(-1deg) scaleY(1.1); opacity: 0.4; }
+    70%  { transform: translateX(3%) skewX(0deg) scaleY(1);     opacity: 0.25; }
+    100% { transform: translateX(5%) skewX(1deg) scaleY(0.9);   opacity: 0.1; }
+  }
+
+  :global(.dark) .aurora-band-1 { background: linear-gradient(90deg, transparent 0%, rgba(34, 197, 94, 0.15) 20%, rgba(59, 130, 246, 0.20) 40%, rgba(34, 197, 94, 0.18) 60%, rgba(59, 130, 246, 0.10) 80%, transparent 100%); animation-name: auroraDriftDark1; }
+  :global(.dark) .aurora-band-2 { background: linear-gradient(90deg, transparent 0%, rgba(59, 130, 246, 0.12) 15%, rgba(34, 197, 94, 0.18) 35%, rgba(96, 165, 250, 0.14) 55%, rgba(34, 197, 94, 0.10) 75%, transparent 100%); animation-name: auroraDriftDark2; }
+  :global(.dark) .aurora-band-3 { background: linear-gradient(90deg, transparent 0%, rgba(20, 184, 166, 0.12) 25%, rgba(59, 130, 246, 0.15) 50%, rgba(20, 184, 166, 0.10) 75%, transparent 100%); }
+  :global(.dark) .aurora-band-4 { background: linear-gradient(90deg, transparent 0%, rgba(34, 197, 94, 0.08) 30%, rgba(59, 130, 246, 0.12) 50%, rgba(34, 197, 94, 0.08) 70%, transparent 100%); }
+
+  @keyframes auroraDriftDark1 {
+    0%   { transform: translateX(-5%) skewX(-2deg) scaleY(1);   opacity: 0.4; }
+    25%  { transform: translateX(3%) skewX(1deg) scaleY(1.1);   opacity: 0.85; }
+    50%  { transform: translateX(8%) skewX(-1deg) scaleY(0.9);  opacity: 0.6; }
+    75%  { transform: translateX(2%) skewX(2deg) scaleY(1.05);  opacity: 0.9; }
+    100% { transform: translateX(-5%) skewX(-2deg) scaleY(1);   opacity: 0.4; }
+  }
+
+  @keyframes auroraDriftDark2 {
+    0%   { transform: translateX(10%) skewX(1deg) scaleY(0.8);  opacity: 0.3; }
+    30%  { transform: translateX(-3%) skewX(-2deg) scaleY(1.2); opacity: 0.75; }
+    60%  { transform: translateX(5%) skewX(1deg) scaleY(1);     opacity: 0.5; }
+    100% { transform: translateX(10%) skewX(1deg) scaleY(0.8);  opacity: 0.3; }
+  }
+
+  .aurora-mouse-glow {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(100px);
+    opacity: 0;
+    background: radial-gradient(circle, rgba(34, 197, 94, 0.12) 0%, rgba(59, 130, 246, 0.10) 40%, transparent 70%);
+    transform: translate(-50%, -50%);
+    transition: opacity 0.4s ease-out;
+    will-change: left, top;
+  }
+
+  .aurora-mouse-glow.active { opacity: 1; }
+
+  :global(.dark) .aurora-mouse-glow {
+    background: radial-gradient(circle, rgba(34, 197, 94, 0.20) 0%, rgba(59, 130, 246, 0.18) 40%, transparent 70%);
+  }
+
+  @media (hover: none) { .aurora-mouse-glow { display: none; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .aurora-band { animation: none; opacity: 0.3; }
+    .aurora-mouse-glow { display: none; }
+  }
+</style>
+
+<script>
+  const hero = document.querySelector('section') as HTMLElement;
+  const glow = document.getElementById('auroraMouseGlow') as HTMLElement;
+
+  if (hero && glow) {
+    let rafId = 0;
+    let mouseX = 0;
+    let mouseY = 0;
+    let currentX = 0;
+    let currentY = 0;
+    let isActive = false;
+
+    hero.addEventListener('mouseenter', () => {
+      glow.classList.add('active');
+      isActive = true;
+      animate();
+    });
+
+    hero.addEventListener('mouseleave', () => {
+      glow.classList.remove('active');
+      isActive = false;
+      cancelAnimationFrame(rafId);
+    });
+
+    hero.addEventListener('mousemove', (e: MouseEvent) => {
+      const rect = hero.getBoundingClientRect();
+      mouseX = e.clientX - rect.left;
+      mouseY = e.clientY - rect.top;
+    });
+
+    function animate() {
+      currentX += (mouseX - currentX) * 0.08;
+      currentY += (mouseY - currentY) * 0.08;
+      glow.style.left = currentX + 'px';
+      glow.style.top = currentY + 'px';
+      if (isActive) { rafId = requestAnimationFrame(animate); }
+    }
+  }
+</script>
 

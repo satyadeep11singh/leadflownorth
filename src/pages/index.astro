@@ -98,8 +98,18 @@ const guarantees = [
   <!-- 1. HERO — Hook + Primary CTA                -->
   <!-- ============================================ -->
   <section class="relative overflow-hidden bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 py-16 lg:py-24">
-    <!-- Background decoration -->
+    <!-- Aurora Background Effect -->
     <div class="absolute inset-0 overflow-hidden" aria-hidden="true">
+      <!-- Aurora bands -->
+      <div class="aurora-band aurora-band-1"></div>
+      <div class="aurora-band aurora-band-2"></div>
+      <div class="aurora-band aurora-band-3"></div>
+      <div class="aurora-band aurora-band-4"></div>
+
+      <!-- Mouse-follow glow spotlight -->
+      <div class="aurora-mouse-glow" id="auroraMouseGlow"></div>
+
+      <!-- Blur decorations -->
       <div class="absolute -top-40 -right-40 w-80 h-80 bg-primary-500/10 rounded-full blur-3xl"></div>
       <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-accent-500/10 rounded-full blur-3xl"></div>
     </div>
@@ -695,4 +705,211 @@ const guarantees = [
     </div>
   </section>
 </Layout>
+
+<style>
+  /* Aurora / Northern Lights effect — pure CSS */
+  .aurora-band {
+    position: absolute;
+    width: 150%;
+    height: 50%;
+    left: -25%;
+    filter: blur(80px);
+    opacity: 0;
+    pointer-events: none;
+    will-change: transform, opacity;
+    mix-blend-mode: normal;
+  }
+
+  .aurora-band-1 {
+    top: -10%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(34, 197, 94, 0.08) 20%,
+      rgba(59, 130, 246, 0.12) 40%,
+      rgba(34, 197, 94, 0.10) 60%,
+      rgba(59, 130, 246, 0.06) 80%,
+      transparent 100%
+    );
+    animation: auroraDrift1 16s ease-in-out infinite;
+  }
+
+  .aurora-band-2 {
+    top: 10%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(59, 130, 246, 0.06) 15%,
+      rgba(34, 197, 94, 0.10) 35%,
+      rgba(96, 165, 250, 0.08) 55%,
+      rgba(34, 197, 94, 0.06) 75%,
+      transparent 100%
+    );
+    animation: auroraDrift2 20s ease-in-out infinite;
+  }
+
+  .aurora-band-3 {
+    top: 30%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(20, 184, 166, 0.06) 25%,
+      rgba(59, 130, 246, 0.08) 50%,
+      rgba(20, 184, 166, 0.06) 75%,
+      transparent 100%
+    );
+    animation: auroraDrift3 24s ease-in-out infinite;
+  }
+
+  .aurora-band-4 {
+    top: 50%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(34, 197, 94, 0.04) 30%,
+      rgba(59, 130, 246, 0.06) 50%,
+      rgba(34, 197, 94, 0.04) 70%,
+      transparent 100%
+    );
+    animation: auroraDrift4 22s ease-in-out infinite;
+  }
+
+  @keyframes auroraDrift1 {
+    0%   { transform: translateX(-5%) skewX(-2deg) scaleY(1);   opacity: 0.3; }
+    25%  { transform: translateX(3%) skewX(1deg) scaleY(1.1);   opacity: 0.7; }
+    50%  { transform: translateX(8%) skewX(-1deg) scaleY(0.9);  opacity: 0.5; }
+    75%  { transform: translateX(2%) skewX(2deg) scaleY(1.05);  opacity: 0.8; }
+    100% { transform: translateX(-5%) skewX(-2deg) scaleY(1);   opacity: 0.3; }
+  }
+
+  @keyframes auroraDrift2 {
+    0%   { transform: translateX(10%) skewX(1deg) scaleY(0.8);  opacity: 0.2; }
+    30%  { transform: translateX(-3%) skewX(-2deg) scaleY(1.2); opacity: 0.6; }
+    60%  { transform: translateX(5%) skewX(1deg) scaleY(1);     opacity: 0.4; }
+    100% { transform: translateX(10%) skewX(1deg) scaleY(0.8);  opacity: 0.2; }
+  }
+
+  @keyframes auroraDrift3 {
+    0%   { transform: translateX(0%) skewX(0deg) scaleY(1);     opacity: 0.15; }
+    35%  { transform: translateX(6%) skewX(-1deg) scaleY(1.15); opacity: 0.5; }
+    65%  { transform: translateX(-4%) skewX(1deg) scaleY(0.9);  opacity: 0.3; }
+    100% { transform: translateX(0%) skewX(0deg) scaleY(1);     opacity: 0.15; }
+  }
+
+  @keyframes auroraDrift4 {
+    0%   { transform: translateX(5%) skewX(1deg) scaleY(0.9);   opacity: 0.1; }
+    40%  { transform: translateX(-5%) skewX(-1deg) scaleY(1.1); opacity: 0.4; }
+    70%  { transform: translateX(3%) skewX(0deg) scaleY(1);     opacity: 0.25; }
+    100% { transform: translateX(5%) skewX(1deg) scaleY(0.9);   opacity: 0.1; }
+  }
+
+  /* Dark mode: more vivid aurora */
+  :global(.dark) .aurora-band-1 {
+    background: linear-gradient(90deg, transparent 0%, rgba(34, 197, 94, 0.15) 20%, rgba(59, 130, 246, 0.20) 40%, rgba(34, 197, 94, 0.18) 60%, rgba(59, 130, 246, 0.10) 80%, transparent 100%);
+  }
+  :global(.dark) .aurora-band-2 {
+    background: linear-gradient(90deg, transparent 0%, rgba(59, 130, 246, 0.12) 15%, rgba(34, 197, 94, 0.18) 35%, rgba(96, 165, 250, 0.14) 55%, rgba(34, 197, 94, 0.10) 75%, transparent 100%);
+  }
+  :global(.dark) .aurora-band-3 {
+    background: linear-gradient(90deg, transparent 0%, rgba(20, 184, 166, 0.12) 25%, rgba(59, 130, 246, 0.15) 50%, rgba(20, 184, 166, 0.10) 75%, transparent 100%);
+  }
+  :global(.dark) .aurora-band-4 {
+    background: linear-gradient(90deg, transparent 0%, rgba(34, 197, 94, 0.08) 30%, rgba(59, 130, 246, 0.12) 50%, rgba(34, 197, 94, 0.08) 70%, transparent 100%);
+  }
+
+  :global(.dark) .aurora-band-1 { animation-name: auroraDriftDark1; }
+  :global(.dark) .aurora-band-2 { animation-name: auroraDriftDark2; }
+
+  @keyframes auroraDriftDark1 {
+    0%   { transform: translateX(-5%) skewX(-2deg) scaleY(1);   opacity: 0.4; }
+    25%  { transform: translateX(3%) skewX(1deg) scaleY(1.1);   opacity: 0.85; }
+    50%  { transform: translateX(8%) skewX(-1deg) scaleY(0.9);  opacity: 0.6; }
+    75%  { transform: translateX(2%) skewX(2deg) scaleY(1.05);  opacity: 0.9; }
+    100% { transform: translateX(-5%) skewX(-2deg) scaleY(1);   opacity: 0.4; }
+  }
+
+  @keyframes auroraDriftDark2 {
+    0%   { transform: translateX(10%) skewX(1deg) scaleY(0.8);  opacity: 0.3; }
+    30%  { transform: translateX(-3%) skewX(-2deg) scaleY(1.2); opacity: 0.75; }
+    60%  { transform: translateX(5%) skewX(1deg) scaleY(1);     opacity: 0.5; }
+    100% { transform: translateX(10%) skewX(1deg) scaleY(0.8);  opacity: 0.3; }
+  }
+
+  /* Mouse-follow glow */
+  .aurora-mouse-glow {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(100px);
+    opacity: 0;
+    background: radial-gradient(circle, rgba(34, 197, 94, 0.12) 0%, rgba(59, 130, 246, 0.10) 40%, transparent 70%);
+    transform: translate(-50%, -50%);
+    transition: opacity 0.4s ease-out;
+    will-change: left, top;
+  }
+
+  .aurora-mouse-glow.active {
+    opacity: 1;
+  }
+
+  :global(.dark) .aurora-mouse-glow {
+    background: radial-gradient(circle, rgba(34, 197, 94, 0.20) 0%, rgba(59, 130, 246, 0.18) 40%, transparent 70%);
+  }
+
+  @media (hover: none) {
+    .aurora-mouse-glow { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .aurora-band { animation: none; opacity: 0.3; }
+    .aurora-mouse-glow { display: none; }
+  }
+</style>
+
+<script>
+  // Mouse-follow aurora glow — GPU-only, throttled via rAF
+  const hero = document.querySelector('section') as HTMLElement;
+  const glow = document.getElementById('auroraMouseGlow') as HTMLElement;
+
+  if (hero && glow) {
+    let rafId = 0;
+    let mouseX = 0;
+    let mouseY = 0;
+    let currentX = 0;
+    let currentY = 0;
+    let isActive = false;
+
+    hero.addEventListener('mouseenter', () => {
+      glow.classList.add('active');
+      isActive = true;
+      animate();
+    });
+
+    hero.addEventListener('mouseleave', () => {
+      glow.classList.remove('active');
+      isActive = false;
+      cancelAnimationFrame(rafId);
+    });
+
+    hero.addEventListener('mousemove', (e: MouseEvent) => {
+      const rect = hero.getBoundingClientRect();
+      mouseX = e.clientX - rect.left;
+      mouseY = e.clientY - rect.top;
+    });
+
+    function animate() {
+      currentX += (mouseX - currentX) * 0.08;
+      currentY += (mouseY - currentY) * 0.08;
+
+      glow.style.left = currentX + 'px';
+      glow.style.top = currentY + 'px';
+
+      if (isActive) {
+        rafId = requestAnimationFrame(animate);
+      }
+    }
+  }
+</script>
 
