@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import ToolHero from '../../components/tools/ToolHero.astro';
+import ToolEmailGate from '../../components/tools/ToolEmailGate.astro';
 
 const toolSchema = {
   '@context': 'https://schema.org',
@@ -27,6 +28,8 @@ const toolSchema = {
     description="Model your current no-show cost and compare it against a lower target rate with reminder workflows."
   guideHref="/blog/how-to-use-no-show-cost-calculator"
   />
+
+  <ToolEmailGate toolName="No-Show Cost Calculator">
 
   <section class="py-10 lg:py-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -133,6 +136,7 @@ const toolSchema = {
       </a>
     </div>
   </section>
+  </ToolEmailGate>
 </Layout>
 
 <script is:inline>

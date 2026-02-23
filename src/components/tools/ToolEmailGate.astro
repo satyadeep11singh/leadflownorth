@@ -1,0 +1,188 @@
+---
+interface Props {
+  toolName: string;
+}
+
+const { toolName } = Astro.props;
+
+const PORTAL_ID = '342962653';
+const FORM_ID = '0f5f1b12-1f46-47f1-8167-9ecb78226523';
+const SUBMIT_URL = `https://api.hsforms.com/submissions/v3/integration/submit/${PORTAL_ID}/${FORM_ID}`;
+---
+
+<div id="lfn-gated-wrapper" class="relative">
+  <!-- Tool content (blurred + locked by default) -->
+  <div id="lfn-tool-content" class="lfn-gated-blur pointer-events-none select-none" aria-hidden="true">
+    <slot />
+  </div>
+
+  <!-- Gate overlay -->
+  <div id="lfn-gate-overlay" class="absolute inset-0 z-10 flex items-start justify-center pt-8 sm:pt-16 bg-gradient-to-b from-white/70 via-white/90 to-white dark:from-slate-900/70 dark:via-slate-900/90 dark:to-slate-900">
+    <div class="w-full max-w-md mx-4 sm:mx-auto rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-xl p-6 sm:p-8">
+      <div class="text-center mb-6">
+        <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-primary-100 dark:bg-primary-900/30 mb-4">
+          <svg class="w-6 h-6 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+          </svg>
+        </div>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-2">
+          Unlock This Free Tool
+        </h2>
+        <p class="text-sm text-slate-600 dark:text-slate-300">
+          Enter your email to access the <strong>{toolName}</strong>. No spam, just useful insights.
+        </p>
+      </div>
+
+      <form id="lfn-gate-form" class="space-y-4" novalidate>
+        <div>
+          <label for="lfn-gate-fname" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+            First Name <span class="text-slate-400">(optional)</span>
+          </label>
+          <input
+            id="lfn-gate-fname"
+            name="firstname"
+            type="text"
+            autocomplete="given-name"
+            placeholder="Jane"
+            class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+          />
+        </div>
+
+        <div>
+          <label for="lfn-gate-email" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+            Email <span class="text-red-500">*</span>
+          </label>
+          <input
+            id="lfn-gate-email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            required
+            placeholder="jane@company.com"
+            class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500"
+          />
+        </div>
+
+        <p id="lfn-gate-error" class="text-sm text-red-600 dark:text-red-400 hidden"></p>
+
+        <button
+          type="submit"
+          id="lfn-gate-submit"
+          class="w-full inline-flex items-center justify-center px-6 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+        >
+          Unlock Tool
+        </button>
+
+        <p class="text-xs text-center text-slate-500 dark:text-slate-400">
+          We respect your privacy. Unsubscribe anytime.
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+  .lfn-gated-blur {
+    filter: blur(6px);
+    opacity: 0.5;
+    max-height: 70vh;
+    overflow: hidden;
+  }
+</style>
+
+<script define:vars={{ SUBMIT_URL, toolName }}>
+  (function () {
+    const STORAGE_KEY = 'lfn_tool_unlocked';
+    const wrapper = document.getElementById('lfn-gated-wrapper');
+    const content = document.getElementById('lfn-tool-content');
+    const overlay = document.getElementById('lfn-gate-overlay');
+
+    function unlock() {
+      if (overlay) overlay.remove();
+      if (content) {
+        content.classList.remove('lfn-gated-blur', 'pointer-events-none', 'select-none');
+        content.removeAttribute('aria-hidden');
+        content.style.filter = '';
+        content.style.opacity = '';
+        content.style.maxHeight = '';
+        content.style.overflow = '';
+      }
+    }
+
+    // Check if already unlocked
+    if (localStorage.getItem(STORAGE_KEY)) {
+      unlock();
+      return;
+    }
+
+    const form = document.getElementById('lfn-gate-form');
+    const emailInput = document.getElementById('lfn-gate-email');
+    const fnameInput = document.getElementById('lfn-gate-fname');
+    const errorEl = document.getElementById('lfn-gate-error');
+    const submitBtn = document.getElementById('lfn-gate-submit');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorEl.classList.add('hidden');
+
+      const email = emailInput.value.trim();
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        errorEl.textContent = 'Please enter a valid email address.';
+        errorEl.classList.remove('hidden');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Unlocking\u2026';
+
+      const fields = [{ name: 'email', value: email }];
+      const fname = fnameInput.value.trim();
+      if (fname) fields.push({ name: 'firstname', value: fname });
+
+      // Read hubspotutk cookie for tracking
+      const hutk = document.cookie
+        .split('; ')
+        .find((c) => c.startsWith('hubspotutk='))
+        ?.split('=')[1] || null;
+
+      const payload = {
+        fields,
+        context: {
+          pageUri: window.location.href,
+          pageName: toolName,
+          ...(hutk ? { hutk } : {}),
+        },
+      };
+
+      try {
+        const res = await fetch(SUBMIT_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        if (!res.ok) {
+          const body = await res.text();
+          throw new Error(body || 'Submission failed');
+        }
+
+        // Success
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ email, ts: Date.now() }));
+        unlock();
+
+        // Fire GA4 event if available
+        if (typeof gtag === 'function') {
+          gtag('event', 'tool_unlocked', {
+            tool_name: toolName,
+            event_category: 'lead_capture',
+          });
+        }
+      } catch (err) {
+        errorEl.textContent = 'Something went wrong. Please try again.';
+        errorEl.classList.remove('hidden');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Unlock Tool';
+      }
+    });
+  })();
+</script>

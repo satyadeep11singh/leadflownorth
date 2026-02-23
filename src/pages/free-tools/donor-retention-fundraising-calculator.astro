@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import ToolHero from '../../components/tools/ToolHero.astro';
+import ToolEmailGate from '../../components/tools/ToolEmailGate.astro';
 
 const toolSchema = {
   '@context': 'https://schema.org',
@@ -27,6 +28,8 @@ const toolSchema = {
     description="Compare current donor retention with target outcomes and estimate revenue lift from improved follow-up."
   guideHref="/blog/how-to-use-donor-retention-fundraising-calculator"
   />
+
+  <ToolEmailGate toolName="Donor Retention + Fundraising Calculator">
 
   <section class="py-10 lg:py-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -127,6 +130,7 @@ const toolSchema = {
       </a>
     </div>
   </section>
+  </ToolEmailGate>
 </Layout>
 
 <script is:inline>
