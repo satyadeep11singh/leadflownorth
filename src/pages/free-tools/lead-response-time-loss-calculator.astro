@@ -6,22 +6,33 @@ import ToolEmailGate from '../../components/tools/ToolEmailGate.astro';
 const toolSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
-  name: 'Lead Flow North Lead Response-Time Loss Calculator',
+  name: 'Lead Response-Time Loss Calculator',
+  url: 'https://leadflownorth.com/free-tools/lead-response-time-loss-calculator',
   applicationCategory: 'BusinessApplication',
   operatingSystem: 'Web Browser',
-  offers: {
-    '@type': 'Offer',
-    price: '0',
-    priceCurrency: 'CAD',
-  },
+  description: 'Calculate the revenue you are losing from slow lead response times. Model the upside of faster follow-up using industry benchmarks. Free lead response time calculator for Canadian small businesses.',
+  featureList: ['Monthly and annual revenue loss from slow response', 'Response time vs. conversion rate modelling', 'Faster response improvement scenarios', 'Industry benchmark comparisons'],
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'CAD' },
+  publisher: { '@type': 'Organization', name: 'Lead Flow North', url: 'https://leadflownorth.com' },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    { '@type': 'Question', name: 'How fast should you respond to a new lead?', acceptedAnswer: { '@type': 'Answer', text: 'Research shows responding within 5 minutes of a lead inquiry makes you 100× more likely to connect vs. waiting 30 minutes. 78% of customers buy from the first business that responds. Under 1 hour is considered acceptable; under 5 minutes is the gold standard.' } },
+    { '@type': 'Question', name: 'How much revenue is lost from slow lead follow-up?', acceptedAnswer: { '@type': 'Answer', text: 'It varies by industry and average deal size, but businesses with 2-hour+ response times typically lose 30–60% of potential conversions to competitors who responded faster. For a business with $100K in monthly leads, this can mean $30K–$60K in lost revenue monthly.' } },
+    { '@type': 'Question', name: 'How can I improve lead response time?', acceptedAnswer: { '@type': 'Answer', text: 'The most effective methods are: (1) automated SMS/email response within 60 seconds of form submission, (2) live chat on your website, (3) dedicated lead notification to mobile, and (4) round-robin assignment to available team members. CRM automation tools like GoHighLevel or HubSpot can reduce response to under 1 minute.' } },
+  ],
 };
 ---
 
 <Layout
-  title="Lead Response-Time Loss Calculator"
-  description="Estimate monthly and annual revenue lost due to delayed lead follow-up, with improvement scenarios."
+  title="Lead Response-Time Loss Calculator — How Much Revenue Are You Losing?"
+  description="Calculate how much revenue slow lead follow-up is costing your business. Model faster response scenarios and see the upside. Free tool for Canadian small businesses — no signup required."
   structuredData={toolSchema}
 >
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <ToolHero
     eyebrow="Free Tool: Lead Response-Time Loss Calculator"
     title="Measure Revenue Lost From Slow Lead Follow-Up"

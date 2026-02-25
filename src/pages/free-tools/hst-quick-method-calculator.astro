@@ -1,0 +1,416 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToolHero from '../../components/tools/ToolHero.astro';
+import ToolEmailGate from '../../components/tools/ToolEmailGate.astro';
+
+const toolSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'HST Quick Method Remittance Calculator — Canada 2025',
+  url: 'https://leadflownorth.com/free-tools/hst-quick-method-calculator',
+  description: 'Free HST Quick Method calculator for Canadian small businesses. Calculate your CRA Quick Method GST/HST remittance by province. Compare savings vs. regular method, apply the 1% first-year bonus, and estimate capital purchase ITCs. No signup required.',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web Browser',
+  featureList: [
+    'CRA Quick Method remittance rates by province (2025)',
+    'HST, GST-only, and GST+PST province support',
+    'First-year 1% bonus credit on first $30,000',
+    'Capital purchase ITC calculator',
+    'Regular method vs. Quick Method savings comparison',
+    'Quarterly and annual filing periods',
+    'Filing deadline display',
+  ],
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'CAD',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Lead Flow North',
+    url: 'https://leadflownorth.com',
+  },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What is the CRA Quick Method of HST accounting and who can use it?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The CRA Quick Method lets eligible small businesses remit a flat percentage of gross revenue (including HST collected) instead of tracking every input tax credit. You must have annual taxable revenues under $400,000 (excluding GST/HST). Most service businesses — consultants, tradespeople, freelancers — save money using the Quick Method compared to tracking individual ITCs. You cannot use it if you are a lawyer, accountant, financial advisor, or if you sell goods.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What are the HST Quick Method remittance rates for Ontario?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'For Ontario (HST 13%) in 2025: service businesses remit 8.8% of gross revenue including HST; goods businesses remit 1.8%. The difference between the 13% collected and what you remit is your Quick Method benefit. In your first year of using the Quick Method, you also get a 1% bonus credit on the first $30,000 of eligible revenue.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How do I switch to the HST Quick Method with CRA?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'To elect the Quick Method, file form GST74 (Election and Revocation of an Election to Use the Quick Method of Accounting) with the CRA. You must file the election by the due date of the return for the first period you want to use it. The election stays in effect until you revoke it or you exceed the $400,000 threshold. See CRA Publication RC4058 for full details.',
+      },
+    },
+  ],
+};
+---
+
+<Layout
+  title="HST Quick Method Calculator Canada 2025 — CRA Remittance by Province"
+  description="Calculate your HST/GST Quick Method remittance for any Canadian province. Compare savings vs. the regular method, apply the first-year 1% bonus, and estimate capital purchase ITCs. Free, no signup."
+  structuredData={toolSchema}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <ToolHero
+    eyebrow="Free Tool: HST Quick Method Calculator"
+    title="HST Quick Method Remittance Calculator"
+    description="Using the CRA Quick Method? Enter your province, revenue, and filing period to calculate exactly what you remit — and see how much you save vs. tracking every input tax credit. For businesses under $400,000 annual revenue."
+    guideHref="/blog/how-to-use-hst-quick-method-calculator"
+  />
+
+  <ToolEmailGate toolName="HST Quick Method Calculator">
+
+  <section class="py-10 lg:py-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- What is Quick Method callout -->
+      <div class="mb-6 rounded-xl border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/20 px-5 py-4 text-sm text-blue-900 dark:text-blue-200">
+        <strong>What is the Quick Method?</strong> The CRA Quick Method lets eligible businesses (under ~$400,000 annual revenue) remit a flat percentage of gross revenue including HST collected, instead of tracking every input tax credit. Most service businesses save money vs. the regular method.
+        <a href="https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/rc4058/quick-method-accounting-gst-hst.html" class="underline ml-1" target="_blank" rel="noopener">CRA RC4058 guide →</a>
+      </div>
+
+      <form id="qm-form" class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-5 sm:p-6">
+
+        <div class="grid sm:grid-cols-2 gap-4">
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Province Where You Operate</span>
+            <select id="qm-province" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white">
+              <option value="ON">Ontario (HST 13%)</option>
+              <option value="BC">British Columbia (GST 5%)</option>
+              <option value="AB">Alberta (GST 5%)</option>
+              <option value="QC">Quebec (GST 5% + QST 9.975%)</option>
+              <option value="MB">Manitoba (GST 5%)</option>
+              <option value="SK">Saskatchewan (GST 5%)</option>
+              <option value="NS">Nova Scotia (HST 15%)</option>
+              <option value="NB">New Brunswick (HST 15%)</option>
+              <option value="NL">Newfoundland & Labrador (HST 15%)</option>
+              <option value="PE">Prince Edward Island (HST 15%)</option>
+            </select>
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Business Type</span>
+            <select id="qm-business-type" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white">
+              <option value="service">Service business (no point-of-sale purchases)</option>
+              <option value="goods">Business that purchases goods for resale</option>
+            </select>
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Filing Period</span>
+            <select id="qm-period" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white">
+              <option value="quarterly">Quarterly</option>
+              <option value="annual">Annual</option>
+              <option value="monthly">Monthly</option>
+            </select>
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Total Revenue Collected This Period (incl. HST/GST)</span>
+            <input id="qm-revenue" type="number" min="1" step="100" value="50000" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+            <span class="text-xs text-slate-500 dark:text-slate-400 mt-1 block">Enter the total amount your customers paid you including tax</span>
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Eligible Business Purchases This Period (excl. tax)</span>
+            <input id="qm-purchases" type="number" min="0" step="100" value="5000" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+            <span class="text-xs text-slate-500 dark:text-slate-400 mt-1 block">Capital purchases over $10,000 qualify for a separate ITC claim</span>
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Large Capital Purchases (>$10,000 each, excl. tax)</span>
+            <input id="qm-capital" type="number" min="0" step="1000" value="0" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+            <span class="text-xs text-slate-500 dark:text-slate-400 mt-1 block">You can claim the full ITC on these even under Quick Method</span>
+          </label>
+
+        </div>
+
+        <!-- First-year bonus note -->
+        <div class="mt-4 rounded-lg border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-900/20 px-4 py-3 text-sm text-emerald-800 dark:text-emerald-200">
+          <strong>First-year bonus:</strong> In your first fiscal year on the Quick Method, you get a 1% credit on the first $30,000 of eligible supplies. This calculator includes that credit.
+        </div>
+
+        <div class="mt-5 flex flex-wrap items-center gap-3">
+          <button id="qm-submit" type="submit" class="inline-flex w-full sm:w-auto items-center justify-center px-6 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors disabled:opacity-60">
+            Calculate Remittance
+          </button>
+          <button id="qm-reset" type="button" class="inline-flex w-full sm:w-auto items-center justify-center px-5 py-3 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-semibold hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+            Reset
+          </button>
+        </div>
+
+        <p id="qm-error" class="mt-3 text-sm text-red-600 dark:text-red-400 hidden"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Results -->
+  <section id="qm-results" class="py-12 lg:py-16 bg-slate-50 dark:bg-slate-800/40 hidden" aria-live="polite">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Summary cards -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-7">
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Tax Collected</p>
+          <p id="r-tax-collected" class="text-2xl font-extrabold text-slate-900 dark:text-white">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Quick Method Remittance</p>
+          <p id="r-remittance" class="text-2xl font-extrabold text-primary-600 dark:text-primary-400">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">You Keep (Difference)</p>
+          <p id="r-keep" class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Quick Method Rate Used</p>
+          <p id="r-qm-rate" class="text-2xl font-extrabold text-slate-900 dark:text-white">—%</p>
+        </article>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-5 mb-7">
+
+        <!-- Calculation breakdown -->
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Remittance Calculation</h2>
+          <dl class="space-y-2 text-sm">
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Total Revenue (incl. tax)</dt>
+              <dd id="r-bd-revenue" class="font-semibold text-slate-900 dark:text-white">—</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Quick Method Rate</dt>
+              <dd id="r-bd-rate" class="font-semibold text-slate-900 dark:text-white">—</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Base Remittance</dt>
+              <dd id="r-bd-base" class="font-semibold text-slate-900 dark:text-white">—</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">First-Year 1% Bonus Credit</dt>
+              <dd id="r-bd-bonus" class="font-semibold text-emerald-600 dark:text-emerald-400">—</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">ITC on Capital Purchases</dt>
+              <dd id="r-bd-capital-itc" class="font-semibold text-emerald-600 dark:text-emerald-400">—</dd>
+            </div>
+            <div class="flex justify-between gap-2 border-t border-slate-100 dark:border-slate-700 pt-2 mt-2">
+              <dt class="font-semibold text-slate-700 dark:text-slate-200">Net Remittance to CRA</dt>
+              <dd id="r-bd-net" class="font-bold text-primary-600 dark:text-primary-400">—</dd>
+            </div>
+          </dl>
+        </article>
+
+        <!-- Regular method comparison -->
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Quick Method vs. Regular Method</h2>
+          <dl class="space-y-2 text-sm">
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Tax Collected (regular method)</dt>
+              <dd id="r-reg-collected" class="font-semibold text-slate-900 dark:text-white">—</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">ITCs on Purchases (regular)</dt>
+              <dd id="r-reg-itc" class="font-semibold text-emerald-600 dark:text-emerald-400">—</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="font-semibold text-slate-700 dark:text-slate-200">Regular Method Remittance</dt>
+              <dd id="r-reg-remittance" class="font-bold text-slate-900 dark:text-white">—</dd>
+            </div>
+            <div class="flex justify-between gap-2 border-t border-slate-100 dark:border-slate-700 pt-2 mt-2">
+              <dt class="font-semibold text-slate-700 dark:text-slate-200">Quick Method Saves You</dt>
+              <dd id="r-savings" class="font-bold text-emerald-600 dark:text-emerald-400 text-base">—</dd>
+            </div>
+          </dl>
+          <p id="r-savings-note" class="mt-3 text-xs text-slate-500 dark:text-slate-400"></p>
+        </article>
+
+      </div>
+
+      <!-- Filing deadlines -->
+      <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-7">
+        <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Filing Deadlines</h2>
+        <div id="qm-deadlines" class="text-sm text-slate-700 dark:text-slate-300 space-y-1"></div>
+      </article>
+
+      <div class="rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20 px-5 py-4 text-sm text-amber-900 dark:text-amber-200">
+        <strong>Disclaimer:</strong> Quick Method rates are from <a href="https://www.canada.ca/en/revenue-agency/services/forms-publications/publications/rc4058/quick-method-accounting-gst-hst.html" class="underline" target="_blank" rel="noopener">CRA RC4058</a> (current as of 2025). Quebec businesses should confirm QST Quick Method remittance rates with <a href="https://www.revenuquebec.ca" class="underline" target="_blank" rel="noopener">Revenu Québec</a>. First-year 1% bonus applies only to your first fiscal year using Quick Method. Capital purchase ITC eligibility depends on the item. Verify all figures with your accountant before filing.
+      </div>
+
+    </div>
+  </section>
+
+  <section class="py-14 lg:py-18 bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Staying on Top of HST and Cash Flow?</h2>
+      <p class="text-slate-300 mb-7">We help Canadian small businesses set up systems so tax remittances, invoicing, and cash flow planning don't fall through the cracks.</p>
+      <a href="/free-audit" class="inline-flex w-full sm:w-auto justify-center items-center px-7 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors">
+        Request a Free Audit
+      </a>
+    </div>
+  </section>
+
+  </ToolEmailGate>
+</Layout>
+
+<script is:inline>
+(function initQuickMethod() {
+
+  // ─── Province data ────────────────────────────────────────────────────────
+  // Quick Method remittance rates from CRA RC4058 (2025)
+  // Rate applied to total revenue INCLUDING HST collected
+  // service rate / goods rate
+  var PROVINCES = {
+    ON: { name: 'Ontario',                  taxRate: 0.13,  serviceQM: 0.088, goodsQM: 0.048,  hstLabel: 'HST' },
+    BC: { name: 'British Columbia',         taxRate: 0.05,  serviceQM: 0.036, goodsQM: 0.011,  hstLabel: 'GST' },
+    AB: { name: 'Alberta',                  taxRate: 0.05,  serviceQM: 0.036, goodsQM: 0.011,  hstLabel: 'GST' },
+    QC: { name: 'Quebec',                   taxRate: 0.05,  serviceQM: 0.036, goodsQM: 0.011,  hstLabel: 'GST', note: 'QST Quick Method rate is 6.6% on total revenues incl. QST (from Revenu Québec). This calculator shows federal GST only for QC.' },
+    MB: { name: 'Manitoba',                 taxRate: 0.05,  serviceQM: 0.036, goodsQM: 0.011,  hstLabel: 'GST' },
+    SK: { name: 'Saskatchewan',             taxRate: 0.05,  serviceQM: 0.036, goodsQM: 0.011,  hstLabel: 'GST' },
+    NS: { name: 'Nova Scotia',              taxRate: 0.15,  serviceQM: 0.102, goodsQM: 0.057,  hstLabel: 'HST' },
+    NB: { name: 'New Brunswick',            taxRate: 0.15,  serviceQM: 0.102, goodsQM: 0.057,  hstLabel: 'HST' },
+    NL: { name: 'Newfoundland & Labrador',  taxRate: 0.15,  serviceQM: 0.102, goodsQM: 0.057,  hstLabel: 'HST' },
+    PE: { name: 'Prince Edward Island',     taxRate: 0.15,  serviceQM: 0.102, goodsQM: 0.057,  hstLabel: 'HST' }
+  };
+
+  var FILING_DEADLINES = {
+    quarterly: 'One month after the end of each fiscal quarter (e.g., Q1 ending March 31 → due April 30).',
+    annual:    'Three months after your fiscal year-end (e.g., Dec 31 year-end → due March 31). Note: individuals have until June 15 to file but must pay by April 30.',
+    monthly:   'One month after the end of each calendar month (e.g., January → due February 28).'
+  };
+
+  var form      = document.getElementById('qm-form');
+  var submitBtn = document.getElementById('qm-submit');
+  var resetBtn  = document.getElementById('qm-reset');
+  var errorEl   = document.getElementById('qm-error');
+  var resultsEl = document.getElementById('qm-results');
+
+  if (!form) return;
+
+  var fmt = function (n) {
+    return new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD', maximumFractionDigits: 2 }).format(n || 0);
+  };
+
+  var setEl = function (id, val) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = val;
+  };
+
+  var setHtml = function (id, val) {
+    var el = document.getElementById(id);
+    if (el) el.innerHTML = val;
+  };
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    errorEl.classList.add('hidden');
+
+    var province     = document.getElementById('qm-province').value;
+    var bizType      = document.getElementById('qm-business-type').value;
+    var period       = document.getElementById('qm-period').value;
+    var revenue      = parseFloat(document.getElementById('qm-revenue').value) || 0;
+    var purchases    = parseFloat(document.getElementById('qm-purchases').value) || 0;
+    var capital      = parseFloat(document.getElementById('qm-capital').value) || 0;
+
+    if (revenue <= 0) {
+      errorEl.textContent = 'Please enter total revenue collected greater than zero.';
+      errorEl.classList.remove('hidden');
+      return;
+    }
+
+    var prov = PROVINCES[province] || PROVINCES['ON'];
+    var taxRate = prov.taxRate;
+    var qmRate  = bizType === 'service' ? prov.serviceQM : prov.goodsQM;
+
+    // Tax collected = revenue × taxRate / (1 + taxRate)
+    var taxCollected = revenue * taxRate / (1 + taxRate);
+    var netRevenue   = revenue - taxCollected; // revenue before tax
+
+    // Base Quick Method remittance = totalRevenue × QM rate
+    var baseRemittance = revenue * qmRate;
+
+    // First-year 1% bonus credit on first $30,000 of eligible supplies
+    var bonusBase = Math.min(netRevenue, 30000);
+    var bonusCredit = bonusBase * 0.01;
+
+    // ITC on capital purchases (full HST/GST on eligible purchases >$10K)
+    var capitalITC = capital * taxRate;
+
+    // Net remittance
+    var netRemittance = Math.max(0, baseRemittance - bonusCredit - capitalITC);
+
+    // Amount you keep
+    var keep = taxCollected - netRemittance;
+
+    // Regular method comparison
+    var purchasesITC = purchases * taxRate;
+    var regRemittance = Math.max(0, taxCollected - purchasesITC - capitalITC);
+    var savings = regRemittance - netRemittance;
+
+    // Render
+    setEl('r-tax-collected', fmt(taxCollected));
+    setEl('r-remittance',    fmt(netRemittance));
+    setEl('r-keep',          fmt(keep));
+    setEl('r-qm-rate',       (qmRate * 100).toFixed(1) + '%');
+
+    setEl('r-bd-revenue',    fmt(revenue));
+    setEl('r-bd-rate',       (qmRate * 100).toFixed(1) + '% × total revenue incl. tax');
+    setEl('r-bd-base',       fmt(baseRemittance));
+    setEl('r-bd-bonus',      '−' + fmt(bonusCredit) + ' (first-year credit — $0 if not first year)');
+    setEl('r-bd-capital-itc', capital > 0 ? '−' + fmt(capitalITC) : '$0 (no capital purchases entered)');
+    setEl('r-bd-net',        fmt(netRemittance));
+
+    setEl('r-reg-collected',   fmt(taxCollected));
+    setEl('r-reg-itc',         '−' + fmt(purchasesITC + capitalITC));
+    setEl('r-reg-remittance',  fmt(regRemittance));
+    setEl('r-savings',         savings >= 0 ? fmt(savings) : '−' + fmt(Math.abs(savings)));
+
+    var savingsNote = '';
+    if (savings > 0) {
+      savingsNote = 'Quick Method saves you ' + fmt(savings) + ' this period vs. tracking every ITC.';
+    } else if (savings < 0) {
+      savingsNote = 'Regular method would save you ' + fmt(Math.abs(savings)) + ' this period — consider switching if your ITC ratio is consistently high.';
+    } else {
+      savingsNote = 'Both methods produce the same remittance for these inputs.';
+    }
+    setEl('r-savings-note', savingsNote);
+
+    // Filing deadline
+    setHtml('qm-deadlines',
+      '<p><strong>Your filing frequency:</strong> ' + period.charAt(0).toUpperCase() + period.slice(1) + '</p>' +
+      '<p class="mt-1">' + (FILING_DEADLINES[period] || '') + '</p>' +
+      (prov.note ? '<p class="mt-2 text-amber-700 dark:text-amber-400"><strong>Note for ' + prov.name + ':</strong> ' + prov.note + '</p>' : '')
+    );
+
+    resultsEl.classList.remove('hidden');
+    resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  resetBtn && resetBtn.addEventListener('click', function () {
+    form.reset();
+    errorEl.classList.add('hidden');
+    resultsEl.classList.add('hidden');
+  });
+
+})();
+</script>

@@ -5,7 +5,8 @@ export type FreeToolGroup =
   | 'Revenue & Pricing'
   | 'Marketing & Budgeting'
   | 'Operations & Scheduling'
-  | 'Industry-Specific';
+  | 'Industry-Specific'
+  | 'Canadian Tax & Payroll';
 
 export interface FreeTool {
   slug: string;
@@ -24,6 +25,7 @@ export const freeToolGroups: FreeToolGroup[] = [
   'Marketing & Budgeting',
   'Operations & Scheduling',
   'Industry-Specific',
+  'Canadian Tax & Payroll',
 ];
 
 export const freeTools: FreeTool[] = [
@@ -189,6 +191,52 @@ export const freeTools: FreeTool[] = [
     group: 'Industry-Specific',
     status: 'live',
     icon: 'RE',
+  },
+  // ─── Canadian Tax & Payroll ───────────────────────────────────────────────
+  {
+    slug: 'payroll-deductions-calculator',
+    name: 'Payroll Deductions Calculator',
+    shortDescription: 'Calculate employee net pay, CPP/EI, and federal + provincial income tax for any Canadian province. Includes CPP2 and Quebec QPIP.',
+    category: 'Payroll',
+    group: 'Canadian Tax & Payroll',
+    status: 'live',
+    icon: 'PD',
+  },
+  {
+    slug: 'employer-true-cost-calculator',
+    name: 'Employer True Cost Calculator',
+    shortDescription: 'See the real annual cost of hiring — salary plus employer CPP/EI, provincial Employer Health Tax, vacation pay, and benefits loading.',
+    category: 'Payroll',
+    group: 'Canadian Tax & Payroll',
+    status: 'live',
+    icon: 'EC',
+  },
+  {
+    slug: 'hst-quick-method-calculator',
+    name: 'HST Quick Method Calculator',
+    shortDescription: 'Calculate your HST/GST remittance under the CRA Quick Method and compare savings vs. the regular method. All provinces, all filing periods.',
+    category: 'Tax',
+    group: 'Canadian Tax & Payroll',
+    status: 'live',
+    icon: 'QM',
+  },
+  {
+    slug: 'gst-hst-calculator',
+    name: 'GST/HST Calculator',
+    shortDescription: 'Calculate GST, HST, PST, and QST for any Canadian province. Supports forward and reverse modes with multi-line items.',
+    category: 'Tax',
+    group: 'Canadian Tax & Payroll',
+    status: 'live',
+    icon: 'GH',
+  },
+  {
+    slug: 'incorporate-vs-sole-proprietor-calculator',
+    name: 'Incorporate vs. Sole Proprietor Calculator',
+    shortDescription: 'Compare your total tax bill as a sole proprietor vs. a CCPC by province. See tax savings, salary vs. dividend split, and the break-even revenue point.',
+    category: 'Tax Planning',
+    group: 'Canadian Tax & Payroll',
+    status: 'live',
+    icon: 'IS',
   },
 ];
 

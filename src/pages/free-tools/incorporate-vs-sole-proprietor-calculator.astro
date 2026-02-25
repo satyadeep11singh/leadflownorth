@@ -1,0 +1,468 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToolHero from '../../components/tools/ToolHero.astro';
+import ToolEmailGate from '../../components/tools/ToolEmailGate.astro';
+
+const toolSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Incorporate vs. Sole Proprietor Calculator Canada 2025 — Tax Comparison',
+  url: 'https://leadflownorth.com/free-tools/incorporate-vs-sole-proprietor-calculator',
+  description: 'Free Canadian incorporation decision calculator. Compare total tax as a sole proprietor vs. CCPC (Canadian Controlled Private Corporation) by province. Includes small business deduction, salary vs. dividend mix, CPP implications, and break-even revenue point. No signup required.',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web Browser',
+  featureList: [
+    'Sole proprietor vs. CCPC tax comparison by province',
+    'Federal + provincial corporate tax rates (2025)',
+    'Small business deduction (SBD) applied automatically',
+    'Salary, dividend, or mixed payout strategies',
+    'CPP implications for incorporated business owners',
+    'Break-even income threshold calculation',
+    'Dividend tax credit modelling',
+    'Key considerations: LCGE, TOSI, RRSP room',
+  ],
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'CAD',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Lead Flow North',
+    url: 'https://leadflownorth.com',
+  },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'At what income should a Canadian freelancer or contractor incorporate?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Most Canadian tax advisors suggest incorporation becomes beneficial when your business net income exceeds $80,000–$100,000 per year and you don\'t need all the money personally. At that point, a CCPC pays only 9% federal corporate tax (plus ~3–4% provincial small business rate) on the first $500,000 of active business income, compared to 40–53% marginal personal tax rates. The tax deferral benefit is the key driver — money left in the corporation grows faster. Use this calculator to see the exact breakeven point for your province.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What are the advantages of incorporating in Canada vs. being a sole proprietor?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Key advantages of incorporating (CCPC): (1) Lower corporate tax rate — 9–13% on active business income up to $500K vs. 40–53% personal marginal rates; (2) Tax deferral — leave money in the corporation and defer personal tax; (3) Limited liability — personal assets protected from business debts; (4) Lifetime Capital Gains Exemption (LCGE) on qualifying small business shares (~$1.25M); (5) Income splitting opportunities. Drawbacks include: higher accounting costs ($1,500–$4,000+/year), administrative burden, loss of RRSP contribution room on dividends.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Should I pay myself a salary or dividends from my Canadian corporation?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Both strategies have trade-offs. A salary: creates RRSP contribution room, contributes to CPP (both employee and employer portions), is deductible to the corporation, and helps justify a reasonable compensation level. Dividends: no CPP contributions (saves ~$6,000+/year but reduces future CPP benefits), lower personal tax than salary at higher incomes due to the dividend tax credit, simpler payroll. Most owner-managers use a mix — enough salary to maximize RRSP room ($31,560/year in 2025 requires ~$175,333 salary), then dividends for the rest.',
+      },
+    },
+  ],
+};
+---
+
+<Layout
+  title="Incorporate vs. Sole Proprietor Calculator Canada 2025 — CCPC Tax Comparison"
+  description="Should you incorporate in Canada? Compare tax as a sole proprietor vs. CCPC by province. Includes small business deduction, salary vs. dividend mix, CPP implications, and break-even revenue. Free, no signup."
+  structuredData={toolSchema}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <ToolHero
+    eyebrow="Free Tool: Incorporate vs. Sole Proprietor Calculator"
+    title="Should You Incorporate? Canadian Tax Comparison Tool"
+    description="Compare your personal tax as a sole proprietor vs. a CCPC corporation side-by-side. Covers federal + provincial rates, the small business deduction, CPP savings, and dividend tax credits. Includes the break-even revenue point where incorporation starts saving money."
+    guideHref="/blog/how-to-use-incorporate-vs-sole-proprietor-calculator"
+  />
+
+  <ToolEmailGate toolName="Incorporate vs. Sole Proprietor Calculator">
+
+  <section class="py-10 lg:py-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <form id="inc-form" class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-5 sm:p-6">
+
+        <div class="grid sm:grid-cols-2 gap-4">
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Province</span>
+            <select id="inc-province" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white">
+              <option value="ON">Ontario</option>
+              <option value="BC">British Columbia</option>
+              <option value="AB">Alberta</option>
+              <option value="QC">Quebec</option>
+              <option value="MB">Manitoba</option>
+              <option value="SK">Saskatchewan</option>
+              <option value="NS">Nova Scotia</option>
+              <option value="NB">New Brunswick</option>
+              <option value="NL">Newfoundland & Labrador</option>
+              <option value="PE">Prince Edward Island</option>
+            </select>
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Annual Business Net Income (CAD)</span>
+            <input id="inc-income" type="number" min="1" step="1000" value="100000" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+            <span class="text-xs text-slate-500 dark:text-slate-400 mt-1 block">Revenue minus business expenses (before paying yourself)</span>
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Personal Living Expenses (Annual CAD)</span>
+            <input id="inc-personal-need" type="number" min="0" step="1000" value="60000" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+            <span class="text-xs text-slate-500 dark:text-slate-400 mt-1 block">Minimum you need to take out. Remainder stays in corp if incorporated.</span>
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">If Incorporated: Pay Yourself As</span>
+            <select id="inc-pay-method" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white">
+              <option value="dividend">Dividends only</option>
+              <option value="salary">Salary only</option>
+              <option value="mixed">Mixed (salary up to CPP max, rest as dividends)</option>
+            </select>
+          </label>
+
+        </div>
+
+        <div class="mt-5 flex flex-wrap items-center gap-3">
+          <button id="inc-submit" type="submit" class="inline-flex w-full sm:w-auto items-center justify-center px-6 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors disabled:opacity-60">
+            Compare Tax Options
+          </button>
+          <button id="inc-reset" type="button" class="inline-flex w-full sm:w-auto items-center justify-center px-5 py-3 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-semibold hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+            Reset
+          </button>
+        </div>
+
+        <p id="inc-error" class="mt-3 text-sm text-red-600 dark:text-red-400 hidden"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Results -->
+  <section id="inc-results" class="py-12 lg:py-16 bg-slate-50 dark:bg-slate-800/40 hidden" aria-live="polite">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Verdict banner -->
+      <div id="inc-verdict" class="mb-7 rounded-2xl p-5 text-center"></div>
+
+      <!-- Summary cards -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-7">
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Sole Prop: Total Tax</p>
+          <p id="r-sp-tax" class="text-2xl font-extrabold text-red-600 dark:text-red-400">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Corp: Total Tax</p>
+          <p id="r-corp-tax" class="text-2xl font-extrabold text-primary-600 dark:text-primary-400">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Annual Tax Savings</p>
+          <p id="r-savings" class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Break-Even Revenue</p>
+          <p id="r-breakeven" class="text-2xl font-extrabold text-slate-900 dark:text-white">—</p>
+        </article>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-5 mb-7">
+
+        <!-- Sole proprietor breakdown -->
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-1">Sole Proprietor</h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">All business income flows to personal return</p>
+          <dl class="space-y-2 text-sm" id="r-sp-breakdown"></dl>
+        </article>
+
+        <!-- Corp breakdown -->
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-1">Canadian Controlled Private Corporation (CCPC)</h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">Small business deduction applies to first $500K active income</p>
+          <dl class="space-y-2 text-sm" id="r-corp-breakdown"></dl>
+        </article>
+
+      </div>
+
+      <!-- Considerations -->
+      <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5 mb-5">
+        <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Other Factors to Weigh</h2>
+        <div class="grid sm:grid-cols-2 gap-4 text-sm" id="r-considerations"></div>
+      </article>
+
+      <div class="rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20 px-5 py-4 text-sm text-amber-900 dark:text-amber-200">
+        <strong>Disclaimer:</strong> This calculator uses simplified 2025 federal and provincial tax rates. It does not account for HST registration, provincial surtaxes, eligible vs. ineligible dividends in all scenarios, or individual tax credits beyond the basic personal amount. The break-even estimate is illustrative. <strong>Always consult a CPA before making incorporation decisions.</strong>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="py-14 lg:py-18 bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Ready to Scale Your Business?</h2>
+      <p class="text-slate-300 mb-7">Whether you incorporate or not, generating consistent leads is what drives the numbers. We help Canadian small businesses build lead generation systems that grow.</p>
+      <a href="/free-audit" class="inline-flex w-full sm:w-auto justify-center items-center px-7 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors">
+        Request a Free Audit
+      </a>
+    </div>
+  </section>
+
+  </ToolEmailGate>
+</Layout>
+
+<script is:inline>
+(function initIncorporateCalculator() {
+
+  // ─── 2025 rates ───────────────────────────────────────────────────────────
+  var FED_BPA = 16129;
+  var FED_BRACKETS = [
+    { limit: 57375,  rate: 0.15 },
+    { limit: 114750, rate: 0.205 },
+    { limit: 177882, rate: 0.26 },
+    { limit: 253414, rate: 0.29 },
+    { limit: Infinity, rate: 0.33 }
+  ];
+
+  // Federal + provincial CCPC small business rate (combined, 2025)
+  // Federal SBD rate: 9%. Provincial rates vary.
+  var CCPC_RATES = {
+    ON: { sbRate: 0.125, genRate: 0.265, divTaxCredit: 0.0966,  provBPA: 11865, provBrackets: [{ limit: 51446, rate: 0.0505 }, { limit: 102894, rate: 0.0915 }, { limit: 150000, rate: 0.1116 }, { limit: 220000, rate: 0.1216 }, { limit: Infinity, rate: 0.1316 }] },
+    BC: { sbRate: 0.110, genRate: 0.270, divTaxCredit: 0.12,    provBPA: 11981, provBrackets: [{ limit: 45654, rate: 0.0506 }, { limit: 91310, rate: 0.077 }, { limit: 104835, rate: 0.105 }, { limit: 127299, rate: 0.1229 }, { limit: 172602, rate: 0.147 }, { limit: Infinity, rate: 0.168 }] },
+    AB: { sbRate: 0.110, genRate: 0.230, divTaxCredit: 0.09,    provBPA: 21003, provBrackets: [{ limit: 148269, rate: 0.10 }, { limit: 177922, rate: 0.12 }, { limit: 237230, rate: 0.13 }, { limit: 355845, rate: 0.14 }, { limit: Infinity, rate: 0.15 }] },
+    QC: { sbRate: 0.140, genRate: 0.265, divTaxCredit: 0.119,   provBPA: 17183, provBrackets: [{ limit: 51780, rate: 0.14 }, { limit: 103545, rate: 0.19 }, { limit: 126000, rate: 0.24 }, { limit: Infinity, rate: 0.2575 }] },
+    MB: { sbRate: 0.120, genRate: 0.270, divTaxCredit: 0.08,    provBPA: 15780, provBrackets: [{ limit: 47000, rate: 0.108 }, { limit: 100000, rate: 0.1275 }, { limit: Infinity, rate: 0.174 }] },
+    SK: { sbRate: 0.110, genRate: 0.270, divTaxCredit: 0.111,   provBPA: 17661, provBrackets: [{ limit: 49720, rate: 0.105 }, { limit: 142058, rate: 0.125 }, { limit: Infinity, rate: 0.145 }] },
+    NS: { sbRate: 0.140, genRate: 0.290, divTaxCredit: 0.0834,  provBPA: 8481,  provBrackets: [{ limit: 29590, rate: 0.0879 }, { limit: 59180, rate: 0.1495 }, { limit: 93000, rate: 0.1667 }, { limit: 150000, rate: 0.175 }, { limit: Infinity, rate: 0.21 }] },
+    NB: { sbRate: 0.120, genRate: 0.290, divTaxCredit: 0.14,    provBPA: 12458, provBrackets: [{ limit: 47715, rate: 0.094 }, { limit: 95431, rate: 0.14 }, { limit: 176756, rate: 0.16 }, { limit: Infinity, rate: 0.195 }] },
+    NL: { sbRate: 0.150, genRate: 0.300, divTaxCredit: 0.05,    provBPA: 10818, provBrackets: [{ limit: 43198, rate: 0.087 }, { limit: 86395, rate: 0.145 }, { limit: 154244, rate: 0.158 }, { limit: 215943, rate: 0.178 }, { limit: Infinity, rate: 0.208 }] },
+    PE: { sbRate: 0.100, genRate: 0.310, divTaxCredit: 0.105,   provBPA: 12000, provBrackets: [{ limit: 32656, rate: 0.095 }, { limit: 64313, rate: 0.1637 }, { limit: 105000, rate: 0.1800 }, { limit: Infinity, rate: 0.19 }] }
+  };
+
+  // CPP 2025
+  var CPP_RATE      = 0.0595;
+  var CPP_EXEMPTION = 3500;
+  var CPP_MAX_EE    = 4034.10;
+  var CPP_YMPE      = 71300;
+
+  var form      = document.getElementById('inc-form');
+  var resetBtn  = document.getElementById('inc-reset');
+  var errorEl   = document.getElementById('inc-error');
+  var resultsEl = document.getElementById('inc-results');
+
+  if (!form) return;
+
+  var fmt = function (n) {
+    return new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD', maximumFractionDigits: 0 }).format(n || 0);
+  };
+
+  var pct = function (n) { return (n * 100).toFixed(2) + '%'; };
+
+  var setEl = function (id, val) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = val;
+  };
+
+  var setHtml = function (id, html) {
+    var el = document.getElementById(id);
+    if (el) el.innerHTML = html;
+  };
+
+  function calcTax(annualIncome, bpa, brackets) {
+    var taxable = Math.max(0, annualIncome - bpa);
+    var tax = 0;
+    var prev = 0;
+    for (var i = 0; i < brackets.length; i++) {
+      if (taxable <= prev) break;
+      var slice = Math.min(taxable, brackets[i].limit) - prev;
+      tax += slice * brackets[i].rate;
+      prev = brackets[i].limit;
+    }
+    return Math.max(0, tax);
+  }
+
+  function calcCPP(salary) {
+    if (salary <= 0) return { ee: 0, er: 0 };
+    var pensionable = Math.max(0, Math.min(salary, CPP_YMPE) - CPP_EXEMPTION);
+    var ee = Math.min(pensionable * CPP_RATE, CPP_MAX_EE);
+    return { ee: ee, er: ee };
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    errorEl.classList.add('hidden');
+
+    var province   = document.getElementById('inc-province').value;
+    var income     = parseFloat(document.getElementById('inc-income').value) || 0;
+    var personalNeed = parseFloat(document.getElementById('inc-personal-need').value) || 0;
+    var payMethod  = document.getElementById('inc-pay-method').value;
+
+    if (income <= 0) {
+      errorEl.textContent = 'Please enter a business net income greater than zero.';
+      errorEl.classList.remove('hidden');
+      return;
+    }
+
+    var prov = CCPC_RATES[province] || CCPC_RATES['ON'];
+
+    // ─── SOLE PROPRIETOR ────────────────────────────────────────────────────
+    // All income is personal income
+    var spFedTax  = calcTax(income, FED_BPA, FED_BRACKETS);
+    var spProvTax = calcTax(income, prov.provBPA, prov.provBrackets);
+    // CPP on self-employment: both employee + employer shares (2 × CPP rate, max 2×)
+    var spCPP     = calcCPP(income);
+    var spCppTotal = spCPP.ee + spCPP.er;  // both sides
+    // 50% of self-employment CPP is deductible — re-calc tax on reduced income
+    var spDeductibleCpp = spCPP.er;
+    var spFedTaxAdj  = calcTax(income - spDeductibleCpp, FED_BPA, FED_BRACKETS);
+    var spProvTaxAdj = calcTax(income - spDeductibleCpp, prov.provBPA, prov.provBrackets);
+    var spTotalTax = spFedTaxAdj + spProvTaxAdj + spCppTotal;
+    var spNetAfterTax = income - spTotalTax;
+
+    // ─── CORPORATION ────────────────────────────────────────────────────────
+    // Step 1: corp pays tax on active income up to $500K at SBD rate
+    var corpTaxableIncome = Math.min(income, 500000);
+    var corpTax = corpTaxableIncome * prov.sbRate;
+    var corpRetained = income - corpTax;  // after-tax in corp
+
+    // Step 2: determine salary vs dividend payout to owner
+    var ownerSalary = 0;
+    var ownerDividend = 0;
+    var personalNeedCapped = Math.min(personalNeed, income);
+
+    if (payMethod === 'salary') {
+      ownerSalary = personalNeedCapped;
+    } else if (payMethod === 'dividend') {
+      // Dividends paid from after-corp-tax retained earnings
+      ownerDividend = personalNeedCapped;
+    } else {
+      // Mixed: salary up to CPP max earnings for full CPP benefit
+      ownerSalary = Math.min(CPP_YMPE, personalNeedCapped);
+      ownerDividend = Math.max(0, personalNeedCapped - ownerSalary);
+    }
+
+    // Corp deducts salary before paying corp tax
+    if (ownerSalary > 0) {
+      var corpTaxableAdj = Math.max(0, corpTaxableIncome - ownerSalary);
+      corpTax = corpTaxableAdj * prov.sbRate;
+      corpRetained = income - ownerSalary - corpTax;
+    }
+
+    // CPP on owner salary (both sides — owner is also the employer through corp)
+    var corpCPP = calcCPP(ownerSalary);
+    var corpCppCost = corpCPP.ee + corpCPP.er;  // both sides ultimately from corp
+
+    // Personal tax on salary
+    var ownerFedOnSalary  = calcTax(ownerSalary, FED_BPA, FED_BRACKETS);
+    var ownerProvOnSalary = calcTax(ownerSalary, prov.provBPA, prov.provBrackets);
+    var ownerCppEE        = corpCPP.ee;
+    var ownerPersonalTaxOnSalary = ownerFedOnSalary + ownerProvOnSalary;
+
+    // Personal tax on eligible dividends (grossed up 38%, then dividend tax credit)
+    var grossedDividend = ownerDividend * 1.38;
+    var ownerFedOnDiv   = Math.max(0, calcTax(grossedDividend, FED_BPA, FED_BRACKETS) - grossedDividend * 0.150198);
+    var ownerProvOnDiv  = Math.max(0, calcTax(grossedDividend, prov.provBPA, prov.provBrackets) - grossedDividend * prov.divTaxCredit);
+    var ownerPersonalTaxOnDiv = ownerFedOnDiv + ownerProvOnDiv;
+
+    var ownerPersonalTax = ownerPersonalTaxOnSalary + ownerPersonalTaxOnDiv + ownerCppEE;
+    var corpTotalTax = corpTax + ownerPersonalTax;  // combined corp + personal
+
+    // Also add employer CPP cost to corp tax burden
+    var corpTotalBurden = corpTotalTax + corpCPP.er;
+
+    // ─── Savings ─────────────────────────────────────────────────────────
+    var savings = spTotalTax - corpTotalBurden;
+
+    // Break-even: rough estimate — incorporation overhead ~$3,000–5,000/yr (accounting, filing)
+    var CORP_OVERHEAD = 4000;
+    // Break-even income where corp saves more than CORP_OVERHEAD
+    // Linear approximation: savings grow roughly proportional to income differential in SBD range
+    var spEffRate   = income > 0 ? spTotalTax / income : 0;
+    var corpEffRate = income > 0 ? corpTotalBurden / income : 0;
+    var rateDiff    = spEffRate - corpEffRate;
+    var breakEvenIncome = rateDiff > 0 ? CORP_OVERHEAD / rateDiff : null;
+
+    // ─── Render ───────────────────────────────────────────────────────────
+    setEl('r-sp-tax',    fmt(spTotalTax));
+    setEl('r-corp-tax',  fmt(corpTotalBurden));
+    setEl('r-savings',   savings >= 0 ? fmt(savings) : '−' + fmt(Math.abs(savings)));
+    setEl('r-breakeven', breakEvenIncome && breakEvenIncome > 0 ? fmt(breakEvenIncome) + '/yr' : 'Already past');
+
+    // Verdict
+    var verdictEl = document.getElementById('inc-verdict');
+    if (verdictEl) {
+      if (savings >= CORP_OVERHEAD) {
+        verdictEl.className = 'mb-7 rounded-2xl p-5 text-center border border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-900/20';
+        verdictEl.innerHTML = '<p class="text-emerald-800 dark:text-emerald-200 font-bold text-xl">Incorporating likely saves you money</p><p class="text-emerald-700 dark:text-emerald-300 text-sm mt-1">Estimated annual tax savings of <strong>' + fmt(savings) + '</strong> exceed typical incorporation overhead (~$4,000/yr in accounting and filing costs). A CPA can confirm exact savings for your situation.</p>';
+      } else if (savings > 0) {
+        verdictEl.className = 'mb-7 rounded-2xl p-5 text-center border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20';
+        verdictEl.innerHTML = '<p class="text-amber-800 dark:text-amber-200 font-bold text-xl">Marginal — incorporation may not yet pay off</p><p class="text-amber-700 dark:text-amber-300 text-sm mt-1">Estimated tax savings of <strong>' + fmt(savings) + '</strong> are close to typical incorporation overhead (~$4,000/yr). Consider incorporating as income grows, or if you need liability protection regardless of tax.</p>';
+      } else {
+        verdictEl.className = 'mb-7 rounded-2xl p-5 text-center border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900';
+        verdictEl.innerHTML = '<p class="text-slate-900 dark:text-white font-bold text-xl">Sole proprietorship may be simpler at this income level</p><p class="text-slate-600 dark:text-slate-300 text-sm mt-1">At this income and withdrawal level, the sole proprietor structure appears comparable or cheaper overall. Incorporation still provides liability protection — talk to a CPA if that is important to you.</p>';
+      }
+    }
+
+    // SP breakdown
+    setHtml('r-sp-breakdown', [
+      ['Business Net Income', fmt(income)],
+      ['Federal Income Tax', fmt(spFedTaxAdj)],
+      ['Provincial Income Tax', fmt(spProvTaxAdj)],
+      ['CPP (both shares, self-employed)', fmt(spCppTotal)],
+      ['Total Tax + CPP', fmt(spTotalTax)],
+      ['Effective Rate on Income', pct(spTotalTax / income)],
+      ['Net After All Tax', fmt(spNetAfterTax)]
+    ].map(function (r, i) {
+      var isBold = i >= 4;
+      return '<div class="flex justify-between gap-2' + (isBold ? ' border-t border-slate-100 dark:border-slate-700 pt-2 mt-1' : '') + '">' +
+        '<dt class="' + (isBold ? 'font-semibold text-slate-700 dark:text-slate-200' : 'text-slate-500 dark:text-slate-400') + '">' + r[0] + '</dt>' +
+        '<dd class="' + (isBold ? 'font-bold text-red-600 dark:text-red-400' : 'font-semibold text-slate-900 dark:text-white') + '">' + r[1] + '</dd>' +
+        '</div>';
+    }).join(''));
+
+    // Corp breakdown
+    var corpRows = [
+      ['Business Net Income', fmt(income)],
+      ['Owner Salary Paid', fmt(ownerSalary)],
+      ['Corp Tax (SBD rate: ' + pct(prov.sbRate) + ')', fmt(corpTax)],
+      ['Owner Dividends Paid', fmt(ownerDividend)],
+      ['Retained in Corp', fmt(Math.max(0, corpRetained - ownerDividend))],
+      ['Owner Personal Tax (salary + CPP EE)', fmt(ownerPersonalTax)],
+      ['Employer CPP Share (corp cost)', fmt(corpCPP.er)],
+      ['Combined Tax Burden', fmt(corpTotalBurden)],
+      ['Effective Combined Rate', pct(corpTotalBurden / income)]
+    ];
+    setHtml('r-corp-breakdown', corpRows.map(function (r, i) {
+      var isBold = i >= 7;
+      return '<div class="flex justify-between gap-2' + (isBold ? ' border-t border-slate-100 dark:border-slate-700 pt-2 mt-1' : '') + '">' +
+        '<dt class="' + (isBold ? 'font-semibold text-slate-700 dark:text-slate-200' : 'text-slate-500 dark:text-slate-400') + '">' + r[0] + '</dt>' +
+        '<dd class="' + (isBold ? 'font-bold text-primary-600 dark:text-primary-400' : 'font-semibold text-slate-900 dark:text-white') + '">' + r[1] + '</dd>' +
+        '</div>';
+    }).join(''));
+
+    // Considerations
+    setHtml('r-considerations', [
+      { pro: true,  corp: true,  text: '<strong>Liability protection:</strong> Corporation is a separate legal entity — personal assets are generally shielded from business debts.' },
+      { pro: true,  corp: true,  text: '<strong>Income splitting (limited):</strong> TOSI rules restrict dividend splitting but some family employment salary is possible.' },
+      { pro: true,  corp: true,  text: '<strong>LCGE on sale:</strong> Qualifying small business shares get a $1,016,602 (2025) capital gains exemption on eventual sale.' },
+      { pro: false, corp: true,  text: '<strong>Incorporation cost:</strong> ~$1,000–$3,000 to incorporate federally or provincially, then $2,000–$4,000/yr in accounting.' },
+      { pro: true,  corp: false, text: '<strong>Sole prop simplicity:</strong> File a T2125 with your T1. No corporate returns, no minute books, no separate bank account required.' },
+      { pro: true,  corp: false, text: '<strong>Direct RRSP room:</strong> Sole proprietors earn RRSP room on all income; incorporated owners only on salary drawn.' }
+    ].map(function (c) {
+      return '<div class="rounded-lg border ' + (c.corp ? 'border-primary-200 dark:border-primary-800 bg-primary-50 dark:bg-primary-900/20' : 'border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800') + ' p-3 text-xs text-slate-700 dark:text-slate-300">' +
+        '<span class="block mb-1 text-xs font-bold ' + (c.corp ? 'text-primary-700 dark:text-primary-300' : 'text-slate-600 dark:text-slate-400') + '">' + (c.corp ? 'Corporation' : 'Sole Proprietor') + '</span>' +
+        c.text + '</div>';
+    }).join(''));
+
+    resultsEl.classList.remove('hidden');
+    resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  resetBtn && resetBtn.addEventListener('click', function () {
+    form.reset();
+    errorEl.classList.add('hidden');
+    resultsEl.classList.add('hidden');
+  });
+
+})();
+</script>

@@ -7,22 +7,33 @@ import InvoiceGenerator from '../../components/tools/InvoiceGenerator.astro';
 const toolSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
-  name: 'Lead Flow North Quote / Estimate / Invoice Builder',
+  name: 'Free Quote, Estimate & Invoice Builder — Canada',
+  url: 'https://leadflownorth.com/free-tools/quote-estimate-builder',
   applicationCategory: 'BusinessApplication',
   operatingSystem: 'Web Browser',
-  offers: {
-    '@type': 'Offer',
-    price: '0',
-    priceCurrency: 'CAD',
-  },
+  description: 'Create professional quotes, estimates, and invoices with line items, HST/GST tax, and totals. Choose from 16+ Canadian industry presets and export as a clean PDF. Free online invoice generator for Canadian small businesses.',
+  featureList: ['Quote, estimate, and invoice builder', '16+ industry presets', 'HST/GST tax line support', 'PDF export', 'Line items with quantity and rate', 'Professional formatting'],
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'CAD' },
+  publisher: { '@type': 'Organization', name: 'Lead Flow North', url: 'https://leadflownorth.com' },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    { '@type': 'Question', name: 'What information should a Canadian invoice include?', acceptedAnswer: { '@type': 'Answer', text: 'A CRA-compliant Canadian invoice should include: your business name and GST/HST registration number (if registered), the customer name and address, invoice date and number, a description of goods or services, the amount before tax, the GST/HST rate and amount, and the total amount.' } },
+    { '@type': 'Question', name: 'Do I need to charge GST/HST on my invoices?', acceptedAnswer: { '@type': 'Answer', text: 'You must register for and charge GST/HST once your taxable revenues exceed $30,000 in a single calendar quarter or over four consecutive quarters. Once registered, you must include your GST/HST number on all invoices.' } },
+    { '@type': 'Question', name: 'What is the difference between a quote and an invoice?', acceptedAnswer: { '@type': 'Answer', text: 'A quote is a document provided before work begins, showing estimated costs for the client to approve. An invoice is a request for payment issued after work is completed or at agreed billing milestones. An estimate is similar to a quote but implies the final price may vary based on actual work performed.' } },
+  ],
 };
 ---
 
 <Layout
-  title="Quote / Estimate / Invoice Builder"
-  description="Create professional quotes, estimates, and invoices with line items, tax, and totals. Choose from 16+ industry presets and export as a clean PDF."
+  title="Free Quote, Estimate & Invoice Builder — Canadian Small Business"
+  description="Create professional quotes, estimates, and invoices with GST/HST, line items, and 16+ industry presets. Export to PDF instantly. Free Canadian invoice generator — no signup required."
   structuredData={toolSchema}
 >
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <ToolHero
     eyebrow="Free Tool: Quote / Estimate / Invoice Builder"
     title="Create Quotes, Estimates & Invoices in Minutes"

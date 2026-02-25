@@ -6,22 +6,33 @@ import ToolEmailGate from '../../components/tools/ToolEmailGate.astro';
 const toolSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
-  name: 'Lead Flow North Cash Flow Runway Calculator',
+  name: 'Cash Flow Runway Calculator',
+  url: 'https://leadflownorth.com/free-tools/cash-flow-runway-calculator',
   applicationCategory: 'BusinessApplication',
   operatingSystem: 'Web Browser',
-  offers: {
-    '@type': 'Offer',
-    price: '0',
-    priceCurrency: 'CAD',
-  },
+  description: 'Calculate your cash flow runway in months, break-even revenue, and projected cash balance over time. Free cash flow runway calculator for Canadian small businesses.',
+  featureList: ['Cash runway months calculation', 'Break-even revenue estimate', 'Projected cash balance over 12 months', 'Burn rate analysis', 'CAD currency'],
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'CAD' },
+  publisher: { '@type': 'Organization', name: 'Lead Flow North', url: 'https://leadflownorth.com' },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    { '@type': 'Question', name: 'What is cash flow runway?', acceptedAnswer: { '@type': 'Answer', text: 'Cash flow runway is how many months your business can continue operating with current cash reserves before running out of money, assuming no change in revenue or expenses. It is calculated as Current Cash Balance ÷ Monthly Net Cash Burn.' } },
+    { '@type': 'Question', name: 'How many months of runway should a small business have?', acceptedAnswer: { '@type': 'Answer', text: 'Most financial advisors recommend small businesses maintain at least 3–6 months of operating expenses in reserve. Seasonal businesses may need 6–12 months to cover slow periods. Businesses with irregular revenue (project-based, construction, etc.) should aim for the higher end.' } },
+    { '@type': 'Question', name: 'How can I extend my business cash flow runway?', acceptedAnswer: { '@type': 'Answer', text: 'Key strategies include: (1) accelerate receivables with shorter payment terms and automated invoicing, (2) defer non-essential expenses, (3) negotiate extended payment terms with suppliers, (4) improve lead generation to increase revenue, and (5) explore CRA payment arrangements or BDC financing if needed.' } },
+  ],
 };
 ---
 
 <Layout
-  title="Cash Flow Runway Calculator"
-  description="Estimate runway months, break-even revenue, and projected cash balance based on your current business cash flow."
+  title="Cash Flow Runway Calculator — Free Tool for Canadian Small Businesses"
+  description="Calculate how many months your business can survive on current cash, your break-even revenue, and projected cash balance. Free cash flow runway calculator — no signup required."
   structuredData={toolSchema}
 >
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <ToolHero
     eyebrow="Free Tool: Cash Flow Runway Calculator"
     title="Estimate Runway Before Cash Hits Your Safety Buffer"

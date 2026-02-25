@@ -6,22 +6,33 @@ import ToolEmailGate from '../../components/tools/ToolEmailGate.astro';
 const toolSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
-  name: 'Lead Flow North Website Grader',
+  name: 'Website Grader — Free SEO and Performance Audit Tool',
+  url: 'https://leadflownorth.com/free-tools/website-grader',
   applicationCategory: 'BusinessApplication',
   operatingSystem: 'Web Browser',
-  offers: {
-    '@type': 'Offer',
-    price: '0',
-    priceCurrency: 'CAD',
-  },
+  description: 'Free website grader for small businesses. Check SEO basics, Core Web Vitals indicators, mobile readiness, HTTPS, and trust signals. Get an actionable improvement plan in seconds.',
+  featureList: ['SEO fundamentals check', 'Performance and speed indicators', 'Mobile readiness score', 'HTTPS and security check', 'Trust signal audit', 'Actionable recommendations'],
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'CAD' },
+  publisher: { '@type': 'Organization', name: 'Lead Flow North', url: 'https://leadflownorth.com' },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    { '@type': 'Question', name: 'What does a website grader check?', acceptedAnswer: { '@type': 'Answer', text: 'A website grader checks key factors affecting search rankings and conversions: SEO fundamentals (title tags, meta descriptions, headings), page speed signals, mobile responsiveness, HTTPS security, and trust signals like contact information and review links.' } },
+    { '@type': 'Question', name: 'How do I improve my website SEO score?', acceptedAnswer: { '@type': 'Answer', text: 'Start with the highest-impact failures first: ensure HTTPS is enabled, add missing title tags and meta descriptions, fix mobile responsiveness issues, and improve page load speed by compressing images and enabling caching.' } },
+    { '@type': 'Question', name: 'Is this website grader free?', acceptedAnswer: { '@type': 'Answer', text: 'Yes, the Lead Flow North Website Grader is completely free. Enter your URL and get your grade instantly — no account or credit card required.' } },
+  ],
 };
 ---
 
 <Layout
-  title="Website Grader"
-  description="Free website grader for small businesses. Check SEO basics, speed indicators, mobile readiness, and trust signals in seconds."
+  title="Free Website Grader — SEO, Speed & Mobile Audit for Canadian Businesses"
+  description="Grade your website's SEO, speed, mobile readiness, and trust signals in seconds. Get an actionable improvement plan. Free website audit tool — no signup required."
   structuredData={toolSchema}
 >
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <ToolHero
     eyebrow="Free Tool: Website Grader"
     title="Grade Any Website in Under 30 Seconds"

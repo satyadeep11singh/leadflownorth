@@ -1,0 +1,446 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToolHero from '../../components/tools/ToolHero.astro';
+import ToolEmailGate from '../../components/tools/ToolEmailGate.astro';
+
+const toolSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'GST/HST Calculator Canada 2025 — Forward, Reverse & Multi-Line',
+  url: 'https://leadflownorth.com/free-tools/gst-hst-calculator',
+  description: 'Free Canadian GST/HST calculator. Calculate GST, HST, PST, and QST for any province — forward (add tax) or reverse (back out tax). Supports multiple line items and inter-provincial sales. All 13 provinces and territories. No signup required.',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web Browser',
+  featureList: [
+    'Forward tax calculation (add tax to price)',
+    'Reverse tax calculation (back out tax from total)',
+    'All 13 Canadian provinces and territories',
+    'HST, GST, PST, and QST support',
+    'Multi-line invoice calculator',
+    'PST/QST toggle for provinces that require it',
+    'Full tax breakdown summary',
+  ],
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'CAD',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Lead Flow North',
+    url: 'https://leadflownorth.com',
+  },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What is the GST/HST rate in each Canadian province for 2025?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Canadian sales tax rates for 2025: Ontario (HST 13%), Nova Scotia (HST 15%), New Brunswick (HST 15%), Newfoundland & Labrador (HST 15%), Prince Edward Island (HST 15%), British Columbia (GST 5% + PST 7% = 12%), Manitoba (GST 5% + PST 7% = 12%), Saskatchewan (GST 5% + PST 6% = 11%), Quebec (GST 5% + QST 9.975% = 14.975%), Alberta, Yukon, Northwest Territories, and Nunavut (GST 5% only).',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How do I reverse-calculate GST/HST from a total amount?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'To back out HST from a total (e.g., Ontario 13% HST): divide the total by 1.13 to get the pre-tax amount, then subtract to find the tax. Example: $113 total ÷ 1.13 = $100 pre-tax, so HST = $13. Our GST/HST calculator does this automatically — just select "Reverse (back out tax)" mode and enter the total amount.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does this calculator handle inter-provincial sales tax?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. For GST/HST purposes, the tax rate is determined by the province where the customer receives the goods or service (place of supply rules). Select the customer\'s province in the calculator to apply the correct rate. Note: PST in BC, Manitoba, and Saskatchewan, and QST in Quebec, are separate provincial taxes with their own registration requirements and do not follow the federal place-of-supply rules in the same way.',
+      },
+    },
+  ],
+};
+---
+
+<Layout
+  title="GST/HST Calculator Canada 2025 — Forward, Reverse & Multi-Line (All Provinces)"
+  description="Calculate GST, HST, PST, and QST for any Canadian province or territory. Supports forward and reverse tax modes, multiple line items. All 13 provinces included. Free, no signup."
+  structuredData={toolSchema}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <ToolHero
+    eyebrow="Free Tool: GST/HST Calculator"
+    title="Canadian GST/HST Calculator — Forward, Reverse & Multi-Line"
+    description="Calculate sales tax for any Canadian province. Add multiple line items, switch between forward (add tax) and reverse (back out tax) modes, and see a full tax breakdown including QST for Quebec."
+    guideHref="/blog/how-to-use-gst-hst-calculator"
+  />
+
+  <ToolEmailGate toolName="GST/HST Calculator">
+
+  <section class="py-10 lg:py-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <form id="gst-form" class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-5 sm:p-6">
+
+        <div class="grid sm:grid-cols-2 gap-4 mb-4">
+
+          <!-- Province selector -->
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Customer's Province (determines tax rate)</span>
+            <select id="gst-province" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white">
+              <option value="ON">Ontario — HST 13%</option>
+              <option value="BC">British Columbia — GST 5% + PST 7%</option>
+              <option value="AB">Alberta — GST 5% only</option>
+              <option value="QC">Quebec — GST 5% + QST 9.975%</option>
+              <option value="MB">Manitoba — GST 5% + PST 7%</option>
+              <option value="SK">Saskatchewan — GST 5% + PST 6%</option>
+              <option value="NS">Nova Scotia — HST 15%</option>
+              <option value="NB">New Brunswick — HST 15%</option>
+              <option value="NL">Newfoundland & Labrador — HST 15%</option>
+              <option value="PE">Prince Edward Island — HST 15%</option>
+              <option value="YT">Yukon — GST 5% only</option>
+              <option value="NT">Northwest Territories — GST 5% only</option>
+              <option value="NU">Nunavut — GST 5% only</option>
+            </select>
+          </label>
+
+          <!-- Mode -->
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Calculation Mode</span>
+            <select id="gst-mode" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white">
+              <option value="forward">Forward — add tax to amount before tax</option>
+              <option value="reverse">Reverse — back out tax from total paid</option>
+            </select>
+          </label>
+
+        </div>
+
+        <!-- Mode description -->
+        <div id="gst-mode-desc" class="mb-4 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 text-xs text-slate-600 dark:text-slate-400"></div>
+
+        <!-- Line items -->
+        <div class="mb-4">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Line Items</span>
+            <button id="gst-add-line" type="button" class="text-xs px-3 py-1.5 rounded-lg border border-primary-300 dark:border-primary-700 text-primary-700 dark:text-primary-300 hover:bg-primary-50 dark:hover:bg-primary-900/20 font-semibold transition-colors">
+              + Add Line
+            </button>
+          </div>
+          <div id="gst-lines" class="space-y-2">
+            <!-- Lines injected by JS -->
+          </div>
+        </div>
+
+        <!-- Taxable toggle -->
+        <label class="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300 mb-5 cursor-pointer">
+          <input id="gst-apply-pst" type="checkbox" checked class="rounded" />
+          <span>Apply provincial tax (PST/QST) where applicable</span>
+        </label>
+
+        <div class="flex flex-wrap items-center gap-3">
+          <button id="gst-submit" type="submit" class="inline-flex w-full sm:w-auto items-center justify-center px-6 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors disabled:opacity-60">
+            Calculate Tax
+          </button>
+          <button id="gst-reset" type="button" class="inline-flex w-full sm:w-auto items-center justify-center px-5 py-3 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-semibold hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+            Reset
+          </button>
+        </div>
+
+        <p id="gst-error" class="mt-3 text-sm text-red-600 dark:text-red-400 hidden"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Results -->
+  <section id="gst-results" class="py-12 lg:py-16 bg-slate-50 dark:bg-slate-800/40 hidden" aria-live="polite">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Summary cards -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-7">
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Amount Before Tax</p>
+          <p id="r-pretax" class="text-2xl font-extrabold text-slate-900 dark:text-white">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Total Tax</p>
+          <p id="r-total-tax" class="text-2xl font-extrabold text-red-600 dark:text-red-400">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Total Incl. Tax</p>
+          <p id="r-total-incl" class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Effective Tax Rate</p>
+          <p id="r-eff-rate" class="text-2xl font-extrabold text-slate-900 dark:text-white">0%</p>
+        </article>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-5 mb-7">
+
+        <!-- Tax breakdown -->
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Tax Breakdown</h2>
+          <dl class="space-y-2 text-sm" id="r-tax-breakdown"></dl>
+        </article>
+
+        <!-- Line item table -->
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Line Item Summary</h2>
+          <div class="overflow-x-auto">
+            <table class="w-full border-collapse text-sm">
+              <thead>
+                <tr class="bg-slate-50 dark:bg-slate-800">
+                  <th class="text-left p-2 border border-slate-200 dark:border-slate-700">Description</th>
+                  <th class="text-right p-2 border border-slate-200 dark:border-slate-700">Pre-tax</th>
+                  <th class="text-right p-2 border border-slate-200 dark:border-slate-700">Tax</th>
+                  <th class="text-right p-2 border border-slate-200 dark:border-slate-700">Total</th>
+                </tr>
+              </thead>
+              <tbody id="r-line-table"></tbody>
+            </table>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-5 py-4 text-sm text-slate-700 dark:text-slate-300 mb-5">
+        <strong>Inter-provincial note:</strong> For goods shipped to a different province than your business, you generally charge the <em>destination province's</em> tax rate. This calculator applies the selected province's rate — matching the customer's province in the selector above for shipped goods.
+      </div>
+
+    </div>
+  </section>
+
+  <section class="py-14 lg:py-18 bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Need Help With Invoicing and Tax Compliance?</h2>
+      <p class="text-slate-300 mb-7">We build automated invoicing, follow-up, and reporting systems for Canadian small businesses so you stay compliant without the manual work.</p>
+      <a href="/free-audit" class="inline-flex w-full sm:w-auto justify-center items-center px-7 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors">
+        Request a Free Audit
+      </a>
+    </div>
+  </section>
+
+  </ToolEmailGate>
+</Layout>
+
+<script is:inline>
+(function initGSTCalculator() {
+
+  // ─── Province tax rates 2025 ─────────────────────────────────────────────
+  var PROVINCES = {
+    ON: { gst: 0.05, pst: 0,       pstLabel: '',    hst: 0.13, hstLabel: 'HST' },
+    BC: { gst: 0.05, pst: 0.07,    pstLabel: 'PST', hst: 0,    hstLabel: '' },
+    AB: { gst: 0.05, pst: 0,       pstLabel: '',    hst: 0,    hstLabel: '' },
+    QC: { gst: 0.05, pst: 0.09975, pstLabel: 'QST', hst: 0,    hstLabel: '' },
+    MB: { gst: 0.05, pst: 0.07,    pstLabel: 'PST', hst: 0,    hstLabel: '' },
+    SK: { gst: 0.05, pst: 0.06,    pstLabel: 'PST', hst: 0,    hstLabel: '' },
+    NS: { gst: 0.05, pst: 0,       pstLabel: '',    hst: 0.15, hstLabel: 'HST' },
+    NB: { gst: 0.05, pst: 0,       pstLabel: '',    hst: 0.15, hstLabel: 'HST' },
+    NL: { gst: 0.05, pst: 0,       pstLabel: '',    hst: 0.15, hstLabel: 'HST' },
+    PE: { gst: 0.05, pst: 0,       pstLabel: '',    hst: 0.15, hstLabel: 'HST' },
+    YT: { gst: 0.05, pst: 0,       pstLabel: '',    hst: 0,    hstLabel: '' },
+    NT: { gst: 0.05, pst: 0,       pstLabel: '',    hst: 0,    hstLabel: '' },
+    NU: { gst: 0.05, pst: 0,       pstLabel: '',    hst: 0,    hstLabel: '' }
+  };
+
+  var lineCount = 0;
+  var linesContainer = document.getElementById('gst-lines');
+  var form        = document.getElementById('gst-form');
+  var modeSelect  = document.getElementById('gst-mode');
+  var modeDesc    = document.getElementById('gst-mode-desc');
+  var addLineBtn  = document.getElementById('gst-add-line');
+  var resetBtn    = document.getElementById('gst-reset');
+  var errorEl     = document.getElementById('gst-error');
+  var resultsEl   = document.getElementById('gst-results');
+
+  if (!form) return;
+
+  var fmt = function (n) {
+    return new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD', maximumFractionDigits: 2 }).format(n || 0);
+  };
+
+  var setEl = function (id, val) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = val;
+  };
+
+  var setHtml = function (id, val) {
+    var el = document.getElementById(id);
+    if (el) el.innerHTML = val;
+  };
+
+  var MODE_DESCRIPTIONS = {
+    forward: 'Forward mode: enter the amount before tax. The calculator adds the applicable tax on top.',
+    reverse: 'Reverse mode: enter the total amount already paid (including tax). The calculator backs out what the original pre-tax amount and tax were.'
+  };
+
+  function updateModeDesc() {
+    if (modeDesc && modeSelect) modeDesc.textContent = MODE_DESCRIPTIONS[modeSelect.value] || '';
+  }
+
+  modeSelect && modeSelect.addEventListener('change', updateModeDesc);
+  updateModeDesc();
+
+  function addLine(desc, amount) {
+    lineCount++;
+    var id = 'line-' + lineCount;
+    var div = document.createElement('div');
+    div.className = 'flex gap-2 items-center';
+    div.id = id;
+    div.innerHTML =
+      '<input type="text" placeholder="Description (optional)" value="' + (desc || '') + '" class="flex-1 min-w-0 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-white" data-role="desc" />' +
+      '<input type="number" min="0" step="0.01" placeholder="Amount" value="' + (amount || '') + '" class="w-32 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-white" data-role="amount" required />' +
+      '<button type="button" class="text-slate-400 hover:text-red-500 transition-colors text-xl leading-none px-1" data-remove="' + id + '" title="Remove line">&times;</button>';
+    linesContainer.appendChild(div);
+
+    div.querySelector('[data-remove]').addEventListener('click', function () {
+      if (linesContainer.children.length > 1) {
+        div.remove();
+      }
+    });
+  }
+
+  // Seed with one line
+  addLine('', '');
+
+  addLineBtn && addLineBtn.addEventListener('click', function () {
+    addLine('', '');
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    errorEl.classList.add('hidden');
+
+    var province   = document.getElementById('gst-province').value;
+    var mode       = modeSelect.value;
+    var applyPST   = document.getElementById('gst-apply-pst').checked;
+    var prov       = PROVINCES[province] || PROVINCES['ON'];
+
+    // Collect line items
+    var lineEls = linesContainer.querySelectorAll('[id^="line-"]');
+    var lines = [];
+    for (var i = 0; i < lineEls.length; i++) {
+      var el = lineEls[i];
+      var descEl   = el.querySelector('[data-role="desc"]');
+      var amountEl = el.querySelector('[data-role="amount"]');
+      var val = parseFloat(amountEl ? amountEl.value : '') || 0;
+      if (val > 0) {
+        lines.push({ desc: (descEl ? descEl.value.trim() : '') || ('Item ' + (i + 1)), amount: val });
+      }
+    }
+
+    if (lines.length === 0) {
+      errorEl.textContent = 'Please enter at least one line item amount.';
+      errorEl.classList.remove('hidden');
+      return;
+    }
+
+    // Determine effective rates
+    var isHST = prov.hst > 0;
+    var gstRate = isHST ? 0 : prov.gst;
+    var hstRate = isHST ? prov.hst : 0;
+    var pstRate = applyPST ? prov.pst : 0;
+    var totalRate = isHST ? hstRate : (gstRate + pstRate);
+
+    var totalPreTax = 0;
+    var totalGST = 0;
+    var totalPST = 0;
+    var totalHST = 0;
+
+    var lineResults = lines.map(function (l) {
+      var preTax, gst, pst, hst, taxAmt, inclTax;
+      if (mode === 'forward') {
+        preTax = l.amount;
+        if (isHST) {
+          hst = preTax * hstRate;
+          gst = 0;
+          pst = 0;
+        } else {
+          gst = preTax * gstRate;
+          pst = preTax * pstRate;
+          hst = 0;
+        }
+        taxAmt = gst + pst + hst;
+        inclTax = preTax + taxAmt;
+      } else {
+        // Reverse
+        preTax = l.amount / (1 + totalRate);
+        if (isHST) {
+          hst = preTax * hstRate;
+          gst = 0;
+          pst = 0;
+        } else {
+          gst = preTax * gstRate;
+          pst = preTax * pstRate;
+          hst = 0;
+        }
+        taxAmt = gst + pst + hst;
+        inclTax = l.amount;
+        preTax = inclTax - taxAmt;
+      }
+      totalPreTax += preTax;
+      totalGST += gst;
+      totalPST += pst;
+      totalHST += hst;
+      return { desc: l.desc, preTax: preTax, taxAmt: taxAmt, inclTax: inclTax };
+    });
+
+    var grandTax  = totalGST + totalPST + totalHST;
+    var grandTotal = totalPreTax + grandTax;
+    var effRate = grandTotal > 0 ? grandTax / totalPreTax : 0;
+
+    setEl('r-pretax',    fmt(totalPreTax));
+    setEl('r-total-tax', fmt(grandTax));
+    setEl('r-total-incl',fmt(grandTotal));
+    setEl('r-eff-rate',  (effRate * 100).toFixed(3) + '%');
+
+    // Tax breakdown
+    var breakdownRows = [];
+    if (isHST) {
+      breakdownRows.push(['<dt class="text-slate-500 dark:text-slate-400">' + prov.hstLabel + ' (' + (hstRate * 100).toFixed(0) + '%)</dt><dd class="font-semibold text-slate-900 dark:text-white">' + fmt(totalHST) + '</dd>']);
+    } else {
+      breakdownRows.push(['<dt class="text-slate-500 dark:text-slate-400">GST (5%)</dt><dd class="font-semibold text-slate-900 dark:text-white">' + fmt(totalGST) + '</dd>']);
+      if (prov.pst > 0) {
+        breakdownRows.push(['<dt class="text-slate-500 dark:text-slate-400">' + prov.pstLabel + ' (' + (prov.pst * 100).toFixed(3) + '%)</dt><dd class="font-semibold text-slate-900 dark:text-white">' + (applyPST ? fmt(totalPST) : '$0.00 (not applied)') + '</dd>']);
+      }
+    }
+    breakdownRows.push(['<dt class="font-semibold text-slate-700 dark:text-slate-200 border-t border-slate-100 dark:border-slate-700 pt-2 mt-1">Total Tax</dt><dd class="font-bold text-red-600 dark:text-red-400 border-t border-slate-100 dark:border-slate-700 pt-2 mt-1">' + fmt(grandTax) + '</dd>']);
+    breakdownRows.push(['<dt class="font-semibold text-slate-700 dark:text-slate-200">Total Incl. Tax</dt><dd class="font-bold text-emerald-600 dark:text-emerald-400">' + fmt(grandTotal) + '</dd>']);
+
+    setHtml('r-tax-breakdown', breakdownRows.map(function (r) { return '<div class="flex justify-between gap-2">' + r[0] + '</div>'; }).join(''));
+
+    // Line table
+    setHtml('r-line-table', lineResults.map(function (lr) {
+      return '<tr>' +
+        '<td class="p-2 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white">' + lr.desc + '</td>' +
+        '<td class="p-2 border border-slate-200 dark:border-slate-700 text-right">' + fmt(lr.preTax) + '</td>' +
+        '<td class="p-2 border border-slate-200 dark:border-slate-700 text-right text-red-600 dark:text-red-400">' + fmt(lr.taxAmt) + '</td>' +
+        '<td class="p-2 border border-slate-200 dark:border-slate-700 text-right font-semibold">' + fmt(lr.inclTax) + '</td>' +
+        '</tr>';
+    }).join('') +
+      '<tr class="bg-slate-50 dark:bg-slate-800 font-bold">' +
+      '<td class="p-2 border border-slate-200 dark:border-slate-700">Total</td>' +
+      '<td class="p-2 border border-slate-200 dark:border-slate-700 text-right">' + fmt(totalPreTax) + '</td>' +
+      '<td class="p-2 border border-slate-200 dark:border-slate-700 text-right text-red-600 dark:text-red-400">' + fmt(grandTax) + '</td>' +
+      '<td class="p-2 border border-slate-200 dark:border-slate-700 text-right text-emerald-600 dark:text-emerald-400">' + fmt(grandTotal) + '</td>' +
+      '</tr>'
+    );
+
+    resultsEl.classList.remove('hidden');
+    resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  resetBtn && resetBtn.addEventListener('click', function () {
+    form.reset();
+    errorEl.classList.add('hidden');
+    resultsEl.classList.add('hidden');
+    // Reset lines
+    linesContainer.innerHTML = '';
+    lineCount = 0;
+    addLine('', '');
+    updateModeDesc();
+  });
+
+})();
+</script>

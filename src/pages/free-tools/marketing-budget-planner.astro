@@ -6,22 +6,33 @@ import ToolEmailGate from '../../components/tools/ToolEmailGate.astro';
 const toolSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
-  name: 'Lead Flow North Marketing Budget Planner',
+  name: 'Marketing Budget Planner',
+  url: 'https://leadflownorth.com/free-tools/marketing-budget-planner',
   applicationCategory: 'BusinessApplication',
   operatingSystem: 'Web Browser',
-  offers: {
-    '@type': 'Offer',
-    price: '0',
-    priceCurrency: 'CAD',
-  },
+  description: 'Plan your monthly marketing budget by channel, forecast leads and customers, and project revenue and ROI. Free marketing budget planner for Canadian small businesses.',
+  featureList: ['Multi-channel budget allocation', 'Lead and customer forecasting', 'Revenue and ROI projection', 'Cost per lead and cost per customer', 'CAD currency'],
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'CAD' },
+  publisher: { '@type': 'Organization', name: 'Lead Flow North', url: 'https://leadflownorth.com' },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    { '@type': 'Question', name: 'How much should a small business spend on marketing?', acceptedAnswer: { '@type': 'Answer', text: 'The commonly cited guideline is 5–10% of revenue for established businesses and 10–20% for businesses in growth mode. However, the right amount depends on your industry, competitive intensity, and customer acquisition cost.' } },
+    { '@type': 'Question', name: 'What is a good marketing ROI for a small business?', acceptedAnswer: { '@type': 'Answer', text: 'A 5:1 revenue-to-ad-spend ratio (500% ROI) is generally considered a good benchmark for small business marketing. A 10:1 ratio is excellent. Below 2:1 typically means the channel needs optimization or reallocation.' } },
+    { '@type': 'Question', name: 'How do I allocate a small business marketing budget across channels?', acceptedAnswer: { '@type': 'Answer', text: 'Start by allocating the majority (60–70%) to channels with proven results for your business type. For local service businesses, Google Local Services Ads, SEO, and review generation typically have the highest ROI. Allocate 20–30% to test new channels.' } },
+  ],
 };
 ---
 
 <Layout
-  title="Marketing Budget Planner"
-  description="Plan monthly budget allocation by channel and estimate projected leads, customers, revenue, and net outcome."
+  title="Marketing Budget Planner — Free Tool for Canadian Small Businesses"
+  description="Plan your marketing budget by channel, forecast leads and customers, and project ROI. Free marketing budget planner with cost per lead and revenue projections. No signup required."
   structuredData={toolSchema}
 >
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <ToolHero
     eyebrow="Free Tool: Marketing Budget Planner"
     title="Plan Channel Allocation and Forecast Revenue Impact"

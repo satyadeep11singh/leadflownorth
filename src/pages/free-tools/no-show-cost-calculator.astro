@@ -6,22 +6,33 @@ import ToolEmailGate from '../../components/tools/ToolEmailGate.astro';
 const toolSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
-  name: 'Lead Flow North No-Show Cost Calculator',
+  name: 'No-Show Cost Calculator',
+  url: 'https://leadflownorth.com/free-tools/no-show-cost-calculator',
   applicationCategory: 'BusinessApplication',
   operatingSystem: 'Web Browser',
-  offers: {
-    '@type': 'Offer',
-    price: '0',
-    priceCurrency: 'CAD',
-  },
+  description: 'Calculate the monthly and annual revenue lost from appointment no-shows. Model reminder and confirmation recovery scenarios. Free no-show cost calculator for Canadian service businesses.',
+  featureList: ['Monthly and annual no-show revenue loss', 'Reminder recovery scenario modelling', 'No-show rate benchmarking', 'CAD currency'],
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'CAD' },
+  publisher: { '@type': 'Organization', name: 'Lead Flow North', url: 'https://leadflownorth.com' },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    { '@type': 'Question', name: 'What is a typical no-show rate for appointments?', acceptedAnswer: { '@type': 'Answer', text: 'No-show rates vary by industry: healthcare and medical practices typically see 5–30% no-show rates, salons and spas 10–20%, and professional services 5–15%. Automated reminder sequences can reduce no-shows by 50–80%.' } },
+    { '@type': 'Question', name: 'How can I reduce appointment no-shows?', acceptedAnswer: { '@type': 'Answer', text: 'The most effective strategies are: (1) automated SMS reminder 24 hours before, (2) confirmation request requiring a reply, (3) 2-hour day-of reminder, (4) easy rescheduling link in reminders, and (5) deposit or cancellation policy for high-value appointments.' } },
+    { '@type': 'Question', name: 'How much revenue do no-shows cost a small business annually?', acceptedAnswer: { '@type': 'Answer', text: 'For a service business with 20 appointments per week at $150 average and a 15% no-show rate, that is roughly 3 missed appointments per week — $450/week or $23,400/year in lost revenue. This tool calculates your specific loss based on your numbers.' } },
+  ],
 };
 ---
 
 <Layout
-  title="No-Show Cost Calculator"
-  description="Estimate monthly and annual revenue lost from no-shows and model recovery from reminders and confirmations."
+  title="No-Show Cost Calculator — How Much Are Missed Appointments Costing You?"
+  description="Calculate the monthly and annual revenue your business loses to appointment no-shows. Model reminder and confirmation recovery. Free no-show calculator for Canadian service businesses."
   structuredData={toolSchema}
 >
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <ToolHero
     eyebrow="Free Tool: No-Show Cost Calculator"
     title="Calculate Revenue Lost to No-Shows"

@@ -1,0 +1,578 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToolHero from '../../components/tools/ToolHero.astro';
+import ToolEmailGate from '../../components/tools/ToolEmailGate.astro';
+
+const toolSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Canadian Payroll Deductions Calculator — CPP, EI & Income Tax',
+  url: 'https://leadflownorth.com/free-tools/payroll-deductions-calculator',
+  description: 'Free Canadian payroll deductions calculator for small businesses. Calculate employee net pay, CPP, CPP2, EI, and federal + provincial income tax for all 13 provinces and territories. Includes Quebec QPP and QPIP. No signup required.',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web Browser',
+  featureList: [
+    'CPP and CPP2 deductions (2025 rates)',
+    'EI deductions for all provinces',
+    'Quebec QPP and QPIP support',
+    'Federal + provincial income tax by province',
+    'Employer contribution totals',
+    'All 13 provinces and territories',
+    'Annualized breakdown table',
+  ],
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'CAD',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Lead Flow North',
+    url: 'https://leadflownorth.com',
+  },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How do I calculate CPP and EI deductions for a Canadian employee?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'To calculate CPP, multiply pensionable earnings (gross pay minus the $3,500 basic exemption, annualized) by 5.95% up to the 2025 YMPE of $71,300. For EI, multiply insurable earnings by 1.66% up to the annual maximum of $65,700. Both have annual maximums — CPP max is $4,034.10 and EI max is $1,090.62 for 2025. Our payroll deductions calculator handles all of this automatically by province.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What is CPP2 and who pays it?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'CPP2 is the second additional Canada Pension Plan contribution introduced in 2024. Employees pay 4% on earnings between the Year\'s Maximum Pensionable Earnings ($71,300) and the Year\'s Additional Maximum Pensionable Earnings ($81,200) for 2025. Employers match the CPP2 contribution. Quebec residents pay QPP instead of CPP and are not subject to CPP2.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is this payroll calculator accurate for Quebec employees?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes. The calculator uses Quebec-specific rates: QPP (Quebec Pension Plan) at 6.4% instead of CPP, QPIP (Quebec Parental Insurance Plan) at 0.494%, and Quebec provincial income tax brackets. For authoritative payroll calculations, verify results with the CRA Payroll Deductions Online Calculator (PDOC) or Revenu Québec WebRAS.',
+      },
+    },
+  ],
+};
+---
+
+<Layout
+  title="Canadian Payroll Deductions Calculator — CPP, EI & Income Tax (2025)"
+  description="Calculate employee net pay, CPP, CPP2, EI, and federal + provincial income tax for any Canadian province or territory. Covers Quebec QPP and QPIP. Free, no signup."
+  structuredData={toolSchema}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <ToolHero
+    eyebrow="Free Tool: Payroll Deductions Calculator"
+    title="Canadian Payroll Deductions Calculator"
+    description="Estimate employee net pay, CPP/EI deductions, and federal + provincial income tax for any province. Covers CPP2, Quebec QPIP, and employer contribution totals. For estimation purposes — verify remittances with CRA PDOC."
+    guideHref="/blog/how-to-use-payroll-deductions-calculator"
+  />
+
+  <ToolEmailGate toolName="Payroll Deductions Calculator">
+
+  <section class="py-10 lg:py-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <form id="pd-form" class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-5 sm:p-6">
+
+        <div class="grid sm:grid-cols-2 gap-4">
+
+          <!-- Province -->
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Province / Territory</span>
+            <select id="pd-province" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white">
+              <option value="ON">Ontario</option>
+              <option value="BC">British Columbia</option>
+              <option value="AB">Alberta</option>
+              <option value="QC">Quebec</option>
+              <option value="MB">Manitoba</option>
+              <option value="SK">Saskatchewan</option>
+              <option value="NS">Nova Scotia</option>
+              <option value="NB">New Brunswick</option>
+              <option value="NL">Newfoundland & Labrador</option>
+              <option value="PE">Prince Edward Island</option>
+              <option value="YT">Yukon</option>
+              <option value="NT">Northwest Territories</option>
+              <option value="NU">Nunavut</option>
+            </select>
+          </label>
+
+          <!-- Pay frequency -->
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Pay Frequency</span>
+            <select id="pd-frequency" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white">
+              <option value="26">Bi-weekly (26 periods)</option>
+              <option value="52">Weekly (52 periods)</option>
+              <option value="24">Semi-monthly (24 periods)</option>
+              <option value="12">Monthly (12 periods)</option>
+            </select>
+          </label>
+
+          <!-- Gross pay this period -->
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Gross Pay This Period (CAD)</span>
+            <input id="pd-gross" type="number" min="1" step="1" value="2500" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <!-- YTD CPP contributions -->
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">YTD CPP Deducted So Far (CAD)</span>
+            <input id="pd-ytd-cpp" type="number" min="0" step="1" value="0" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+            <span class="text-xs text-slate-500 dark:text-slate-400 mt-1 block">Enter 0 at start of year</span>
+          </label>
+
+          <!-- YTD EI premiums -->
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">YTD EI Deducted So Far (CAD)</span>
+            <input id="pd-ytd-ei" type="number" min="0" step="1" value="0" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+            <span class="text-xs text-slate-500 dark:text-slate-400 mt-1 block">Enter 0 at start of year</span>
+          </label>
+
+          <!-- Additional tax to deduct -->
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Additional Tax to Deduct (CAD)</span>
+            <input id="pd-extra-tax" type="number" min="0" step="1" value="0" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+            <span class="text-xs text-slate-500 dark:text-slate-400 mt-1 block">From TD1 extra withholding request</span>
+          </label>
+
+        </div>
+
+        <!-- Quebec notice -->
+        <div id="pd-qc-notice" class="hidden mt-4 rounded-lg border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/20 px-4 py-3 text-sm text-blue-800 dark:text-blue-200">
+          <strong>Quebec employees:</strong> QPP replaces CPP, and QPIP (Quebec Parental Insurance Plan) also applies. This calculator uses CRA-equivalent rates for QPP/QPIP. File with Revenu Québec using WebRAS for official remittances.
+        </div>
+
+        <div class="mt-5 flex flex-wrap items-center gap-3">
+          <button id="pd-submit" type="submit" class="inline-flex w-full sm:w-auto items-center justify-center px-6 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors disabled:opacity-60">
+            Calculate Deductions
+          </button>
+          <button id="pd-reset" type="button" class="inline-flex w-full sm:w-auto items-center justify-center px-5 py-3 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-semibold hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+            Reset
+          </button>
+        </div>
+
+        <p id="pd-error" class="mt-3 text-sm text-red-600 dark:text-red-400 hidden"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Results -->
+  <section id="pd-results" class="py-12 lg:py-16 bg-slate-50 dark:bg-slate-800/40 hidden" aria-live="polite">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Summary cards -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-7">
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Gross Pay</p>
+          <p id="r-gross" class="text-2xl font-extrabold text-slate-900 dark:text-white">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Total Deductions</p>
+          <p id="r-total-ded" class="text-2xl font-extrabold text-red-600 dark:text-red-400">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Net Pay (Take-Home)</p>
+          <p id="r-net" class="text-2xl font-extrabold text-emerald-600 dark:text-emerald-400">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Effective Tax Rate</p>
+          <p id="r-eff-rate" class="text-2xl font-extrabold text-slate-900 dark:text-white">0%</p>
+        </article>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-5 mb-7">
+
+        <!-- Employee deductions breakdown -->
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Employee Deductions This Period</h2>
+          <dl class="space-y-2 text-sm">
+            <div class="flex justify-between gap-2">
+              <dt id="r-cpp-label" class="text-slate-500 dark:text-slate-400">CPP Contribution</dt>
+              <dd id="r-cpp" class="font-semibold text-slate-900 dark:text-white">—</dd>
+            </div>
+            <div id="r-cpp2-row" class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">CPP2 (2nd tier)</dt>
+              <dd id="r-cpp2" class="font-semibold text-slate-900 dark:text-white">—</dd>
+            </div>
+            <div id="r-qpip-row" class="flex justify-between gap-2 hidden">
+              <dt class="text-slate-500 dark:text-slate-400">QPIP Premium</dt>
+              <dd id="r-qpip" class="font-semibold text-slate-900 dark:text-white">—</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">EI Premium</dt>
+              <dd id="r-ei" class="font-semibold text-slate-900 dark:text-white">—</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Federal Income Tax</dt>
+              <dd id="r-fed-tax" class="font-semibold text-slate-900 dark:text-white">—</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt id="r-prov-tax-label" class="text-slate-500 dark:text-slate-400">Provincial Tax</dt>
+              <dd id="r-prov-tax" class="font-semibold text-slate-900 dark:text-white">—</dd>
+            </div>
+            <div id="r-extra-tax-row" class="flex justify-between gap-2 hidden">
+              <dt class="text-slate-500 dark:text-slate-400">Additional Withholding</dt>
+              <dd id="r-extra-tax" class="font-semibold text-slate-900 dark:text-white">—</dd>
+            </div>
+            <div class="flex justify-between gap-2 border-t border-slate-100 dark:border-slate-700 pt-2 mt-2">
+              <dt class="font-semibold text-slate-700 dark:text-slate-200">Total Deductions</dt>
+              <dd id="r-total-ded-2" class="font-bold text-red-600 dark:text-red-400">—</dd>
+            </div>
+          </dl>
+        </article>
+
+        <!-- Employer cost breakdown -->
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Employer Cost This Period</h2>
+          <dl class="space-y-2 text-sm">
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Gross Pay</dt>
+              <dd id="r-emp-gross" class="font-semibold text-slate-900 dark:text-white">—</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt id="r-emp-cpp-label" class="text-slate-500 dark:text-slate-400">Employer CPP Share</dt>
+              <dd id="r-emp-cpp" class="font-semibold text-slate-900 dark:text-white">—</dd>
+            </div>
+            <div id="r-emp-cpp2-row" class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Employer CPP2 Share</dt>
+              <dd id="r-emp-cpp2" class="font-semibold text-slate-900 dark:text-white">—</dd>
+            </div>
+            <div id="r-emp-qpip-row" class="flex justify-between gap-2 hidden">
+              <dt class="text-slate-500 dark:text-slate-400">Employer QPIP Share</dt>
+              <dd id="r-emp-qpip" class="font-semibold text-slate-900 dark:text-white">—</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Employer EI Share (1.4×)</dt>
+              <dd id="r-emp-ei" class="font-semibold text-slate-900 dark:text-white">—</dd>
+            </div>
+            <div class="flex justify-between gap-2 border-t border-slate-100 dark:border-slate-700 pt-2 mt-2">
+              <dt class="font-semibold text-slate-700 dark:text-slate-200">Total Employer Cost</dt>
+              <dd id="r-emp-total" class="font-bold text-slate-900 dark:text-white">—</dd>
+            </div>
+          </dl>
+        </article>
+
+      </div>
+
+      <!-- Annualized view -->
+      <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-7">
+        <div class="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white">Annualized Estimates</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Based on current period × pay periods remaining. Gross deductions may be lower near year-end when CPP/EI maximums are reached.</p>
+        </div>
+        <div class="p-5 overflow-x-auto">
+          <table class="w-full min-w-[520px] border-collapse text-sm">
+            <thead>
+              <tr class="bg-slate-50 dark:bg-slate-800">
+                <th class="text-left p-3 border border-slate-200 dark:border-slate-700">Item</th>
+                <th class="text-left p-3 border border-slate-200 dark:border-slate-700">This Period</th>
+                <th class="text-left p-3 border border-slate-200 dark:border-slate-700">Annualized</th>
+              </tr>
+            </thead>
+            <tbody id="pd-annual-table"></tbody>
+          </table>
+        </div>
+      </article>
+
+      <!-- CTA -->
+      <div class="rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20 px-5 py-4 text-sm text-amber-900 dark:text-amber-200">
+        <strong>Disclaimer:</strong> These figures are estimates for planning purposes only. Provincial tax uses a simplified marginal rate model. Always verify payroll remittances using the <a href="https://www.canada.ca/en/revenue-agency/services/e-services/digital-services-businesses/payroll-deductions-online-calculator.html" class="underline" target="_blank" rel="noopener">CRA Payroll Deductions Online Calculator (PDOC)</a>. Quebec employers must also use <a href="https://www.revenuquebec.ca/en/online-services/tools/webras/" class="underline" target="_blank" rel="noopener">Revenu Québec WebRAS</a>.
+      </div>
+
+    </div>
+  </section>
+
+  <section class="py-14 lg:py-18 bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Need Help With Payroll Compliance?</h2>
+      <p class="text-slate-300 mb-7">We help Canadian small businesses set up automated payroll workflows, reminders, and reporting so nothing falls through the cracks.</p>
+      <a href="/free-audit" class="inline-flex w-full sm:w-auto justify-center items-center px-7 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors">
+        Request a Free Audit
+      </a>
+    </div>
+  </section>
+
+  </ToolEmailGate>
+</Layout>
+
+<script is:inline>
+(function initPayrollCalculator() {
+
+  // ─── 2025 CRA / Revenu Québec rates ───────────────────────────────────────
+  var RATES = {
+    // CPP (all provinces except QC)
+    CPP_RATE:       0.0595,
+    CPP_EXEMPTION:  3500,
+    CPP_MAX_EARNINGS: 71300,   // YMPE 2025
+    CPP_MAX_EE:     4034.10,   // max employee contribution
+
+    // CPP2 (all provinces except QC, earnings $71,300–$81,200)
+    CPP2_RATE:      0.04,
+    CPP2_MAX_EARNINGS: 81200,  // YAMPE 2025
+    CPP2_MAX_EE:    396,       // max employee CPP2 contribution
+
+    // QPP (Quebec replaces CPP)
+    QPP_RATE:       0.0640,
+    QPP_EXEMPTION:  3500,
+    QPP_MAX_EARNINGS: 71300,
+    QPP_MAX_EE:     4847.95,
+
+    // QPP2 (Quebec second tier)
+    QPP2_RATE:      0.04,
+    QPP2_MAX_EARNINGS: 81200,
+    QPP2_MAX_EE:    396,
+
+    // EI (non-QC)
+    EI_RATE:        0.0166,
+    EI_MAX_INSURABLE: 65700,
+    EI_MAX_EE:      1090.62,
+    EI_EMPLOYER_MULTIPLIER: 1.4,
+
+    // EI (Quebec – reduced rate because QPIP covers some parental benefits)
+    EI_RATE_QC:     0.0129,
+    EI_MAX_EE_QC:   847.53,
+
+    // QPIP (Quebec only)
+    QPIP_EE_RATE:   0.00494,
+    QPIP_ER_RATE:   0.00692,
+    QPIP_MAX_INSURABLE: 98000,
+    QPIP_MAX_EE:    484.12,
+
+    // Federal personal amount (BPA) 2025
+    FED_BPA:        16129,
+
+    // Federal tax brackets 2025 (on taxable income)
+    FED_BRACKETS: [
+      { limit: 57375,  rate: 0.15 },
+      { limit: 114750, rate: 0.205 },
+      { limit: 177882, rate: 0.26 },
+      { limit: 253414, rate: 0.29 },
+      { limit: Infinity, rate: 0.33 }
+    ],
+
+    // Provincial tax rates (simplified – 2025 bottom bracket + surtax notes)
+    PROV: {
+      ON: { bpa: 11865, brackets: [{ limit: 51446, rate: 0.0505 }, { limit: 102894, rate: 0.0915 }, { limit: 150000, rate: 0.1116 }, { limit: 220000, rate: 0.1216 }, { limit: Infinity, rate: 0.1316 }] },
+      BC: { bpa: 11981, brackets: [{ limit: 45654, rate: 0.0506 }, { limit: 91310, rate: 0.077 }, { limit: 104835, rate: 0.105 }, { limit: 127299, rate: 0.1229 }, { limit: 172602, rate: 0.147 }, { limit: 240716, rate: 0.168 }, { limit: Infinity, rate: 0.205 }] },
+      AB: { bpa: 21003, brackets: [{ limit: 148269, rate: 0.10 }, { limit: 177922, rate: 0.12 }, { limit: 237230, rate: 0.13 }, { limit: 355845, rate: 0.14 }, { limit: Infinity, rate: 0.15 }] },
+      QC: { bpa: 17183, brackets: [{ limit: 51780, rate: 0.14 }, { limit: 103545, rate: 0.19 }, { limit: 126000, rate: 0.24 }, { limit: Infinity, rate: 0.2575 }] },
+      MB: { bpa: 15780, brackets: [{ limit: 47000, rate: 0.108 }, { limit: 100000, rate: 0.1275 }, { limit: Infinity, rate: 0.174 }] },
+      SK: { bpa: 17661, brackets: [{ limit: 49720, rate: 0.105 }, { limit: 142058, rate: 0.125 }, { limit: Infinity, rate: 0.145 }] },
+      NS: { bpa: 8481,  brackets: [{ limit: 29590, rate: 0.0879 }, { limit: 59180, rate: 0.1495 }, { limit: 93000, rate: 0.1667 }, { limit: 150000, rate: 0.175 }, { limit: Infinity, rate: 0.21 }] },
+      NB: { bpa: 12458, brackets: [{ limit: 47715, rate: 0.094 }, { limit: 95431, rate: 0.14 }, { limit: 176756, rate: 0.16 }, { limit: Infinity, rate: 0.195 }] },
+      NL: { bpa: 10818, brackets: [{ limit: 43198, rate: 0.087 }, { limit: 86395, rate: 0.145 }, { limit: 154244, rate: 0.158 }, { limit: 215943, rate: 0.178 }, { limit: 275870, rate: 0.198 }, { limit: Infinity, rate: 0.208 }] },
+      PE: { bpa: 12000, brackets: [{ limit: 32656, rate: 0.095 }, { limit: 64313, rate: 0.1637 }, { limit: 105000, rate: 0.1800 }, { limit: 140000, rate: 0.1875 }, { limit: Infinity, rate: 0.19 }] },
+      YT: { bpa: 16129, brackets: [{ limit: 57375, rate: 0.064 }, { limit: 114750, rate: 0.09 }, { limit: 177882, rate: 0.109 }, { limit: 500000, rate: 0.128 }, { limit: Infinity, rate: 0.15 }] },
+      NT: { bpa: 16593, brackets: [{ limit: 50597, rate: 0.059 }, { limit: 101198, rate: 0.086 }, { limit: 164525, rate: 0.122 }, { limit: Infinity, rate: 0.1405 }] },
+      NU: { bpa: 17925, brackets: [{ limit: 53268, rate: 0.04 }, { limit: 106537, rate: 0.07 }, { limit: 173205, rate: 0.09 }, { limit: Infinity, rate: 0.115 }] }
+    }
+  };
+
+  var form       = document.getElementById('pd-form');
+  var submitBtn  = document.getElementById('pd-submit');
+  var resetBtn   = document.getElementById('pd-reset');
+  var errorEl    = document.getElementById('pd-error');
+  var resultsEl  = document.getElementById('pd-results');
+  var qcNotice   = document.getElementById('pd-qc-notice');
+  var provSelect = document.getElementById('pd-province');
+
+  if (!form) return;
+
+  // Show/hide QC notice
+  provSelect && provSelect.addEventListener('change', function () {
+    if (qcNotice) {
+      qcNotice.classList.toggle('hidden', provSelect.value !== 'QC');
+    }
+  });
+
+  var fmt = function (n) {
+    return new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD', maximumFractionDigits: 2 }).format(n || 0);
+  };
+
+  var pct = function (n) { return (n * 100).toFixed(1) + '%'; };
+
+  // Calculate tax from brackets on ANNUAL income
+  var calcTax = function (annualIncome, bpa, brackets) {
+    var taxable = Math.max(0, annualIncome - bpa);
+    var tax = 0;
+    var prev = 0;
+    for (var i = 0; i < brackets.length; i++) {
+      var b = brackets[i];
+      if (taxable <= prev) break;
+      var slice = Math.min(taxable, b.limit) - prev;
+      tax += slice * b.rate;
+      prev = b.limit;
+    }
+    return Math.max(0, tax);
+  };
+
+  var setEl = function (id, val) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = val;
+  };
+
+  var showRow = function (id, show) {
+    var el = document.getElementById(id);
+    if (el) el.classList.toggle('hidden', !show);
+  };
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    errorEl.classList.add('hidden');
+
+    var province  = document.getElementById('pd-province').value;
+    var periods   = parseInt(document.getElementById('pd-frequency').value, 10);
+    var gross     = parseFloat(document.getElementById('pd-gross').value) || 0;
+    var ytdCpp    = parseFloat(document.getElementById('pd-ytd-cpp').value) || 0;
+    var ytdEi     = parseFloat(document.getElementById('pd-ytd-ei').value) || 0;
+    var extraTax  = parseFloat(document.getElementById('pd-extra-tax').value) || 0;
+
+    if (gross <= 0) {
+      errorEl.textContent = 'Please enter a gross pay amount greater than zero.';
+      errorEl.classList.remove('hidden');
+      return;
+    }
+
+    var isQC = province === 'QC';
+
+    // ─── CPP / QPP ─────────────────────────────────────────────────────────
+    var cppRate      = isQC ? RATES.QPP_RATE      : RATES.CPP_RATE;
+    var cppExempt    = isQC ? RATES.QPP_EXEMPTION : RATES.CPP_EXEMPTION;
+    var cppMaxEarns  = isQC ? RATES.QPP_MAX_EARNINGS : RATES.CPP_MAX_EARNINGS;
+    var cppMaxEE     = isQC ? RATES.QPP_MAX_EE    : RATES.CPP_MAX_EE;
+    var cpp2Rate     = isQC ? RATES.QPP2_RATE     : RATES.CPP2_RATE;
+    var cpp2MaxEarns = isQC ? RATES.QPP2_MAX_EARNINGS : RATES.CPP2_MAX_EARNINGS;
+    var cpp2MaxEE    = isQC ? RATES.QPP2_MAX_EE   : RATES.CPP2_MAX_EE;
+
+    // Pensionable earnings: gross minus per-period exemption
+    var periodExempt    = cppExempt / periods;
+    var pensionableEarns = Math.max(0, gross - periodExempt);
+
+    // CPP1: cap at max, cap by YTD
+    var cppEE = Math.min(pensionableEarns * cppRate, Math.max(0, cppMaxEE - ytdCpp));
+    cppEE = Math.max(0, cppEE);
+
+    // CPP2: applies on earnings between YMPE and YAMPE
+    // Simplified: annualize gross, compute annual CPP2, divide by periods
+    var annualGross = gross * periods;
+    var cpp2AnnualBase = Math.max(0, Math.min(annualGross, cpp2MaxEarns) - cppMaxEarns);
+    var cpp2AnnualEE = cpp2AnnualBase * cpp2Rate;
+    var cpp2EE = Math.min(cpp2AnnualEE / periods, Math.max(0, cpp2MaxEE - Math.max(0, ytdCpp - cppMaxEE)));
+    cpp2EE = Math.max(0, cpp2EE);
+
+    // ─── QPIP (Quebec only) ────────────────────────────────────────────────
+    var qpipEE = 0;
+    var qpipER = 0;
+    if (isQC) {
+      var qpipAnnualBase = Math.min(annualGross, RATES.QPIP_MAX_INSURABLE);
+      qpipEE = Math.min((qpipAnnualBase * RATES.QPIP_EE_RATE) / periods, RATES.QPIP_MAX_EE / periods);
+      qpipER = Math.min((qpipAnnualBase * RATES.QPIP_ER_RATE) / periods, (RATES.QPIP_MAX_INSURABLE * RATES.QPIP_ER_RATE) / periods);
+    }
+
+    // ─── EI ────────────────────────────────────────────────────────────────
+    var eiRate   = isQC ? RATES.EI_RATE_QC : RATES.EI_RATE;
+    var eiMaxEE  = isQC ? RATES.EI_MAX_EE_QC : RATES.EI_MAX_EE;
+    var insurable = Math.min(gross, RATES.EI_MAX_INSURABLE / periods);
+    var eiEE = Math.min(insurable * eiRate, Math.max(0, eiMaxEE - ytdEi));
+    eiEE = Math.max(0, eiEE);
+    var eiER = eiEE * RATES.EI_EMPLOYER_MULTIPLIER;
+
+    // ─── Income tax (annualise → calculate → divide) ──────────────────────
+    var fedBpa   = RATES.FED_BPA;
+    var provData = RATES.PROV[province] || RATES.PROV['ON'];
+
+    // Federal tax credit for CPP + EI contributions (15% of contributions)
+    var annualCpp = cppEE * periods;
+    var annualEi  = eiEE * periods;
+    var fedCppEiCredit = (annualCpp + annualEi) * 0.15;
+
+    var annualFedTax = Math.max(0, calcTax(annualGross, fedBpa, RATES.FED_BRACKETS) - fedCppEiCredit);
+    var fedTaxPeriod = annualFedTax / periods;
+
+    // Provincial tax credit for CPP + EI (use bottom bracket rate × contributions)
+    var provBottomRate = provData.brackets[0].rate;
+    var provCppEiCredit = (annualCpp + annualEi) * provBottomRate;
+    var annualProvTax = Math.max(0, calcTax(annualGross, provData.bpa, provData.brackets) - provCppEiCredit);
+    var provTaxPeriod = annualProvTax / periods;
+
+    // ─── Totals ────────────────────────────────────────────────────────────
+    var totalDeductions = cppEE + cpp2EE + qpipEE + eiEE + fedTaxPeriod + provTaxPeriod + extraTax;
+    var netPay = gross - totalDeductions;
+    var effRate = gross > 0 ? totalDeductions / gross : 0;
+
+    var empCppShare  = cppEE;  // employer matches employee CPP1 exactly
+    var empCpp2Share = cpp2EE; // employer matches CPP2 exactly
+    var empTotal = gross + empCppShare + empCpp2Share + (isQC ? qpipER : 0) + eiER;
+
+    // ─── Render ────────────────────────────────────────────────────────────
+    setEl('r-gross',       fmt(gross));
+    setEl('r-total-ded',   fmt(totalDeductions));
+    setEl('r-net',         fmt(netPay));
+    setEl('r-eff-rate',    pct(effRate));
+
+    setEl('r-cpp-label',   isQC ? 'QPP Contribution' : 'CPP Contribution');
+    setEl('r-cpp',         fmt(cppEE));
+    setEl('r-cpp2',        fmt(cpp2EE));
+    showRow('r-qpip-row',  isQC);
+    setEl('r-qpip',        fmt(qpipEE));
+    setEl('r-ei',          fmt(eiEE));
+    setEl('r-fed-tax',     fmt(fedTaxPeriod));
+    setEl('r-prov-tax-label', province + ' Provincial Tax');
+    setEl('r-prov-tax',    fmt(provTaxPeriod));
+    showRow('r-extra-tax-row', extraTax > 0);
+    setEl('r-extra-tax',   fmt(extraTax));
+    setEl('r-total-ded-2', fmt(totalDeductions));
+
+    setEl('r-emp-gross',      fmt(gross));
+    setEl('r-emp-cpp-label',  isQC ? 'Employer QPP Share' : 'Employer CPP Share');
+    setEl('r-emp-cpp',        fmt(empCppShare));
+    setEl('r-emp-cpp2',       fmt(empCpp2Share));
+    showRow('r-emp-qpip-row', isQC);
+    setEl('r-emp-qpip',       fmt(qpipER));
+    setEl('r-emp-ei',         fmt(eiER));
+    setEl('r-emp-total',      fmt(empTotal));
+
+    // Annual table
+    var tableEl = document.getElementById('pd-annual-table');
+    if (tableEl) {
+      var rows = [
+        ['Gross Pay',           gross,           gross * periods],
+        [isQC ? 'QPP' : 'CPP', cppEE,           cppEE * periods],
+        ['CPP2 / QPP2',         cpp2EE,          cpp2EE * periods],
+        ['EI Premium',          eiEE,            eiEE * periods],
+        ['Federal Income Tax',  fedTaxPeriod,    annualFedTax],
+        [province + ' Prov. Tax', provTaxPeriod, annualProvTax],
+        ['Total Deductions',    totalDeductions, totalDeductions * periods],
+        ['Net Pay',             netPay,          netPay * periods],
+      ];
+      if (isQC) {
+        rows.splice(3, 0, ['QPIP', qpipEE, qpipEE * periods]);
+      }
+      tableEl.innerHTML = rows.map(function (r) {
+        return '<tr><td class="p-3 border border-slate-200 dark:border-slate-700 font-medium text-slate-900 dark:text-white">' + r[0] + '</td>' +
+          '<td class="p-3 border border-slate-200 dark:border-slate-700">' + fmt(r[1]) + '</td>' +
+          '<td class="p-3 border border-slate-200 dark:border-slate-700">' + fmt(r[2]) + '</td></tr>';
+      }).join('');
+    }
+
+    resultsEl.classList.remove('hidden');
+    resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  resetBtn && resetBtn.addEventListener('click', function () {
+    form.reset();
+    errorEl.classList.add('hidden');
+    resultsEl.classList.add('hidden');
+    if (qcNotice) qcNotice.classList.add('hidden');
+  });
+
+})();
+</script>

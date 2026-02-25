@@ -6,22 +6,33 @@ import ToolEmailGate from '../../components/tools/ToolEmailGate.astro';
 const toolSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
-  name: 'Lead Flow North UTM Campaign URL Builder',
+  name: 'UTM Campaign URL Builder',
+  url: 'https://leadflownorth.com/free-tools/utm-campaign-url-builder',
   applicationCategory: 'BusinessApplication',
   operatingSystem: 'Web Browser',
-  offers: {
-    '@type': 'Offer',
-    price: '0',
-    priceCurrency: 'CAD',
-  },
+  description: 'Build clean UTM-tagged campaign tracking URLs for Google Analytics, Meta Ads, email, and SMS campaigns. Free UTM builder with QR code output and campaign history.',
+  featureList: ['UTM source, medium, campaign, term, content parameters', 'Google Analytics 4 compatible', 'QR code generation', 'Campaign URL history', 'Copy to clipboard'],
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'CAD' },
+  publisher: { '@type': 'Organization', name: 'Lead Flow North', url: 'https://leadflownorth.com' },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    { '@type': 'Question', name: 'What are UTM parameters?', acceptedAnswer: { '@type': 'Answer', text: 'UTM parameters are tags added to a URL to track the source of website traffic in Google Analytics. The five standard parameters are: utm_source (e.g., google, facebook), utm_medium (e.g., cpc, email), utm_campaign (campaign name), utm_term (keyword), and utm_content (ad variant).' } },
+    { '@type': 'Question', name: 'Do UTM parameters affect SEO?', acceptedAnswer: { '@type': 'Answer', text: 'UTM parameters do not directly affect SEO rankings. However, you should use canonical tags on pages where UTM-tagged URLs are indexed to prevent duplicate content issues. Google Search Console will typically consolidate these under the canonical URL.' } },
+    { '@type': 'Question', name: 'How do I track UTM campaigns in Google Analytics 4?', acceptedAnswer: { '@type': 'Answer', text: 'In GA4, UTM-tagged traffic appears in Reports > Acquisition > Traffic Acquisition. The utm_source and utm_medium populate the Session source/medium dimension, and utm_campaign appears in the Session campaign dimension.' } },
+  ],
 };
 ---
 
 <Layout
-  title="UTM Campaign URL Builder"
-  description="Generate clean UTM-tagged campaign links for ads, email, SMS, and social tracking."
+  title="Free UTM Campaign URL Builder — Track Ads, Email & SMS in Google Analytics"
+  description="Build clean UTM tracking URLs for any campaign — Google Ads, Meta, email, or SMS. Instantly generates a trackable link and QR code. Free UTM builder, no signup required."
   structuredData={toolSchema}
 >
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <ToolHero
     eyebrow="Free Tool: UTM Campaign URL Builder"
     title="Build Trackable Campaign Links in Seconds"

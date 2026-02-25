@@ -6,22 +6,33 @@ import ToolEmailGate from '../../components/tools/ToolEmailGate.astro';
 const toolSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
-  name: 'Lead Flow North Pricing & Margin Calculator',
+  name: 'Pricing & Margin Calculator',
+  url: 'https://leadflownorth.com/free-tools/pricing-margin-calculator',
   applicationCategory: 'BusinessApplication',
   operatingSystem: 'Web Browser',
-  offers: {
-    '@type': 'Offer',
-    price: '0',
-    priceCurrency: 'CAD',
-  },
+  description: 'Calculate selling price from cost and markup, or back-calculate margin from price and cost. Model tiered pricing scenarios and target-margin pricing. Free pricing calculator for Canadian small businesses.',
+  featureList: ['Markup to price calculation', 'Margin percentage calculation', 'Target margin pricing', 'Tiered pricing scenarios', 'CAD currency formatting'],
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'CAD' },
+  publisher: { '@type': 'Organization', name: 'Lead Flow North', url: 'https://leadflownorth.com' },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    { '@type': 'Question', name: 'What is the difference between markup and margin?', acceptedAnswer: { '@type': 'Answer', text: 'Markup is calculated as (Price − Cost) ÷ Cost × 100. Margin is calculated as (Price − Cost) ÷ Price × 100. A 50% markup results in a 33.3% margin. Margin is based on selling price; markup is based on cost.' } },
+    { '@type': 'Question', name: 'What is a good profit margin for a small business?', acceptedAnswer: { '@type': 'Answer', text: 'Healthy profit margins vary by industry. Service businesses typically target 15–30%+ net margins. Retail businesses often work with 5–15% net margins due to higher COGS. Knowing your industry benchmark helps you price competitively while staying profitable.' } },
+    { '@type': 'Question', name: 'How do I price my services as a Canadian small business?', acceptedAnswer: { '@type': 'Answer', text: 'Start with your fully loaded cost (labour, overhead, materials), add your target margin, then sanity-check against market rates. Ensure the price covers taxes (HST where applicable), CPP/EI on self-employment income, and a buffer for slow months.' } },
+  ],
 };
 ---
 
 <Layout
-  title="Pricing & Margin Calculator"
-  description="Model costs, markups, and margin targets to set profitable prices with Canadian currency defaults."
+  title="Pricing & Margin Calculator — Free Tool for Canadian Small Businesses"
+  description="Calculate selling price from cost and markup, or back-calculate margin from price. Model tiered pricing scenarios and target-margin pricing. Free, no signup required."
   structuredData={toolSchema}
 >
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <ToolHero
     eyebrow="Free Tool: Pricing & Margin Calculator"
     title="Price for Profit, Not Guesswork"

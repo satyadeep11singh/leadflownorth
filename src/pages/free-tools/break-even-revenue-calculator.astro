@@ -6,22 +6,33 @@ import ToolEmailGate from '../../components/tools/ToolEmailGate.astro';
 const toolSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
-  name: 'Lead Flow North Break-Even Revenue Calculator',
+  name: 'Break-Even Revenue Calculator',
+  url: 'https://leadflownorth.com/free-tools/break-even-revenue-calculator',
   applicationCategory: 'BusinessApplication',
   operatingSystem: 'Web Browser',
-  offers: {
-    '@type': 'Offer',
-    price: '0',
-    priceCurrency: 'CAD',
-  },
+  description: 'Calculate monthly break-even revenue, break-even units, contribution margin, and target-profit sales goals from your fixed costs, price per sale, and variable costs. Free for Canadian small businesses.',
+  featureList: ['Break-even revenue and unit calculation', 'Contribution margin and margin ratio', 'Target-profit revenue and units needed', 'Margin of safety', 'Sensitivity scenario table', 'CAD currency'],
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'CAD' },
+  publisher: { '@type': 'Organization', name: 'Lead Flow North', url: 'https://leadflownorth.com' },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    { '@type': 'Question', name: 'How do I calculate break-even revenue?', acceptedAnswer: { '@type': 'Answer', text: 'Break-even revenue = Fixed Costs ÷ Contribution Margin Ratio. Contribution Margin Ratio = (Price − Variable Cost) ÷ Price. This is the minimum monthly revenue to cover all fixed costs.' } },
+    { '@type': 'Question', name: 'What is a good contribution margin for a small business?', acceptedAnswer: { '@type': 'Answer', text: 'Service businesses typically target 50–70%+ contribution margin ratios. Product businesses often range 30–50%. Below 30% makes it very difficult to cover fixed costs without high volume.' } },
+    { '@type': 'Question', name: 'What is the margin of safety?', acceptedAnswer: { '@type': 'Answer', text: 'Margin of safety is how much current revenue exceeds the break-even point, expressed as a percentage. A 20%+ margin is generally considered healthy for small businesses.' } },
+  ],
 };
 ---
 
 <Layout
-  title="Break-Even Revenue Calculator"
-  description="Calculate break-even revenue, units needed, and target-profit sales goals based on fixed and variable costs."
+  title="Break-Even Revenue Calculator — Free Tool for Canadian Small Businesses"
+  description="Calculate your monthly break-even revenue, contribution margin ratio, and target-profit sales goals from your fixed costs and pricing. Free, instant, no signup required."
   structuredData={toolSchema}
 >
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <ToolHero
     eyebrow="Free Tool: Break-Even Revenue Calculator"
     title="Know Your Monthly Break-Even Revenue in Minutes"

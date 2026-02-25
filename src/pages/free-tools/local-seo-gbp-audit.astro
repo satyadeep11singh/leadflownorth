@@ -6,22 +6,33 @@ import ToolEmailGate from '../../components/tools/ToolEmailGate.astro';
 const toolSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
-  name: 'Lead Flow North Local SEO + GBP Audit',
+  name: 'Local SEO + Google Business Profile Audit Tool',
+  url: 'https://leadflownorth.com/free-tools/local-seo-gbp-audit',
   applicationCategory: 'BusinessApplication',
   operatingSystem: 'Web Browser',
-  offers: {
-    '@type': 'Offer',
-    price: '0',
-    priceCurrency: 'CAD',
-  },
+  description: 'Free local SEO and Google Business Profile (GBP) self-audit tool. Score your local SEO fundamentals, review signals, citation consistency, and GBP completeness with a prioritized action plan. Built for Canadian local businesses.',
+  featureList: ['GBP completeness score', 'Review count and velocity signals', 'Citation consistency check', 'Local SEO sub-scores', 'Prioritized action plan', 'Canada-focused local SEO guidance'],
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'CAD' },
+  publisher: { '@type': 'Organization', name: 'Lead Flow North', url: 'https://leadflownorth.com' },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    { '@type': 'Question', name: 'What is a Google Business Profile audit?', acceptedAnswer: { '@type': 'Answer', text: 'A Google Business Profile (GBP) audit evaluates how complete, accurate, and optimized your GBP listing is. It checks categories, photos, reviews, posts, Q&A, and NAP consistency — all factors that affect your local map pack rankings.' } },
+    { '@type': 'Question', name: 'What local SEO factors matter most for Canadian businesses?', acceptedAnswer: { '@type': 'Answer', text: 'For Canadian businesses, the most impactful local SEO factors are: (1) Google Business Profile completeness and accuracy, (2) review count and recency, (3) NAP consistency across Canadian directories like Yelp Canada, Yellow Pages Canada, and Canada411, and (4) locally relevant content on your website.' } },
+    { '@type': 'Question', name: 'How many Google reviews do I need to rank in the local map pack?', acceptedAnswer: { '@type': 'Answer', text: 'There is no fixed number, but in most Canadian markets, businesses in the local 3-pack typically have 30+ reviews with a rating above 4.0. Velocity (getting new reviews regularly) matters as much as total count.' } },
+  ],
 };
 ---
 
 <Layout
-  title="Local SEO + GBP Audit"
-  description="Free local SEO and Google Business Profile self-audit tool with prioritized actions for Canadian local businesses."
+  title="Free Local SEO + Google Business Profile Audit Tool — Canada"
+  description="Score your local SEO fundamentals and Google Business Profile completeness. Get a prioritized action plan for map pack rankings. Free self-audit tool built for Canadian businesses."
   structuredData={toolSchema}
 >
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <ToolHero
     eyebrow="Free Tool: Local SEO + GBP Audit"
     title="Audit Your Local Visibility in Minutes"

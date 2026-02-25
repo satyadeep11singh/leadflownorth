@@ -14,16 +14,62 @@ const searchItems = freeTools.map((tool) => ({
   group: tool.group,
   icon: tool.icon,
 }));
+
+const baseUrl = 'https://leadflownorth.com';
+
+const collectionSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Free Business Tools for Canadian Small Businesses — Lead Flow North',
+  description: `${liveCount} free online tools for Canadian small businesses covering payroll, GST/HST tax, incorporate vs. sole proprietor, local SEO, ROI, cash flow, invoicing, and more. No signup required.`,
+  url: `${baseUrl}/free-tools`,
+  publisher: {
+    '@type': 'Organization',
+    name: 'Lead Flow North',
+    url: baseUrl,
+  },
+  hasPart: freeTools
+    .filter((t) => t.status === 'live')
+    .map((t) => ({
+      '@type': 'WebApplication',
+      name: t.name,
+      description: t.shortDescription,
+      url: `${baseUrl}/free-tools/${t.slug}`,
+      applicationCategory: 'BusinessApplication',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'CAD' },
+    })),
+};
+
+const itemListSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Free Business Tools — Lead Flow North',
+  url: `${baseUrl}/free-tools`,
+  numberOfItems: liveCount,
+  itemListElement: freeTools
+    .filter((t) => t.status === 'live')
+    .map((t, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: t.name,
+      description: t.shortDescription,
+      url: `${baseUrl}/free-tools/${t.slug}`,
+    })),
+};
 ---
 
 <Layout
-  title="Free Tools"
-  description="Free marketing, SEO, conversion, and revenue planning tools for Canadian small businesses."
+  title="Free Business Tools for Canadian Small Businesses — Payroll, GST/HST, SEO & More"
+  description={`${liveCount} free online tools built for Canadian small businesses. Calculate payroll deductions, GST/HST, employer costs, ROI, cash flow, and more. No signup required.`}
+  structuredData={collectionSchema}
 >
+  <!-- Second structured data block injected in body — search engines read both -->
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(itemListSchema)} />
+
   <ToolHero
     eyebrow="Lead Flow North Free Tools"
-    title="Free Tools for Growth, Ops, and Revenue Planning"
-    description="Use practical tools to audit your website, estimate ROI, improve follow-up, and make better operational decisions. New tools are added continuously."
+    title={`${liveCount} Free Tools for Canadian Small Businesses`}
+    description="Calculate payroll deductions, GST/HST tax, employer costs, ROI, cash flow, local SEO scores, and more. Built specifically for Canadian businesses — no signup required."
   />
 
   <!-- Search + Filter Bar -->

@@ -6,22 +6,33 @@ import ToolEmailGate from '../../components/tools/ToolEmailGate.astro';
 const toolSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
-  name: 'Lead Flow North Google Review Link + QR Generator',
+  name: 'Google Review Link + QR Code Generator',
+  url: 'https://leadflownorth.com/free-tools/google-review-link-qr-generator',
   applicationCategory: 'BusinessApplication',
   operatingSystem: 'Web Browser',
-  offers: {
-    '@type': 'Offer',
-    price: '0',
-    priceCurrency: 'CAD',
-  },
+  description: 'Generate a direct Google review link and printable QR code for your business. Use on receipts, counter cards, email signatures, and signage to get more Google reviews. Free, instant, no signup.',
+  featureList: ['Direct Google review link generation', 'Printable QR code output', 'UTM tracking parameter support', 'Place ID lookup support', 'Copy to clipboard'],
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'CAD' },
+  publisher: { '@type': 'Organization', name: 'Lead Flow North', url: 'https://leadflownorth.com' },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    { '@type': 'Question', name: 'How do I get a direct Google review link for my business?', acceptedAnswer: { '@type': 'Answer', text: 'Enter your Google Business Profile URL or Place ID into this tool and click Generate. The tool creates a direct link that opens the Google review dialog immediately — no searching required for your customers.' } },
+    { '@type': 'Question', name: 'How can I get more Google reviews?', acceptedAnswer: { '@type': 'Answer', text: 'The most effective ways to get more Google reviews are: (1) Ask customers immediately after a positive interaction, (2) Make it easy with a direct review link or QR code, (3) Send follow-up SMS or email with the direct link, and (4) Print the QR code on receipts, business cards, and in-store signage.' } },
+    { '@type': 'Question', name: 'What is a Google Place ID?', acceptedAnswer: { '@type': 'Answer', text: 'A Google Place ID is a unique identifier for a business location in Google Maps. You can find your Place ID using the Google Maps Places API or by searching your business on Google Maps and looking for the CID in the URL.' } },
+  ],
 };
 ---
 
 <Layout
-  title="Google Review Link + QR Generator"
-  description="Generate direct Google review links and QR codes for cards, receipts, and front desk signage."
+  title="Free Google Review Link + QR Code Generator — Get More Google Reviews"
+  description="Create a direct Google review link and printable QR code for your business in seconds. Use on receipts, signage, and emails to get more Google reviews. Free, no signup required."
   structuredData={toolSchema}
 >
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <ToolHero
     eyebrow="Free Tool: Review Link + QR"
     title="Create Google Review QR Assets in Minutes"

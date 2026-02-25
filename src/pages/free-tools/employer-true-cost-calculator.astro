@@ -1,0 +1,509 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ToolHero from '../../components/tools/ToolHero.astro';
+import ToolEmailGate from '../../components/tools/ToolEmailGate.astro';
+
+const toolSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Employer True Cost Calculator — Canada (CPP, EI, EHT, Vacation Pay)',
+  url: 'https://leadflownorth.com/free-tools/employer-true-cost-calculator',
+  description: 'Free Canadian employer cost calculator. Calculate the real annual cost of hiring an employee including CPP/EI employer share, provincial Employer Health Tax (EHT) for Ontario, BC, Manitoba and Quebec, vacation pay, and benefits loading. No signup required.',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web Browser',
+  featureList: [
+    'Employer CPP and EI contributions (2025 rates)',
+    'Ontario Employer Health Tax (EHT)',
+    'BC Employer Health Tax',
+    'Manitoba Health and Education Levy',
+    'Quebec FSS payroll tax',
+    'Vacation pay accrual',
+    'Benefits loading percentage',
+    'Cost per period breakdown (annual, monthly, bi-weekly, hourly)',
+  ],
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'CAD',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Lead Flow North',
+    url: 'https://leadflownorth.com',
+  },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What is the true cost of hiring an employee in Canada?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The true employer cost is typically 18–30% above gross salary. On a $60,000 salary in Ontario, expect to pay roughly: $60,000 salary + $3,034 employer CPP + $1,308 employer EI + $1,170 EHT (Ontario) + $2,400 vacation pay (4%) = approximately $67,900 before any benefits. Add health benefits, group insurance, or other perks to get the full loaded cost.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Which Canadian provinces have an Employer Health Tax (EHT)?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Four provinces levy payroll taxes on employers: Ontario charges EHT at 1.95% on total payroll exceeding $1,000,000 (exemption for eligible employers); British Columbia charges EHT at 1.95% on payroll over $500,000; Manitoba charges a Health and Education Levy (HE Levy) at 4.3% on payroll over $2.5M; Quebec charges FSS (Fonds des services de santé) at rates from 1.25% to 4.26% based on total payroll.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How much vacation pay is required in Canada?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Under the Canada Labour Code (federal) and most provincial employment standards, employees earn a minimum of 2 weeks vacation (4% of gross wages) after one year, increasing to 3 weeks (6%) after five years. Ontario, Alberta, and BC follow similar minimums. Quebec mandates 1 day per full month in the first year. Always check the specific employment standards for the province where your employee works.',
+      },
+    },
+  ],
+};
+---
+
+<Layout
+  title="Employer True Cost Calculator Canada — CPP, EI, EHT & Vacation Pay (2025)"
+  description="Calculate the real annual cost of hiring an employee in any Canadian province. Includes employer CPP/EI, provincial Employer Health Tax (EHT), vacation pay, and benefits loading. Free, no signup."
+  structuredData={toolSchema}
+>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <ToolHero
+    eyebrow="Free Tool: Employer True Cost Calculator"
+    title="What Does It Really Cost to Hire in Canada?"
+    description="Salary is just the start. Calculate your true employer cost including CPP/EI employer contributions, provincial Employer Health Tax (EHT), vacation pay accrual, and optional benefits loading — by province."
+    guideHref="/blog/how-to-use-employer-true-cost-calculator"
+  />
+
+  <ToolEmailGate toolName="Employer True Cost Calculator">
+
+  <section class="py-10 lg:py-14 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <form id="etc-form" class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-5 sm:p-6">
+
+        <div class="grid sm:grid-cols-2 gap-4">
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Province</span>
+            <select id="etc-province" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white">
+              <option value="ON">Ontario</option>
+              <option value="BC">British Columbia</option>
+              <option value="AB">Alberta</option>
+              <option value="QC">Quebec</option>
+              <option value="MB">Manitoba</option>
+              <option value="SK">Saskatchewan</option>
+              <option value="NS">Nova Scotia</option>
+              <option value="NB">New Brunswick</option>
+              <option value="NL">Newfoundland & Labrador</option>
+              <option value="PE">Prince Edward Island</option>
+              <option value="OTHER">Other / Territory</option>
+            </select>
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Annual Gross Salary (CAD)</span>
+            <input id="etc-salary" type="number" min="1" step="1000" value="55000" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" required />
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Vacation Pay (%)</span>
+            <select id="etc-vacation" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white">
+              <option value="0.04">4% — 2 weeks (minimum most provinces)</option>
+              <option value="0.06">6% — 3 weeks</option>
+              <option value="0.08">8% — 4 weeks</option>
+              <option value="0.10">10% — 5 weeks</option>
+            </select>
+          </label>
+
+          <label class="text-sm">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Benefits Loading (%)</span>
+            <select id="etc-benefits" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white">
+              <option value="0">0% — No benefits</option>
+              <option value="0.05">5% — Basic health / dental</option>
+              <option value="0.10" selected>10% — Standard benefits package</option>
+              <option value="0.15">15% — Comprehensive benefits</option>
+              <option value="0.20">20% — Premium / group RRSP + benefits</option>
+            </select>
+          </label>
+
+          <label class="text-sm sm:col-span-2">
+            <span class="block mb-1 text-slate-700 dark:text-slate-300 font-medium">Total Annual Payroll (for EHT threshold — all employees, not just this hire)</span>
+            <input id="etc-total-payroll" type="number" min="0" step="10000" value="300000" class="w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 px-3 py-2.5 text-slate-900 dark:text-white" />
+            <span class="text-xs text-slate-500 dark:text-slate-400 mt-1 block">Used to calculate Ontario EHT, BC EHT, and Manitoba payroll tax thresholds.</span>
+          </label>
+
+        </div>
+
+        <div class="mt-5 flex flex-wrap items-center gap-3">
+          <button id="etc-submit" type="submit" class="inline-flex w-full sm:w-auto items-center justify-center px-6 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors disabled:opacity-60">
+            Calculate True Cost
+          </button>
+          <button id="etc-reset" type="button" class="inline-flex w-full sm:w-auto items-center justify-center px-5 py-3 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-semibold hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+            Reset
+          </button>
+        </div>
+
+        <p id="etc-error" class="mt-3 text-sm text-red-600 dark:text-red-400 hidden"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Results -->
+  <section id="etc-results" class="py-12 lg:py-16 bg-slate-50 dark:bg-slate-800/40 hidden" aria-live="polite">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Summary cards -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-7">
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Gross Salary</p>
+          <p id="r-salary" class="text-2xl font-extrabold text-slate-900 dark:text-white">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">True Employer Cost</p>
+          <p id="r-true-cost" class="text-2xl font-extrabold text-primary-600 dark:text-primary-400">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Cost Above Salary</p>
+          <p id="r-cost-above" class="text-2xl font-extrabold text-red-600 dark:text-red-400">$0</p>
+        </article>
+        <article class="rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-4">
+          <p class="text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-1">Loaded Cost Multiplier</p>
+          <p id="r-multiplier" class="text-2xl font-extrabold text-slate-900 dark:text-white">0×</p>
+        </article>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-5 mb-7">
+
+        <!-- Cost breakdown -->
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Annual Cost Breakdown</h2>
+          <dl class="space-y-2 text-sm">
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Gross Salary</dt>
+              <dd id="r-bd-salary" class="font-semibold text-slate-900 dark:text-white">—</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt id="r-cpp-label" class="text-slate-500 dark:text-slate-400">Employer CPP1 Share</dt>
+              <dd id="r-bd-cpp" class="font-semibold text-slate-900 dark:text-white">—</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt id="r-cpp2-label" class="text-slate-500 dark:text-slate-400">Employer CPP2 Share</dt>
+              <dd id="r-bd-cpp2" class="font-semibold text-slate-900 dark:text-white">—</dd>
+            </div>
+            <div id="r-qpip-row" class="flex justify-between gap-2 hidden">
+              <dt class="text-slate-500 dark:text-slate-400">Employer QPIP Share</dt>
+              <dd id="r-bd-qpip" class="font-semibold text-slate-900 dark:text-white">—</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Employer EI Share (1.4×)</dt>
+              <dd id="r-bd-ei" class="font-semibold text-slate-900 dark:text-white">—</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Vacation Pay Accrual</dt>
+              <dd id="r-bd-vac" class="font-semibold text-slate-900 dark:text-white">—</dd>
+            </div>
+            <div id="r-eht-row" class="flex justify-between gap-2">
+              <dt id="r-eht-label" class="text-slate-500 dark:text-slate-400">Employer Health Tax (EHT)</dt>
+              <dd id="r-bd-eht" class="font-semibold text-slate-900 dark:text-white">—</dd>
+            </div>
+            <div class="flex justify-between gap-2">
+              <dt class="text-slate-500 dark:text-slate-400">Benefits Loading</dt>
+              <dd id="r-bd-benefits" class="font-semibold text-slate-900 dark:text-white">—</dd>
+            </div>
+            <div class="flex justify-between gap-2 border-t border-slate-100 dark:border-slate-700 pt-2 mt-2">
+              <dt class="font-semibold text-slate-700 dark:text-slate-200">Total True Employer Cost</dt>
+              <dd id="r-bd-total" class="font-bold text-primary-600 dark:text-primary-400">—</dd>
+            </div>
+          </dl>
+        </article>
+
+        <!-- Key insights -->
+        <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 p-5">
+          <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Planning Insights</h2>
+          <ul id="etc-notes" class="space-y-2.5 text-sm text-slate-700 dark:text-slate-300"></ul>
+        </article>
+
+      </div>
+
+      <!-- Monthly and per-hour view -->
+      <article class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 overflow-hidden mb-7">
+        <div class="px-5 py-4 border-b border-slate-200 dark:border-slate-700">
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white">Cost Per Period</h3>
+        </div>
+        <div class="p-5 overflow-x-auto">
+          <table class="w-full min-w-[480px] border-collapse text-sm">
+            <thead>
+              <tr class="bg-slate-50 dark:bg-slate-800">
+                <th class="text-left p-3 border border-slate-200 dark:border-slate-700">Period</th>
+                <th class="text-left p-3 border border-slate-200 dark:border-slate-700">Salary Only</th>
+                <th class="text-left p-3 border border-slate-200 dark:border-slate-700">True Employer Cost</th>
+              </tr>
+            </thead>
+            <tbody id="etc-period-table"></tbody>
+          </table>
+        </div>
+      </article>
+
+      <div class="rounded-xl border border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-900/20 px-5 py-4 text-sm text-amber-900 dark:text-amber-200">
+        <strong>Disclaimer:</strong> EHT thresholds and rates reflect 2025 rules for Ontario, BC, Manitoba, and Quebec. Other provinces do not currently impose a general employer payroll tax. Benefits loading is an estimate — actual costs vary by provider and plan. Always verify with your accountant or <a href="https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/payroll.html" class="underline" target="_blank" rel="noopener">CRA payroll guidance</a>.
+      </div>
+
+    </div>
+  </section>
+
+  <section class="py-14 lg:py-18 bg-slate-900">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Ready to Grow Your Team Strategically?</h2>
+      <p class="text-slate-300 mb-7">We help Canadian small businesses plan hires, set pricing to cover labour costs, and build lead generation systems to support growth.</p>
+      <a href="/free-audit" class="inline-flex w-full sm:w-auto justify-center items-center px-7 py-3 rounded-lg bg-primary-600 hover:bg-primary-700 text-white font-semibold transition-colors">
+        Request a Free Audit
+      </a>
+    </div>
+  </section>
+
+  </ToolEmailGate>
+</Layout>
+
+<script is:inline>
+(function initEmployerTrueCost() {
+
+  // ─── 2025 rates ───────────────────────────────────────────────────────────
+  var CPP_RATE      = 0.0595;
+  var CPP_MAX_EE    = 4034.10;   // employee max = employer max CPP1
+  var CPP2_RATE     = 0.04;
+  var CPP2_MAX_EE   = 396;
+  var CPP_YMPE      = 71300;
+  var CPP_YAMPE     = 81200;
+  var CPP_EXEMPTION = 3500;
+
+  var QPP_RATE      = 0.0640;
+  var QPP_MAX_EE    = 4847.95;
+  var QPP2_RATE     = 0.04;
+  var QPP2_MAX_EE   = 396;
+
+  var EI_RATE       = 0.0166;
+  var EI_RATE_QC    = 0.0129;
+  var EI_MAX_INSURABLE = 65700;
+  var EI_MAX_EE     = 1090.62;
+  var EI_MAX_EE_QC  = 847.53;
+  var EI_ER_MULT    = 1.4;
+
+  var QPIP_ER_RATE  = 0.00692;
+  var QPIP_MAX_INS  = 98000;
+
+  // Provincial EHT rules 2025
+  // { threshold: annual payroll above which EHT applies, rate: marginal rate on salary }
+  var EHT = {
+    ON: function (totalPayroll, salary) {
+      // Ontario: exempt up to $1,000,000; 1.95% on payroll above
+      if (totalPayroll <= 1000000) return 0;
+      // Simplified: prorate this employee's share
+      var taxableShare = salary * Math.min(1, (totalPayroll - 1000000) / totalPayroll);
+      return taxableShare * 0.0195;
+    },
+    BC: function (totalPayroll, salary) {
+      // BC: exempt under $500,000; partial exemption $500K–$1.5M; 1.95% above
+      if (totalPayroll <= 500000) return 0;
+      if (totalPayroll <= 1500000) {
+        var taxable = (totalPayroll - 500000) / 1000000;
+        return salary * taxable * 0.0195;
+      }
+      return salary * 0.0195;
+    },
+    MB: function (totalPayroll, salary) {
+      // Manitoba: 4.3% on payroll over $2,500,000
+      if (totalPayroll <= 2500000) return 0;
+      var share = salary * Math.min(1, (totalPayroll - 2500000) / totalPayroll);
+      return share * 0.043;
+    },
+    QC: function (totalPayroll, salary) {
+      // Quebec: FSS (Health Services Fund) — varies 1.25%–4.26% based on payroll
+      // Simplified: 2.05% for payroll $1M–$5M (most small business)
+      if (totalPayroll < 1000000) return salary * 0.0125;
+      if (totalPayroll < 5000000) return salary * 0.0205;
+      return salary * 0.0426;
+    }
+  };
+
+  var form      = document.getElementById('etc-form');
+  var submitBtn = document.getElementById('etc-submit');
+  var resetBtn  = document.getElementById('etc-reset');
+  var errorEl   = document.getElementById('etc-error');
+  var resultsEl = document.getElementById('etc-results');
+
+  if (!form) return;
+
+  var fmt = function (n) {
+    return new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD', maximumFractionDigits: 0 }).format(n || 0);
+  };
+
+  var setEl = function (id, val) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = val;
+  };
+
+  var showRow = function (id, show) {
+    var el = document.getElementById(id);
+    if (el) el.classList.toggle('hidden', !show);
+  };
+
+  var showError = function (msg) {
+    if (!errorEl) return;
+    if (msg) {
+      errorEl.textContent = msg;
+      errorEl.classList.remove('hidden');
+    } else {
+      errorEl.textContent = '';
+      errorEl.classList.add('hidden');
+    }
+  };
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    showError('');
+
+    var provinceEl      = document.getElementById('etc-province');
+    var salaryEl        = document.getElementById('etc-salary');
+    var vacationEl      = document.getElementById('etc-vacation');
+    var benefitsEl      = document.getElementById('etc-benefits');
+    var totalPayrollEl  = document.getElementById('etc-total-payroll');
+
+    var province      = provinceEl ? provinceEl.value : 'ON';
+    var salary        = salaryEl ? (parseFloat(salaryEl.value) || 0) : 0;
+    var vacRate       = vacationEl ? (parseFloat(vacationEl.value) || 0.04) : 0.04;
+    var benefitsRate  = benefitsEl ? (parseFloat(benefitsEl.value) || 0) : 0;
+    var totalPayroll  = totalPayrollEl ? (parseFloat(totalPayrollEl.value) || 0) : 0;
+
+    if (salary <= 0) {
+      showError('Please enter a salary greater than zero.');
+      return;
+    }
+
+    var isQC = province === 'QC';
+
+    // CPP1 employer share (mirrors employee — same rate, same max)
+    var cppRate    = isQC ? QPP_RATE : CPP_RATE;
+    var cppMaxEE   = isQC ? QPP_MAX_EE : CPP_MAX_EE;
+    var pensionable = Math.max(0, Math.min(salary, CPP_YMPE) - CPP_EXEMPTION);
+    var empCpp1 = Math.min(pensionable * cppRate, cppMaxEE);
+
+    // CPP2 employer share
+    var cpp2Rate   = isQC ? QPP2_RATE : CPP2_RATE;
+    var cpp2MaxEE  = isQC ? QPP2_MAX_EE : CPP2_MAX_EE;
+    var cpp2Base   = Math.max(0, Math.min(salary, CPP_YAMPE) - CPP_YMPE);
+    var empCpp2    = Math.min(cpp2Base * cpp2Rate, cpp2MaxEE);
+
+    // QPIP employer share (Quebec only)
+    var qpipER = 0;
+    if (isQC) {
+      qpipER = Math.min(salary, QPIP_MAX_INS) * QPIP_ER_RATE;
+    }
+
+    // EI employer share
+    var eiRate  = isQC ? EI_RATE_QC : EI_RATE;
+    var eiMaxEE = isQC ? EI_MAX_EE_QC : EI_MAX_EE;
+    var insurable = Math.min(salary, EI_MAX_INSURABLE);
+    var empEI = Math.min(insurable * eiRate, eiMaxEE) * EI_ER_MULT;
+
+    // Vacation pay
+    var vacPay = salary * vacRate;
+
+    // EHT
+    var ehtFn = EHT[province] || function () { return 0; };
+    var eht = ehtFn(Math.max(totalPayroll, salary), salary);
+
+    // Benefits
+    var benefits = salary * benefitsRate;
+
+    // Totals
+    var overhead = empCpp1 + empCpp2 + qpipER + empEI + vacPay + eht + benefits;
+    var trueCost = salary + overhead;
+    var costAbove = trueCost - salary;
+    var multiplier = salary > 0 ? trueCost / salary : 1;
+
+    // Render summary
+    setEl('r-salary',     fmt(salary));
+    setEl('r-true-cost',  fmt(trueCost));
+    setEl('r-cost-above', fmt(costAbove));
+    setEl('r-multiplier', multiplier.toFixed(2) + '×');
+
+    // Breakdown
+    setEl('r-bd-salary',   fmt(salary));
+    setEl('r-cpp-label',   isQC ? 'Employer QPP1 Share' : 'Employer CPP1 Share');
+    setEl('r-bd-cpp',      fmt(empCpp1));
+    setEl('r-cpp2-label',  isQC ? 'Employer QPP2 Share' : 'Employer CPP2 Share');
+    setEl('r-bd-cpp2',     fmt(empCpp2));
+    showRow('r-qpip-row',  isQC);
+    setEl('r-bd-qpip',     fmt(qpipER));
+    setEl('r-bd-ei',       fmt(empEI));
+    setEl('r-bd-vac',      fmt(vacPay));
+
+    var ehtLabel = {
+      ON: 'Ontario EHT',
+      BC: 'BC Employer Health Tax',
+      MB: 'Manitoba Payroll Tax',
+      QC: 'Quebec Health Services Fund (FSS)'
+    }[province] || 'Employer Health Tax (N/A this province)';
+    setEl('r-eht-label', ehtLabel);
+    setEl('r-bd-eht', eht > 0 ? fmt(eht) : '$0 (below threshold)');
+    setEl('r-bd-benefits', fmt(benefits));
+    setEl('r-bd-total',    fmt(trueCost));
+
+    // Notes
+    var notes = [];
+    var asPct = function (n) { return (n * 100).toFixed(1) + '%'; };
+    notes.push('Your total employer cost is <strong>' + asPct(costAbove / salary) + ' above the stated salary</strong>.');
+    if (eht === 0 && ['ON','BC','MB','QC'].indexOf(province) !== -1) {
+      notes.push('Your total payroll is currently below the EHT exemption threshold for ' + province + '. This will change if you hire more staff.');
+    } else if (eht > 0) {
+      notes.push('Employer Health Tax adds <strong>' + fmt(eht) + '/year</strong> — often overlooked in hiring budgets.');
+    }
+    notes.push('Vacation pay of ' + asPct(vacRate) + ' (' + fmt(vacPay) + '/yr) must be either paid out each period or accrued and paid on vacation taken.');
+    if (isQC) {
+      notes.push('Quebec employees require both QPP (instead of CPP) and QPIP premiums from the employer. File remittances with Revenu Québec.');
+    }
+    if (benefitsRate > 0) {
+      notes.push('Benefits loading of ' + asPct(benefitsRate) + ' (' + fmt(benefits) + '/yr) is an estimate. Get actual quotes from your group benefits provider.');
+    }
+
+    var notesList = document.getElementById('etc-notes');
+    if (notesList) {
+      notesList.innerHTML = notes.map(function (n) {
+        return '<li class="flex gap-2"><span class="text-primary-500 mt-0.5 shrink-0">&#x2713;</span><span>' + n + '</span></li>';
+      }).join('');
+    }
+
+    // Period table
+    var periods = [
+      { label: 'Annual',       n: 1 },
+      { label: 'Monthly',      n: 12 },
+      { label: 'Bi-weekly',    n: 26 },
+      { label: 'Weekly',       n: 52 },
+      { label: 'Per hour (2080 hrs)', n: 2080 }
+    ];
+    var tableEl = document.getElementById('etc-period-table');
+    if (tableEl) {
+      tableEl.innerHTML = periods.map(function (p) {
+        return '<tr><td class="p-3 border border-slate-200 dark:border-slate-700 font-medium text-slate-900 dark:text-white">' + p.label + '</td>' +
+          '<td class="p-3 border border-slate-200 dark:border-slate-700">' + fmt(salary / p.n) + '</td>' +
+          '<td class="p-3 border border-slate-200 dark:border-slate-700 font-semibold text-primary-700 dark:text-primary-300">' + fmt(trueCost / p.n) + '</td></tr>';
+      }).join('');
+    }
+
+    if (resultsEl) {
+      resultsEl.classList.remove('hidden');
+      resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+
+  resetBtn && resetBtn.addEventListener('click', function () {
+    form.reset();
+    showError('');
+    if (resultsEl) resultsEl.classList.add('hidden');
+  });
+
+})();
+</script>

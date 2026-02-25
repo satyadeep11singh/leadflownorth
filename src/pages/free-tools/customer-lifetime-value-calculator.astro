@@ -6,22 +6,33 @@ import ToolEmailGate from '../../components/tools/ToolEmailGate.astro';
 const toolSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
-  name: 'Lead Flow North Customer Lifetime Value (LTV) Calculator',
+  name: 'Customer Lifetime Value (LTV) Calculator',
+  url: 'https://leadflownorth.com/free-tools/customer-lifetime-value-calculator',
   applicationCategory: 'BusinessApplication',
   operatingSystem: 'Web Browser',
-  offers: {
-    '@type': 'Offer',
-    price: '0',
-    priceCurrency: 'CAD',
-  },
+  description: 'Calculate revenue LTV, gross-profit LTV, LTV:CAC ratio, and model retention improvement scenarios. Free customer lifetime value calculator for Canadian small businesses.',
+  featureList: ['Revenue LTV and gross-profit LTV', 'LTV:CAC ratio', 'Retention improvement scenarios', 'Payback period estimate', 'CAD currency'],
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'CAD' },
+  publisher: { '@type': 'Organization', name: 'Lead Flow North', url: 'https://leadflownorth.com' },
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    { '@type': 'Question', name: 'What is customer lifetime value (LTV)?', acceptedAnswer: { '@type': 'Answer', text: 'Customer Lifetime Value (LTV or CLV) is the total revenue a business can expect from a single customer over the entire relationship. It is calculated as Average Purchase Value × Purchase Frequency × Average Customer Lifespan.' } },
+    { '@type': 'Question', name: 'What is a good LTV:CAC ratio?', acceptedAnswer: { '@type': 'Answer', text: 'A healthy LTV:CAC ratio is generally 3:1 or higher — meaning you earn $3 in lifetime value for every $1 spent acquiring a customer. Ratios below 1:1 mean you are losing money on each customer acquired.' } },
+    { '@type': 'Question', name: 'How does retention rate affect LTV?', acceptedAnswer: { '@type': 'Answer', text: 'Retention rate has a compounding effect on LTV. A 5% improvement in retention can increase LTV by 25–95% because each retained customer buys more over a longer period.' } },
+  ],
 };
 ---
 
 <Layout
-  title="Customer Lifetime Value (LTV) Calculator"
-  description="Estimate revenue LTV, gross-profit LTV, LTV:CAC ratio, and retention-driven upside."
+  title="Customer Lifetime Value (LTV) Calculator — Free for Canadian Businesses"
+  description="Calculate revenue LTV, gross-profit LTV, LTV:CAC ratio, and model the impact of improving retention. Free customer lifetime value calculator — no signup required."
   structuredData={toolSchema}
 >
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   <ToolHero
     eyebrow="Free Tool: Customer LTV Calculator"
     title="Estimate Customer Lifetime Value and CAC Efficiency"

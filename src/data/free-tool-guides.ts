@@ -440,6 +440,157 @@ export const freeToolGuides: Record<string, ToolGuide> = {
       'Treating variable costs as fixed and distorting contribution margin.',
       'Planning around one scenario without testing price and cost sensitivity.'
     ]
+  },
+  'payroll-deductions-calculator': {
+    slug: 'payroll-deductions-calculator',
+    title: 'How to Use the Canadian Payroll Deductions Calculator',
+    description: 'Calculate employee net pay, CPP/EI deductions, and income tax for any Canadian province — including CPP2 and Quebec QPIP.',
+    calculatorHref: '/free-tools/payroll-deductions-calculator',
+    readTime: '5 min read',
+    beforeYouStart: [
+      'Have the employee\'s gross pay amount for the current period ready.',
+      'Know your pay frequency (bi-weekly, weekly, semi-monthly, or monthly).',
+      'If mid-year, gather year-to-date CPP and EI already deducted so maximums are applied correctly.',
+      'Quebec employees: results use CRA-equivalent QPP/QPIP rates — verify remittances with Revenu Québec WebRAS.'
+    ],
+    steps: [
+      { title: 'Select province and pay frequency', details: 'Choose the province where the employee works and how often you pay. This determines which provincial tax rates and the per-period CPP exemption apply.' },
+      { title: 'Enter gross pay', details: 'Enter the employee\'s total earnings for this pay period before any deductions.' },
+      { title: 'Enter year-to-date CPP and EI already deducted', details: 'If this is not the first pay period of the year, enter what has already been deducted. This prevents over-deducting once the annual maximums are reached.' },
+      { title: 'Add any extra withholding', details: 'If the employee has requested additional tax withholding on their TD1, enter that amount here.' },
+      { title: 'Review results', details: 'Check the employee deductions panel, employer cost panel, and the annualized table to plan remittances.' }
+    ],
+    interpret: [
+      'Net pay is what the employee takes home. Total deductions include CPP/EI and both federal and provincial income tax.',
+      'The employer cost panel shows your total payroll cost — gross pay plus the employer\'s matching CPP and EI shares.',
+      'CPP2 applies to earnings between $71,300 and $81,200 (2025 YMPE/YAMPE). Most employees below that threshold will show $0 for CPP2.',
+      'Verify all remittances with the CRA Payroll Deductions Online Calculator (PDOC) before filing.'
+    ],
+    mistakes: [
+      'Forgetting to enter year-to-date CPP/EI, which causes the calculator to over-deduct near year-end.',
+      'Using provincial employee rates for the employer\'s EI share — the employer pays 1.4× the employee rate.',
+      'Assuming Quebec uses the same CPP rates — Quebec employees contribute to QPP (slightly higher rate) and QPIP instead.'
+    ]
+  },
+  'employer-true-cost-calculator': {
+    slug: 'employer-true-cost-calculator',
+    title: 'How to Use the Employer True Cost Calculator',
+    description: 'Understand the real annual cost of a hire in Canada — beyond just salary — including CPP/EI employer share, provincial Employer Health Tax, vacation pay, and benefits.',
+    calculatorHref: '/free-tools/employer-true-cost-calculator',
+    readTime: '4 min read',
+    beforeYouStart: [
+      'Know the annual gross salary you plan to offer.',
+      'Know your total payroll across all employees — this affects EHT thresholds in Ontario, BC, Manitoba, and Quebec.',
+      'Decide whether you will offer a benefits plan and at what level.'
+    ],
+    steps: [
+      { title: 'Select province', details: 'Choose the province where the employee will work. Employer Health Tax rules differ significantly — Ontario exempts payrolls under $1M, BC under $500K, and Manitoba under $2.5M.' },
+      { title: 'Enter salary', details: 'Enter the annual gross salary you plan to pay.' },
+      { title: 'Set vacation pay percentage', details: 'Most provinces require at least 4% (2 weeks). Select a higher rate if you offer more generous vacation.' },
+      { title: 'Select benefits loading', details: 'Choose 0% if you offer no benefits, or use 5–20% depending on your benefits package quality.' },
+      { title: 'Enter total payroll', details: 'Enter your estimated total annual payroll for all staff including this new hire. This determines whether EHT applies to your payroll in applicable provinces.' }
+    ],
+    interpret: [
+      'The "true employer cost" is the all-in annual cost of this employee. It is typically 15–30% above the quoted salary.',
+      'The cost multiplier (e.g., 1.22×) means for every $1 in salary, you pay that many dollars in total.',
+      'Employer Health Tax is the most commonly forgotten cost. Ontario\'s EHT alone adds 1.95% once your payroll exceeds $1M.',
+      'The per-hour cost view is useful for pricing services: if a technician costs $42/hr to employ, your billable rate must cover that plus overhead and margin.'
+    ],
+    mistakes: [
+      'Budgeting only the salary, then being surprised by employer CPP/EI, EHT, and vacation accruals at year-end.',
+      'Using an employee\'s province of residence instead of the province where they perform work for EHT purposes.',
+      'Treating vacation pay as a discretionary bonus rather than a mandatory accrual from day one.'
+    ]
+  },
+  'hst-quick-method-calculator': {
+    slug: 'hst-quick-method-calculator',
+    title: 'How to Use the HST Quick Method Calculator',
+    description: 'Calculate your HST/GST remittance under the CRA Quick Method, compare it to the regular method, and see your quarterly filing deadline.',
+    calculatorHref: '/free-tools/hst-quick-method-calculator',
+    readTime: '5 min read',
+    beforeYouStart: [
+      'Confirm you are registered for the Quick Method with CRA (file election form GST74).',
+      'Have your total revenue collected this period including HST/GST charged to customers.',
+      'Know whether this is your first fiscal year on Quick Method — a 1% bonus credit applies to the first $30,000.',
+      'Quebec businesses must also calculate QST separately using Revenu Québec\'s Quick Method rate (6.6% on total revenues incl. QST).'
+    ],
+    steps: [
+      { title: 'Select your province and business type', details: 'Quick Method remittance rates vary by province (HST vs. GST provinces) and business type (service vs. goods-for-resale). Service businesses in Ontario remit 8.8% of total revenue including HST collected.' },
+      { title: 'Select filing period', details: 'Choose quarterly, monthly, or annual — this affects the deadline displayed.' },
+      { title: 'Enter total revenue collected', details: 'Enter the full amount customers paid you including the HST/GST component. Do not strip out the tax first.' },
+      { title: 'Enter purchases and capital items', details: 'Regular purchases do not generate ITCs under Quick Method. However, capital purchases over $10,000 each still qualify for a full ITC — enter them separately.' },
+      { title: 'Review remittance and comparison', details: 'Check the net remittance vs. what you collected, and compare against the regular method to confirm Quick Method still saves you money.' }
+    ],
+    interpret: [
+      '"You keep" is the portion of HST collected that you retain as a benefit of using Quick Method.',
+      'If the regular method comparison shows you would save more with regular method, review your ITC ratio — businesses with high input costs may outgrow Quick Method eligibility or benefit.',
+      'The first-year 1% bonus credit on the first $30,000 only applies in your first fiscal year. After that, the base rate applies without the bonus.'
+    ],
+    mistakes: [
+      'Entering net revenue (before tax) instead of gross revenue including HST. The Quick Method rate is applied to total revenue including the tax you collected.',
+      'Claiming ITCs on regular purchases under Quick Method — you cannot do this. Only capital purchases over $10,000 qualify.',
+      'Missing the election deadline — you must elect Quick Method at the start of a fiscal year.'
+    ]
+  },
+  'gst-hst-calculator': {
+    slug: 'gst-hst-calculator',
+    title: 'How to Use the GST/HST Calculator',
+    description: 'Calculate GST, HST, PST, and QST for any Canadian province in forward or reverse mode, with support for multiple line items.',
+    calculatorHref: '/free-tools/gst-hst-calculator',
+    readTime: '3 min read',
+    beforeYouStart: [
+      'Identify the customer\'s province — for goods shipped inter-provincially, you generally charge the destination province\'s rate.',
+      'Know whether you are starting with the pre-tax amount (forward) or a total already-paid amount (reverse).',
+      'For Quebec, note that GST and QST are calculated separately and are not compounded on each other.'
+    ],
+    steps: [
+      { title: 'Select the customer\'s province', details: 'Tax is charged at the rate of the province where the supply is made or delivered.' },
+      { title: 'Choose forward or reverse mode', details: 'Forward: you have the pre-tax price and need to add tax. Reverse: you have the total amount paid and need to back out what the pre-tax price was.' },
+      { title: 'Add line items', details: 'Click "Add Line" for each service or product. Give each a description and amount. All lines use the same province rate.' },
+      { title: 'Toggle PST/QST if needed', details: 'Uncheck the provincial tax toggle if your supply is exempt from PST/QST (e.g., many B2B services in some provinces).' },
+      { title: 'Review breakdown', details: 'The tax breakdown panel shows each tax component separately. The line item table shows per-line totals.' }
+    ],
+    interpret: [
+      'For HST provinces (Ontario, NS, NB, NL, PE), there is only one combined tax — GST and provincial are not shown separately.',
+      'For PST provinces (BC, MB, SK) and Quebec (QST), the federal and provincial taxes are separate lines.',
+      'The effective tax rate shown will match your province\'s posted rate when all taxes are applied.'
+    ],
+    mistakes: [
+      'Using your own province\'s rate instead of the customer\'s province for shipped goods.',
+      'Compounding QST on top of GST-inclusive price — QST applies to the pre-GST amount, not the GST-inclusive total.',
+      'Forgetting that some supplies (basic groceries, most healthcare, financial services) are zero-rated or exempt and should not have tax applied.'
+    ]
+  },
+  'incorporate-vs-sole-proprietor-calculator': {
+    slug: 'incorporate-vs-sole-proprietor-calculator',
+    title: 'How to Use the Incorporate vs. Sole Proprietor Calculator',
+    description: 'Compare your total tax bill under sole proprietorship vs. a CCPC corporation by province and find the income level where incorporation starts saving money.',
+    calculatorHref: '/free-tools/incorporate-vs-sole-proprietor-calculator',
+    readTime: '6 min read',
+    beforeYouStart: [
+      'Have a realistic estimate of your annual business net income (revenue minus business expenses, before paying yourself).',
+      'Know approximately how much you need to withdraw for personal living expenses.',
+      'Understand this is a planning estimate — your CPA will have the full picture including your specific credits and prior-year losses.'
+    ],
+    steps: [
+      { title: 'Select your province', details: 'Both the provincial income tax rate and the provincial corporate tax rate (small business deduction) vary by province. Alberta and Quebec have notably different combined rates.' },
+      { title: 'Enter annual business net income', details: 'Enter revenue minus all business expenses — this is the profit before paying yourself. Do not include your salary here if you already subtracted it from revenue.' },
+      { title: 'Enter personal living expenses', details: 'Enter how much you need to withdraw annually. The remainder can stay inside the corporation and benefit from the lower corporate tax rate on deferral.' },
+      { title: 'Select how you would pay yourself if incorporated', details: 'Dividends-only avoids CPP but reduces RRSP room. Salary-only provides CPP coverage and RRSP room. Mixed is the common approach — salary to maximize CPP, rest as dividends.' },
+      { title: 'Read the verdict and breakdown', details: 'The tool shows total tax under each structure, annual savings, and the break-even income point where incorporation overhead (~$4,000/yr) is covered by tax savings.' }
+    ],
+    interpret: [
+      'The "savings" figure is the annual reduction in combined tax burden — corporation tax plus personal tax on what you withdraw.',
+      'The break-even income is the revenue level where tax savings equal typical annual incorporation costs (~$4,000 for accounting and corporate filings). Below this, simplicity of sole proprietorship often wins.',
+      'Keeping money inside the corporation defers tax — you pay corporate rate now (~9–15% SBD rate) and personal tax later when you withdraw. This deferral advantage grows as retained earnings grow.',
+      'RRSP room is only created by salary income. If you pay only dividends, you lose RRSP contribution room for that year.'
+    ],
+    mistakes: [
+      'Comparing only corporate tax to personal tax — you must combine both corporate tax and personal tax on withdrawals to get a true comparison.',
+      'Ignoring the ongoing cost of incorporation: annual corporate filings, separate corporate tax returns, accountant fees, and minute book maintenance add $2,000–$5,000/yr.',
+      'Incorporating too early — for most sole proprietors under $80,000–$100,000 net income, the complexity outweighs the tax savings.',
+      'Assuming you can freely split income with family under TOSI rules — the Tax on Split Income rules significantly restrict dividend splitting to family members without active involvement.'
+    ]
   }
 };
 
